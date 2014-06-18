@@ -154,9 +154,9 @@ class Fill_model extends CI_Model {
             'id_afiliacion' => 1,
             'nombres' => 'Luis Fernando',
             'apellidos' => 'Montoya Gómez',
-            'correo' => 'luismec91@gmail.com',
+            'correo' => 'luismec90@gmail.com',
             'imagen' => '1.jpg',
-            'usuario' => 'estudiante1',
+//            'usuario' => 'estudiante1',
             'password' => sha1("123"),
             'rol' => 'estudiante', 'activo' => 1
         );
@@ -169,7 +169,7 @@ class Fill_model extends CI_Model {
             'apellidos' => 'Moreno Cadavid',
             'correo' => 'jmoreno@gmail.com',
             'imagen' => 'default.png',
-            'usuario' => 'profesor1',
+//            'usuario' => 'profesor1',
             'password' => sha1("123"),
             'rol' => 'profesor',
             'activo' => 1
@@ -183,7 +183,7 @@ class Fill_model extends CI_Model {
             'apellidos' => 'Moreno',
             'correo' => 'fjmoreno@gmail.com',
             'imagen' => 'default.png',
-            'usuario' => 'profesor2',
+//            'usuario' => 'profesor2',
             'password' => sha1("123"),
             'rol' => 'profesor',
             'activo' => 1
@@ -198,7 +198,7 @@ class Fill_model extends CI_Model {
             'apellidos' => 'Cadavid',
             'correo' => 'alejo@gmail.com',
             'imagen' => 'default.png',
-            'usuario' => 'estudiante2',
+//            'usuario' => 'estudiante2',
             'password' => sha1("123"),
             'rol' => "estudiante",
             'activo' => 1
@@ -212,7 +212,7 @@ class Fill_model extends CI_Model {
             'apellidos' => 'Monsalve Ramírez',
             'correo' => 'alejo@gmail.com',
             'imagen' => 'default.png',
-            'usuario' => 'estudiante3',
+//            'usuario' => 'estudiante3',
             'password' => sha1("123"),
             'rol' => "estudiante",
             'activo' => 1
@@ -227,7 +227,7 @@ class Fill_model extends CI_Model {
             'apellidos' => 'Gómez',
             'correo' => 'alejo@gmail.com',
             'imagen' => 'default.png',
-            'usuario' => 'estudiante4',
+//            'usuario' => 'estudiante4',
             'password' => sha1("123"),
             'rol' => "estudiante",
             'activo' => 1
@@ -241,7 +241,7 @@ class Fill_model extends CI_Model {
             'apellidos' => 'Hoyos',
             'correo' => 'alejo@gmail.com',
             'imagen' => 'default.png',
-            'usuario' => 'estudiante5',
+//            'usuario' => 'estudiante5',
             'password' => sha1("123"),
             'rol' => "estudiante",
             'activo' => 1
@@ -255,7 +255,7 @@ class Fill_model extends CI_Model {
             'apellidos' => 'Castaño',
             'correo' => 'alejo@gmail.com',
             'imagen' => 'default.png',
-            'usuario' => 'estudiante6',
+//            'usuario' => 'estudiante6',
             'password' => sha1("123"),
             'rol' => "estudiante",
             'activo' => 1
@@ -269,7 +269,7 @@ class Fill_model extends CI_Model {
             'apellidos' => 'Cardona',
             'correo' => 'alejo@gmail.com',
             'imagen' => 'default.png',
-            'usuario' => 'estudiante7',
+//            'usuario' => 'estudiante7',
             'password' => sha1("123"),
             'rol' => "estudiante",
             'activo' => 1
@@ -283,7 +283,7 @@ class Fill_model extends CI_Model {
             'apellidos' => 'Betancur',
             'correo' => 'alejo@gmail.com',
             'imagen' => 'default.png',
-            'usuario' => 'estudiante8',
+//            'usuario' => 'estudiante8',
             'password' => sha1("123"),
             'rol' => "estudiante",
             'activo' => 1
@@ -297,7 +297,7 @@ class Fill_model extends CI_Model {
             'apellidos' => 'Montoya Gómez',
             'correo' => 'alejo@gmail.com',
             'imagen' => 'default.png',
-            'usuario' => 'estudiante9',
+//            'usuario' => 'estudiante9',
             'password' => sha1("123"),
             'rol' => "estudiante",
             'activo' => 1
@@ -311,7 +311,7 @@ class Fill_model extends CI_Model {
             'apellidos' => 'Ramirez Castaño',
             'correo' => 'alejo@gmail.com',
             'imagen' => 'default.png',
-            'usuario' => 'estudiante10',
+//            'usuario' => 'estudiante10',
             'password' => sha1("123"),
             'rol' => "estudiante",
             'activo' => 1
@@ -325,7 +325,7 @@ class Fill_model extends CI_Model {
             'apellidos' => 'Vargas',
             'correo' => 'alejo@gmail.com',
             'imagen' => 'default.png',
-            'usuario' => 'estudiante11',
+//            'usuario' => 'estudiante11',
             'password' => sha1("123"),
             'rol' => "estudiante",
             'activo' => 1
@@ -339,7 +339,7 @@ class Fill_model extends CI_Model {
             'apellidos' => 'Molina',
             'correo' => 'alejo@gmail.com',
             'imagen' => 'default.png',
-            'usuario' => 'estudiante12',
+//            'usuario' => 'estudiante12',
             'password' => sha1("123"),
             'rol' => "estudiante",
             'activo' => 1
@@ -353,7 +353,7 @@ class Fill_model extends CI_Model {
             'apellidos' => 'Gómez Ramírez',
             'correo' => 'alejo@gmail.com',
             'imagen' => 'default.png',
-            'usuario' => 'estudiante13',
+//            'usuario' => 'estudiante13',
             'password' => sha1("123"),
             'rol' => "estudiante",
             'activo' => 1
@@ -367,7 +367,7 @@ class Fill_model extends CI_Model {
             'apellidos' => 'Escobar',
             'correo' => 'alejo@gmail.com',
             'imagen' => 'default.png',
-            'usuario' => 'estudiante14',
+//            'usuario' => 'estudiante14',
             'password' => sha1("123"),
             'rol' => "estudiante",
             'activo' => 1

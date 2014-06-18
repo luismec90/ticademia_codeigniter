@@ -16,7 +16,7 @@
         <link rel="shortcut icon" href="<?= base_url() ?>assets/img/favicon.png">
 
 
-        <title>Minerva</title>
+        <title>Ticademia</title>
 
         <!-- Bootstrap core CSS -->
         <link href="<?= base_url() ?>assets/libs/bootstrap-3.1.1/css/bootstrap.min.css" rel="stylesheet">
@@ -50,7 +50,7 @@
                         <span class="icon-bar"></span>
                     </button>
                     <img id="logo" width="47" height="47" src="<?= base_url() ?>assets/img/minerva.png" alt="Jason's Photo">
-                    <a id="texto-logo" class="navbar-brand white" href="<?= base_url() ?>">MINERVA</a>
+                    <a id="texto-logo" class="navbar-brand white" href="<?= base_url() ?>">TICADEMIA</a>
                 </div>
                 <div class="navbar-collapse collapse">
                     <ul class="nav navbar-nav">
@@ -60,11 +60,33 @@
                         <?php if (isset($_SESSION["nombre"])) { ?>
                             <?php if (isset($idCurso)) { ?>
                                 <li class="dropdown">
-                                    <a href="#" class="dropdown-toggle white" data-toggle="dropdown"> Usuarios conectados <b class="caret"></b></a>
+                                    <a href="#" class="dropdown-toggle white" data-toggle="dropdown"> <i class="fa fa-users fa-lg"></i> <b class="caret"></b></a>
                                     <ul id="usuarios-conectados" class="dropdown-menu">
-                                        
+
                                     </ul>
                                 </li>
+                                <?php if ($_SESSION["rol"] == "profesor") { ?>
+                                    <li class="dropdown">
+                                        <a href="#" class="dropdown-toggle white" data-toggle="dropdown"> <i class="icon-position fa fa-bar-chart-o fa-lg"></i> <b class="caret"></b></a>
+                                        <ul  class="dropdown-menu">
+                                            <li>
+                                                <a href="#">
+                                                  Estudiantes
+                                                </a>
+                                            </li>
+                                            <li>
+                                                <a  href="#">
+                                                    Materiales
+                                                </a>
+                                            </li>
+                                            <li>
+                                                <a  href="#">
+                                                    Preguntas
+                                                </a>
+                                            </li>
+                                        </ul>
+                                    </li>
+                                <?php } ?>
                                 <li class="<?= ($tab == "curso") ? "active" : "" ?>"><a id="link-curso" title="Ver modulos" href="<?= base_url() ?>curso/<?= $idCurso ?>" class="white"><i class="icon-position fa fa-book fa-lg"></i></a></li>
                                 <li class="<?= ($tab == "muro") ? "active" : "" ?>"><a id="link-muro" title="Ver Muro" href="<?= base_url() ?>muro/<?= $idCurso ?>" class="white"><span class="glyphicon glyphicon-bullhorn"></span></a></li>
                                 <li class="<?= ($tab == "ranking") ? "active" : "" ?>"><a id="link-ranking" title="Ver ranking" href="<?= base_url() ?>ranking/<?= $idCurso ?>" class="white"><i class="icon-position fa fa-list-ol fa-lg"></i></a></li>
@@ -105,7 +127,7 @@
                                             <div class="col-md-12">
                                                 <form class="form" role="form" method="post" action="<?= base_url() ?>entrar" >
                                                     <div class="form-group">
-                                                        <input name="username" type="text" class="form-control" placeholder="Usuario" required>
+                                                        <input name="email" type="text" class="form-control" placeholder="E-mail" required>
                                                     </div>
                                                     <div class="form-group">
                                                         <label class="sr-only" for="exampleInputPassword2">Password</label>

@@ -358,31 +358,39 @@ img.rank{
     background-color: #438eb9;
     color:white;
 }
+/*
 #link-curso{
     background-color: #b74635;
+    background: #438eb9;
 }
 #link-ranking{
     background-color: #4b4b4b;
+    background: #438eb9;
 }
 #link-trofeos{
     background-color: #762c59;
+    background: #438eb9;
 }
 #link-muro{
     background-color: #07B3D3;
+    background: #438eb9;
 }
 #link-foro-color{
     background-color: #2e8965;
     border-right: 1px solid #DDD;
+    background: #438eb9;
 }
 #link-foro2-color{
     background-color: #2e8965;
     border-right: 1px solid #DDD;
+    background: #438eb9;
 }
 
 #link-ranking,#link-trofeos,#link-muro,#link-foro-color,#link-foro2-color,#link-curso{
     min-width: 50px;
     color: #FFF;
     border-left: 1px solid #DDD;
+    background: #438eb9;
 }
 #link-foro2-color{
     min-width: 72px;
@@ -391,6 +399,10 @@ img.rank{
     margin: 0;
     display: inline-block;
 
+}
+*/
+.navbar-right a{
+      border-left: 1px solid #DDD;
 }
 .label-success, .badge-success {
     background-color: #82af6f !important;

@@ -21,19 +21,29 @@
                         <input type="text" name="apellidos"  class="form-control input-lg" placeholder="Apellidos" tabindex="3" required="">
                     </div>
                     <div class="form-group">
-                        <input type="email" name="email" id="display_name" class="form-control input-lg" placeholder="E-mail" tabindex="3" required>
+                        <input type="text" name="fechaNacimiento"  class="form-control input-lg datepicker" placeholder="Fecha de nacimiento" tabindex="3" required="">
                     </div>
                     <div class="form-group">
-                        <select name="afiliacion" class="form-control input-lg"  required>
-                            <option value="">Seleccionar universidad...</option>
-                            <?php foreach ($afiliaciones as $row) { ?>
-                                <option value="<?= $row->id_afiliacion ?>"><?= $row->nombre ?></option>
-                            <?php } ?>
+                        <select name="sexo" class="form-control input-lg"  required>
+                            <option value=""  disabled>Sexo...</option>
+                            <option value="f">Femenino</option>
+                            <option value="m">Masculino</option>
                         </select>
                     </div>
                     <div class="form-group">
-                        <input type="usuario" name="usuario" id="email" class="form-control input-lg" placeholder="Usuario" tabindex="4" required>
+                        <input type="email" name="email" id="display_name" class="form-control input-lg" placeholder="E-mail" tabindex="3" required>
                     </div>
+                    <!--                    <div class="form-group">
+                                            <select name="afiliacion" class="form-control input-lg"  required>
+                                                <option value="">Seleccionar universidad...</option>
+                    <?php foreach ($afiliaciones as $row) { ?>
+                                                                <option value="<?= $row->id_afiliacion ?>"><?= $row->nombre ?></option>
+                    <?php } ?>
+                                            </select>
+                                        </div>-->
+                    <!--                    <div class="form-group">
+                                            <input type="usuario" name="usuario" id="email" class="form-control input-lg" placeholder="Usuario" tabindex="4" required>
+                                        </div>-->
                     <div class="form-group">
                         <input type="password" name="password"  class="form-control input-lg" placeholder="Contraseña" tabindex="5" required>
                     </div>
@@ -41,8 +51,9 @@
                         <input type="password" name="rePassword"  class="form-control input-lg" placeholder="Repetir contraseña" tabindex="5" required>
                     </div>
                     <div class="row">
-                        <div class="col-xs-8 col-sm-9 col-md-9">
-                            Al dar click en <strong class="label label-primary">Registrarse</strong> , usted esta aceptado los <a href="#" data-toggle="modal" data-target="#t_and_c_m">términos y condiciones</a>.
+                        <div class="col-xs-12">
+                            Al registrarse, usted esta aceptando los  <a href="#" data-toggle="modal" data-target="#t_and_c_m">términos y condiciones</a> del uso de Ticademia, así como el <a  href="#" data-toggle="modal" data-target="#modal_codigo_honor">código de honor</a> al matricularse en los cursos ofrecidos.
+
                         </div>
                     </div>
 
@@ -55,7 +66,7 @@
         </div>
     </div>
 </div>
-<!-- Modal -->
+<!-- Modal terminos y condiciones -->
 <div class="modal fade" id="t_and_c_m" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
     <div class="modal-dialog modal-lg">
         <div class="modal-content">
@@ -78,4 +89,23 @@
         </div><!-- /.modal-content -->
     </div><!-- /.modal-dialog -->
 </div><!-- /.modal -->
-</div>
+
+<!-- Modal código honor -->
+<div class="modal fade" id="modal_codigo_honor" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+                <h4 class="modal-title" id="myModalLabel">Código de honor</h4>
+            </div>
+            <div class="modal-body">
+                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Similique, itaque, modi, aliquam nostrum at sapiente consequuntur natus odio reiciendis perferendis rem nisi tempore possimus ipsa porro delectus quidem dolorem ad.</p>
+                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Similique, itaque, modi, aliquam nostrum at sapiente consequuntur natus odio reiciendis perferendis rem nisi tempore possimus ipsa porro delectus quidem dolorem ad.</p>
+                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Similique, itaque, modi, aliquam nostrum at sapiente consequuntur natus odio reiciendis perferendis rem nisi tempore possimus ipsa porro delectus quidem dolorem ad.</p>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-primary" data-dismiss="modal">Cerrar</button>
+            </div>
+        </div><!-- /.modal-content -->
+    </div><!-- /.modal-dialog -->
+</div><!-- /.modal -->

@@ -15,7 +15,8 @@ class Registrarse extends CI_Controller {
         $this->load->model('afiliacion_model');
 
         $data["tab"] = "registrarse";
-        $data["css"] = array("css/registrase");
+        $data["css"] = array("libs/jquery-ui-1.10.4.custom/css/redmond/jquery-ui-1.10.4.custom.min", "css/registrase");
+        $data["js"] = array("libs/jquery-ui-1.10.4.custom/js/jquery-ui-1.10.4.custom.min", "js/registrarse",);
         $data["afiliaciones"] = $this->afiliacion_model->obtenerAfiliaciones();
         $this->load->view('include/header', $data);
         $this->load->view('registrase_view');
@@ -25,34 +26,31 @@ class Registrarse extends CI_Controller {
     public function crear() {
 
         $this->escapar($_POST);
-        if (empty($_POST["nombres"]) || empty($_POST["apellidos"]) || empty($_POST["email"]) || empty($_POST["afiliacion"]) || empty($_POST["usuario"]) || empty($_POST["password"]) || empty($_POST["rePassword"])) {
+        if (empty($_POST["nombres"]) || empty($_POST["apellidos"]) || empty($_POST["fechaNacimiento"]) || empty($_POST["sexo"]) || (($_POST["sexo"] != "f") && ($_POST["sexo"] != "m")) || empty($_POST["email"]) || empty($_POST["password"]) || empty($_POST["rePassword"])) {
             $this->mensaje("Datos incompletos", "error", "registrarse");
         }
         $existe = $this->usuario_model->obtenerUsuario(array("correo" => $_POST["email"]));
         if (sizeof($existe) > 0) {
             $this->mensaje("El e-mail: {$_POST["email"]} ya se encuentra registrado", "error", "registrarse");
         }
-        $existe = $this->usuario_model->obtenerUsuario(array("usuario" => $_POST["usuario"]));
-        if (sizeof($existe) > 0) {
-            $this->mensaje("El usuario: {$_POST["usuario"]} ya se encuentra registrado", "error", "registrarse");
-        }
+
         if ($_POST["password"] != $_POST["rePassword"]) {
             $this->mensaje("Las contraseñas no coinciden", "error", "registrarse");
         }
         $data = array(
-            "id_afiliacion" => $_POST["afiliacion"],
             "nombres" => $_POST["nombres"],
             "apellidos" => $_POST["apellidos"],
+            "fecha_nacimiento" => $_POST["fechaNacimiento"],
+            "sexo" => $_POST["sexo"],
             "correo" => $_POST["email"],
             "imagen" => "default.png",
-            "usuario" => $_POST["usuario"],
             "password" => sha1($_POST["password"]),
             "rol" => "estudiante",
             "activo" => "0"
         );
         $this->usuario_model->crear($data);
         $this->enviarEmail($_POST["email"]);
-        $this->mensaje("Se ha enviado un e-mail de confirmación a la dirección: {$_POST["email"]}", "success");
+         $this->mensaje("Se ha enviado un e-mail de confirmación a la dirección: {$_POST["email"]}", "success");
     }
 
     private function enviarEmail($email) {
