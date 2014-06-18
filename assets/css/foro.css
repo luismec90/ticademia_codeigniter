@@ -1,0 +1,21 @@
+#tabla-foro a:link,#tabla-foro a:visited {
+    color:#993333;
+}
+
+#tabla-foro a:hover {
+    color:#cc0000;
+    border-bottom:1px dotted;
+    text-decoration: none;
+}
+#tabla-foro .description {
+    margin: 0.5em;
+}
+
+#tabla-tema td{
+    padding: 30px 10px;
+}
+#tema td{
+    background: #f3f3f3;
+
+}
+

@@ -1,0 +1,378 @@
+img.rank, #timeline-embed img.rank{
+    position: absolute;
+    z-index: 1050;
+    margin-left: 110px;
+    margin-top: -320px;
+    border-radius: 50%;
+    width: 60px;
+    height: 60px; 
+    box-shadow: 0px 0px 10px 0px rgb(46, 137, 101);
+    -moz-box-shadow: 0px 0px 10px 0px rgb(46, 137, 101);
+    -webkit-box-shadow: 0px 0px 2px 0px rgb(46, 137, 101);
+}
+
+
+/*  Imagen 2 */
+.foward img.rank2{
+    animation:movRank2 1s infinite;
+    -webkit-animation:movRank2 1s; /* Safari and Chrome */
+    -webkit-animation-iteration-count:1;
+    -webkit-animation-fill-mode: forwards;
+
+}
+@-webkit-keyframes movRank2 
+{  
+    to {
+        margin-left: 205px;
+        margin-top: -285px;
+        width: 57px;
+        height: 57px;
+    }
+}
+.reverse img.rank2{
+    animation:movRank2Reverse 1s infinite;
+    -webkit-animation:movRank2Reverse 1s; /* Safari and Chrome */
+    -webkit-animation-iteration-count:1;
+    -webkit-animation-fill-mode: forwards;
+}
+@-webkit-keyframes movRank2Reverse
+{   from{
+        margin-left: 205px;
+        margin-top: -285px;
+        width: 57px;
+        height: 57px;
+    }
+    to {  
+        margin-left: 110px;
+        margin-top: -320px;
+        width: 60px;
+        height: 60px;
+    }
+}
+
+
+
+/*  Imagen 3 */
+.foward img.rank3{
+    animation:movRank2 1s infinite;
+    -webkit-animation:movRank3 1s; /* Safari and Chrome */
+    -webkit-animation-iteration-count:1;
+    -webkit-animation-fill-mode: forwards;
+    -webkit-animation-delay:0.2s;
+}
+@-webkit-keyframes movRank3 
+{  
+    to {
+        margin-left: 260px;
+        margin-top: -200px;
+        width: 54px;
+        height: 54px;
+    }
+}
+.reverse img.rank3{
+    animation:movRank3Reverse 1s infinite;
+    -webkit-animation:movRank3Reverse 1s; /* Safari and Chrome */
+    -webkit-animation-iteration-count:1;
+    -webkit-animation-fill-mode: forwards;
+}
+@-webkit-keyframes movRank3Reverse
+{   from{
+        margin-left: 260px;
+        margin-top: -200px;
+        width: 54px;
+        height: 54px;
+    }
+    to {  
+        margin-left: 110px;
+        margin-top: -320px;
+        width: 60px;
+        height: 60px;
+    }
+}
+
+
+/*  Imagen 4 */
+.foward img.rank4{
+    animation:movRank4 1s infinite;
+    -webkit-animation:movRank4 1s; /* Safari and Chrome */
+    -webkit-animation-iteration-count:1;
+    -webkit-animation-fill-mode: forwards;
+    -webkit-animation-delay:0.4s;
+}
+@-webkit-keyframes movRank4 
+{  
+    to {
+        margin-left: 258px;
+        margin-top: -120px;
+        width: 51px;
+        height: 51px;
+    }
+}
+.reverse img.rank4{
+    animation:movRank4Reverse 1s infinite;
+    -webkit-animation:movRank4Reverse 1s; /* Safari and Chrome */
+    -webkit-animation-iteration-count:1;
+    -webkit-animation-fill-mode: forwards;
+}
+@-webkit-keyframes movRank4Reverse
+{   from{
+        margin-left: 258px;
+        margin-top: -120px;
+        width: 51px;
+        height: 51px;
+    }
+    to {  
+        margin-left: 110px;
+        margin-top: -320px;
+        width: 60px;
+        height: 60px;
+    }
+}
+
+
+/*  Imagen 5 */
+.foward img.rank5{
+    animation:movRank5 1s infinite;
+    -webkit-animation:movRank5 1s; /* Safari and Chrome */
+    -webkit-animation-iteration-count:1;
+    -webkit-animation-fill-mode: forwards;
+    -webkit-animation-delay:0.6s;
+}
+@-webkit-keyframes movRank5 
+{  
+    to {
+        margin-left: 220px;
+        margin-top: -50px;
+        width: 48px;
+        height: 48px;
+    }
+}
+.reverse img.rank5{
+    animation:movRank5Reverse 1s infinite;
+    -webkit-animation:movRank5Reverse 1s; /* Safari and Chrome */
+    -webkit-animation-iteration-count:1;
+    -webkit-animation-fill-mode: forwards;
+}
+@-webkit-keyframes movRank5Reverse
+{   from{
+        margin-left: 220px;
+        margin-top: -50px;
+        width: 48px;
+        height: 48px;
+    }
+    to {  
+        margin-left: 110px;
+        margin-top: -320px;
+        width: 60px;
+        height: 60px;
+    }
+}
+
+
+
+/*  Imagen 6 */
+.foward img.rank6{
+    animation:movRank6 1s infinite;
+    -webkit-animation:movRank6 1s; /* Safari and Chrome */
+    -webkit-animation-iteration-count:1;
+    -webkit-animation-fill-mode: forwards;
+    -webkit-animation-delay:0.8s;
+}
+@-webkit-keyframes movRank6
+{  
+    to {
+        margin-left: 155px;
+        margin-top: -12px;
+        width: 45px;
+        height: 45px;
+    }
+
+}
+.reverse img.rank6{
+    animation:movRank6Reverse 1s infinite;
+    -webkit-animation:movRank6Reverse 1s; /* Safari and Chrome */
+    -webkit-animation-iteration-count:1;
+    -webkit-animation-fill-mode: forwards;
+}
+@-webkit-keyframes movRank6Reverse
+{   from{
+        margin-left: 155px;
+        margin-top: -12px;
+        width: 45px;
+        height: 45px;
+    }
+    to {  
+        margin-left: 110px;
+        margin-top: -320px;
+        width: 60px;
+        height: 60px;
+    }
+}
+
+
+/*  Imagen 7 */
+.foward img.rank7{
+    animation:movRank7 1s infinite;
+    -webkit-animation:movRank7 1s; /* Safari and Chrome */
+    -webkit-animation-iteration-count:1;
+    -webkit-animation-fill-mode: forwards;
+    -webkit-animation-delay:1s;
+}
+@-webkit-keyframes movRank7 
+{  
+    to {
+        margin-left: 80px;
+        margin-top: -12px;
+        width: 42px;
+        height: 42px;
+    }
+}
+.reverse img.rank7{
+    animation:movRank7Reverse 1s infinite;
+    -webkit-animation:movRank7Reverse 1s; /* Safari and Chrome */
+    -webkit-animation-iteration-count:1;
+    -webkit-animation-fill-mode: forwards;
+}
+@-webkit-keyframes movRank7Reverse
+{   from{
+        margin-left: 80px;
+        margin-top: -12px;
+        width: 42px;
+        height: 42px;
+    }
+    to {  
+        margin-left: 110px;
+        margin-top: -320px;
+        width: 60px;
+        height: 60px;
+    }
+}
+
+
+/*  Imagen 8 */
+.foward img.rank8{
+    animation:movRank8 1s infinite;
+    -webkit-animation:movRank8 1s; /* Safari and Chrome */
+    -webkit-animation-iteration-count:1;
+    -webkit-animation-fill-mode: forwards;
+    -webkit-animation-delay:1.2s;
+}
+@-webkit-keyframes movRank8 
+{  
+    to {
+        margin-left: 15px;
+        margin-top: -50px;
+        width: 39px;
+        height: 39px;
+    }
+}
+.reverse img.rank8{
+    animation:movRank8Reverse 1s infinite;
+    -webkit-animation:movRank8Reverse 1s; /* Safari and Chrome */
+    -webkit-animation-iteration-count:1;
+    -webkit-animation-fill-mode: forwards;
+}
+@-webkit-keyframes movRank8Reverse
+{   from{
+        margin-left: 15px;
+        margin-top: -50px;
+        width: 39px;
+        height: 39px;
+    }
+    to {  
+        margin-left: 110px;
+        margin-top: -320px;
+        width: 60px;
+        height: 60px;
+    }
+}
+
+
+
+/*  Imagen 9 */
+.foward img.rank9{
+    animation:movRank9 1s infinite;
+    -webkit-animation:movRank9 1s; /* Safari and Chrome */
+    -webkit-animation-iteration-count:1;
+    -webkit-animation-fill-mode: forwards;
+    -webkit-animation-delay:1.4s;
+}
+@-webkit-keyframes movRank9 
+{  
+    to {
+        margin-left: -25px;
+        margin-top: -110px;
+        width: 36px;
+        height: 36px;
+    }
+}
+.reverse img.rank9{
+    animation:movRank9Reverse 1s infinite;
+    -webkit-animation:movRank9Reverse 1s; /* Safari and Chrome */
+    -webkit-animation-iteration-count:1;
+    -webkit-animation-fill-mode: forwards;
+}
+@-webkit-keyframes movRank9Reverse
+{   from{
+        margin-left: -25px;
+        margin-top: -110px;;
+        width: 36px;
+        height: 36px;
+    }
+    to {  
+        margin-left: 110px;
+        margin-top: -320px;
+        width: 60px;
+        height: 60px;
+    }
+}
+
+
+/*  Imagen 10 */
+.foward img.rank10{
+    animation:movRank10 1s infinite;
+    -webkit-animation:movRank10 1s; /* Safari and Chrome */
+    -webkit-animation-iteration-count:1;
+    -webkit-animation-fill-mode: forwards;
+    -webkit-animation-delay:1.6s;
+}
+@-webkit-keyframes movRank10 
+{  
+    to {
+        margin-left: -22px;
+        margin-top: -180px;
+        width: 33px;
+        height: 33px;
+    }
+}
+.reverse img.rank10{
+    animation:movRank10Reverse 1s infinite;
+    -webkit-animation:movRank10Reverse 1s; /* Safari and Chrome */
+    -webkit-animation-iteration-count:1;
+    -webkit-animation-fill-mode: forwards;
+}
+@-webkit-keyframes movRank10Reverse
+{   from{
+        margin-left: -22px;
+        margin-top: -180px;
+        width: 33px;
+        height: 33px;
+    }
+    to {  
+        margin-left: 110px;
+        margin-top: -320px;
+        width: 60px;
+        height: 60px;
+    }
+}
+
+
+
+
+
+
+
+
+
+
+

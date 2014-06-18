@@ -1,0 +1,19 @@
+#contenedor hr{
+    margin-top:25px;
+    margin-bottom:25px;
+}
+#contenedor .reply {
+    margin-left:20px;
+}
+#contenedor .ocultar{
+    display: none;
+}
+#contenedor .primer-pre{
+    margin-bottom: 0;
+}
+#contenedor .div-comentar{
+    margin-bottom: 15px;
+    margin-top: 5px;
+}#contenedor .ocultar{
+    margin-top: 15px;
+}

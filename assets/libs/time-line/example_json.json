@@ -1,0 +1,62 @@
+
+{
+    "timeline":
+            {
+                "headline": "Cálculo diferencial",
+                "type": "default",
+                "text": "",
+                "startDate": "2014,02,02",
+                "date": [
+                    {
+                        "startDate": "2014,02,02",
+                        "endDate": "2014,02,12",
+                        "headline": "Módulo 1",
+                        "text": "",
+                        "classname": "modulo1",
+                        "asset":
+                                {
+                                    "media": "../assets/img/p2.png",
+                                    "credit": "<span class='divRanking'></span><div class='btn btn-info' onclick='loadRankingMod(this)'><i class='fa fa-trophy'></i> </div>"
+                                    
+                                }
+                    },
+                    {
+                        "startDate": "2014,02,12",
+                        "endDate": "2014,02,22",
+                        "headline": "Módulo 2",
+                        "text": "",
+                        "asset":
+                                {
+                                    "media": "../assets/img/p2.png",
+                                    "credit": "",
+                                    "caption": ""
+                                }
+                    },
+                    {
+                        "startDate": "2014,02,22",
+                        "endDate": "2014,03,2",
+                        "headline": "Módulo 3",
+                        "text": "",
+                        "asset":
+                                {
+                                    "media": "../assets/img/p2.png",
+                                    "credit": "",
+                                    "caption": ""
+                                }
+                    },
+                    {
+                        "startDate": "2014,03,02",
+                        "endDate": "2014,03,12",
+                        "headline": "Módulo 4",
+                        "text": "",
+                        "asset":
+                                {
+                                    "media": "../assets/img/p2.png",
+                                    "credit": "",
+                                    "caption": ""
+                                }
+                    }
+
+                ]
+            }
+}
