@@ -52,6 +52,9 @@ $route['foro/(:num)/(:num)'] = "foro/verTema/$1/$2";
 $route['muro/(:num)'] = "muro/index/$1";
 $route['logros/(:num)/(:num)'] = "logros/verLogro/$1/$2";
 $route['activar'] = "registrarse/activar";
+$route['estadisticaestudiantes/(:num)'] = "estadisticas/estudiante/index/$1";
+$route['estadisticamateriales/(:num)'] = "estadisticas/material/index/$1";
+$route['estadisticaevaluaciones/(:num)'] = "estadisticas/evaluacion/index/$1";
 $route['404_override'] = '';
 
 

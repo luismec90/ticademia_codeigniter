@@ -21,7 +21,7 @@
         <!-- Bootstrap core CSS -->
         <link href="<?= base_url() ?>assets/libs/bootstrap-3.1.1/css/bootstrap.min.css" rel="stylesheet">
         <link rel="stylesheet" href="<?= base_url() ?>assets/libs/font-awesome-4.0.3/css/font-awesome.min.css">
-        <link rel="stylesheet" href="<?= base_url() ?>assets/css/global_2.css">
+        <link rel="stylesheet" href="<?= base_url() ?>assets/css/global.css">
         <?php if (isset($css)) foreach ($css as $row) { ?>
                 <link rel="stylesheet" href="<?= base_url() ?>assets/<?= $row ?>.css">
             <?php } ?>
@@ -66,22 +66,22 @@
                                     </ul>
                                 </li>
                                 <?php if ($_SESSION["rol"] == "profesor") { ?>
-                                    <li class="dropdown">
+                                    <li class="dropdown <?= ($tab == "estadisticaestudiantes" || $tab == "estadisticamateriales"  || $tab == "estadisticapreguntas" ) ? "active" : ""; ?>">
                                         <a href="#" class="dropdown-toggle white" data-toggle="dropdown"> <i class="icon-position fa fa-bar-chart-o fa-lg"></i> <b class="caret"></b></a>
                                         <ul  class="dropdown-menu">
-                                            <li>
-                                                <a href="#">
-                                                  Estudiantes
+                                            <li class="<?= ($tab == "estadisticaestudiantes") ? "active" : ""; ?>">
+                                                <a href="<?= base_url() ?>estadisticaestudiantes/<?= $idCurso ?>">
+                                                    Estudiantes
                                                 </a>
                                             </li>
-                                            <li>
-                                                <a  href="#">
+                                             <li class="<?= ($tab == "estadisticamateriales") ? "active" : ""; ?>">
+                                                <a href="<?= base_url() ?>estadisticamateriales/<?= $idCurso ?>">
                                                     Materiales
                                                 </a>
                                             </li>
-                                            <li>
-                                                <a  href="#">
-                                                    Preguntas
+                                            <li class="<?= ($tab == "estadisticaevaluaciones") ? "active" : ""; ?>">
+                                                <a href="<?= base_url() ?>estadisticaevaluaciones/<?= $idCurso ?>">
+                                                    Evaluaciones
                                                 </a>
                                             </li>
                                         </ul>

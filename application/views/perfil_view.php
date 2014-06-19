@@ -10,7 +10,7 @@
     <div id="contenedor-1-2" class="container-fluid">
         <div class="row"> 
             <form role="form" action="<?= base_url() ?>perfil/actualizar" method="POST" class="formSubmit"  autocomplete="off"  enctype="multipart/form-data">
-    
+
 
                 <div class="col-xs-12  col-md-4   col-sm-5 ">
 
@@ -34,20 +34,30 @@
                     <div class="form-group">
                         <input type="text" name="nombres"  class="form-control " placeholder="Nombres" tabindex="3" required="" value="<?= $usuario[0]->nombres ?>">
                     </div>
-                     <div class="form-group">
+                    <div class="form-group">
                         <input type="text" name="apellidos"  class="form-control " placeholder="Apellidos" tabindex="3" required="" value="<?= $usuario[0]->apellidos ?>">
                     </div>
                     <div class="form-group">
                         <input type="email" name="email" id="display_name" class="form-control " placeholder="E-mail" tabindex="3" required value="<?= $usuario[0]->correo ?>">
                     </div>
                     <div class="form-group">
-                        <select name="afiliacion" class="form-control "  required>
-                            <option value="">Seleccionar universidad...</option>
-                            <?php foreach ($afiliaciones as $row) { ?>
-                                <option value="<?= $row->id_afiliacion ?>" <?= ($usuario[0]->id_afiliacion == $row->id_afiliacion) ? "selected" : "" ?>><?= $row->nombre ?></option>
-                            <?php } ?>
+                        <input type="text" name="fechaNacimiento"  class="form-control datepicker" placeholder="Fecha de nacimiento" tabindex="3" required="" value="<?= $usuario[0]->fecha_nacimiento ?>">
+                    </div>
+                    <div class="form-group">
+                        <select name="sexo" class="form-control"  required>
+                            <option value="" >Sexo...</option>
+                            <option value="f" <?= ($usuario[0]->sexo=="f")? "selected":"" ?>>Femenino</option>
+                            <option value="m" <?= ($usuario[0]->sexo=="m")? "selected":"" ?>>Masculino</option>
                         </select>
                     </div>
+                    <!--                    <div class="form-group">
+                                            <select name="afiliacion" class="form-control "  required>
+                                                <option value="">Seleccionar universidad...</option>
+                    <?php foreach ($afiliaciones as $row) { ?>
+                                                        <option value="<?= $row->id_afiliacion ?>" <?= ($usuario[0]->id_afiliacion == $row->id_afiliacion) ? "selected" : "" ?>><?= $row->nombre ?></option>
+                    <?php } ?>
+                                            </select>
+                                        </div>-->
                     <h3>Cambiar contraseña</h3>
                     <hr>
                     <div class="form-group">

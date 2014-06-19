@@ -16,7 +16,8 @@ class Perfil extends CI_Controller {
         $this->load->model('afiliacion_model');
 
         $data["tab"] = "perfil";
-        $data["css"] = array("css/registrase");
+        $data["css"] = array("libs/jquery-ui-1.10.4.custom/css/redmond/jquery-ui-1.10.4.custom.min", "css/registrase");
+        $data["js"] = array("libs/jquery-ui-1.10.4.custom/js/jquery-ui-1.10.4.custom.min", "js/registrarse",);
         $data["usuario"] = $this->usuario_model->obtenerUsuario(array("id_usuario" => $_SESSION["idUsuario"]));
         $data["afiliaciones"] = $this->afiliacion_model->obtenerAfiliaciones();
         $this->load->view('include/header', $data);
@@ -41,14 +42,15 @@ class Perfil extends CI_Controller {
             }
         }
 
-        if (!isset($_POST["nombres"]) || !isset($_POST["apellidos"]) || !isset($_POST["email"]) || !isset($_POST["afiliacion"])) {
+        if (!isset($_POST["nombres"]) || !isset($_POST["apellidos"]) || empty($_POST["fechaNacimiento"]) || empty($_POST["sexo"]) || (($_POST["sexo"] != "f") && ($_POST["sexo"] != "m")) || !isset($_POST["email"])) {
             $this->mensaje("Datos incompletos", "error", "perfil");
         }
 
         $data = array(
-            "id_afiliacion" => $_POST["afiliacion"],
             "nombres" => $_POST["nombres"],
             "apellidos" => $_POST["apellidos"],
+            "fecha_nacimiento" => $_POST["fechaNacimiento"],
+            "sexo" => $_POST["sexo"],
             "correo" => $_POST["email"],
             "imagen" => $this->avatar($estudiante)
         );

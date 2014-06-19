@@ -27,4 +27,9 @@ class Usuario_x_curso_model extends CI_Model {
         $this->db->update('usuario_x_curso', $data, $where);
     }
 
+    public function cantidadEstudiantesMatriculados($idCurso) {
+        $query = "SELECT count(*) cantidad FROM usuario_x_curso WHERE id_curso='$idCurso'";
+        return $this->db->query($query)->result();
+    }
+
 }
