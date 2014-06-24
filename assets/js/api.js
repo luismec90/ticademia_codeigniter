@@ -50,3 +50,20 @@ API.LMSSetValue = function(a, b) {
         }
     });
 }
+API.notifyDaemon = function(calificacion) {
+    if (calificacion == 1) {
+        var status = "correcto";
+    } else {
+        var status = "incorrecto";
+    }
+    var data = {
+        tipo: 'enviar_respuesta',
+        id_curso: idCursoGlobal,
+        posible_ganador: idUsuarioGlobal,
+        nombre_usuario: nombreUsuarioGlobal,
+        estatus: status,
+        fecha_inicio_reto: fechaInicioReto,
+        fecha_fin_reto: date_to_server_date(new Date())
+    };
+    conn.send(JSON.stringify(data));
+}

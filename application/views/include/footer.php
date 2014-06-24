@@ -187,6 +187,14 @@
         </div>
     </div>
 </div>
+<div id="contenedor-frame" class="hide">
+    <div id="botonCerrarFrame">
+        <i class="fa fa-times fa-2x"></i> 
+    </div>
+    <iframe width="100%" id="frame" src="" height="90%"></iframe>
+    <script src="<?= base_url() ?>assets/libs/jQuery-1.11.0/jQuery.min.js"></script>
+    <script src="<?= base_url() ?>assets/js/api.js"></script>
+</div>
 <script>
     base_url = "<?= base_url() ?>";
     idUsuarioGlobal = -1;

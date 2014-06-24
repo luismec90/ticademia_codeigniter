@@ -36,28 +36,8 @@ class recuperar extends CI_Controller {
         }
         $this->usuario_model->actualizar(array("password" => sha1($newPass)), array("correo" => $email));
 
-        include("assets/libs/PHPMailer/class.phpmailer.php");
-        include("assets/libs/PHPMailer/class.smtp.php");
-
-        $this->email = new PHPMailer();
-        $this->email->IsSMTP();
-        $this->email->SMTPAuth = true;
-        $this->email->SMTPSecure = "ssl";
-        $this->email->Host = "smtp.gmail.com";
-        $this->email->Port = 465;
-        $this->email->Username = 'lfmontoyag@unal.edu.co';
-        $this->email->From = "lfmontoyag@unal.edu.co";
-        $this->email->Password = "1038408348";
-
-
-        $this->email->From = "lfmontoyag@unal.edu.co";
-        $this->email->FromName = "Minerva";
-        $this->email->Subject = utf8_decode("Nueva contraseña");
-        $this->email->MsgHTML("Cordial saludo. <br><br> Su suario es: <b>{$usuario[0]->usuario}</b> <br> su nueva contarseña es: <b>$newPass</b>");
-        $this->email->AddAddress($email, "destinatario");
-        $this->email->IsHTML(true);
-        $this->email->Send();
-        $this->mensaje("Se ha enviado un e-mail con la nueva contraseña a la dirección: $email", "success");
+         enviarEmail($email, "Nueva contraseña", "Cordial saludo. <br><br> Su nueva contarseña es: <b>$newPass</b>");
+           $this->mensaje("Se ha enviado un e-mail con la nueva contraseña a la dirección: $email", "success");
     }
 
 }

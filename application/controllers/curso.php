@@ -11,6 +11,7 @@ class Curso extends CI_Controller {
         $this->estoyLogueado();
         $this->load->model('curso_model');
         $this->load->model('usuario_x_modulo_model');
+        $this->load->model('usuario_model');
     }
 
     public function verCurso($idCurso) {
@@ -39,7 +40,7 @@ class Curso extends CI_Controller {
     }
 
     public function matricularse($idCurso) {
-        $curso = $this->curso_model->obtenerCurso($idCurso);
+        $curso = $this->curso_model->obtenerCursoCompleto($idCurso);
         if ($curso) {
             $this->load->model('usuario_x_curso_model');
             $where = array("id_curso" => $idCurso, "id_usuario" => $_SESSION["idUsuario"]);
@@ -52,6 +53,11 @@ class Curso extends CI_Controller {
                 );
                 $this->usuario_x_curso_model->crear($datos);
             }
+            $usuario = $this->usuario_model->obtenerUsuario(array("id_usuario" => $_SESSION["idUsuario"]));
+            $email = $usuario[0]->correo;
+
+            enviarEmail($email, "Bienvenido al curso {$curso[0]->nombre}", "Te damos la bienvenida al curso {$curso[0]->nombre}");
+
             $this->mensaje("Se ha matriculado exitosamente", "success", "curso/$idCurso");
         } else {
             $this->mensaje("Por favor inténtalo nuevamente", "error");

@@ -137,16 +137,19 @@
                                                         <button type="submit" class="btn btn-success btn-block">Entrar</button>
                                                     </div>
                                                 </form>
+                                              
                                             </div>
+                                        </div>
+                                        <div class="row">
+                                             <div class="col-md-12 text-center">
+                                               <a id="link-olvido-pass" href="<?= base_url() ?>recuperar"> ¿Olvidó su contraseña?</a>
+                                             </div>
                                         </div>
                                     </li>
                                 </ul>
                             </li>
                             <li class=" nav  navbar-nav <?= ($tab == "registrarse") ? "active" : "" ?>">
                                 <a class="white cursor" href="<?= base_url() ?>registrarse"> Registrarse</a>
-                            </li>
-                            <li class=" nav  navbar-nav <?= ($tab == "recuperar") ? "active" : "" ?>">
-                                <a class="white cursor" href="<?= base_url() ?>recuperar"> ¿Olvidó su contraseña?</a>
                             </li>
                         <?php } ?>
                     </ul>

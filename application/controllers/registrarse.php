@@ -50,34 +50,13 @@ class Registrarse extends CI_Controller {
         );
         $this->usuario_model->crear($data);
         $this->enviarEmail($_POST["email"]);
-         $this->mensaje("Se ha enviado un e-mail de confirmación a la dirección: {$_POST["email"]}", "success");
+        $this->mensaje("Se ha enviado un e-mail de confirmación a la dirección: {$_POST["email"]}", "success");
     }
 
     private function enviarEmail($email) {
         $token = sha1($email . "-minerva2014");
         $link = base_url() . "activar?email=$email&token=$token";
-
-        include("assets/libs/PHPMailer/class.phpmailer.php");
-        include("assets/libs/PHPMailer/class.smtp.php");
-
-        $this->email = new PHPMailer();
-        $this->email->IsSMTP();
-        $this->email->SMTPAuth = true;
-        $this->email->SMTPSecure = "ssl";
-        $this->email->Host = "smtp.gmail.com";
-        $this->email->Port = 465;
-        $this->email->Username = 'lfmontoyag@unal.edu.co';
-        $this->email->From = "lfmontoyag@unal.edu.co";
-        $this->email->Password = "1038408348";
-
-
-        $this->email->From = "lfmontoyag@unal.edu.co";
-        $this->email->FromName = "Minerva";
-        $this->email->Subject = utf8_decode("Confirmación de e-mail");
-        $this->email->MsgHTML("Cordial saludo. <br><br> Por favor dar click en el siguinte enlance para confirmar su e-mail: <br> <a href='$link' target='_blank'>$link</a>");
-        $this->email->AddAddress($email, "destinatario");
-        $this->email->IsHTML(true);
-        $this->email->Send();
+        enviarEmail($email, "Confirmación de e-mail", "Cordial saludo. <br><br> Por favor dar click en el siguinte enlance para confirmar su e-mail: <br> <a href='$link' target='_blank'>$link</a>");
     }
 
     public function activar() {

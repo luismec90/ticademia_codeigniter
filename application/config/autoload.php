@@ -67,7 +67,7 @@ $autoload['libraries'] = array('session');
   |	$autoload['helper'] = array('url', 'file');
  */
 
-$autoload['helper'] = array('url', 'foro_helper', 'bitacora_helper');
+$autoload['helper'] = array('url', 'foro_helper', 'bitacora_helper','sendEmail_helper');
 
 
 /*

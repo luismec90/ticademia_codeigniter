@@ -39,22 +39,7 @@ $(function() {
         });
 
         $("#enviar-respuesta-reto").click(function() {
-            var respuestaCorrecta = 4;
-            var respuestaUsuario = $("#respuesta-reto").val();
-            var status = "incorrecto";
-            if (respuestaCorrecta == respuestaUsuario) {
-                status = "correcto"
-            }
-            var data = {
-                tipo: 'enviar_respuesta',
-                id_curso: idCursoGlobal,
-                posible_ganador: idUsuarioGlobal,
-                nombre_usuario: nombreUsuarioGlobal,
-                estatus: status,
-                fecha_inicio_reto: fechaInicioReto,
-                fecha_fin_reto: date_to_server_date(new Date())
-            };
-            conn.send(JSON.stringify(data));
+
         });
     }
 
@@ -110,6 +95,7 @@ function socket() {
                     break;
 
                 case "reto_rechazado":// El usuario retado rechazo el reto
+                    cerrarReto();
                     $.each(data.datos, function(id_usuario, nombre_usuario) {
                         $("#nombre-usuario-reto-rechazado").html(nombre_usuario);
                         $("#reto-rechazado").modal();
@@ -118,12 +104,20 @@ function socket() {
 
                 case "reto_aceptado"://Notifocacion de iniciar el duelo, este mensaje le llega tanto al retado como al retador
                     $.each(data.datos, function(id_usuario, nombre_usuario) {
-                        $("#comenzar-reto").modal();
+                        $("#contenedor-frame iframe").attr("src", base_url + "retos/1/launch.html");
+                        $("#coverDisplay").css({
+                            "opacity": "1",
+                            "width": "100%",
+                            "height": "100%"
+                        });
+                        $("#botonCerrarFrame").addClass("hide");
+                        $("#contenedor-frame").removeClass("hide");
                         fechaInicioReto = date_to_server_date(new Date());
                     });
                     break;
 
                 case "desconectado_antes":
+                    cerrarReto();
                     $.each(data.datos, function(id_usuario, nombre_usuario) {
                         $(".modal").modal('hide');
                         $("#modal-desconectado-antes").modal();
@@ -131,6 +125,7 @@ function socket() {
                     break;
 
                 case "desconectado":
+                    cerrarReto();
                     $.each(data.datos, function(id_usuario, nombre_usuario) {
                         $(".modal").modal('hide');
                         $("#nombre-usuario-desconectado").html(nombre_usuario);
@@ -139,6 +134,7 @@ function socket() {
                     break;
 
                 case "empate":
+                    cerrarReto();
                     $.each(data.datos, function(id_usuario, nombre_usuario) {
                         $(".modal").modal('hide');
                         $("#custom-modal-title").html("Empate");
@@ -148,10 +144,11 @@ function socket() {
                     break;
 
                 case "ganador":
+                    cerrarReto();
                     $.each(data.datos, function(id_usuario, nombre_usuario) {
                         $(".modal").modal('hide');
                         $("#custom-modal-title").html("Ganador");
-                        $("#body-custom-modal").html("El usuaraio " + nombre_usuario + " ha  ganado el reto");
+                        $("#body-custom-modal").html("El usuario " + nombre_usuario + " ha  ganado el reto");
                         $("#custom-modal").modal();
                     });
                     break;
@@ -175,4 +172,12 @@ function date_to_server_date(date) {
     min = (min < 10) ? "0" + min : min;
     sec = (sec < 10) ? "0" + sec : sec;
     return anio + "-" + mes + "-" + dia + " " + hora + ":" + ":" + min + ":" + sec;
+}
+function cerrarReto() {
+    $("#coverDisplay").css({
+        "opacity": "0",
+        "width": "0",
+        "height": "0"
+    });
+    $("#contenedor-frame").removeClass("class-contenedor-pdf").addClass("hide");
 }

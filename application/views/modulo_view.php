@@ -140,14 +140,7 @@
     </div>
     <embed id="pdf" src="">
 </div>
-<div id="contenedor-frame" class="hide">
-    <div id="botonCerrarFrame">
-        <i class="fa fa-times fa-2x"></i> 
-    </div>
-    <iframe width="100%" id="frame" src="" height="90%"></iframe>
-    <script src="<?= base_url() ?>assets/libs/jQuery-1.11.0/jQuery.min.js"></script>
-    <script src="<?= base_url() ?>assets/js/api.js"></script>
-</div>
+
 <div id="custom-popover" class="popover fade top in">
     <div class="arrow"></div><h3 class="popover-title"><div id="popover-titulo" ></div><button id="cerrar-popover" type="button" class="close">&times;</button> </h3>
     <div id="popover-contenido" class="popover-content">bla bla <br> bla bla<br>bla bla
