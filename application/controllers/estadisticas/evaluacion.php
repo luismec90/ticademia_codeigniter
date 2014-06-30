@@ -19,6 +19,7 @@ class Evaluacion extends CI_Controller {
         $this->soyElProfesor($idCurso);
         $data["idCurso"] = $idCurso;
         $data["tab"] = "estadisticaevaluaciones";
+        $data["js"] = array("libs/googleCharts/jsapi", "js/estadisticas/evaluacion");
         $curso = $this->curso_model->obtenerCursoCompleto($idCurso);
         $data["nombre_curso"] = $curso[0]->nombre;
 

@@ -3,9 +3,6 @@
         <div class="row">
             <div class="col-sm-12">
                 <h1>Estadísticas de los estudiantes <small> <?= $nombre_curso ?></small></h1> </h1>
-
-
-
             </div>
         </div>
         <div id="contenedor-1-2" class="container-fluid">
@@ -13,15 +10,79 @@
                 <div class="col-sm-12">
                     <div class="row">
                         <div class="col-sm-12">
-                            <h4>  Estudiantes matriculados: <?= $cantidadMatriculas ?> </h4>
+                            <h3 class="text-center">  Estudiantes matriculados: <?= $cantidadMatriculas ?> </h3>
                             <hr>
                         </div>
 
                     </div>
                     <div class="row">
-                        <div class="col-sm-12">
-                            <h4> Diagrama de líneas con porcentajes vs. tiempo (en dias), desde el dia de inicio hasta el día actual </h4>
-                            <hr>
+                        <div class="col-md-6">
+                            <div class="panel panel-primary">
+                                <div class="panel-heading">
+                                    <h3 class="panel-title">Distribución de niveles</h3>
+                                </div>
+                                <div class="panel-body">
+                                  <center> <div id="distribucion-niveles"></div> </center>
+                                </div>
+                            </div>
+                            
+                            <script>
+
+                                function distribucionNiveles() {
+
+                                    // Create the data table.
+                                    var data = new google.visualization.DataTable();
+                                    data.addColumn('string', 'Topping');
+                                    data.addColumn('number', 'Slices');
+                                    data.addRows([
+<?php foreach ($distribucionNiveles as $row) { ?>
+                                            ['<?= $row->nombre ?>', <?= $row->cantidad ?>],
+<?php } ?>
+                                    ]);
+
+                                    // Set chart options
+                                    var options = {
+                                       'height':400};
+
+                                    // Instantiate and draw our chart, passing in some options.
+                                    var chart = new google.visualization.PieChart(document.getElementById('distribucion-niveles'));
+                                    chart.draw(data, options);
+                                }
+                            </script>
+                        </div>
+                        <div class="col-md-6">
+
+                             <div class="panel panel-primary">
+                                <div class="panel-heading">
+                                    <h3 class="panel-title">Distribución de niveles</h3>
+                                </div>
+                                <div class="panel-body">
+                                  <center> <div id="distribucion-niveles2"></div> </center>
+                                </div>
+                            </div>
+                            <script>
+
+                                function distribucionNiveles2() {
+
+                                    // Create the data table.
+                                    var data = new google.visualization.DataTable();
+                                    data.addColumn('string', 'Topping');
+                                    data.addColumn('number', 'Slices');
+                                    data.addRows([
+<?php foreach ($distribucionNiveles as $row) { ?>
+                                            ['<?= $row->nombre ?>', <?= $row->cantidad ?>],
+<?php } ?>
+                                    ]);
+
+                                    // Set chart options
+                                    var options = {
+                                        'height':400};
+
+                                    // Instantiate and draw our chart, passing in some options.
+                                    var chart = new google.visualization.PieChart(document.getElementById('distribucion-niveles2'));
+                                    chart.draw(data, options);
+                                }
+                            </script>
                         </div>
                     </div>
                 </div>

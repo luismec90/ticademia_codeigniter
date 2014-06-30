@@ -11,6 +11,7 @@ class Estudiante extends CI_Controller {
         $this->estoyLogueado();
         $this->load->model('curso_model');
         $this->load->model('usuario_x_curso_model');
+        $this->load->model('estudiante_model');
     }
 
     public function index($idCurso = -1) {
@@ -19,11 +20,14 @@ class Estudiante extends CI_Controller {
         $this->soyElProfesor($idCurso);
         $data["idCurso"] = $idCurso;
         $data["tab"] = "estadisticaestudiantes";
+        $data["js"] = array("libs/googleCharts/jsapi", "js/estadisticas/estudiante");
         $curso = $this->curso_model->obtenerCursoCompleto($idCurso);
         $data["nombre_curso"] = $curso[0]->nombre;
 
         $data["cantidadMatriculas"] = $this->usuario_x_curso_model->cantidadEstudiantesMatriculados($idCurso);
         $data["cantidadMatriculas"] = $data["cantidadMatriculas"][0]->cantidad;
+
+        $data["distribucionNiveles"] = $this->estudiante_model->distribucionNiveles($idCurso);
 
         $this->load->view('include/header', $data);
         $this->load->view('estadisticas/estudianteV');

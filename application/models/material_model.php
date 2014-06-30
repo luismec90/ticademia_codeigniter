@@ -84,4 +84,37 @@ class Material_model extends CI_Model {
         $this->db->update('material', $data, $where);
     }
 
+    public function cantidadPDFs($idCurso) {
+        $query = "select count(*) cantidad from modulo mo join material ma ON mo.id_modulo=ma.id_modulo where mo.id_curso='$idCurso' and ma.tipo='pdf'";
+        return $this->db->query($query)->result();
+    }
+
+    public function cantidadVideos($idCurso) {
+        $query = "select count(*) cantidad from modulo mo join material ma ON mo.id_modulo=ma.id_modulo where mo.id_curso='$idCurso' and ma.tipo='video'";
+        return $this->db->query($query)->result();
+    }
+
+    public function visitasPorDiaPdfs($idCurso) {
+        $query = "SELECT ma.id_material,DATE_FORMAT(um.fecha_inicial,'%Y-%m-%d') as fecha,count(ma.id_material)
+                 visitas from material ma JOIN usuario_x_material um ON ma.id_material=um.id_material JOIN modulo modu ON ma.id_modulo=modu.id_modulo AND modu.id_curso='$idCurso' 
+                 WHERE ma.tipo='pdf' AND um.fecha_inicial >= (SELECT c.fecha_inicio FROM curso c WHERE c.id_curso='$idCurso') GROUP BY fecha";
+        return $this->db->query($query)->result();
+    }
+
+    public function visitasPorDiaVideos($idCurso) {
+        $query = "SELECT ma.id_material,DATE_FORMAT(um.fecha_inicial,'%Y-%m-%d') as fecha,count(ma.id_material)
+                 visitas from material ma JOIN usuario_x_material um ON ma.id_material=um.id_material
+                 WHERE ma.tipo='video' AND um.fecha_inicial >= (SELECT c.fecha_inicio FROM curso c WHERE c.id_curso='$idCurso') GROUP BY fecha";
+        return $this->db->query($query)->result();
+    }
+
+    public function tiempoPromdedioReproduccion($idCurso) {
+        $query = "SELECT ma.id_material, DATE_FORMAT(um.fecha_inicial, '%Y-%m-%d') as fecha, 
+                count(ma.id_material) visitas, ROUND(AVG(TIME_TO_SEC(TIMEDIFF(um.fecha_final, um.fecha_inicial))/60)) minutos 
+                from material ma JOIN usuario_x_material um ON ma.id_material = um.id_material JOIN modulo modu ON ma.id_modulo=modu.id_modulo AND modu.id_curso='$idCurso' 
+                WHERE ma.tipo = 'video' AND um.fecha_final IS NOT NULL 
+                AND um.fecha_inicial >= (SELECT c.fecha_inicio FROM curso c WHERE c.id_curso = '$idCurso') GROUP BY fecha";
+        return $this->db->query($query)->result();
+    }
+
 }
