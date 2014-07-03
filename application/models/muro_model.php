@@ -36,6 +36,11 @@ class Muro_model extends CI_Model {
         return $this->db->query($query)->result();
     }
 
+    public function contarPublicaciones($idUsuario, $idCurso) {
+        $query = "SELECT count(*) cantidad FROM muro WHERE  id_usuario='$idUsuario' AND id_curso='$idCurso'";
+        return $this->db->query($query)->result();
+    }
+
     public function crear($data) {
         $this->db->insert($this->tabla, $data);
     }

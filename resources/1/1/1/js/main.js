@@ -1,17 +1,21 @@
-var a, b, x, l1;
+var n;
 
 $(function() {
-    API = getAPI();
-    API.LMSInitialize("");
+	try{
+		API = getAPI();
+		API.LMSInitialize("");
+	}catch(e){
+		console.log(e);
+	}
 
-    l1 = getRandom(200, 250);
-    a = getRandom(20, 50);
-    b = getRandom(30, 60);
-    x = 180 - a - b;
+    n = getRandom(3,8);
 
-    var correctAnswer = x;
-    var missConception1 = 270 - a - b;
-    console.log(correctAnswer + " " + missConception1);
+	var fact = [2, 6, 24, 120, 720, 5040, 40320];
+    var correctAnswer = fact[n-2];
+    var missConception1 = n;
+	var missConception2 = Math.pow(n,n);
+	var missConception3 = fact[n-3];
+    //console.log(correctAnswer + " " + missConception1);
     draw();
 
     $("#verificar").click(function() {
@@ -29,21 +33,31 @@ $(function() {
                     break;
                 case missConception1:
                     calificacion = 0.5;
-                    feedback = "Suma de los ángulos interiores de todo triángulo es de 270";
-                    $("#feedback").html("Calificación: <b>" + calificacion + "</b> <br> Probablemente no tienes clara la teoria de triangulos").removeClass("hide");
+                    feedback = "n";
+                    $("#feedback").html("Calificación: <b>" + calificacion + "</b> <br> ...").removeClass("hide");
+                    break;
+				case missConception2:
+                    calificacion = 0.5;
+                    feedback = "n^n";
+                    $("#feedback").html("Calificación: <b>" + calificacion + "</b> <br> ...").removeClass("hide");
+                    break;
+				case missConception3:
+                    calificacion = 0.5;
+                    feedback = "(n-1)!";
+                    $("#feedback").html("Calificación: <b>" + calificacion + "</b> <br> ...").removeClass("hide");
                     break;
                 default:
                     calificacion = 0.0;
-                    $("#feedback").html("Calificación: <b>" + calificacion + "</b> <br>Te recomendamos este <a href='https://www.youtube.com/watch?v=CA1jtq4luMo' target='_blank'>video</a> acerca de triangulos.").removeClass("hide");
+                    $("#feedback").html("Calificación: <b>" + calificacion + "</b> <br> ...").removeClass("hide");
                     break;
             }
             $(this).attr("disabled", true);
-            $("#modal").modal({
+            /* $("#modal").modal({
                 backdrop: "static",
                 keyboard: "false"
             });
 
-            if (typeof API.calificar == 'function') {
+            */ API.closeQuestion();  if (typeof API.calificar == 'function') {
                 API.calificar(calificacion, feedback);
             }
             API.LMSSetValue("cmi.core.score.raw", calificacion);
@@ -61,59 +75,6 @@ $(function() {
 function getRandom(bottom, top) {
     return Math.floor(Math.random() * (1 + top - bottom)) + bottom;
 }
-function draw() {
-
-    ag = toDegrees(a);
-    bg = toDegrees(b);
-    xg = toDegrees(x);
-    var x1 = 5;
-    var y1 = 200;
-
-    var x2 = l1;
-    var y2 = y1;
-
-    var x3 = x1 + Math.cos(ag) * l1 * Math.sin(bg) / Math.sin(xg);
-    var y3 = y1 - Math.sin(ag) * l1 * Math.sin(bg) / Math.sin(xg);
-
-
-    var canvas = document.getElementById('canvas');
-
-    var ctx = canvas.getContext('2d');
-
-    ctx.strokeStyle = "#0069B2";
-    ctx.lineWidth = 2;
-    ctx.moveTo(x1, y1);
-
-
-    ctx.lineTo(x2, y2);
-
-    ctx.lineTo(x3, y3);
-
-
-    ctx.lineTo(x1, y1);
-
-    ctx.stroke();
-
-    ctx.beginPath(); //iniciar ruta
-    ctx.strokeStyle = "FF9900"; //color de lï¿½nea
-    ctx.lineWidth = 1; //grosor de lï¿½nea
-    ctx.arc(x1, y1, 20, -ag, 0);
-    ctx.stroke();
-
-    ctx.beginPath(); //iniciar ruta
-    ctx.arc(x2, y2, 20, -Math.PI, -Math.PI + bg);
-    ctx.stroke();
-
-    ctx.beginPath(); //iniciar ruta
-    ctx.arc(x3, y3, 20, bg, -Math.PI - ag);
-    ctx.stroke();
-
-
-    ctx.font = "15px Verdana";
-    ctx.fillText("x=?", x3 - 15, y3 - 5);
-    ctx.fillText("a=" + a + String.fromCharCode(176), x1 + 10, y1 + 15);
-    ctx.fillText("b=" + b + String.fromCharCode(176), x2 - 50, y2 + 15);
-}
-function toDegrees(angle) {
-    return angle * (Math.PI / 180);
+function draw(){
+	$('.mvar[value=n]').html(n);
 }

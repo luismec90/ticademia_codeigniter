@@ -1,15 +1,13 @@
 <?php
-
-if (!defined('BASEPATH'))
-    exit('No direct script access allowed');
-
 if (!function_exists('enviarEmail')) {
+    
+include_once("assets/libs/PHPMailer/class.phpmailer.php");
+include_once("assets/libs/PHPMailer/class.smtp.php");
 
     function enviarEmail($to, $subject, $msj) {
 
 
-        include("assets/libs/PHPMailer/class.phpmailer.php");
-        include("assets/libs/PHPMailer/class.smtp.php");
+        
 
         $email = new PHPMailer();
         $email->IsSMTP();

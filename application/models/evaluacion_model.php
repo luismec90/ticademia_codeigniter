@@ -84,4 +84,24 @@ class Evaluacion_model extends CI_Model {
         return $this->db->get()->result();
     }
 
+    public function cantidadEvaluacionesAprobadas($idUsuario, $idCurso) {
+        $query = "select count(distinct ue.id_evaluacion) cantidad from usuario_x_evaluacion ue
+                  join evaluacion e ON ue.id_evaluacion=e.id_evaluacion
+                  join modulo m ON m.id_modulo=e.id_modulo
+                  where ue.id_usuario='$idUsuario' AND m.id_curso='$idCurso' AND ue.calificacion>=(select umbral from curso where id_curso='$idCurso')";
+        return $this->db->query($query)->result();
+    }
+
+    public function cantidadEvaluacionesPorModulo($idModulo) {
+        $query = "select count(*) cantidad from evaluacion 
+                  where id_modulo='$idModulo'";
+        return $this->db->query($query)->result();
+    }
+    
+    function cantidadEvaluacionesAprobadasPorModulo($idUsuario,$idModulo, $idCurso) {
+        $query = "select count(distinct ue.id_evaluacion) cantidad from usuario_x_evaluacion ue 
+                  join evaluacion e ON ue.id_evaluacion=e.id_evaluacion AND e.id_modulo='$idModulo'
+                  where ue.id_usuario='$idUsuario' and ue.calificacion >=(select umbral from curso where id_curso='$idCurso')";
+        return $this->db->query($query)->result();
+    }
 }

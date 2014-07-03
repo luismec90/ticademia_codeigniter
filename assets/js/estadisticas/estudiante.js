@@ -4,9 +4,9 @@ google.load('visualization', '1.0', {'packages': ['corechart']});
 
 // Set a callback to run when the Google Visualization API is loaded.
 google.setOnLoadCallback(distribucionNiveles);
-google.setOnLoadCallback(distribucionNiveles2);
+google.setOnLoadCallback(distribucionNivelesPorDia);
 
 $(window).resize(function(){
   distribucionNiveles();
-  distribucionNiveles2();
+  distribucionNivelesPorDia();
 });

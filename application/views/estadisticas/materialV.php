@@ -41,10 +41,10 @@ $i = 0;
 $t = sizeof($pdfVisitas);
 while ($startDate <= $endDate) {
     if ($i < $t && $pdfVisitas[$i]->fecha == $current) {
-        echo "['$current',{$pdfVisitas[$i]->visitas}],";
+        echo "['" . dateToxAxis($current) . "',{$pdfVisitas[$i]->visitas}],";
         $i++;
     } else {
-        echo "['$current',0],";
+        echo "['" . dateToxAxis($current) . "',0],";
     }
     $current = date("Y-m-d", $startDate = strtotime('+1 day', $startDate));
 }
@@ -90,10 +90,10 @@ $i = 0;
 $t = sizeof($videoVisitas);
 while ($startDate <= $endDate) {
     if ($i < $t && $videoVisitas[$i]->fecha == $current) {
-        echo "['$current',{$videoVisitas[$i]->visitas}],";
+        echo "['" . dateToxAxis($current) . "',{$videoVisitas[$i]->visitas}],";
         $i++;
     } else {
-        echo "['$current',0],";
+        echo "['" . dateToxAxis($current) . "',0],";
     }
     $current = date("Y-m-d", $startDate = strtotime('+1 day', $startDate));
 }
@@ -141,10 +141,10 @@ $i = 0;
 $t = sizeof($tiempoPromedioReproduccion);
 while ($startDate <= $endDate) {
     if ($i < $t && $tiempoPromedioReproduccion[$i]->fecha == $current) {
-        echo "['$current',{$tiempoPromedioReproduccion[$i]->minutos}],";
+        echo "['" . dateToxAxis($current) . "',{$tiempoPromedioReproduccion[$i]->minutos}],";
         $i++;
     } else {
-        echo "['$current',0],";
+        echo "['" . dateToxAxis($current) . "',0],";
     }
     $current = date("Y-m-d", $startDate = strtotime('+1 day', $startDate));
 }

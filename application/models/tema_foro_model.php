@@ -79,4 +79,13 @@ class Tema_foro_model extends CI_Model {
         return $this->db->query($query)->result();
     }
 
+    public function contarPublicaciones($idUsuario, $idCurso) {
+        $query = "SELECT ((SELECT count(*) cantidad FROM tema_foro 
+                  WHERE id_usuario='$idUsuario' AND id_curso='$idCurso')+
+                  (SELECT count(*) cantidad FROM tema_foro tf
+                  JOIN respuesta r ON r.id_tema_foro=tf.id_tema_foro AND r.id_usuario='$idUsuario'
+                  WHERE tf.id_curso='$idCurso')) cantidad";
+        return $this->db->query($query)->result();
+    }
+
 }

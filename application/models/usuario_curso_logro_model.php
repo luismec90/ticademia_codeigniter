@@ -85,4 +85,10 @@ class Usuario_curso_logro_model extends CI_Model {
         return $this->db->get()->result();
     }
 
+    public function contarLogrosObtenidos($idUsuario, $idCurso) {
+        $query = "select count(distinct ucl.id_logro) cantidad from usuario_curso_logro ucl
+                 where ucl.id_usuario='$idUsuario' AND ucl.id_curso='$idCurso'";
+        return $this->db->query($query)->result();
+    }
+
 }

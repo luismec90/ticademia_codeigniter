@@ -485,3 +485,22 @@
         </div>
     </div>
 </div>
+
+<div class="modal fade" id="modalRespuestaEvaluacion" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                <h4 class="modal-title" id="myModalLabel">Retroalimentación<div id="preview-stars"></div></h4>
+            </div>
+
+            <div id="bodymodalRespuestaEvaluacion" class="modal-body">
+
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>
+            </div>
+        </div>
+    </div>
+</div>

@@ -28,7 +28,7 @@ class Usuario_x_curso_model extends CI_Model {
     }
 
     public function cantidadEstudiantesMatriculados($idCurso) {
-        $query = "SELECT count(*) cantidad FROM usuario_x_curso WHERE id_curso='$idCurso'";
+        $query = "SELECT count(*) cantidad FROM usuario_x_curso uc JOIN usuario u ON uc.id_usuario=u.id_usuario AND u.rol='estudiante' WHERE uc.id_curso='$idCurso'";
         return $this->db->query($query)->result();
     }
 

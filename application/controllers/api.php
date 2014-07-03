@@ -40,18 +40,23 @@ class Api extends CI_Controller {
     }
 
     public function calificar() {
+        $mensajeCorrecto = array("Mensaje exito 1", "Mensaje exito 2", "Mensaje exito 3");
+        $mensajeIncorrecto = array("Mensaje incorrecto 1", "Mensaje incorrecto 2", "Mensaje incorrecto 3");
+
+
         $this->load->model('usuario_x_curso_model');
 
         if (!isset($_POST['idEvaluacion']) || !isset($_POST['duracion'])) {
             exit();
         }
         if ($_POST["calificacion"] == 1) {
-            $feedback = "Correcto";
+            $feedback = $mensajeCorrecto[rand(0, 2)];
         } else if ($_POST["calificacion"] == 0) {
-            $feedback = "Incorrecto";
+            $feedback = $mensajeIncorrecto[rand(0, 2)];
         } else {
             $feedback = $_POST["feedback"];
         }
+        echo $feedback;
         $data = array(
             'id_usuario_evaluacion' => $_SESSION[$_SESSION["idUsuario"] . "-" . $_POST['idEvaluacion']],
             'calificacion' => $_POST["calificacion"],
@@ -126,7 +131,7 @@ class Api extends CI_Controller {
             $where = array("id_usuario" => $_SESSION["idUsuario"], "id_modulo" => $idModulo);
             $existe = $this->usuario_x_modulo_model->obtenerRegistro($where);
             if ($existe) {
-                $data = array("puntaje" => $puntajeTotal+$existe[0]->puntaje);
+                $data = array("puntaje" => $puntajeTotal + $existe[0]->puntaje);
                 $where = array("id_usuario_modulo" => $existe[0]->id_usuario_modulo);
                 $this->usuario_x_modulo_model->actualizar($data, $where);
             } else {
@@ -252,9 +257,20 @@ class Api extends CI_Controller {
     }
 
     public function checkNivel($idCurso, $cantidadNiveles, $porcentaje) {
+        $this->load->model('bitacora_nivel_model');
+
         $valorPorNivel = 100 / $cantidadNiveles;
         $nivel = ceil($porcentaje / $valorPorNivel);
-        $this->usuario_x_curso_model->actualizar(array("id_nivel" => $nivel), array("id_curso" => $idCurso, "id_usuario" => $_SESSION["idUsuario"]));
+        $nivelActual = $this->usuario_x_curso_model->obtenerRegistro(array("id_curso" => $idCurso, "id_usuario" => $_SESSION["idUsuario"]));
+        if ($nivel != $nivelActual[0]->id_nivel) {
+            $this->usuario_x_curso_model->actualizar(array("id_nivel" => $nivel), array("id_curso" => $idCurso, "id_usuario" => $_SESSION["idUsuario"]));
+            $data = array(
+                "id_usuario" => $_SESSION["idUsuario"],
+                "id_curso" => $idCurso,
+                "id_nivel" => $nivel
+            );
+            $this->bitacora_nivel_model->crear($data);
+        }
     }
 
 }

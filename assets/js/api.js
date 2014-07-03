@@ -35,6 +35,10 @@ API.calificar = function(calificacion, feedback) {
             feedback: feedback
         },
         success: function(data) {
+
+            $("#bodymodalRespuestaEvaluacion").html(data);
+            $("#modalRespuestaEvaluacion").modal();
+
         }
     });
 }
@@ -67,3 +71,15 @@ API.notifyDaemon = function(calificacion) {
     };
     conn.send(JSON.stringify(data));
 }
+API.closeQuestion = function() {
+    $("#coverDisplay").css({
+        "opacity": "0",
+        "width": "0",
+        "height": "0"
+    });
+    $("#contenedor-frame").removeClass("class-contenedor-pdf").addClass("hide");
+    $("html, body").css({
+        'overflow': 'content'
+    });
+}
+ 

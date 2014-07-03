@@ -117,4 +117,12 @@ class Material_model extends CI_Model {
         return $this->db->query($query)->result();
     }
 
+    public function cantidadMaterialesObservados($idUsuario, $idCurso) {
+        $query = "select count(distinct um.id_material) cantidad from usuario_x_material um
+                join material ma ON um.id_material=ma.id_material
+                join modulo m ON m.id_modulo=ma.id_modulo
+                where um.id_usuario='$idUsuario' AND m.id_curso='$idCurso'";
+        return $this->db->query($query)->result();
+    }
+
 }

@@ -29,4 +29,19 @@ class Bitacora_model extends CI_Model {
         return $this->db->query($query)->result();
     }
 
+    function cantidadEstudiantesConectados($idCurso) {
+        $query = "SELECT COUNT(distinct(id_usuario)) cantidad FROM bitacora WHERE id_curso='$idCurso' AND fecha_salida >= date_sub(NOW(),INTERVAL 20 MINUTE)";
+        return $this->db->query($query)->result();
+    }
+
+    function cantidadAccesos($idUsuario, $idCurso) {
+        $query = "SELECT count(*) cantidad FROM bitacora where FECHA_SALIDA is not NULL and id_usuario='$idUsuario' and id_curso='$idCurso'";
+        return $this->db->query($query)->result();
+    }
+
+    function lastLoginCurso($idUsuario, $idCurso) {
+        $query = "SELECT MAX(fecha_ingreso) last_login FROM bitacora WHERE id_usuario='$idUsuario' AND id_curso='$idCurso'";
+        return $this->db->query($query)->result();
+    }
+
 }

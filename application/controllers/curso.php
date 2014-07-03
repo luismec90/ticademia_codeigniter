@@ -12,6 +12,7 @@ class Curso extends CI_Controller {
         $this->load->model('curso_model');
         $this->load->model('usuario_x_modulo_model');
         $this->load->model('usuario_model');
+        $this->load->model('bitacora_nivel_model');
     }
 
     public function verCurso($idCurso) {
@@ -52,6 +53,13 @@ class Curso extends CI_Controller {
                     'fecha' => date("Y-m-d H:i:s")
                 );
                 $this->usuario_x_curso_model->crear($datos);
+
+                $datos = array(
+                    'id_curso' => $idCurso,
+                    'id_usuario' => $_SESSION["idUsuario"],
+                    'id_nivel' => 1
+                );
+                $this->bitacora_nivel_model->crear($datos);
             }
             $usuario = $this->usuario_model->obtenerUsuario(array("id_usuario" => $_SESSION["idUsuario"]));
             $email = $usuario[0]->correo;

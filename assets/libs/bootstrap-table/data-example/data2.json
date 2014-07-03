@@ -1,0 +1,32 @@
+[
+    {
+        "avatar": "<img width='50' src='http://localhost/ticademia/assets/img/avatares/thumbnails/1.jpg'>",
+        "nombre": "Luis Fernando Montoya Gomez",
+        "puntaje": "550",
+        "last_login": "2014-07-01",
+        "amount_login":"250",
+        "total_time":"2580",
+        "logros":"12",
+        "modulos":"11",
+        "evaluaciones":"17",
+        "materiales":"24",
+        "videos":"70%",
+        "foro":"20",
+        "muro":"42"
+    },
+    {
+       "avatar": "<img width='50' src='http://localhost/ticademia/assets/img/avatares/default.png'>",
+       "nombre": "Andres Felipe Pineda Corcho",
+             "puntaje": "540",
+        "last_login": "2014-07-02",
+        "amount_login":"253",
+        "total_time":"2581",
+        "logros":"32",
+        "modulos":"41",
+        "evaluaciones":"57",
+        "materiales":"14",
+        "videos":"50%",
+        "foro":"10",
+        "muro":"32"
+    }
+]
