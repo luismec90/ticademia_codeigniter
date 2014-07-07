@@ -32,4 +32,11 @@ class Usuario_x_curso_model extends CI_Model {
         return $this->db->query($query)->result();
     }
 
+    public function obtenerRegistroConEstudiante($idUsuario, $idCurso) {
+        $query = "SELECT u.*,uc.fecha fecha_matricula from usuario u 
+                  JOIN usuario_x_curso uc ON uc.id_usuario=u.id_usuario AND uc.id_curso='$idCurso'
+                  WHERE u.id_usuario='$idUsuario'";
+        return $this->db->query($query)->result();
+    }
+
 }

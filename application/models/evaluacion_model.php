@@ -43,6 +43,10 @@ class Evaluacion_model extends CI_Model {
         return $this->db->get_where('evaluacion', array('id_evaluacion' => $idEvaluacion))->result();
     }
 
+    function obtenerEvaluaciones($where) {
+        return $this->db->get_where('evaluacion', $where)->result();
+    }
+
     function setOrden($idEvaluacion, $orden) {
         $data = array(
             'orden' => $orden
@@ -97,11 +101,29 @@ class Evaluacion_model extends CI_Model {
                   where id_modulo='$idModulo'";
         return $this->db->query($query)->result();
     }
-    
-    function cantidadEvaluacionesAprobadasPorModulo($idUsuario,$idModulo, $idCurso) {
+
+    function cantidadEvaluacionesAprobadasPorModulo($idUsuario, $idModulo, $idCurso) {
         $query = "select count(distinct ue.id_evaluacion) cantidad from usuario_x_evaluacion ue 
                   join evaluacion e ON ue.id_evaluacion=e.id_evaluacion AND e.id_modulo='$idModulo'
                   where ue.id_usuario='$idUsuario' and ue.calificacion >=(select umbral from curso where id_curso='$idCurso')";
         return $this->db->query($query)->result();
     }
+
+    function cantidadPreguntasIntentadasPorDia($idCurso) {
+        $query = "select date(ue.fecha_inicial) fecha,count(ue.id_evaluacion) cantidad from usuario_x_evaluacion ue
+                join evaluacion e on ue.id_evaluacion=e.id_evaluacion
+                join modulo m on e.id_modulo=m.id_modulo and m.id_curso='$idCurso'
+                group by fecha";
+        return $this->db->query($query)->result();
+    }
+
+    function cantidadPreguntasResueltasPorDia($idCurso) {
+        $query = "select date(ue.fecha_inicial) fecha,count( distinct ue.id_evaluacion) cantidad from usuario_x_evaluacion ue
+                    join evaluacion e on ue.id_evaluacion=e.id_evaluacion
+                    join modulo m on e.id_modulo=m.id_modulo and m.id_curso='$idCurso'
+                    where ue.calificacion>=(select umbral from curso where id_curso='$idCurso')
+                    group by fecha";
+        return $this->db->query($query)->result();
+    }
+
 }

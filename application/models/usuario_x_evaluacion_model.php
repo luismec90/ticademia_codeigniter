@@ -55,4 +55,20 @@ class Usuario_x_evaluacion_model extends CI_Model {
         return $this->db->query($query)->result();
     }
 
+    function obtenerEvaluaciones($idCurso, $idModulo, $idUsuario) {
+        $query = "select e.*,te.nombre tipo_evaluacion,count(ue.id_usuario_evaluacion) intentos, 
+                sum(if(ue.calificacion is not null && ue.calificacion>=(select umbral from curso where id_curso='$idCurso'),1,0)) 
+                aciertos, min(if(ue.calificacion is not null && ue.calificacion>=(select umbral from curso where id_curso='$idCurso'),
+                time_to_sec(timediff(ue.fecha_final,ue.fecha_inicial)),99999)) mejor_tiempo 
+                from evaluacion e join tipo_evaluacion te on te.id_tipo_evaluacion=e.id_tipo_evaluacion
+                left join usuario_x_evaluacion ue ON ue.id_evaluacion=e.id_evaluacion and ue.id_usuario='$idUsuario' 
+                where e.id_modulo='$idModulo' group by e.id_evaluacion";
+        return $this->db->query($query)->result();
+    }
+
+    function obterenrIntentosUsuario($idModulo, $idUsuario) {
+        $query = "select ";
+        return $this->db->query($query)->result();
+    }
+
 }

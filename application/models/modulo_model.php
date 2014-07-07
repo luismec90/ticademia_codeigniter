@@ -21,6 +21,10 @@ class Modulo_model extends CI_Model {
         return $this->db->get_where('modulo', array('id_modulo' => $idModulo))->result();
     }
 
+    function obtenerModulos($where) {
+        return $this->db->get_where('modulo', $where)->result();
+    }
+
     function crearModulo($datos) {
         $this->db->insert('modulo', $datos);
     }

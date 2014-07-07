@@ -31,7 +31,6 @@ class Material extends CI_Controller {
         $data["videoVisitas"] = $this->material_model->visitasPorDiaVideos($idCurso);
 
         $data["tiempoPromedioReproduccion"] = $this->material_model->tiempoPromdedioReproduccion($idCurso);
-
         $this->load->view('include/header', $data);
         $this->load->view('estadisticas/materialV');
         $this->load->view('include/footer');

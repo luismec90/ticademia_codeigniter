@@ -63,6 +63,16 @@ class Material_model extends CI_Model {
         $this->db->update('material', $data, $where);
     }
 
+    public function actulizarDuracion($idMaterial, $duracionSegundos) {
+        $data = array(
+            'duracion' => $duracionSegundos
+        );
+        $where = array(
+            'id_material' => $idMaterial
+        );
+        $this->db->update('material', $data, $where);
+    }
+
     function eliminar($idMaterial) {
         $data = array(
             'id_material' => $idMaterial
@@ -72,6 +82,10 @@ class Material_model extends CI_Model {
 
     function obtenerMaterial($idMaterial) {
         return $this->db->get_where('material', array('id_material' => $idMaterial))->result();
+    }
+
+    function obtenerMateriales($where) {
+        return $this->db->get_where('material', $where)->result();
     }
 
     function setOrden($idMaterial, $orden) {
@@ -109,7 +123,7 @@ class Material_model extends CI_Model {
     }
 
     public function tiempoPromdedioReproduccion($idCurso) {
-        $query = "SELECT ma.id_material, DATE_FORMAT(um.fecha_inicial, '%Y-%m-%d') as fecha, 
+        $query = "SELECT ma.id_material,COALESCE(ma.duracion,1) duracion, DATE_FORMAT(um.fecha_inicial, '%Y-%m-%d') as fecha, 
                 count(ma.id_material) visitas, ROUND(AVG(TIME_TO_SEC(TIMEDIFF(um.fecha_final, um.fecha_inicial))/60)) minutos 
                 from material ma JOIN usuario_x_material um ON ma.id_material = um.id_material JOIN modulo modu ON ma.id_modulo=modu.id_modulo AND modu.id_curso='$idCurso' 
                 WHERE ma.tipo = 'video' AND um.fecha_final IS NOT NULL 

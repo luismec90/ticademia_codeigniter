@@ -14,6 +14,7 @@ class Material extends CI_Controller {
     }
 
     public function crearMaterial() {
+        require_once('assets/libs/getid3/getid3/getid3.php');
 
         $this->escapar($_POST);
         if (empty($_POST["modulo"])) {
@@ -33,6 +34,15 @@ class Material extends CI_Controller {
         $extension = end($extension);
         $ubicacion = $lastId . "." . strtolower($extension);
         $this->material_model->actulizarUbicacion($lastId, $ubicacion);
+
+        if (strtolower($extension) == "mp4") {
+            $getID3 = new getID3;
+            $ThisFileInfo = $getID3->analyze($_FILES["file"]["tmp_name"]);
+            $duracionSegundos = $ThisFileInfo['playtime_string'];
+            $duracionSegundos = explode(":", $duracionSegundos);
+            $duracionSegundos = $duracionSegundos[0] * 60 + $duracionSegundos[1];
+            $this->material_model->actulizarDuracion($lastId, $duracionSegundos);
+        }
         move_uploaded_file($_FILES["file"]["tmp_name"], "material/$idCurso/{$_POST["modulo"]}/" . $ubicacion);
         $this->mensaje("Material creado exitosamente", "success", "modulo/$idCurso");
     }

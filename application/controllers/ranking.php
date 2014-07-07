@@ -112,7 +112,7 @@ class Ranking extends CI_Controller {
 
             $aux = array(
                 "posicion" => $i++,
-                "nombre" => $row->nombres,
+                "nombre" => "<a href='".base_url()."infoestudiante/{$row->id_usuario}/$idCurso'>$row->nombres</a>",
                 "avatar" => "<img width='70' src='" . base_url() . "assets/img/avatares/thumbnails/" . $row->imagen . "'>",
                 "puntaje" => $row->puntaje_total,
                 "last_login" => $last_login,

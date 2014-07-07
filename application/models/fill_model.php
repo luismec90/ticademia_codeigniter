@@ -21,6 +21,7 @@ class Fill_model extends CI_Model {
         $this->tipo_evaluacion();
         $this->evaluacion();
         $this->usuario_x_evaluacion();
+        $this->usuario_x_material();
         $this->usuario_x_modulo();
         $this->tema_foro();
         $this->respuesta();
@@ -156,9 +157,9 @@ class Fill_model extends CI_Model {
             'id_afiliacion' => 1,
             'nombres' => 'Luis Fernando',
             'apellidos' => 'Montoya Gómez',
-            'correo' => 'luismec90@gmail.com',
+            'correo' => 'estudiante1',
             'imagen' => '1.jpg',
-//          'usuario' => 'estudiante1',
+            'sexo' => 'm',
             'password' => sha1("123"),
             'fecha_nacimiento' => date("Y-m-d"),
             'rol' => 'estudiante', 'activo' => 1
@@ -170,9 +171,9 @@ class Fill_model extends CI_Model {
             'id_afiliacion' => 1,
             'nombres' => 'Julian',
             'apellidos' => 'Moreno Cadavid',
-            'correo' => 'profe1@email.com',
+            'correo' => 'profesor1',
             'imagen' => 'default.png',
-//            'usuario' => 'profesor1',
+            'sexo' => 'm',
             'password' => sha1("123"),
             'rol' => 'profesor',
             'activo' => 1
@@ -184,9 +185,9 @@ class Fill_model extends CI_Model {
             'id_afiliacion' => 1,
             'nombres' => 'Francisco Javier',
             'apellidos' => 'Moreno',
-            'correo' => 'profe2@email.com',
+            'correo' => 'profesor2',
             'imagen' => 'default.png',
-//            'usuario' => 'profesor2',
+            'sexo' => 'm',
             'password' => sha1("123"),
             'rol' => 'profesor',
             'activo' => 1
@@ -199,9 +200,9 @@ class Fill_model extends CI_Model {
             'id_afiliacion' => 1,
             'nombres' => 'Roger A',
             'apellidos' => 'Cadavid',
-            'correo' => 'estudiante2@email.com',
+            'correo' => 'estudiante2',
             'imagen' => 'default.png',
-//            'usuario' => 'estudiante2',
+            'sexo' => 'm',
             'password' => sha1("123"),
             'rol' => "estudiante",
             'activo' => 1
@@ -213,9 +214,9 @@ class Fill_model extends CI_Model {
             'id_afiliacion' => 1,
             'nombres' => 'Juan Camilo',
             'apellidos' => 'Monsalve Ramírez',
-            'correo' => 'estudiante3@email.com',
+            'correo' => 'estudiante3',
             'imagen' => 'default.png',
-//            'usuario' => 'estudiante3',
+            'sexo' => 'm',
             'password' => sha1("123"),
             'rol' => "estudiante",
             'activo' => 1
@@ -228,9 +229,9 @@ class Fill_model extends CI_Model {
             'id_afiliacion' => 1,
             'nombres' => 'Jhon Alejandro',
             'apellidos' => 'Gómez',
-            'correo' => 'estudiante4@email.com',
+            'correo' => 'estudiante4',
             'imagen' => 'default.png',
-//            'usuario' => 'estudiante4',
+            'sexo' => 'm',
             'password' => sha1("123"),
             'rol' => "estudiante",
             'activo' => 1
@@ -242,9 +243,9 @@ class Fill_model extends CI_Model {
             'id_afiliacion' => 1,
             'nombres' => 'Esteban',
             'apellidos' => 'Hoyos',
-            'correo' => 'estudiante5@email.com',
+            'correo' => 'estudiante5',
             'imagen' => 'default.png',
-//            'usuario' => 'estudiante5',
+            'sexo' => 'm',
             'password' => sha1("123"),
             'rol' => "estudiante",
             'activo' => 1
@@ -256,9 +257,9 @@ class Fill_model extends CI_Model {
             'id_afiliacion' => 1,
             'nombres' => 'Andres Felipe',
             'apellidos' => 'Castaño',
-            'correo' => 'alejo@gmail.com',
+            'correo' => 'estudiante6',
             'imagen' => 'default.png',
-//            'usuario' => 'estudiante6',
+            'sexo' => 'm',
             'password' => sha1("123"),
             'rol' => "estudiante",
             'activo' => 1
@@ -270,9 +271,9 @@ class Fill_model extends CI_Model {
             'id_afiliacion' => 1,
             'nombres' => 'Ricardo',
             'apellidos' => 'Cardona',
-            'correo' => 'alejo@gmail.com',
+            'correo' => 'estudiante7',
             'imagen' => 'default.png',
-//            'usuario' => 'estudiante7',
+            'sexo' => 'm',
             'password' => sha1("123"),
             'rol' => "estudiante",
             'activo' => 1
@@ -284,9 +285,9 @@ class Fill_model extends CI_Model {
             'id_afiliacion' => 1,
             'nombres' => 'Manuel Fernando',
             'apellidos' => 'Betancur',
-            'correo' => 'alejo@gmail.com',
+            'correo' => 'estudiante8',
             'imagen' => 'default.png',
-//            'usuario' => 'estudiante8',
+            'sexo' => 'm',
             'password' => sha1("123"),
             'rol' => "estudiante",
             'activo' => 1
@@ -298,9 +299,9 @@ class Fill_model extends CI_Model {
             'id_afiliacion' => 1,
             'nombres' => 'Oscar Alejandro',
             'apellidos' => 'Montoya Gómez',
-            'correo' => 'alejo@gmail.com',
+            'correo' => 'estudiante9',
             'imagen' => 'default.png',
-//            'usuario' => 'estudiante9',
+            'sexo' => 'm',
             'password' => sha1("123"),
             'rol' => "estudiante",
             'activo' => 1
@@ -312,9 +313,9 @@ class Fill_model extends CI_Model {
             'id_afiliacion' => 1,
             'nombres' => 'Maria Soledad',
             'apellidos' => 'Ramirez Castaño',
-            'correo' => 'alejo@gmail.com',
+            'correo' => 'estudiante10',
             'imagen' => 'default.png',
-//            'usuario' => 'estudiante10',
+            'sexo' => 'm',
             'password' => sha1("123"),
             'rol' => "estudiante",
             'activo' => 1
@@ -326,9 +327,9 @@ class Fill_model extends CI_Model {
             'id_afiliacion' => 1,
             'nombres' => 'Paola Andrea',
             'apellidos' => 'Vargas',
-            'correo' => 'alejo@gmail.com',
+            'correo' => 'estudiante11',
             'imagen' => 'default.png',
-//            'usuario' => 'estudiante11',
+            'sexo' => 'm',
             'password' => sha1("123"),
             'rol' => "estudiante",
             'activo' => 1
@@ -340,9 +341,9 @@ class Fill_model extends CI_Model {
             'id_afiliacion' => 1,
             'nombres' => 'Vanessa ',
             'apellidos' => 'Molina',
-            'correo' => 'alejo@gmail.com',
+            'correo' => 'estudiante12',
             'imagen' => 'default.png',
-//            'usuario' => 'estudiante12',
+            'sexo' => 'm',
             'password' => sha1("123"),
             'rol' => "estudiante",
             'activo' => 1
@@ -352,11 +353,11 @@ class Fill_model extends CI_Model {
         $data = array(
             'id_usuario' => 15,
             'id_afiliacion' => 1,
-            'nombres' => 'Daniel Andres',
+            'nombres' => 'Daniela',
             'apellidos' => 'Gómez Ramírez',
-            'correo' => 'alejo@gmail.com',
+            'correo' => 'estudiante13',
             'imagen' => 'default.png',
-//            'usuario' => 'estudiante13',
+            'sexo' => 'f',
             'password' => sha1("123"),
             'rol' => "estudiante",
             'activo' => 1
@@ -368,9 +369,9 @@ class Fill_model extends CI_Model {
             'id_afiliacion' => 1,
             'nombres' => 'Juan',
             'apellidos' => 'Escobar',
-            'correo' => 'alejo@gmail.com',
+            'correo' => 'estudiante14',
             'imagen' => 'default.png',
-//            'usuario' => 'estudiante14',
+            'sexo' => 'm',
             'password' => sha1("123"),
             'rol' => "estudiante",
             'activo' => 1
@@ -566,6 +567,7 @@ class Fill_model extends CI_Model {
             'descripcion' => 'Lorem ipsum dolor sit amet, ex perfecto patrioque vim, per dolore animal ea. Ei integre moderatius intellegebat eum.',
             'ubicacion' => '2.mp4',
             'tipo' => 'video',
+            'duracion' => 960,
             'orden' => 2
         );
         $this->db->insert('material', $data);
@@ -588,6 +590,7 @@ class Fill_model extends CI_Model {
             'descripcion' => 'Lorem ipsum dolor sit amet, ex perfecto patrioque vim, per dolore animal ea. Ei integre moderatius intellegebat eum.',
             'ubicacion' => '4.mp4',
             'tipo' => 'video',
+            'duracion' => 960,
             'orden' => 4
         );
         $this->db->insert('material', $data);
@@ -597,6 +600,7 @@ class Fill_model extends CI_Model {
             'descripcion' => 'Lorem ipsum dolor sit amet, ex perfecto patrioque vim, per dolore animal ea. Ei integre moderatius intellegebat eum.',
             'ubicacion' => '2.mp4',
             'tipo' => 'video',
+            'duracion' => 960,
             'orden' => 5
         );
         $this->db->insert('material', $data);
@@ -617,6 +621,7 @@ class Fill_model extends CI_Model {
             'descripcion' => 'Lorem ipsum dolor sit amet, ex perfecto patrioque vim, per dolore animal ea. Ei integre moderatius intellegebat eum. Mei facer fabulas ut, id eum stet regione.',
             'ubicacion' => '2.mp4',
             'tipo' => 'video',
+            'duracion' => 960,
             'orden' => 7
         );
         $this->db->insert('material', $data);
@@ -627,6 +632,7 @@ class Fill_model extends CI_Model {
             'descripcion' => 'Lorem ipsum dolor sit amet, ex perfecto patrioque vim, per dolore animal ea. Ei integre moderatius intellegebat eum. Mei facer fabulas ut, id eum stet regione.',
             'ubicacion' => '2.mp4',
             'tipo' => 'video',
+            'duracion' => 960,
             'orden' => 8
         );
         $this->db->insert('material', $data);
@@ -751,7 +757,7 @@ class Fill_model extends CI_Model {
         $this->db->insert('evaluacion', $data);
 
         $data = array(
-            'id_evaluacion' =>11,
+            'id_evaluacion' => 11,
             'id_modulo' => 1,
             'orden' => 11,
             'id_tipo_evaluacion' => 1
@@ -798,8 +804,8 @@ class Fill_model extends CI_Model {
             'id_usuario' => 2,
             'id_evaluacion' => 1,
             'calificacion' => 1,
-            'fecha_inicial' => '2014-03-05 12:14:44',
-            'fecha_final' => '2014-03-05 12:15:50',
+            'fecha_inicial' => '2014-06-30 12:14:44',
+            'fecha_final' => '2014-06-30 12:15:50',
             'realimentacion' => 'Correcto'
         );
         $this->db->insert('usuario_x_evaluacion', $data);
@@ -809,8 +815,8 @@ class Fill_model extends CI_Model {
             'id_usuario' => 2,
             'id_evaluacion' => 1,
             'calificacion' => 1,
-            'fecha_inicial' => '2014-03-05 12:14:44',
-            'fecha_final' => '2014-03-05 12:15:50',
+            'fecha_inicial' => '2014-06-30 12:14:44',
+            'fecha_final' => '2014-06-30 12:15:50',
             'realimentacion' => 'Correcto'
         );
         $this->db->insert('usuario_x_evaluacion', $data);
@@ -820,8 +826,8 @@ class Fill_model extends CI_Model {
             'id_usuario' => 4,
             'id_evaluacion' => 1,
             'calificacion' => 1,
-            'fecha_inicial' => '2014-03-05 12:14:44',
-            'fecha_final' => '2014-03-05 12:15:50',
+            'fecha_inicial' => '2014-06-30 12:14:44',
+            'fecha_final' => '2014-06-30 12:15:50',
             'realimentacion' => 'Correcto'
         );
         $this->db->insert('usuario_x_evaluacion', $data);
@@ -831,8 +837,8 @@ class Fill_model extends CI_Model {
             'id_usuario' => 5,
             'id_evaluacion' => 1,
             'calificacion' => 1,
-            'fecha_inicial' => '2014-03-05 12:14:44',
-            'fecha_final' => '2014-03-05 12:15:50',
+            'fecha_inicial' => '2014-06-30 12:14:44',
+            'fecha_final' => '2014-06-30 12:15:50',
             'realimentacion' => 'Correcto'
         );
         $this->db->insert('usuario_x_evaluacion', $data);
@@ -842,8 +848,8 @@ class Fill_model extends CI_Model {
             'id_usuario' => 6,
             'id_evaluacion' => 1,
             'calificacion' => 1,
-            'fecha_inicial' => '2014-03-05 12:14:44',
-            'fecha_final' => '2014-03-05 12:15:50',
+            'fecha_inicial' => '2014-06-30 12:14:44',
+            'fecha_final' => '2014-06-30 12:15:50',
             'realimentacion' => 'Correcto'
         );
         $this->db->insert('usuario_x_evaluacion', $data);
@@ -853,8 +859,8 @@ class Fill_model extends CI_Model {
             'id_usuario' => 7,
             'id_evaluacion' => 1,
             'calificacion' => 1,
-            'fecha_inicial' => '2014-03-05 12:14:44',
-            'fecha_final' => '2014-03-05 12:15:50',
+            'fecha_inicial' => '2014-06-30 12:14:44',
+            'fecha_final' => '2014-06-30 12:15:50',
             'realimentacion' => 'Correcto'
         );
         $this->db->insert('usuario_x_evaluacion', $data);
@@ -864,8 +870,8 @@ class Fill_model extends CI_Model {
             'id_usuario' => 8,
             'id_evaluacion' => 1,
             'calificacion' => 1,
-            'fecha_inicial' => '2014-03-05 12:14:44',
-            'fecha_final' => '2014-03-05 12:15:50',
+            'fecha_inicial' => '2014-06-30 12:14:44',
+            'fecha_final' => '2014-06-30 12:15:50',
             'realimentacion' => 'Correcto'
         );
         $this->db->insert('usuario_x_evaluacion', $data);
@@ -875,8 +881,8 @@ class Fill_model extends CI_Model {
             'id_usuario' => 9,
             'id_evaluacion' => 1,
             'calificacion' => 1,
-            'fecha_inicial' => '2014-03-05 12:14:44',
-            'fecha_final' => '2014-03-05 12:15:50',
+            'fecha_inicial' => '2014-06-30 12:14:44',
+            'fecha_final' => '2014-06-30 12:15:50',
             'realimentacion' => 'Correcto'
         );
         $this->db->insert('usuario_x_evaluacion', $data);
@@ -886,8 +892,8 @@ class Fill_model extends CI_Model {
             'id_usuario' => 10,
             'id_evaluacion' => 1,
             'calificacion' => 1,
-            'fecha_inicial' => '2014-03-05 12:14:44',
-            'fecha_final' => '2014-03-05 12:15:50',
+            'fecha_inicial' => '2014-06-30 12:14:44',
+            'fecha_final' => '2014-06-30 12:15:50',
             'realimentacion' => 'Correcto'
         );
         $this->db->insert('usuario_x_evaluacion', $data);
@@ -897,8 +903,8 @@ class Fill_model extends CI_Model {
             'id_usuario' => 11,
             'id_evaluacion' => 1,
             'calificacion' => 1,
-            'fecha_inicial' => '2014-03-05 12:14:44',
-            'fecha_final' => '2014-03-05 12:15:50',
+            'fecha_inicial' => '2014-06-30 12:14:44',
+            'fecha_final' => '2014-06-30 12:15:50',
             'realimentacion' => 'Correcto'
         );
         $this->db->insert('usuario_x_evaluacion', $data);
@@ -908,8 +914,8 @@ class Fill_model extends CI_Model {
             'id_usuario' => 12,
             'id_evaluacion' => 1,
             'calificacion' => 1,
-            'fecha_inicial' => '2014-03-05 12:14:44',
-            'fecha_final' => '2014-03-05 12:15:50',
+            'fecha_inicial' => '2014-06-30 12:14:44',
+            'fecha_final' => '2014-06-30 12:15:50',
             'realimentacion' => 'Correcto'
         );
         $this->db->insert('usuario_x_evaluacion', $data);
@@ -919,8 +925,8 @@ class Fill_model extends CI_Model {
             'id_usuario' => 14,
             'id_evaluacion' => 1,
             'calificacion' => 1,
-            'fecha_inicial' => '2014-03-05 12:14:44',
-            'fecha_final' => '2014-03-05 12:15:50',
+            'fecha_inicial' => '2014-06-30 12:14:44',
+            'fecha_final' => '2014-06-30 12:15:50',
             'realimentacion' => 'Correcto'
         );
         $this->db->insert('usuario_x_evaluacion', $data);
@@ -930,8 +936,8 @@ class Fill_model extends CI_Model {
             'id_usuario' => 15,
             'id_evaluacion' => 1,
             'calificacion' => 1,
-            'fecha_inicial' => '2014-03-05 12:14:44',
-            'fecha_final' => '2014-03-05 12:15:50',
+            'fecha_inicial' => '2014-06-30 12:14:44',
+            'fecha_final' => '2014-06-30 12:15:50',
             'realimentacion' => 'Correcto'
         );
         $this->db->insert('usuario_x_evaluacion', $data);
@@ -941,8 +947,8 @@ class Fill_model extends CI_Model {
             'id_usuario' => 16,
             'id_evaluacion' => 1,
             'calificacion' => 1,
-            'fecha_inicial' => '2014-03-05 12:14:44',
-            'fecha_final' => '2014-03-05 12:15:50',
+            'fecha_inicial' => '2014-06-30 12:14:44',
+            'fecha_final' => '2014-06-30 12:15:50',
             'realimentacion' => 'Correcto'
         );
         $this->db->insert('usuario_x_evaluacion', $data);
@@ -952,8 +958,8 @@ class Fill_model extends CI_Model {
             'id_usuario' => 4,
             'id_evaluacion' => 1,
             'calificacion' => 1,
-            'fecha_inicial' => '2014-03-05 12:14:44',
-            'fecha_final' => '2014-03-05 12:15:50',
+            'fecha_inicial' => '2014-06-30 12:14:44',
+            'fecha_final' => '2014-06-30 12:15:50',
             'realimentacion' => 'Correcto'
         );
         $this->db->insert('usuario_x_evaluacion', $data);
@@ -963,33 +969,99 @@ class Fill_model extends CI_Model {
             'id_usuario' => 4,
             'id_evaluacion' => 2,
             'calificacion' => 1,
-            'fecha_inicial' => '2014-03-05 12:14:44',
-            'fecha_final' => '2014-03-05 12:15:50',
+            'fecha_inicial' => '2014-06-30 12:14:44',
+            'fecha_final' => '2014-06-30 12:15:50',
             'realimentacion' => 'Correcto'
         );
         $this->db->insert('usuario_x_evaluacion', $data);
-        
+
         $data = array(
             'id_usuario_evaluacion' => 17,
             'id_usuario' => 4,
             'id_evaluacion' => 3,
             'calificacion' => 1,
-            'fecha_inicial' => '2014-03-05 12:14:44',
-            'fecha_final' => '2014-03-05 12:15:50',
+            'fecha_inicial' => '2014-06-29 12:14:44',
+            'fecha_final' => '2014-06-29 12:15:50',
             'realimentacion' => 'Correcto'
         );
         $this->db->insert('usuario_x_evaluacion', $data);
-        
+
         $data = array(
             'id_usuario_evaluacion' => 18,
             'id_usuario' => 4,
-            'id_evaluacion' => 4,
+            'id_evaluacion' => 3,
             'calificacion' => 1,
-            'fecha_inicial' => '2014-03-05 12:14:44',
-            'fecha_final' => '2014-03-05 12:15:50',
+            'fecha_inicial' => '2014-06-30 12:14:44',
+            'fecha_final' => '2014-06-30 12:15:50',
             'realimentacion' => 'Correcto'
         );
         $this->db->insert('usuario_x_evaluacion', $data);
+
+        $data = array(
+            'id_usuario_evaluacion' => 19,
+            'id_usuario' => 4,
+            'id_evaluacion' => 4,
+            'calificacion' => 0.5,
+            'fecha_inicial' => '2014-06-29 12:14:44',
+            'fecha_final' => '2014-06-29 12:15:50',
+            'realimentacion' => 'Incorrecto'
+        );
+        $this->db->insert('usuario_x_evaluacion', $data);
+
+        $data = array(
+            'id_usuario_evaluacion' => 20,
+            'id_usuario' => 4,
+            'id_evaluacion' => 4,
+            'calificacion' => 1,
+            'fecha_inicial' => '2014-06-30 12:14:44',
+            'fecha_final' => '2014-06-30 12:15:50',
+            'realimentacion' => 'Correcto'
+        );
+        $this->db->insert('usuario_x_evaluacion', $data);
+    }
+
+    private function usuario_x_material() {
+        $this->db->empty_table('usuario_x_material');
+
+        $data = array(
+            'id_usuario' => 1,
+            'id_material' => 2,
+            'fecha_inicial' => '2014-06-30 12:14:44',
+            'fecha_final' => '2014-06-30 12:15:50'
+        );
+        $this->db->insert('usuario_x_material', $data);
+
+        $data = array(
+            'id_usuario' => 1,
+            'id_material' => 4,
+            'fecha_inicial' => '2014-06-30 12:14:44',
+            'fecha_final' => '2014-06-30 12:15:50'
+        );
+        $this->db->insert('usuario_x_material', $data);
+
+        $data = array(
+            'id_usuario' => 2,
+            'id_material' => 4,
+            'fecha_inicial' => '2014-06-30 12:14:44',
+            'fecha_final' => '2014-06-30 12:25:50'
+        );
+        $this->db->insert('usuario_x_material', $data);
+
+        $data = array(
+            'id_usuario' => 1,
+            'id_material' => 1,
+            'fecha_inicial' => '2014-06-30 12:14:44',
+            'fecha_final' => '2014-06-30 12:25:50'
+        );
+
+        $this->db->insert('usuario_x_material', $data);
+        $data = array(
+            'id_usuario' => 1,
+            'id_material' => 1,
+            'fecha_inicial' => '2014-07-04 12:14:44',
+            'fecha_final' => '2014-07-04 12:25:50'
+        );
+        $this->db->insert('usuario_x_material', $data);
     }
 
     private function usuario_x_modulo() {
