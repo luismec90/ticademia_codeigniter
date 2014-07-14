@@ -41,6 +41,11 @@ class Estudiante extends CI_Controller {
 
         $this->estudiantesConectados($data);
 
+        $this->conexionesPorDia($data);
+
+        $this->conexionesPorHora($data);
+
+
         $this->load->view('include/header', $data);
         $this->load->view('estadisticas/estudianteV');
         $this->load->view('include/footer');
@@ -62,7 +67,26 @@ class Estudiante extends CI_Controller {
         $data["cantidadEstudiantesConectados"] = $data["cantidadEstudiantesConectados"][0]->cantidad;
     }
 
+    function conexionesPorDia(&$data) {
+        $conexionesPorDia = $this->bitacora_model->cantidadEstudiantesConectadosPorDia($data["idCurso"]);
+        $datos = array();
+        foreach ($conexionesPorDia as $row) {
+            $datos[$row->fecha] = $row->cantidad;
+        }
+        $data["conexionesPorDia"] = $datos;
+    }
+
+    function conexionesPorHora(&$data) {
+        $conexionesPorHora = $this->bitacora_model->cantidadEstudiantesConectadosPorHora($data["idCurso"]);
+        $datos = array();
+        foreach ($conexionesPorHora as $row) {
+            $datos[$row->dia][$row->hora] = $row->cantidad;
+        }
+        $data["conexionesPorHora"] = $datos;
+    }
+
     public function infoestudiante($idUsuario, $idCurso) {
+        $this->load->model('material_model');
 
         $this->soyElProfesor($idCurso);
 
@@ -78,7 +102,18 @@ class Estudiante extends CI_Controller {
 
         foreach ($data["modulos"] as $row) {
             $data["materiales"][$row->id_modulo] = $this->usuario_x_material_model->obtenerMateriales($row->id_modulo, $idUsuario);
-            $data["evaluaciones"][$row->id_modulo] = $this->usuario_x_evaluacion_model->obtenerEvaluaciones($idCurso,$row->id_modulo, $idUsuario);
+            $data["evaluaciones"][$row->id_modulo] = $this->usuario_x_evaluacion_model->obtenerEvaluaciones($idCurso, $row->id_modulo, $idUsuario);
+            $porcentajeVisualizacion = $this->material_model->porcentajeVisualizacion($row->id_modulo, $idUsuario);
+           
+            $tmp = array();
+            foreach ($porcentajeVisualizacion as $row2) {
+                $tmp[$row2->id_material] = round($row2->tiempo_visto / $row2->duracion * 100);
+                if($tmp[$row2->id_material]>100){
+                    $tmp[$row2->id_material]=100;
+                }
+            }
+           
+            $data["porcentajeVisualizacion"][$row->id_modulo]=$tmp;
         }
 
         $this->load->view('include/header', $data);

@@ -243,4 +243,126 @@ class Material extends CI_Controller {
         <?php
     }
 
+    public function estadisticasValoraciones() {
+        $this->load->model('material_valoracion_model');
+
+        $idMaterial = $this->input->get('idMaterial');
+
+        $puntajes = $this->material_valoracion_model->obtenerValoraciones($idMaterial);
+
+
+        $rows = array();
+        $table = array();
+        $table['cols'] = array(
+            array('label' => 'Puntuación', 'type' => 'string'),
+            array('label' => 'Cantidad', 'type' => 'number')
+        );
+
+        foreach ($puntajes as $r) {
+
+            $temp = array();
+
+            // the following line will be used to slice the Pie chart
+
+            $temp[] = array('v' => "Puntuación: " . round($r->puntaje / 2, 1));
+
+            // Values of each slice
+
+            $temp[] = array('v' => (int) $r->cantidad);
+            $rows[] = array('c' => $temp);
+        }
+
+        $table['rows'] = $rows;
+        $jsonTable = json_encode($table);
+        echo $jsonTable;
+    }
+
+    public function estadisticasAccesos() {
+        $this->load->model('curso_model');
+
+        $idMaterial = $this->input->get('idMaterial');
+        $tipo = $this->input->get('tipo');
+        $idCurso = $this->input->get('idCurso');
+
+        $curso = $this->curso_model->obtenerCursoCompleto($idCurso);
+        $fechaInicio = $curso[0]->fecha_inicio;
+
+        if ($tipo == "pdf") {
+            $accesosPorDia = $this->material_model->obtenerAccesosPorDia($idMaterial, $idCurso);
+
+            $datos = array();
+            foreach ($accesosPorDia as $row) {
+                $datos[$row->fecha] = $row->cantidad;
+            }
+
+            $rows = array();
+            $table = array();
+            $table['cols'] = array(
+                array('label' => 'Fecha', 'type' => 'string'),
+                array('label' => 'Visitas', 'type' => 'number')
+            );
+
+            $current = $fechaInicio;
+            $end = Date('Y-m-d');
+            $startDate = strtotime($current);
+            $endDate = strtotime($end);
+            while ($startDate <= $endDate) {
+                $temp = array();
+
+                if (isset($datos[$current])) {
+                    $rows[] = array('c' => array(array("v" => dateToxAxis($current)), array("v" => $datos[$current])));
+                } else {
+                    $rows[] = array('c' => array(array("v" => dateToxAxis($current)), array("v" => 0)));
+                }
+                $current = date("Y-m-d", $startDate = strtotime('+1 day', $startDate));
+            }
+            $table['rows'] = $rows;
+            $jsonTable = json_encode($table);
+            echo $jsonTable;
+        } else {
+            $tiempoPromedioReproduccion = $this->material_model->tiempoPromdedioReproduccionPorMaterial($idCurso, $idMaterial);
+            $videoVisitas = $this->material_model->visitasPorDiaVideo($idCurso, $idMaterial);
+
+            $rows = array();
+            $table = array();
+            $table['cols'] = array(
+                array('label' => 'Fecha', 'type' => 'string'),
+                array('label' => 'Visitas', 'type' => 'number'),
+                array('label' => 'Porcentaje promedio de reproducción (%)', 'type' => 'number')
+            );
+
+            $current = $fechaInicio;
+            $end = Date('Y-m-d');
+            $startDate = strtotime($current);
+            $endDate = strtotime($end);
+            $t = sizeof($videoVisitas);
+            $i = 0;
+            $t2 = sizeof($tiempoPromedioReproduccion);
+            $j = 0;
+            while ($startDate <= $endDate) {
+                if ($i < $t && $videoVisitas[$i]->fecha == $current) {
+                    $a = dateToxAxis($current);
+                    $b = $videoVisitas[$i]->visitas;
+                    $i++;
+                } else {
+                    $a = dateToxAxis($current);
+                    $b = 0;
+                }
+
+                if ($j < $t2 && $tiempoPromedioReproduccion[$j]->fecha == $current) {
+                    $c = round($tiempoPromedioReproduccion[$j]->minutos * 60 / $tiempoPromedioReproduccion[$j]->duracion * 100);
+                    $j++;
+                } else {
+                    $c = 0;
+                }
+                $rows[] = array('c' => array(array("v" => $a), array("v" => $b), array("v" => $c)));
+                $current = date("Y-m-d", $startDate = strtotime('+1 day', $startDate));
+            }
+
+            $table['rows'] = $rows;
+            $jsonTable = json_encode($table);
+            echo $jsonTable;
+        }
+    }
+
 }

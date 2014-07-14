@@ -66,8 +66,18 @@ class Usuario_x_evaluacion_model extends CI_Model {
         return $this->db->query($query)->result();
     }
 
-    function obterenrIntentosUsuario($idModulo, $idUsuario) {
-        $query = "select ";
+    function obtenerRespuestas($idEvaluacion) {
+        $query = "SELECT realimentacion,count(realimentacion) cantidad FROM `usuario_x_evaluacion` WHERE id_evaluacion='$idEvaluacion' GROUP BY realimentacion";
+        return $this->db->query($query)->result();
+    }
+
+    function posiblesRespuestas($idEvaluacion) {
+        $query = "select distinct realimentacion from usuario_x_evaluacion where id_evaluacion='$idEvaluacion' group by realimentacion";
+        return $this->db->query($query)->result();
+    }
+
+    function respuestasPorDia($idEvaluacion,$idCurso) {
+        $query = "SELECT realimentacion,count(realimentacion) cantidad,DATE(fecha_inicial) fecha FROM `usuario_x_evaluacion` WHERE id_evaluacion='$idEvaluacion' AND fecha_inicial>=(SELECT fecha_inicio FROM curso WHERE id_curso='$idCurso') GROUP BY fecha,realimentacion";
         return $this->db->query($query)->result();
     }
 

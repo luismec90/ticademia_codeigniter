@@ -28,7 +28,7 @@ class Modulo extends CI_Controller {
         index_bitacora($idCurso);
         $data["idModulo"] = $idModulo;
         $data["css"] = array("libs/jquery-ui-1.10.4.custom/css/redmond/jquery-ui-1.10.4.custom.min", "libs/mediaElement/mediaelementplayer", "css/ranking", "css/modulo");
-        $data["js"] = array("libs/time-line/storyjs-embed", "libs/jquery-ui-1.10.4.custom/js/jquery-ui-1.10.4.custom.min", "libs/mediaElement/mediaelement-and-player", "libs/raty/lib/jquery.raty.min", "js/modulo",);
+        $data["js"] = array( "libs/jquery-ui-1.10.4.custom/js/jquery-ui-1.10.4.custom.min", "libs/mediaElement/mediaelement-and-player", "libs/raty/lib/jquery.raty.min","libs/googleCharts/jsapi", "js/modulo",);
 
         $datos = $this->material_model->obtenerMaterialesUsuario($idModulo, $_SESSION["idUsuario"]);
         $infoMaterial = array();
@@ -86,7 +86,7 @@ class Modulo extends CI_Controller {
                 $infoEvaluacion[$row->id_evaluacion]["puntuacion"] = MAX($valorMinimo, $infoEvaluacion[$row->id_evaluacion]["puntuacion"]);
                 $infoEvaluacion[$row->id_evaluacion]["flag"] = false;
             }
-            if ($row->fecha_inicial != null && $row->fecha_final != null) {
+            if ($row->calificacion >= $umbral && $row->fecha_inicial != null && $row->fecha_final != null) {
                 $tiempo = strtotime($row->fecha_final) - strtotime($row->fecha_inicial);
                 if ($tiempo < $infoEvaluacion[$row->id_evaluacion]["menor_tiempo"] || $infoEvaluacion[$row->id_evaluacion]["menor_tiempo"] == -1) {
                     $infoEvaluacion[$row->id_evaluacion]["menor_tiempo"] = $tiempo;

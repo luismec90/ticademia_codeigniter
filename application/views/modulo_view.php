@@ -39,8 +39,9 @@
                                         </td>
                                         <?php if ($_SESSION["rol"] == "profesor") { ?>
                                             <td class="min-with-estudiante">
-                                                <button title="Editar material" class="btn btn-warning btn-size-custom-1 editarMaterial" data-toggle="modal" data-target="#modalEditarMaterial" data-id-material="<?= $row->id_material ?>" data-nombre="<?= $row->nombre ?>" data-descripcion="<?= $row->descripcion ?>"> <i class="fa fa-pencil-square-o"></i></button>
-                                                <button title="Eliminar material" class="btn btn-danger btn-size-custom-1 eliminarMaterial" data-toggle="modal" data-target="#modalEliminarMaterial" data-id-material="<?= $row->id_material ?>" data-nombre="<?= $row->nombre ?>"><i class="fa fa-trash-o"></i></button>
+                                                <button title="Estadísticas" class="btn btn-primary btn-size-custom-1 estadisticasMaterial" data-id-material="<?= $row->id_material ?>" data-tipo="<?= $row->extension ?>"> <i class="fa fa-bar-chart-o"></i></button>
+                                                <button title="Editar" class="btn btn-warning btn-size-custom-1 editarMaterial" data-toggle="modal" data-target="#modalEditarMaterial" data-id-material="<?= $row->id_material ?>" data-nombre="<?= $row->nombre ?>" data-descripcion="<?= $row->descripcion ?>"> <i class="fa fa-pencil-square-o"></i></button>
+                                                <button title="Eliminar" class="btn btn-danger btn-size-custom-1 eliminarMaterial" data-toggle="modal" data-target="#modalEliminarMaterial" data-id-material="<?= $row->id_material ?>" data-nombre="<?= $row->nombre ?>"><i class="fa fa-trash-o"></i></button>
                                             </td>
                                         <?php } ?>
                                     <tr>
@@ -110,8 +111,9 @@
                                             </div>
                                             <?php if ($_SESSION["rol"] == "profesor") { ?>
                                                 <div class="opciones">
-                                                    <button title="Editar material" class="btn btn-warning btn-size-custom-1 editarEvaluacion"  data-toggle="modal" data-target="#modalEditarEvaluacion"  data-id-evaluacion="<?= $row->id_evaluacion ?>" data-tipo="<?= $row->id_tipo_evaluacion ?>"> <i class="fa fa-pencil-square-o"></i></button>
-                                                    <button title="Eliminar material" class="btn btn-danger btn-size-custom-1 eliminarEvaluacion"  data-toggle="modal" data-target="#modalEliminarEvaluacion"  data-id-evaluacion="<?= $row->id_evaluacion ?>" data-numero="<?= $i ?>"><i class="fa fa-trash-o"></i></button>
+                                                    <button title="Estadísticas" class="btn btn-primary btn-size-custom-1 estadisticasEvaluacion" data-id-evaluacion="<?= $row->id_evaluacion ?>"> <i class="fa fa-bar-chart-o"></i></button>
+                                                    <button title="Editar" class="btn btn-warning btn-size-custom-1 editarEvaluacion"  data-toggle="modal" data-target="#modalEditarEvaluacion"  data-id-evaluacion="<?= $row->id_evaluacion ?>" data-tipo="<?= $row->id_tipo_evaluacion ?>"> <i class="fa fa-pencil-square-o"></i></button>
+                                                    <button title="Eliminar" class="btn btn-danger btn-size-custom-1 eliminarEvaluacion"  data-toggle="modal" data-target="#modalEliminarEvaluacion"  data-id-evaluacion="<?= $row->id_evaluacion ?>" data-numero="<?= $i ?>"><i class="fa fa-trash-o"></i></button>
                                                 </div>
                                             <?php } ?>
                                         </div>
@@ -497,6 +499,46 @@
 
             <div id="bodymodalRespuestaEvaluacion" class="modal-body">
 
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" id="modalEstadisticasMaterial" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                <h4 class="modal-title" id="myModalLabel">Estadísticas<div id="preview-stars"></div></h4>
+            </div>
+
+            <div id="bodymodalEstadisticasMaterial" class="modal-body">
+                <div id="modal-estadistica1"></div>
+                    <div id="modal-estadistica2"></div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" id="modalEstadisticasEvaluacion" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                <h4 class="modal-title" id="myModalLabel">Estadísticas<div id="preview-stars"></div></h4>
+            </div>
+
+            <div class="modal-body">
+                <div id="modal-estadistica-evaluacion1"></div>
+                   <div id="modal-estadistica-evaluacion2"></div>
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>

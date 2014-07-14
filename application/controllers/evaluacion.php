@@ -86,7 +86,7 @@ class Evaluacion extends CI_Controller {
         if (file_exists($ruta)) {
             echo exec("rm -R $ruta");
         }
-         $this->mensaje("Evaluación eliminada exitosamente", "success", "modulo/$idModulo");
+        $this->mensaje("Evaluación eliminada exitosamente", "success", "modulo/$idModulo");
     }
 
     public function ordenarEvaluacion() {
@@ -105,6 +105,102 @@ class Evaluacion extends CI_Controller {
             }
         }
         $this->mensaje("Evaluaciones ordenados exitosamente", "success", "modulo/$idModulo");
+    }
+
+    public function estadisticasRespuestas() {
+        $this->load->model('usuario_x_evaluacion_model');
+
+        $idEvalucion = $this->input->get('idEvaluacion');
+
+        $respuestas = $this->usuario_x_evaluacion_model->obtenerRespuestas($idEvalucion);
+
+
+        $rows = array();
+        $table = array();
+        $table['cols'] = array(
+            array('label' => 'Respuesta', 'type' => 'string'),
+            array('label' => 'Cantidad', 'type' => 'number')
+        );
+
+        foreach ($respuestas as $r) {
+
+            $temp = array();
+
+            // the following line will be used to slice the Pie chart
+
+            $temp[] = array('v' => "Realimentacion: " . $r->realimentacion);
+
+            // Values of each slice
+
+            $temp[] = array('v' => (int) $r->cantidad);
+            $rows[] = array('c' => $temp);
+        }
+
+        $table['rows'] = $rows;
+        $jsonTable = json_encode($table);
+        echo $jsonTable;
+    }
+
+    public function estadisticasRespuestas2() {
+        $this->load->model('usuario_x_evaluacion_model');
+        $this->load->model('curso_model');
+
+        $idEvalucion = $this->input->get('idEvaluacion');
+        $respuestas = $this->usuario_x_evaluacion_model->posiblesRespuestas($idEvalucion);
+
+        $idCurso = $this->input->get('idCurso');
+
+        $curso = $this->curso_model->obtenerCursoCompleto($idCurso);
+        $fechaInicio = $curso[0]->fecha_inicio;
+
+        $respuestasPorDia = $this->usuario_x_evaluacion_model->respuestasPorDia($idEvalucion, $idCurso);
+        $datos = array();
+
+        foreach ($respuestasPorDia as $row) {
+            foreach ($respuestas as $row2) {
+                if ($row2->realimentacion == $row->realimentacion) {
+                    $datos[$row->fecha][$row2->realimentacion] = $row->cantidad;
+                } else if (!isset($datos[$row->fecha][$row2->realimentacion])) {
+                    $datos[$row->fecha][$row2->realimentacion] = 0;
+                }
+            }
+        }
+
+
+        $rows = array();
+        $table = array();
+        $table['cols'] = array(   array('label' => 'Fecha', 'type' => 'string'));
+        
+        foreach ($respuestas as $row) {
+            $aux = array('label' => $row->realimentacion, 'type' => 'number');
+            array_push($table['cols'], $aux);
+        }
+        $current = $fechaInicio;
+        $end = Date('Y-m-d');
+        $startDate = strtotime($current);
+        $endDate = strtotime($end);
+        while ($startDate <= $endDate) {
+
+        $tmp=array(array("v" => dateToxAxis($current)));
+            if (isset($datos[$current])) {
+
+                foreach ($respuestas as $row) {
+                    $aux = array("v" => $datos[$current][$row->realimentacion]);
+                    array_push($tmp, $aux);
+                }
+            } else {
+                foreach ($respuestas as $row) {
+                    $aux = array("v" => 0);
+                    array_push($tmp,$aux);
+                }
+            }
+          
+           array_push($rows, array('c' => $tmp));
+            $current = date("Y-m-d", $startDate = strtotime('+1 day', $startDate));
+        }
+        $table['rows'] = $rows;
+        $jsonTable = json_encode($table);
+       echo $jsonTable;
     }
 
 }

@@ -122,6 +122,22 @@ class Material_model extends CI_Model {
         return $this->db->query($query)->result();
     }
 
+    public function visitasPorDiaVideo($idCurso, $idMaterial) {
+        $query = "SELECT ma.id_material,DATE_FORMAT(um.fecha_inicial,'%Y-%m-%d') as fecha,count(ma.id_material)
+                 visitas from material ma JOIN usuario_x_material um ON ma.id_material=um.id_material
+                 WHERE ma.tipo='video' AND ma.id_material='$idMaterial' AND um.fecha_inicial >= (SELECT c.fecha_inicio FROM curso c WHERE c.id_curso='$idCurso') GROUP BY fecha";
+        return $this->db->query($query)->result();
+    }
+
+    public function tiempoPromdedioReproduccionPorMaterial($idCurso, $idMaterial) {
+        $query = "SELECT ma.id_material,COALESCE(ma.duracion,1) duracion, DATE_FORMAT(um.fecha_inicial, '%Y-%m-%d') as fecha, 
+                count(ma.id_material) visitas, ROUND(AVG(TIME_TO_SEC(TIMEDIFF(um.fecha_final, um.fecha_inicial))/60)) minutos 
+                from material ma JOIN usuario_x_material um ON ma.id_material = um.id_material JOIN modulo modu ON ma.id_modulo=modu.id_modulo AND modu.id_curso='$idCurso' 
+                WHERE ma.tipo = 'video' AND um.fecha_final IS NOT NULL AND ma.id_material='$idMaterial'
+                AND um.fecha_inicial >= (SELECT c.fecha_inicio FROM curso c WHERE c.id_curso = '$idCurso') GROUP BY fecha";
+        return $this->db->query($query)->result();
+    }
+
     public function tiempoPromdedioReproduccion($idCurso) {
         $query = "SELECT ma.id_material,COALESCE(ma.duracion,1) duracion, DATE_FORMAT(um.fecha_inicial, '%Y-%m-%d') as fecha, 
                 count(ma.id_material) visitas, ROUND(AVG(TIME_TO_SEC(TIMEDIFF(um.fecha_final, um.fecha_inicial))/60)) minutos 
@@ -136,6 +152,30 @@ class Material_model extends CI_Model {
                 join material ma ON um.id_material=ma.id_material
                 join modulo m ON m.id_modulo=ma.id_modulo
                 where um.id_usuario='$idUsuario' AND m.id_curso='$idCurso'";
+        return $this->db->query($query)->result();
+    }
+
+    public function obtenerAccesosPorDia($idMaterial, $idCurso) {
+        $query = "SELECT DATE(um.fecha_inicial) fecha,count(um.id_usuario_x_material) cantidad 
+                    FROM usuario_x_material um 
+                    WHERE um.id_material='$idMaterial'
+                    AND fecha_inicial>=(SELECT fecha_inicio FROM curso WHERE id_curso='$idCurso')
+                    GROUP by fecha";
+        return $this->db->query($query)->result();
+    }
+
+    public function porcentajeVisualizacion($idModulo, $idUsuario) {
+        $query = "SELECT ma.id_material,ma.duracion duracion,SUM(TIME_TO_SEC(TIMEDIFF(um.fecha_final, um.fecha_inicial))) tiempo_visto FROM material ma JOIN usuario_x_material um ON ma.id_material=um.id_material  WHERE ma.id_modulo='$idModulo' AND um.id_usuario='$idUsuario' AND  ma.tipo='video' GROUP BY ma.id_material";
+        return $this->db->query($query)->result();
+    }
+
+    public function porcentajeVisualizacionTodoElCurso($idUsuario,$idCurso) {
+        $query = "SELECT round(AVG(promedio)) promedio FROM (SELECT ma.id_material id_material,
+                    SUM(TIME_TO_SEC(TIMEDIFF(um.fecha_final, um.fecha_inicial))/ma.duracion*100) promedio
+                    from material ma
+                    left join usuario_x_material um on ma.id_material=um.id_material
+                    join modulo mo ON ma.id_modulo=mo.id_modulo
+                    where mo.id_curso='$idCurso' AND ma.tipo='video' and um.id_usuario='$idUsuario' group by ma.id_material ) prom";
         return $this->db->query($query)->result();
     }
 

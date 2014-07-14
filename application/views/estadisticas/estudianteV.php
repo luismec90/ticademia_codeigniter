@@ -98,10 +98,9 @@ while ($startDate <= $endDate) {
 
 
                                     var options = {
+                                                hAxis:{title: 'Día del mes'},
                                         vAxis: {title: 'Cantidad de estudiantes matriculados %',
                                         },
-                                       
-                                       
                                         'height': 400};
                                     // Instantiate and draw our chart, passing in some options.
                                     var chart = new google.visualization.LineChart(document.getElementById('distribucion-niveles-por-dia'));
@@ -110,7 +109,7 @@ while ($startDate <= $endDate) {
                             </script>
                         </div>
                     </div>
-                    <div class="row">
+                     <div class="row">
                         <div class="col-sm-12">
                             <hr>
                             <h3 class="text-center">  Estudiantes conectados: <?= $cantidadEstudiantesConectados ?> </h3>
@@ -118,6 +117,115 @@ while ($startDate <= $endDate) {
                         </div>
 
                     </div>
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="panel panel-primary">
+                                <div class="panel-heading">
+                                    <h3 class="panel-title">Conexiones por día</h3>
+                                </div>
+                                <div class="panel-body">
+                                    <center> <div id="conexiones-por-dia"></div> </center>
+                                </div>
+                            </div>
+
+                            <script>
+
+                                function conexionesPorDia() {
+
+                                    // Create the data table.
+                                    var data = google.visualization.arrayToDataTable([
+<?php
+$fila = "['Fecha','Conexiones por día'],";
+
+
+echo $fila;
+$current = $fechaInicio;
+$end = Date('Y-m-d');
+$startDate = strtotime($current);
+$endDate = strtotime($end);
+$i = 0;
+$t = sizeof($conexionesPorDia);
+while ($startDate <= $endDate) {
+    $fila = "['" . dateToxAxis($current) . "'";
+    if (isset($conexionesPorDia[$current])) {
+        $fila.= "," . $conexionesPorDia[$current];
+    } else {
+        $fila.= ",0";
+    }
+    $fila .= "],";
+    echo $fila;
+    $current = date("Y-m-d", $startDate = strtotime('+1 day', $startDate));
+}
+?>
+                                    ]);
+
+                                    // Set chart options
+                                    var options = {
+                                          hAxis:{title: 'Día del mes'},
+                                           vAxis:{title: 'Cantidad de estudiantes conectados'},
+                                        height: 400};
+
+                                    // Instantiate and draw our chart, passing in some options.
+                                    var chart = new google.visualization.LineChart(document.getElementById('conexiones-por-dia'));
+                                    chart.draw(data, options);
+                                }
+                            </script>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="panel panel-primary">
+                                <div class="panel-heading">
+                                    <h3 class="panel-title">Conexiones por hora</h3>
+                                </div>
+                                <div class="panel-body">
+                                    <center> <div id="conexiones-por-hora"></div> </center>
+                                </div>
+                            </div>
+
+                            <script>
+
+                                function conexionesPorHora() {
+
+                                    // Create the data table.
+                                    var data = google.visualization.arrayToDataTable([
+<?php
+$fila = "['Hora','Domingo','Lunes','Martes','Miércoles','Jueves','Viernes','Sábado'],";
+
+
+echo $fila;
+
+$i = 0;
+
+for ($i = 0; $i < 24; $i++) {
+    $fila = "[$i";
+    for ($j = 1; $j < 8; $j++) {
+        if (isset($conexionesPorHora[$j][$i])) {
+            $fila.= "," . $conexionesPorHora[$j][$i]."";
+        } else {
+            $fila.= ",0";
+        }
+    }
+
+    $fila .= "],";
+    echo $fila;
+}
+?>
+                                    
+                                    ]);
+
+                                    // Set chart options
+                                    var options = {
+                                          hAxis:{title: 'Hora del día (0-23)'},
+                                           vAxis:{title: 'Cantidad de estudiantes conectados'},
+                                        height: 400};
+
+                                    // Instantiate and draw our chart, passing in some options.
+                                    var chart = new google.visualization.LineChart(document.getElementById('conexiones-por-hora'));
+                                    chart.draw(data, options);
+                                }
+                            </script>
+                        </div>
+                    </div>
+                   
                 </div>
             </div>
         </div>

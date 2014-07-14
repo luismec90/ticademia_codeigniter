@@ -102,6 +102,13 @@ class Ranking extends CI_Controller {
             $materiales = $this->material_model->cantidadMaterialesObservados($row->id_usuario, $idCurso);
             $materiales = $materiales[0]->cantidad;
 
+            $videos = $this->material_model->porcentajeVisualizacionTodoElCurso($row->id_usuario, $idCurso);
+            $videos = $videos[0]->promedio;
+
+            if(!$videos){
+                $videos=0;
+            }
+            
             $foro = $this->tema_foro_model->contarPublicaciones($row->id_usuario, $idCurso);
             $foro = $foro[0]->cantidad;
 
@@ -112,7 +119,7 @@ class Ranking extends CI_Controller {
 
             $aux = array(
                 "posicion" => $i++,
-                "nombre" => "<a href='".base_url()."infoestudiante/{$row->id_usuario}/$idCurso'>$row->nombres</a>",
+                "nombre" => "<a href='" . base_url() . "infoestudiante/{$row->id_usuario}/$idCurso'>$row->nombres</a>",
                 "avatar" => "<img width='70' src='" . base_url() . "assets/img/avatares/thumbnails/" . $row->imagen . "'>",
                 "puntaje" => $row->puntaje_total,
                 "last_login" => $last_login,
@@ -122,6 +129,7 @@ class Ranking extends CI_Controller {
                 "modulos" => $modulosAprobados,
                 "evaluaciones" => $evaluaciones,
                 "materiales" => $materiales,
+                "videos" => $videos."%",
                 "foro" => $foro,
                 "muro" => $muro
             );

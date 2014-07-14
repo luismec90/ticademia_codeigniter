@@ -54,7 +54,9 @@
                                                     <td><?= $row2->nombre ?></td>
                                                     <td><?= $row2->tipo ?></td>
                                                     <td><?= ($row2->visto) ? "Si" : "No" ?></td>
-                                                    <td></td>
+                                                    <td><?php if($row2->tipo=="video" && isset($porcentajeVisualizacion[$row->id_modulo][$row2->id_material])){ echo $porcentajeVisualizacion[$row->id_modulo][$row2->id_material]."%"; } else if($row2->tipo=="video"){
+                                                        echo "0%";
+                                                    }else echo "n/a"; ?></td>
                                                     <td><div class="estrellas" data-score="<?= $row2->puntaje / 2 ?>" ></div></td>
                                                     <td><?= $row2->comentario ?></td>
                                                 </tr>

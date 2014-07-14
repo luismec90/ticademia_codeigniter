@@ -43,4 +43,8 @@ class Material_valoracion_model extends CI_Model {
         return $this->db->query($query)->result();
     }
 
+    public function obtenerValoraciones($idMaterial) {
+        $query = "SELECT puntaje,count(puntaje) cantidad FROM `material_valoracion` WHERE id_material='$idMaterial' GROUP BY puntaje";
+        return $this->db->query($query)->result();
+    }
 }

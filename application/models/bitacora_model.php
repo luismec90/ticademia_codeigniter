@@ -34,6 +34,16 @@ class Bitacora_model extends CI_Model {
         return $this->db->query($query)->result();
     }
 
+    function cantidadEstudiantesConectadosPorDia($idCurso) {
+        $query = "SELECT DATE(fecha_salida) fecha,COUNT(distinct(id_usuario)) cantidad FROM bitacora WHERE id_curso='$idCurso' AND fecha_salida IS NOT NULL GROUP BY fecha";
+        return $this->db->query($query)->result();
+    }
+
+    function cantidadEstudiantesConectadosPorHora($idCurso) {
+        $query = "SELECT DAYOFWEEK(fecha_salida) dia,HOUR(fecha_salida) hora,COUNT(distinct(id_usuario)) cantidad FROM bitacora WHERE id_curso='$idCurso' AND fecha_salida IS NOT NULL GROUP BY dia,hora";
+        return $this->db->query($query)->result();
+    }
+
     function cantidadAccesos($idUsuario, $idCurso) {
         $query = "SELECT count(*) cantidad FROM bitacora where FECHA_SALIDA is not NULL and id_usuario='$idUsuario' and id_curso='$idCurso'";
         return $this->db->query($query)->result();
