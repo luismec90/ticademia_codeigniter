@@ -59,7 +59,7 @@ class Fill_model extends CI_Model {
         $this->db->empty_table('nivel');
         $data = array(
             'id_nivel' => 1,
-            'nombre' => 'Nivel 1',
+            'nombre' => 'Zombie',
             'imagen' => '1.jpg',
             'descripcion' => 'Lorem ipsum dolor sit amet, ex perfecto patrioque vim, per dolore animal ea'
         );
@@ -67,7 +67,7 @@ class Fill_model extends CI_Model {
 
         $data = array(
             'id_nivel' => 2,
-            'nombre' => 'Nivel 2',
+            'nombre' => 'Principiante',
             'imagen' => '2.jpg',
             'descripcion' => 'Lorem ipsum dolor sit amet, ex perfecto patrioque vim, per dolore animal ea'
         );
@@ -75,7 +75,7 @@ class Fill_model extends CI_Model {
 
         $data = array(
             'id_nivel' => 3,
-            'nombre' => 'Nivel 3',
+            'nombre' => 'Pupilo',
             'imagen' => '3.jpg',
             'descripcion' => 'Lorem ipsum dolor sit amet, ex perfecto patrioque vim, per dolore animal ea'
         );
@@ -83,7 +83,7 @@ class Fill_model extends CI_Model {
 
         $data = array(
             'id_nivel' => 4,
-            'nombre' => 'Nivel 4',
+            'nombre' => 'Aprendiz',
             'imagen' => '4.jpg',
             'descripcion' => 'Lorem ipsum dolor sit amet, ex perfecto patrioque vim, per dolore animal ea'
         );
@@ -91,11 +91,44 @@ class Fill_model extends CI_Model {
 
         $data = array(
             'id_nivel' => 5,
-            'nombre' => 'Nivel 5',
+            'nombre' => 'Iniciado',
             'imagen' => '5.jpg',
             'descripcion' => 'Lorem ipsum dolor sit amet, ex perfecto patrioque vim, per dolore animal ea'
         );
         $this->db->insert('nivel', $data);
+        
+         $data = array(
+            'id_nivel' => 6,
+            'nombre' => 'Conocedor',
+            'imagen' => '5.jpg',
+            'descripcion' => 'Lorem ipsum dolor sit amet, ex perfecto patrioque vim, per dolore animal ea'
+        );
+        $this->db->insert('nivel', $data);
+        
+         $data = array(
+            'id_nivel' => 7,
+            'nombre' => 'Maestro',
+            'imagen' => '5.jpg',
+            'descripcion' => 'Lorem ipsum dolor sit amet, ex perfecto patrioque vim, per dolore animal ea'
+        );
+        $this->db->insert('nivel', $data);
+        
+         $data = array(
+            'id_nivel' => 8,
+            'nombre' => 'Sabio',
+            'imagen' => '5.jpg',
+            'descripcion' => 'Lorem ipsum dolor sit amet, ex perfecto patrioque vim, per dolore animal ea'
+        );
+        $this->db->insert('nivel', $data);
+        
+         $data = array(
+            'id_nivel' => 9,
+            'nombre' => 'Erudito',
+            'imagen' => '5.jpg',
+            'descripcion' => 'Lorem ipsum dolor sit amet, ex perfecto patrioque vim, per dolore animal ea'
+        );
+        $this->db->insert('nivel', $data);
+        
     }
 
     private function curso() {

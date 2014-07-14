@@ -129,6 +129,7 @@ $(function() {
 
     });
     $("#contenedor .open,#contenedor .solved").click(function() {
+        evaluacionOReto = "evaluacion";
         idEvaluacion = $(this).data("id-evaluacion");
         startEvaluation = new Date();
         $("#contenedor-frame iframe").attr("src", $(this).data("ubicacion"))

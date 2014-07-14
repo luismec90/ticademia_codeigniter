@@ -7,7 +7,7 @@ use Ratchet\ConnectionInterface;
 
 class Reto implements MessageComponentInterface {
 
-    protected $aulas; //Contiene todas las conexiones de los estudiantes separadas por curso
+    protected $aulas; //Contiene todas las conexiones de lso estudiantes separadas por curso
     protected $json; //Contiene todas los estudiantes conectados (sin duplicados) para un curso en especifico
     protected $enDuelo; // Conetiene los ids delos estudiamtes en duelo; $idretador=>$idRetado
 
@@ -48,10 +48,18 @@ class Reto implements MessageComponentInterface {
                 }
                 /* --------- */
 
-
+                /* Informale a los demas estudiantes del curso que un estudiante se acabo de conectar */
                 if (!isset($this->json[$idCurso][$idUsuario])) {// Si el estudiante no existe en el array de estudiantes conectados para un curso en especifico
                     $this->json[$idCurso][$idUsuario] = array("nombre_usuario" => $data->nombre_usuario, "id_resources" => ""); // Registrar el estudiante en el curso
                     $this->json[$idCurso][$idUsuario]["id_resources"][$resourceId] = $resourceId; // Almacenos todas las locaciones del estudiante
+                    $user = array();
+                    $user[$idUsuario] = $data->nombre_usuario;
+                    $dataToUser = json_encode(array("tipo" => "user_on", "datos" => $user));
+                    foreach ($this->aulas[$idCurso] as $row) {// Recorro todos las conexiones de los estudiantes para un curso
+                        if ($idUsuario != $row->id_usuario) {// si el estudiante actual es diferente al estudiante que envio el mensaje
+                            $row->send($dataToUser); // Enviar mensaje
+                        }
+                    }
                 }
                 break;
 
@@ -61,17 +69,11 @@ class Reto implements MessageComponentInterface {
                 $idCurso = $data->id_curso;
                 $idUsuario = $data->id_usuario;
                 $nombreUsuario = $data->nombre_usuario;
-                $usuarioRetado = $this->encontrarOponente($idUsuario, $idCurso);
+                $usuarioRetado = $data->usuario_retado;
                 /* ---- */
 
-                if ($usuarioRetado == -1) {
-                    $user = array();
-                    $user[$idUsuario] = $nombreUsuario;
-                    $dataToUser = json_encode(array("tipo" => "no_hay_oponentes", "datos" => $user));
-                    foreach ($this->json[$idCurso][$idUsuario]["id_resources"] as $row) {
-                        $this->aulas[$idCurso][$row]->send($dataToUser);
-                    }
-                } else if (isset($this->json[$idCurso][$usuarioRetado])) {// Si el usuario retado esta conectado.
+                /* Notificar al usuario retado */
+                if (isset($this->json[$idCurso][$usuarioRetado])) {// Si el usuario retado esta conectado.
                     $user = array();
                     $user[$idUsuario] = $nombreUsuario;
                     $dataToUser = json_encode(array("tipo" => "retado", "datos" => $user));
@@ -91,16 +93,14 @@ class Reto implements MessageComponentInterface {
                 /* ---- */
 
                 if (isset($this->json[$idCurso][$idUsuario]) && isset($this->json[$idCurso][$usuarioRetador])) { // Si los dos usuarios estan conectados se puede proceder
-                    $rutaReto = $this->obtenerReto($usuarioRetador, $idUsuario);
-
-                    $reto = array();
-                    $reto["reto"] = $rutaReto;
-                    $dataToUser = json_encode(array("tipo" => "reto_aceptado", "datos" => $reto));
+                    $user = array();
+                    $user[$idUsuario] = $data->nombre_usuario;
+                    $dataToUser = json_encode(array("tipo" => "reto_aceptado", "datos" => $user));
 
                     foreach ($this->json[$idCurso][$usuarioRetador]["id_resources"] as $row) {// Se le notofica a todas las conexiones del usuario retador para que inicie el duelo
                         $this->aulas[$idCurso][$row]->send($dataToUser);
                     }
-                    foreach ($this->json[$idCurso][$idUsuario]["id_resources"] as $row) { // Se le notifica a todas las conexiones del usuario retado para que inicie el duelo
+                    foreach ($this->json[$idCurso][$idUsuario]["id_resources"] as $row) { // Se le notofica a todas las conexiones del usuario retado para que inicie el duelo
                         $this->aulas[$idCurso][$row]->send($dataToUser);
                     }
                     $lastId = $this->ejecutarQuery("INSERT INTO reto(retador,retado,id_curso) VALUES('$usuarioRetador','{$idUsuario}','{$idCurso}')");
@@ -136,6 +136,7 @@ class Reto implements MessageComponentInterface {
                 break;
 
             case "enviar_respuesta":// Un usuario envio la respuesta del reto
+
                 /* Datos enviados por el cliente */
                 $idCurso = $data->id_curso;
                 $posibleGanador = $data->posible_ganador;
@@ -181,13 +182,18 @@ class Reto implements MessageComponentInterface {
 
                 unset($this->json[$key][$idUsuario]["id_resources"][$conn->resourceId]); // Elimino la conexion del json
 
-                if (sizeof($this->json[$key][$idUsuario]["id_resources"]) == 0) { // Si no hay mas conexiones de ese usuario en el json, eliminarlo
+                if (sizeof($this->json[$key][$idUsuario]["id_resources"]) == 0) { // Si no hay mas conexiones de ese usuario en el json, eliminarlo y notificar
                     unset($row[$conn->resourceId]);
                     unset($this->json[$key][$idUsuario]);
+                    $user = array();
+                    $user[$idUsuario] = $nombreUsuario;
+                    $data_to_user = json_encode(array("tipo" => "user_off", "datos" => $user));
+                    foreach ($this->aulas[$key] as $row) {
+                        $row->send($data_to_user);
+                    }
                 }
 
                 /* Verificar si el usuario estaba en duelo */
-
                 /* Si era retador se le informa de la desconexion al retado */
                 if (isset($this->enDuelo[$idUsuario])) {
                     $idUsuarioRetado = $this->enDuelo[$idUsuario]["usuario_retado"];
@@ -247,18 +253,6 @@ class Reto implements MessageComponentInterface {
         foreach ($this->json[$idCurso][$idUsuario]["id_resources"] as $row) {
             $this->aulas[$idCurso][$row]->send($mensaje);
         }
-    }
-
-    private function encontrarOponente($idUsuario, $idCurso) {
-        foreach ($this->json[$idCurso] as $key => $row) {
-            if ($key != $idUsuario)
-                return $key;
-        }
-        return -1;
-    }
-
-    private function obtenerReto($idretador, $idRetado) {
-        return "resources/1/1/1/launch.html";
     }
 
 }

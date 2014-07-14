@@ -5,13 +5,12 @@ $(function() {
     if (idUsuarioGlobal != -1) {
         socket();
 
-        $("#usuarios-conectados").on("click", "a", function() {// Retar a alguien
+        $("#arena").click(function() {// Retar a alguien
             var data = {
                 tipo: 'retar',
                 id_curso: idCursoGlobal,
                 id_usuario: idUsuarioGlobal,
-                nombre_usuario: nombreUsuarioGlobal,
-                usuario_retado: $(this).data("id-usuario")
+                nombre_usuario: nombreUsuarioGlobal
             };
             conn.send(JSON.stringify(data));
         });
@@ -60,31 +59,6 @@ function socket() {
         if (e.data != []) {
             var data = JSON.parse(e.data);
             switch (data.tipo) {
-                case "inicio":// Establecer conoexion
-                    var str = "";
-                    $.each(data.datos, function(id_usuario, info) {
-                        if (id_usuario != idUsuarioGlobal) {
-                            str += "<li id='usuario-" + id_usuario + "'><a data-id-usuario='" + id_usuario + "'>" + info.nombre_usuario + "</a></li>";
-                        }
-                    });
-                    $("#usuarios-conectados").html(str);
-                    break;
-
-                case "user_on":// Notificacion de un usuario conecatdo
-                    var str = "";
-                    $.each(data.datos, function(id_usuario, nombre_usuario) {
-                        if (id_usuario != idUsuarioGlobal) {
-                            str += "<li id='usuario-" + id_usuario + "'><a data-id-usuario='" + id_usuario + "'>" + nombre_usuario + "</a></li>";
-                        }
-                    });
-                    $("#usuarios-conectados").append(str);
-                    break;
-
-                case "user_off":// Notificacion de un usuario desconecatdo
-                    $.each(data.datos, function(id_usuario, nombre_usuario) {
-                        $("#usuario-" + id_usuario).remove();
-                    });
-                    break;
 
                 case "retado":// Notificacion de que ha sido retado
                     $.each(data.datos, function(id_usuario, nombre_usuario) {
@@ -103,8 +77,9 @@ function socket() {
                     break;
 
                 case "reto_aceptado"://Notifocacion de iniciar el duelo, este mensaje le llega tanto al retado como al retador
-                    $.each(data.datos, function(id_usuario, nombre_usuario) {
-                        $("#contenedor-frame iframe").attr("src", base_url + "retos/1/launch.html");
+                    $.each(data.datos, function(reto, ruta) {
+                        evaluacionOReto = "reto";
+                        $("#contenedor-frame iframe").attr("src", base_url + ruta);
                         $("#coverDisplay").css({
                             "opacity": "1",
                             "width": "100%",
@@ -152,6 +127,15 @@ function socket() {
                         $("#custom-modal").modal();
                     });
                     break;
+
+                case "no_hay_oponentes":// Notificacion de que ha sido retado
+                    $.each(data.datos, function(id_usuario, nombre_usuario) {
+                        $(".modal").modal('hide');
+                        $("#custom-modal-title").html("Reto");
+                        $("#body-custom-modal").html("No hay oponentes");
+                        $("#custom-modal").modal();
+                    });
+                    break;
             }
         }
     };
@@ -174,6 +158,7 @@ function date_to_server_date(date) {
     return anio + "-" + mes + "-" + dia + " " + hora + ":" + ":" + min + ":" + sec;
 }
 function cerrarReto() {
+    console.log("si");
     $("#coverDisplay").css({
         "opacity": "0",
         "width": "0",

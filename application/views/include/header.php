@@ -59,12 +59,7 @@
                     <ul class="nav navbar-nav navbar-right">
                         <?php if (isset($_SESSION["nombre"])) { ?>
                             <?php if (isset($idCurso)) { ?>
-                                <li class="dropdown">
-                                    <a href="#" class="dropdown-toggle white" data-toggle="dropdown"> <i class="fa fa-users fa-lg"></i> <b class="caret"></b></a>
-                                    <ul id="usuarios-conectados" class="dropdown-menu">
-
-                                    </ul>
-                                </li>
+                                <li ><a id="arena" title="Arena" class="white"><span class="glyphicon glyphicon-play"></span></a></li>
                                 <?php if ($_SESSION["rol"] == "profesor") { ?>
                                     <li class="dropdown <?= ($tab == "estadisticaestudiantes" || $tab == "estadisticamateriales"  || $tab == "estadisticapreguntas" ) ? "active" : ""; ?>">
                                         <a href="#" class="dropdown-toggle white" data-toggle="dropdown"> <i class="icon-position fa fa-bar-chart-o fa-lg"></i> <b class="caret"></b></a>

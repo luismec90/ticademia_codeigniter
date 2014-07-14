@@ -27,7 +27,7 @@ $(function() {
     /*var missConception1 = fn/fr;
 	var missConception2 = fn/fnr;
 	var missConception3 = fr;*/
-    //console.log(correctAnswer + " " + missConception1);
+    console.log(correctAnswer + " " );
     draw();
 
     $("#verificar").click(function() {
@@ -94,7 +94,7 @@ $(function() {
                 API.calificar(calificacion, feedback);
             }
             API.LMSSetValue("cmi.core.score.raw", calificacion);
-            API.LMSFinish("feedback", feedback);
+            API.LMSFinish("feedback", feedback); API.notifyDaemon(calificacion);
         }
     });
     $("#aceptar").click(function() {

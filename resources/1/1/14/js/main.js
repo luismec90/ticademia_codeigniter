@@ -43,7 +43,7 @@ $(function() {
                 API.calificar(calificacion, feedback);
             }
             API.LMSSetValue("cmi.core.score.raw", calificacion);
-            API.LMSFinish("feedback", feedback);
+            API.LMSFinish("feedback", feedback); API.notifyDaemon(calificacion);
         }
     });
     $("#aceptar").click(function() {

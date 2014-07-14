@@ -179,7 +179,7 @@
                 <h4 class="modal-title" id="custom-modal-title"></h4>
             </div>
             <div id="body-custom-modal" class="modal-body">
-             
+
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-primary" data-dismiss="modal">Aceptar</button>
@@ -196,16 +196,17 @@
     <script src="<?= base_url() ?>assets/js/api.js"></script>
 </div>
 <script>
-    base_url = "<?= base_url() ?>";
-    idUsuarioGlobal = -1;
-    nombreUsuarioGlobal = "";
-    idCursoGlobal = -1;
-    fechaInicioReto = "";
+                        base_url = "<?= base_url() ?>";
+                        idUsuarioGlobal = -1;
+                        nombreUsuarioGlobal = "";
+                        idCursoGlobal = -1;
+                        fechaInicioReto = "";
+                        evaluacionOReto = "";
 <?php if (isset($_SESSION["idUsuario"]) && isset($idCurso)) {
     ?>
-        idUsuarioGlobal = "<?= $_SESSION["idUsuario"] ?>";
-        nombreUsuarioGlobal = "<?= $_SESSION["nombre"] ?>";
-        idCursoGlobal = "<?= $idCurso ?>";
+                            idUsuarioGlobal = "<?= $_SESSION["idUsuario"] ?>";
+                            nombreUsuarioGlobal = "<?= $_SESSION["nombre"] ?>";
+                            idCursoGlobal = "<?= $idCurso ?>";
 <?php }
 ?>
 
