@@ -250,7 +250,7 @@ $(function() {
         var data = new google.visualization.DataTable(jsonData);
 
         var chart = new google.visualization.PieChart(document.getElementById('modal-estadistica1'));
-        chart.draw(data, {title: "Valoraciones"});
+        chart.draw(data, {title: "Valoraciones",width:550});
 
         var jsonData2 = $.ajax({
             url: "../material/estadisticasAccesos?idMaterial=" + idMaterial + "&tipo=" + tipo + "&idCurso=" + idCursoGlobal,
@@ -261,7 +261,7 @@ $(function() {
         var data = new google.visualization.DataTable(jsonData2);
 
         var chart = new google.visualization.LineChart(document.getElementById('modal-estadistica2'));
-        chart.draw(data, {title: "Vistas por día", width: 400, hAxis: {showTextEvery: 4}});
+        chart.draw(data, {title: "Vistas por día", width: 400, hAxis: {showTextEvery: 4},width:550});
 
         $("#modalEstadisticasMaterial").modal();
 
@@ -280,7 +280,7 @@ $(function() {
 
         var data = new google.visualization.DataTable(jsonData);
         var chart = new google.visualization.PieChart(document.getElementById('modal-estadistica-evaluacion1'));
-        chart.draw(data, {title: "Respuestas"});
+        chart.draw(data, {title: "Respuestas",width:550});
 
         var jsonData2 = $.ajax({
             url: "../evaluacion/estadisticasRespuestas2?idEvaluacion=" + idEvaluacion + "&idCurso=" + idCursoGlobal,
@@ -290,7 +290,7 @@ $(function() {
 
         var data = new google.visualization.DataTable(jsonData2);
         var chart = new google.visualization.LineChart(document.getElementById('modal-estadistica-evaluacion2'));
-        chart.draw(data, {title: "Respuestas", hAxis: {showTextEvery: 4}});
+        chart.draw(data, {title: "Respuestas", hAxis: {showTextEvery: 4},width:550});
 
         $("#modalEstadisticasEvaluacion").modal();
     });
@@ -322,10 +322,6 @@ function loadRankingMod(e) {
         }
     }
 
-
-
-}
-function modalEstadisticas1($data) {
 
 
 }

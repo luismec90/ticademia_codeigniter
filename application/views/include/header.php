@@ -60,8 +60,8 @@
                         <?php if (isset($_SESSION["nombre"])) { ?>
                             <?php if (isset($idCurso)) { ?>
                                 <li ><a id="arena" title="Arena" class="white"><span class="glyphicon glyphicon-play"></span></a></li>
-                                <?php if ($_SESSION["rol"] == "profesor") { ?>
-                                    <li class="dropdown <?= ($tab == "estadisticaestudiantes" || $tab == "estadisticamateriales"  || $tab == "estadisticapreguntas" ) ? "active" : ""; ?>">
+                                <?php if (validarProfesor($idCurso, $_SESSION["idUsuario"])) { ?>
+                                    <li class="dropdown <?= ($tab == "estadisticaestudiantes" || $tab == "estadisticamateriales" || $tab == "estadisticapreguntas" ) ? "active" : ""; ?>">
                                         <a href="#" class="dropdown-toggle white" data-toggle="dropdown"> <i class="icon-position fa fa-bar-chart-o fa-lg"></i> <b class="caret"></b></a>
                                         <ul  class="dropdown-menu">
                                             <li class="<?= ($tab == "estadisticaestudiantes") ? "active" : ""; ?>">
@@ -69,7 +69,7 @@
                                                     Estudiantes
                                                 </a>
                                             </li>
-                                             <li class="<?= ($tab == "estadisticamateriales") ? "active" : ""; ?>">
+                                            <li class="<?= ($tab == "estadisticamateriales") ? "active" : ""; ?>">
                                                 <a href="<?= base_url() ?>estadisticamateriales/<?= $idCurso ?>">
                                                     Materiales
                                                 </a>
@@ -132,13 +132,13 @@
                                                         <button type="submit" class="btn btn-success btn-block">Entrar</button>
                                                     </div>
                                                 </form>
-                                              
+
                                             </div>
                                         </div>
                                         <div class="row">
-                                             <div class="col-md-12 text-center">
-                                               <a id="link-olvido-pass" href="<?= base_url() ?>recuperar"> ¿Olvidó su contraseña?</a>
-                                             </div>
+                                            <div class="col-md-12 text-center">
+                                                <a id="link-olvido-pass" href="<?= base_url() ?>recuperar"> ¿Olvidó su contraseña?</a>
+                                            </div>
                                         </div>
                                     </li>
                                 </ul>

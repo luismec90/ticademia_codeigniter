@@ -80,22 +80,7 @@ class Curso extends CI_Controller {
         $c['timeline']['text'] = '';
         $c['timeline']['date'] = array();
 
-        if ($_SESSION["rol"] == "estudiante") {
-            foreach ($modulos as $row) {
-                $topN = $this->calcultarTopN($row->id_modulo, 10, $idCurso);
-                array_push($c['timeline']['date'], array(
-                    "headline" => $row->nombre,
-                    "startDate" => str_replace("-", ",", $row->fecha_inicio),
-                    "endDate" => str_replace("-", ",", $row->fecha_fin),
-                    "classname" => "modulo" . $row->id_modulo,
-                    "text" => $row->descripcion,
-                    "asset" => array(
-                        "media" => '../assets/img/p2.png',
-                        "credit" => "$topN<span title='Ver ranking' class='btn btn-info btn-ver-ranking' onclick='loadRankingMod(this)' data-id-modulo='" . $row->id_modulo . "' data-id-curso='$idCurso'><i class='fa fa-trophy'></i> Ranking</span>"
-                    )
-                ));
-            }
-        } else if ($_SESSION["rol"] == "profesor") {
+       if (validarProfesor($idCurso, $_SESSION["idUsuario"])) {
             foreach ($modulos as $row) {
                 $topN = $this->calcultarTopN($row->id_modulo, 10, $idCurso);
                 array_push($c['timeline']['date'], array(
@@ -109,6 +94,21 @@ class Curso extends CI_Controller {
                         "credit" => "$topN<span title='Ver ranking' class='btn btn-info' onclick='loadRankingMod(this)'  data-id-modulo='" . $row->id_modulo . "'  data-id-curso='$idCurso'><i class='fa fa-trophy'></i> Ranking</span>
                                 <span title='Editar módulo' class='btn btn-warning editarModulo' data-toggle='modal' data-target='#modalEditarModulo' data-id-modulo='" . $row->id_modulo . "' data-nombre='" . $row->nombre . "' data-desde='" . $row->fecha_inicio . "' data-hasta='" . $row->fecha_fin . "' data-descripcion='" . $row->descripcion . "'> <i class='fa fa-pencil-square-o'></i> Editar</span>
                                 <span title='Eliminar módulo' class='btn btn-danger eliminarModulo' data-toggle='modal' data-target='#modalEliminarModulo' data-id-modulo='" . $row->id_modulo . "' data-nombre='" . $row->nombre . "'><i class='fa fa-trash-o'></i> Eliminar</span>"
+                    )
+                ));
+            }
+        } else {
+            foreach ($modulos as $row) {
+                $topN = $this->calcultarTopN($row->id_modulo, 10, $idCurso);
+                array_push($c['timeline']['date'], array(
+                    "headline" => $row->nombre,
+                    "startDate" => str_replace("-", ",", $row->fecha_inicio),
+                    "endDate" => str_replace("-", ",", $row->fecha_fin),
+                    "classname" => "modulo" . $row->id_modulo,
+                    "text" => $row->descripcion,
+                    "asset" => array(
+                        "media" => '../assets/img/p2.png',
+                        "credit" => "$topN<span title='Ver ranking' class='btn btn-info btn-ver-ranking' onclick='loadRankingMod(this)' data-id-modulo='" . $row->id_modulo . "' data-id-curso='$idCurso'><i class='fa fa-trophy'></i> Ranking</span>"
                     )
                 ));
             }

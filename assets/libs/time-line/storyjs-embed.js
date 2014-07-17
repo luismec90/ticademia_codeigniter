@@ -153,7 +153,7 @@ function createStoryJS(e, t) {
             css: embed_path + "css/",
             js: embed_path + "js/",
             locale: embed_path + "js/locale/",
-            jquery: "//ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js",
+            jquery: " ",
             font: {
                 google: !1,
                 css: embed_path + "css/themes/font/",

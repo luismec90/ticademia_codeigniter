@@ -6,6 +6,10 @@ $(function() {
         socket();
 
         $("#arena").click(function() {// Retar a alguien
+            $("#modal-arena").modal({
+                keyboard: false,
+                backdrop: "static"
+            });
             var data = {
                 tipo: 'retar',
                 id_curso: idCursoGlobal,
@@ -44,7 +48,7 @@ $(function() {
 
 });
 function socket() {
-    conn = new WebSocket('ws://guiame.medellin.unal.edu.co:8080?id_curso=45');
+    conn = new WebSocket('ws://guiame.medellin.unal.edu.co:8080');
     conn.onopen = function(e) {
         console.log("Connection established!");
         var data = {
@@ -61,6 +65,7 @@ function socket() {
             switch (data.tipo) {
 
                 case "retado":// Notificacion de que ha sido retado
+                    $(".modal").modal('hide');
                     $.each(data.datos, function(id_usuario, nombre_usuario) {
                         usuarioRetadorGlobal = id_usuario;
                         $("#body-modal-retado").html("El usuario " + nombre_usuario + " te ha retado a un duelo, deseas aceptar?");
@@ -69,6 +74,7 @@ function socket() {
                     break;
 
                 case "reto_rechazado":// El usuario retado rechazo el reto
+                    $(".modal").modal('hide');
                     cerrarReto();
                     $.each(data.datos, function(id_usuario, nombre_usuario) {
                         $("#nombre-usuario-reto-rechazado").html(nombre_usuario);
@@ -77,6 +83,7 @@ function socket() {
                     break;
 
                 case "reto_aceptado"://Notifocacion de iniciar el duelo, este mensaje le llega tanto al retado como al retador
+                    $(".modal").modal('hide');
                     $.each(data.datos, function(reto, ruta) {
                         evaluacionOReto = "reto";
                         $("#contenedor-frame iframe").attr("src", base_url + ruta);
@@ -92,6 +99,7 @@ function socket() {
                     break;
 
                 case "desconectado_antes":
+                    $(".modal").modal('hide');
                     cerrarReto();
                     $.each(data.datos, function(id_usuario, nombre_usuario) {
                         $(".modal").modal('hide');
@@ -100,6 +108,7 @@ function socket() {
                     break;
 
                 case "desconectado":
+                    $(".modal").modal('hide');
                     cerrarReto();
                     $.each(data.datos, function(id_usuario, nombre_usuario) {
                         $(".modal").modal('hide');
@@ -109,6 +118,7 @@ function socket() {
                     break;
 
                 case "empate":
+                    $(".modal").modal('hide');
                     cerrarReto();
                     $.each(data.datos, function(id_usuario, nombre_usuario) {
                         $(".modal").modal('hide');
@@ -119,6 +129,7 @@ function socket() {
                     break;
 
                 case "ganador":
+                    $(".modal").modal('hide');
                     cerrarReto();
                     $.each(data.datos, function(id_usuario, nombre_usuario) {
                         $(".modal").modal('hide');
@@ -129,6 +140,7 @@ function socket() {
                     break;
 
                 case "no_hay_oponentes":// Notificacion de que ha sido retado
+                    $(".modal").modal('hide');
                     $.each(data.datos, function(id_usuario, nombre_usuario) {
                         $(".modal").modal('hide');
                         $("#custom-modal-title").html("Reto");

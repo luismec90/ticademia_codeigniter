@@ -1396,9 +1396,10 @@ class Fill_model extends CI_Model {
 
     private function usuario_curso_logro() {
         $this->db->empty_table('usuario_curso_logro');
+        return;
         $data = array(
             'id_usuario_curso_logro' => 1,
-            'id_usuario' => 1,
+            'id_usuario' => 4,
             'id_curso' => 1,
             'id_logro' => 1,
             'visto' => 1
@@ -1407,7 +1408,7 @@ class Fill_model extends CI_Model {
 
         $data = array(
             'id_usuario_curso_logro' => 2,
-            'id_usuario' => 1,
+            'id_usuario' => 5,
             'id_curso' => 1,
             'id_logro' => 2,
             'visto' => 1
@@ -1417,7 +1418,7 @@ class Fill_model extends CI_Model {
 
     private function muro() {
         $this->db->empty_table('muro');
-        $data = array(
+    /*    $data = array(
             'id_muro' => 1,
             'id_curso' => 1,
             'id_usuario' => 1,
@@ -1425,7 +1426,7 @@ class Fill_model extends CI_Model {
             'tipo' => 'logro'
         );
         $this->db->insert('muro', $data);
-
+*/
 
         $data = array(
             'id_muro' => 2,
@@ -1436,7 +1437,7 @@ class Fill_model extends CI_Model {
         );
         $this->db->insert('muro', $data);
 
-        $data = array(
+       /* $data = array(
             'id_muro' => 3,
             'muro_id_muro' => 1,
             'id_curso' => 1,
@@ -1444,6 +1445,8 @@ class Fill_model extends CI_Model {
             'mensaje' => "Felicitaciones!"
         );
         $this->db->insert('muro', $data);
+        * */
+        
     }
 
     private function bitacora_nivel() {

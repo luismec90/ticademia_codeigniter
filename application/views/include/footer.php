@@ -187,6 +187,24 @@
         </div>
     </div>
 </div>
+<div class="modal fade" id="modal-arena" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title" id="">Arena</h4>
+            </div>
+            <div id="" class="modal-body">
+                Buscando oponente
+                <center>
+                    <img id="" src="<?= base_url() ?>assets/img/loading.gif">
+                </center>
+            </div>
+<!--            <div class="modal-footer">
+                <button type="button" class="btn btn-primary" data-dismiss="modal">Aceptar</button>
+            </div>-->
+        </div>
+    </div>
+</div>
 <div id="contenedor-frame" class="hide">
     <div id="botonCerrarFrame">
         <i class="fa fa-times fa-2x"></i> 
