@@ -36,7 +36,18 @@ class Api extends CI_Controller {
     }
 
     public function LMSFinish() {
-        //Do something
+        
+    }
+
+    public function checkSinInformacion() {
+        if(empty($_POST['idEvaluacion'])){
+            exit();
+        }
+        $data = array(
+            'id_usuario_evaluacion' => $_SESSION[$_SESSION["idUsuario"] . "-" . $_POST['idEvaluacion']]
+        );
+        unset($_SESSION[$_SESSION["idUsuario"] . "-" . $_POST['idEvaluacion']]);
+        $this->usuario_x_evaluacion_model->setSinInformacion($data);
     }
 
     public function calificar() {
@@ -51,19 +62,22 @@ class Api extends CI_Controller {
         }
         if ($_POST["calificacion"] == 1) {
             $feedback = $mensajeCorrecto[rand(0, 2)];
+            $realimentacion = "Correcto";
         } else if ($_POST["calificacion"] == 0) {
             $feedback = $mensajeIncorrecto[rand(0, 2)];
+            $realimentacion = "Incorrecto";
         } else {
             $feedback = $_POST["feedback"];
+            $realimentacion = $feedback;
         }
         echo $feedback;
         $data = array(
             'id_usuario_evaluacion' => $_SESSION[$_SESSION["idUsuario"] . "-" . $_POST['idEvaluacion']],
             'calificacion' => $_POST["calificacion"],
             'duracion' => $_POST['duracion'],
-            'realimentacion' => $feedback
+            'realimentacion' => $realimentacion
         );
-        unset($_SESSION[$_SESSION["idUsuario"] . "-" . $_POST['idEvaluacion']]);
+
         $this->usuario_x_evaluacion_model->calificar($data);
 
         $curso = $this->curso_model->obtenerCursoConEvaluacion($_POST['idEvaluacion']);

@@ -127,7 +127,9 @@ class Evaluacion extends CI_Controller {
             $temp = array();
 
             // the following line will be used to slice the Pie chart
-
+            if ($r->realimentacion == "") {
+                $r->realimentacion = "Sin información";
+            }
             $temp[] = array('v' => "Realimentacion: " . $r->realimentacion);
 
             // Values of each slice
@@ -169,10 +171,10 @@ class Evaluacion extends CI_Controller {
 
         $rows = array();
         $table = array();
-        $table['cols'] = array(   array('label' => 'Fecha', 'type' => 'string'));
-        
+        $table['cols'] = array(array('label' => 'Fecha', 'type' => 'string'));
+
         foreach ($respuestas as $row) {
-            $aux = array('label' => $row->realimentacion, 'type' => 'number');
+            $aux = array('label' => ($row->realimentacion=="") ? "Sin información":$row->realimentacion, 'type' => 'number');
             array_push($table['cols'], $aux);
         }
         $current = $fechaInicio;
@@ -181,7 +183,7 @@ class Evaluacion extends CI_Controller {
         $endDate = strtotime($end);
         while ($startDate <= $endDate) {
 
-        $tmp=array(array("v" => dateToxAxis($current)));
+            $tmp = array(array("v" => dateToxAxis($current)));
             if (isset($datos[$current])) {
 
                 foreach ($respuestas as $row) {
@@ -191,16 +193,16 @@ class Evaluacion extends CI_Controller {
             } else {
                 foreach ($respuestas as $row) {
                     $aux = array("v" => 0);
-                    array_push($tmp,$aux);
+                    array_push($tmp, $aux);
                 }
             }
-          
-           array_push($rows, array('c' => $tmp));
+
+            array_push($rows, array('c' => $tmp));
             $current = date("Y-m-d", $startDate = strtotime('+1 day', $startDate));
         }
         $table['rows'] = $rows;
         $jsonTable = json_encode($table);
-       echo $jsonTable;
+        echo $jsonTable;
     }
 
 }

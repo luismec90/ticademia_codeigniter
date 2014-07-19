@@ -15,7 +15,7 @@ class Inicio extends CI_Controller {
         $data["tab"] = "inicio";
         $data["css"] = array("css/inicio");
         $data["js"] = array("js/inicio");
-       
+
         $data["cursos"] = $this->curso_model->obtenerCursos();
 
         foreach ($data["cursos"] as $row) {
@@ -26,7 +26,11 @@ class Inicio extends CI_Controller {
         }
 
         $this->load->view('include/header', $data);
-        $this->load->view('inicio_view');
+        if (isset($_SESSION["idUsuario"]))
+            $this->load->view('inicio_view');
+        else
+            $this->load->view('inicio_guest_view');
+
         $this->load->view('include/footer');
     }
 

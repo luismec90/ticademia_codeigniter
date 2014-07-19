@@ -97,8 +97,10 @@
                 <h4 class="modal-title" id="myModalLabel">Has sido retado</h4>
             </div>
             <div id="body-modal-retado" class="modal-body">
+                <span id="content-modal-retado"></span> 
             </div>
             <div class="modal-footer">
+                <span id="cuenta-regresiva-retado" class="pull-left"></span>
                 <button id="rechazar-modal-retado" type="button" class="btn btn-default" data-dismiss="modal">Rechazar</button>
                 <button id="aceptar-modal-retado" type="button" class="btn btn-primary" data-dismiss="modal">Aceptar</button>
             </div>
@@ -116,23 +118,8 @@
                 <em id="nombre-usuario-reto-rechazado" class="text-info"></em> ha rechazado el reto.
             </div>
             <div class="modal-footer">
-                <button type="button" class="btn btn-primary" data-dismiss="modal">Aceptar</button>
-            </div>
-        </div>
-    </div>
-</div>
-<div class="modal fade" id="comenzar-reto" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-    <div class="modal-dialog">
-        <div class="modal-content">
-            <div class="modal-header">
-                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-                <h4 class="modal-title" id="myModalLabel">Has sido retado</h4>
-            </div>
-            <div id="body-modal-retado" class="modal-body">
-                2+2=<input id="respuesta-reto"  type="text">
-            </div>
-            <div class="modal-footer">
-                <button id="enviar-respuesta-reto" type="button" class="btn btn-primary" data-dismiss="modal">Enviar</button>
+                <button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>
+                <button id="arena2" type="button" class="btn btn-primary" data-dismiss="modal">Reintentar</button>
             </div>
         </div>
     </div>
@@ -194,14 +181,14 @@
                 <h4 class="modal-title" id="">Arena</h4>
             </div>
             <div id="" class="modal-body">
-                Buscando oponente
-                <center>
+                <center>  Buscando oponente <span id="cuenta-regresiva"></span> </center>
+                <center><br>
                     <img id="" src="<?= base_url() ?>assets/img/loading.gif">
                 </center>
             </div>
-<!--            <div class="modal-footer">
-                <button type="button" class="btn btn-primary" data-dismiss="modal">Aceptar</button>
-            </div>-->
+            <!--            <div class="modal-footer">
+                            <button type="button" class="btn btn-primary" data-dismiss="modal">Aceptar</button>
+                        </div>-->
         </div>
     </div>
 </div>
@@ -221,7 +208,7 @@
                         fechaInicioReto = "";
                         evaluacionOReto = "";
 <?php if (isset($_SESSION["idUsuario"]) && isset($idCurso)) {
-    ?>
+    ?>                      rolGlobal = "<?= $_SESSION["rol"] ?>";
                             idUsuarioGlobal = "<?= $_SESSION["idUsuario"] ?>";
                             nombreUsuarioGlobal = "<?= $_SESSION["nombre"] ?>";
                             idCursoGlobal = "<?= $idCurso ?>";

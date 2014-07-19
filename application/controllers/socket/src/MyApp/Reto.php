@@ -91,8 +91,8 @@ class Reto implements MessageComponentInterface {
                 /* ---- */
 
                 if (isset($this->json[$idCurso][$idUsuario]) && isset($this->json[$idCurso][$usuarioRetador])) { // Si los dos usuarios estan conectados se puede proceder
-                    $rutaReto = $this->obtenerReto($usuarioRetador, $idUsuario);
-
+                    $idReto = $this->obtenerReto($usuarioRetador, $idUsuario);
+                    $rutaReto = $this->obtenerRutaReto($idReto);
                     $reto = array();
                     $reto["reto"] = $rutaReto;
                     $dataToUser = json_encode(array("tipo" => "reto_aceptado", "datos" => $reto));
@@ -103,7 +103,7 @@ class Reto implements MessageComponentInterface {
                     foreach ($this->json[$idCurso][$idUsuario]["id_resources"] as $row) { // Se le notifica a todas las conexiones del usuario retado para que inicie el duelo
                         $this->aulas[$idCurso][$row]->send($dataToUser);
                     }
-                    $lastId = $this->ejecutarQuery("INSERT INTO reto(retador,retado,id_curso) VALUES('$usuarioRetador','{$idUsuario}','{$idCurso}')");
+                    $lastId = $this->ejecutarQuery("INSERT INTO reto(retador,retado,id_curso,id_evaluacion) VALUES('$usuarioRetador','{$idUsuario}','{$idCurso}','{$idReto}')");
                     $this->enDuelo[$usuarioRetador]["usuario_retado"] = $idUsuario;
                     $this->enDuelo[$usuarioRetador]["id_reto_tabla"] = $lastId;
                     $this->enDuelo[$usuarioRetador]["respuestas_enviadas"] = 0;
@@ -223,7 +223,7 @@ class Reto implements MessageComponentInterface {
 
     private function ejecutarQuery($query) {
         $link = mysql_connect("localhost", "root", "qwe123admin");
-        mysql_select_db("minerva", $link);
+        mysql_select_db("ticademia", $link);
         mysql_query($query, $link);
         $latsId = mysql_insert_id();
         mysql_close($link);
@@ -258,6 +258,10 @@ class Reto implements MessageComponentInterface {
     }
 
     private function obtenerReto($idretador, $idRetado) {
+        return "1";
+    }
+
+    private function obtenerRutaReto($idRetos) {
         return "resources/1/1/1/launch.html";
     }
 

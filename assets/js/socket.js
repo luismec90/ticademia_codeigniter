@@ -2,14 +2,27 @@ var conn;
 var usuarioRetadorGlobal;
 
 $(function() {
-    if (idUsuarioGlobal != -1) {
+    if (idUsuarioGlobal != -1 && rolGlobal == "estudiante") {
         socket();
 
-        $("#arena").click(function() {// Retar a alguien
+        $("#arena,#arena2").click(function() {// Retar a alguien
+            $(".modal").modal('hide');
             $("#modal-arena").modal({
                 keyboard: false,
                 backdrop: "static"
             });
+            var time = 10;
+            $("#cuenta-regresiva").html(time--);
+            var t = setInterval(function() {
+                if (time == 0) {
+                    clearTimeout(t);
+                    if ($("#modal-arena").is(":visible")) {
+//                        $(".modal").modal('hide');
+                    }
+                }
+                $("#cuenta-regresiva").html(time--);
+
+            }, 1000);
             var data = {
                 tipo: 'retar',
                 id_curso: idCursoGlobal,
@@ -68,9 +81,29 @@ function socket() {
                     $(".modal").modal('hide');
                     $.each(data.datos, function(id_usuario, nombre_usuario) {
                         usuarioRetadorGlobal = id_usuario;
-                        $("#body-modal-retado").html("El usuario " + nombre_usuario + " te ha retado a un duelo, deseas aceptar?");
+                        $("#content-modal-retado").html("El usuario " + nombre_usuario + " te ha retado a un duelo, deseas aceptar?");
                         $("#retado").modal();
                     });
+                    var time = 10;
+                    $("#cuenta-regresiva-retado").html(time--);
+                    var t = setInterval(function() {
+                        if (time == 0) {
+                            clearTimeout(t);
+                            if ($("#retado").is(":visible")) {
+                                $(".modal").modal('hide');
+                                var data = {
+                                    tipo: 'rechazar_reto',
+                                    id_curso: idCursoGlobal,
+                                    id_usuario: idUsuarioGlobal,
+                                    nombre_usuario: nombreUsuarioGlobal,
+                                    usuario_retador: usuarioRetadorGlobal
+                                };
+                                conn.send(JSON.stringify(data));
+                            }
+                        }
+                        $("#cuenta-regresiva-retado").html(time--);
+
+                    }, 1000);
                     break;
 
                 case "reto_rechazado":// El usuario retado rechazo el reto

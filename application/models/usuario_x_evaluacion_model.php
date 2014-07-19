@@ -19,6 +19,12 @@ class Usuario_x_evaluacion_model extends CI_Model {
         $this->db->update('usuario_x_evaluacion');
     }
 
+    function setSinInformacion($data) {// set sin informacion si no hay realimentacion
+        $query = "UPDATE  usuario_x_evaluacion set realimentacion='Sin resolver'
+                  WHERE id_usuario_evaluacion='{$data['id_usuario_evaluacion']}' AND realimentacion=''";
+         $this->db->query($query);
+    }
+
     function vecesAprobada($idEvaluacion, $umbral) {
         $query = "SELECT COUNT(*) total FROM usuario_x_evaluacion WHERE id_usuario={$_SESSION["idUsuario"]} AND id_evaluacion='$idEvaluacion' AND calificacion>=$umbral";
         return $this->db->query($query)->result();
@@ -76,7 +82,7 @@ class Usuario_x_evaluacion_model extends CI_Model {
         return $this->db->query($query)->result();
     }
 
-    function respuestasPorDia($idEvaluacion,$idCurso) {
+    function respuestasPorDia($idEvaluacion, $idCurso) {
         $query = "SELECT realimentacion,count(realimentacion) cantidad,DATE(fecha_inicial) fecha FROM `usuario_x_evaluacion` WHERE id_evaluacion='$idEvaluacion' AND fecha_inicial>=(SELECT fecha_inicio FROM curso WHERE id_curso='$idCurso') GROUP BY fecha,realimentacion";
         return $this->db->query($query)->result();
     }
