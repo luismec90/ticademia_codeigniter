@@ -52,12 +52,6 @@ $(function() {
                     break;
             }
             $(this).attr("disabled", true);
-            /* $("#modal").modal({
-             backdrop: "static",
-             keyboard: "false"
-             });
-             
-             */
             API.closeQuestion();
             if (typeof API.calificar == 'function') {
                 API.calificar(calificacion, feedback);

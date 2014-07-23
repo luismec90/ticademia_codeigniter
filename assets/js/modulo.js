@@ -160,10 +160,11 @@ $(function() {
                     idEvaluacion: idEvaluacion
                 },
                 success: function(data) {
+                    location.reload();
                 }
             });
         }
-        // location.reload();
+
     });
     $("#div-material .editarMaterial").click(function() {
         $("#inputIdMaterial").val($(this).data("id-material"));
@@ -185,7 +186,25 @@ $(function() {
     });
 
 
+    $("#container-evaluaciones .saltarEvaluacion").click(function() {
+        var idEvaluacion = $(this).data("id-evaluacion");
+        $("#coverDisplay").css({
+            "opacity": "1",
+            "width": "100%",
+            "height": "100%"
+        });
+        $.ajax({
+            url: "../evaluacion/saltar",
+            method: "post",
+            data: {
+                idEvaluacion: idEvaluacion
+            },
+            success: function(data) {
+                location.reload();
+            }
+        });
 
+    });
 
     $("#sortableMateriales").sortable({
         update: function(event, ui) {
@@ -203,9 +222,15 @@ $(function() {
         trigger: "hover"
     });
 
+    if (rolGlobal == 1) {
+        var readOnly = false;
+    } else {
+        var readOnly = true;
+    }
     $('.estrellas').raty({
         path: '../assets/libs/raty/lib/img',
         half: true,
+        readOnly: readOnly,
         score: function() {
             return $(this).attr('data-score');
         },
@@ -219,6 +244,7 @@ $(function() {
             $("#modalValoracionMaterial").modal("show");
         }
     });
+
     $("#lista-material a.ver-comentarios").click(function() {
         var idMaterial = $(this).data("id-material");
         $.ajax({

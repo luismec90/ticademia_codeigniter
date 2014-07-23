@@ -16,7 +16,7 @@ class Ranking extends CI_Controller {
     public function index($idCurso) {
         $this->verificarMatricula($idCurso);
 
-        if ($_SESSION["rol"] != 'profesor') {
+        if ($_SESSION["rol"] != 2) {
             $data["tab"] = "ranking";
             $data["limit"] = (empty($_GET["limit"])) ? 10 : $_GET["limit"];
             $curso = $this->curso_model->obtenerCursoCompleto($idCurso);

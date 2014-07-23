@@ -174,7 +174,7 @@ class Evaluacion extends CI_Controller {
         $table['cols'] = array(array('label' => 'Fecha', 'type' => 'string'));
 
         foreach ($respuestas as $row) {
-            $aux = array('label' => ($row->realimentacion=="") ? "Sin información":$row->realimentacion, 'type' => 'number');
+            $aux = array('label' => ($row->realimentacion == "") ? "Sin información" : $row->realimentacion, 'type' => 'number');
             array_push($table['cols'], $aux);
         }
         $current = $fechaInicio;
@@ -203,6 +203,25 @@ class Evaluacion extends CI_Controller {
         $table['rows'] = $rows;
         $jsonTable = json_encode($table);
         echo $jsonTable;
+    }
+
+    public function saltar() {
+
+        $fechaInicial = date('Y-m-d H:i:s');
+        $idEvaluacion = $this->input->post('idEvaluacion');
+        if (!$idEvaluacion) {
+            exit();
+        }
+        $this->load->model('usuario_x_evaluacion_model');
+        $data = array(
+            'id_usuario' => $_SESSION["idUsuario"],
+            'id_evaluacion' => $idEvaluacion,
+            'calificacion' => -1,
+            'fecha_inicial' => $fechaInicial
+        );
+        $this->usuario_x_evaluacion_model->crearIntento($data);
+        $this->session->set_flashdata('mensaje', "Evaluación omitida correctamente");
+        $this->session->set_flashdata('tipo', "success");
     }
 
 }

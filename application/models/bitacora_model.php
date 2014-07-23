@@ -54,4 +54,9 @@ class Bitacora_model extends CI_Model {
         return $this->db->query($query)->result();
     }
 
+    function penultimoAcceso($idUsuario, $idCurso) {
+        $query = "SELECT fecha_ingreso FROM bitacora WHERE id_usuario='$idUsuario' AND id_curso='$idCurso' order by fecha_ingreso desc  LIMIT 1,1";
+        return $this->db->query($query)->result();
+    }
+
 }

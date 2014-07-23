@@ -22,9 +22,9 @@ class Usuario_x_modulo_model extends CI_Model {
     function obtenerTopN($idModulo, $N) {
         $query = "SELECT *
                 FROM usuario_x_modulo um
-                JOIN usuario u ON u.id_usuario=um.id_usuario AND u.rol='estudiante'
+                JOIN usuario u ON u.id_usuario=um.id_usuario 
                 JOIN modulo m ON m.id_modulo=um.id_modulo
-                JOIN usuario_x_curso uc ON uc.id_usuario=u.id_usuario AND uc.id_curso=m.id_curso
+                JOIN usuario_x_curso uc ON uc.id_usuario=u.id_usuario AND uc.id_curso=m.id_curso AND uc.rol='1'
                 WHERE um.id_modulo='$idModulo'
                 ORDER BY um.puntaje desc,uc.fecha desc
                 LIMIT 0,$N";
@@ -35,8 +35,8 @@ class Usuario_x_modulo_model extends CI_Model {
         $query = "SELECT u.id_usuario,u.nombres,u.apellidos,u.imagen,SUM(um.puntaje) puntaje_total
                   FROM usuario_x_modulo um
                   JOIN modulo m ON m.id_modulo=um.id_modulo
-                  JOIN usuario u ON u.id_usuario=um.id_usuario AND u.rol='estudiante'
-                  JOIN usuario_x_curso uc ON uc.id_usuario=u.id_usuario AND uc.id_curso='$idCurso'
+                  JOIN usuario u ON u.id_usuario=um.id_usuario 
+                  JOIN usuario_x_curso uc ON uc.id_usuario=u.id_usuario AND uc.id_curso='$idCurso' AND uc.rol='1'
                   WHERE m.id_curso='$idCurso'
                   GROUP BY u.id_usuario
                   ORDER BY puntaje_total desc,uc.fecha desc";
@@ -48,8 +48,8 @@ class Usuario_x_modulo_model extends CI_Model {
         $query = "SELECT u.id_usuario,u.nombres,u.apellidos,u.imagen,SUM(um.puntaje) puntaje_total
                   FROM usuario_x_modulo um
                   JOIN modulo m ON m.id_modulo=um.id_modulo
-                  JOIN usuario u ON u.id_usuario=um.id_usuario AND u.rol='estudiante'
-                  JOIN usuario_x_curso uc ON uc.id_usuario=u.id_usuario AND uc.id_curso='$idCurso'
+                  JOIN usuario u ON u.id_usuario=um.id_usuario 
+                  JOIN usuario_x_curso uc ON uc.id_usuario=u.id_usuario AND uc.id_curso='$idCurso' AND uc.rol='1'
                   WHERE m.id_curso='$idCurso'
                   GROUP BY u.id_usuario
                   ORDER BY puntaje_total desc,uc.fecha desc";
@@ -60,9 +60,9 @@ class Usuario_x_modulo_model extends CI_Model {
     function rankingModulo($idModulo) {
         $query = "SELECT *
                 FROM usuario_x_modulo um
-                JOIN usuario u ON u.id_usuario=um.id_usuario AND u.rol='estudiante'
+                JOIN usuario u ON u.id_usuario=um.id_usuario 
                 JOIN modulo m ON m.id_modulo=um.id_modulo
-                JOIN usuario_x_curso uc ON uc.id_usuario=u.id_usuario AND uc.id_curso=m.id_curso
+                JOIN usuario_x_curso uc ON uc.id_usuario=u.id_usuario AND uc.id_curso=m.id_curso AND uc.rol='1'
                 WHERE um.id_modulo='$idModulo'
                 ORDER BY um.puntaje desc,uc.fecha desc";
         return $this->db->query($query)->result();

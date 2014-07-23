@@ -28,7 +28,7 @@ class Modulo extends CI_Controller {
         index_bitacora($idCurso);
         $data["idModulo"] = $idModulo;
         $data["css"] = array("libs/jquery-ui-1.10.4.custom/css/redmond/jquery-ui-1.10.4.custom.min", "libs/mediaElement/mediaelementplayer", "css/ranking", "css/modulo");
-        $data["js"] = array( "libs/jquery-ui-1.10.4.custom/js/jquery-ui-1.10.4.custom.min", "libs/mediaElement/mediaelement-and-player", "libs/raty/lib/jquery.raty.min","libs/googleCharts/jsapi", "js/modulo",);
+        $data["js"] = array("libs/jquery-ui-1.10.4.custom/js/jquery-ui-1.10.4.custom.min", "libs/mediaElement/mediaelement-and-player", "libs/raty/lib/jquery.raty.min", "libs/googleCharts/jsapi", "js/modulo",);
 
         $datos = $this->material_model->obtenerMaterialesUsuario($idModulo, $_SESSION["idUsuario"]);
         $infoMaterial = array();
@@ -103,12 +103,20 @@ class Modulo extends CI_Controller {
                 $row->estatus = "solved";
                 $row->icono = "check";
                 $estatusPrev = "solved";
-                $row->ubicacion = "solved";
                 $row->ubicacion = base_url() . "resources/$idCurso/$idModulo/" . $row->id_evaluacion . "/launch.html";
                 $row->veces_aprobado = $infoEvaluacion[$row->id_evaluacion]["veces_aprobado"];
                 $row->veces_intentado = $infoEvaluacion[$row->id_evaluacion]["veces_intentado"];
-                $row->puntuacion = $infoEvaluacion[$row->id_evaluacion]["puntuacion"];
+                $row->puntuacion = 0;
                 $row->menor_tiempo = $infoEvaluacion[$row->id_evaluacion]["menor_tiempo"];
+            } else if ($row->calificacion_minima == -1) {
+                $row->estatus = "solved";
+                $row->icono = "share";
+                $estatusPrev = "solved";
+                $row->ubicacion = base_url() . "resources/$idCurso/$idModulo/" . $row->id_evaluacion . "/launch.html";
+                $row->veces_aprobado = $infoEvaluacion[$row->id_evaluacion]["veces_aprobado"];
+                $row->veces_intentado = $infoEvaluacion[$row->id_evaluacion]["veces_intentado"];
+                $row->puntuacion = 0;
+                $row->menor_tiempo = "--";
             } else if ($estatusPrev == "solved") {
                 $row->estatus = "open";
                 $row->icono = "unlock";
@@ -131,6 +139,11 @@ class Modulo extends CI_Controller {
                 $row->veces_intentado = "0";
                 $row->puntuacion = "0";
                 $row->menor_tiempo = "--";
+            }
+            if ($_SESSION["rol"] == 2 || $_SESSION["rol"] == 3) {
+                $row->estatus = "open";
+                $row->icono = "unlock";
+                $row->ubicacion = base_url() . "resources/$idCurso/$idModulo/" . $row->id_evaluacion . "/launch.html";
             }
         }
 

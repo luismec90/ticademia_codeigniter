@@ -8,6 +8,7 @@ class Foro extends CI_Controller {
     public function __construct() {
         parent::__construct();
         session_start();
+        $this->estoyLogueado();
         $this->load->model('tema_foro_model');
         $this->load->model('respuesta_model');
         $this->load->model('curso_model');

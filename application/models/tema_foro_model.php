@@ -64,18 +64,18 @@ class Tema_foro_model extends CI_Model {
         return $this->db->query($query)->result();
     }
 
-    public function ultimaActividad($idCurso) {
+    public function ultimaActividad($idCurso,$lastLogin) {
         $query = "SELECT t.id_tema_foro,t.id_tema_foro id_respuesta,t.nombre  nombre,u.nombres,u.apellidos,t.fecha_creacion fecha,'tipo' 'tema'
                   FROM tema_foro t
                   JOIN usuario u ON u.id_usuario=t.id_usuario AND u.id_usuario<>'{$_SESSION["idUsuario"]}'
                   WHERE t.id_curso='$idCurso'
-                  AND t.fecha_creacion>='{$_SESSION["ultimaActividad"]}'
+                  AND t.fecha_creacion>='$lastLogin'
                   UNION
                   SELECT  t.id_tema_foro,r.id_respuesta, r.respuesta  nombre,u.nombres,u.apellidos,r.fecha_creacion fecha,'tipo' 'respuesta'
                   FROM respuesta r
                   JOIN tema_foro t ON t.id_curso='$idCurso' AND r.id_tema_foro=t.id_tema_foro
                   JOIN usuario u ON u.id_usuario=r.id_usuario  AND u.id_usuario<>'{$_SESSION["idUsuario"]}'
-                  WHERE r.fecha_creacion>='{$_SESSION["ultimaActividad"]}' ORDER BY fecha desc";
+                  WHERE r.fecha_creacion>='$lastLogin' ORDER BY fecha desc";
         return $this->db->query($query)->result();
     }
 

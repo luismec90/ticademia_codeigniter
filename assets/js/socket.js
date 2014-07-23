@@ -1,35 +1,41 @@
 var conn;
 var usuarioRetadorGlobal;
-
+var statusSocket;
 $(function() {
-    if (idUsuarioGlobal != -1 && rolGlobal == "estudiante") {
+    if (idUsuarioGlobal != -1 && rolGlobal == 1) {
         socket();
 
         $("#arena,#arena2").click(function() {// Retar a alguien
             $(".modal").modal('hide');
-            $("#modal-arena").modal({
-                keyboard: false,
-                backdrop: "static"
-            });
-            var time = 10;
-            $("#cuenta-regresiva").html(time--);
-            var t = setInterval(function() {
-                if (time == 0) {
-                    clearTimeout(t);
-                    if ($("#modal-arena").is(":visible")) {
-//                        $(".modal").modal('hide');
-                    }
-                }
+            if (statusSocket == "on") {
+                $("#modal-arena").modal({
+                    keyboard: false,
+                    backdrop: "static"
+                });
+                var time = 10;
                 $("#cuenta-regresiva").html(time--);
+                var t = setInterval(function() {
+                    if (time == 0) {
+                        clearTimeout(t);
+                        if ($("#modal-arena").is(":visible")) {
+//                        $(".modal").modal('hide');
+                        }
+                    }
+                    $("#cuenta-regresiva").html(time--);
 
-            }, 1000);
-            var data = {
-                tipo: 'retar',
-                id_curso: idCursoGlobal,
-                id_usuario: idUsuarioGlobal,
-                nombre_usuario: nombreUsuarioGlobal
-            };
-            conn.send(JSON.stringify(data));
+                }, 1000);
+                var data = {
+                    tipo: 'retar',
+                    id_curso: idCursoGlobal,
+                    id_usuario: idUsuarioGlobal,
+                    nombre_usuario: nombreUsuarioGlobal
+                };
+                conn.send(JSON.stringify(data));
+            } else {
+                $("#custom-modal-title").html("Información");
+                $("#body-custom-modal").html("No hay conexión con el servidor, inténtelo más tarde.");
+                $("#custom-modal").modal();
+            }
         });
 
         $("#aceptar-modal-retado").click(function() {// Aceptar el reto
@@ -63,6 +69,7 @@ $(function() {
 function socket() {
     conn = new WebSocket('ws://guiame.medellin.unal.edu.co:8080');
     conn.onopen = function(e) {
+        statusSocket = "on";
         console.log("Connection established!");
         var data = {
             tipo: 'inicio',
@@ -185,6 +192,7 @@ function socket() {
         }
     };
     conn.onclose = function(e) {
+        statusSocket = "off";
         console.log("Connection closed!");
     };
 }

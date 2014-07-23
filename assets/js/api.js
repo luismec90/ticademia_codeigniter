@@ -1,6 +1,6 @@
 API = new Object();
 API.LMSInitialize = function(a) {
-    if (evaluacionOReto == "evaluacion") {
+    if (evaluacionOReto == "evaluacion" && rolGlobal == 1) {
         $.ajax({
             url: "../api/LMSInitialize",
             method: "post",
@@ -14,7 +14,7 @@ API.LMSInitialize = function(a) {
     }
 }
 API.LMSFinish = function(a) {
-    if (evaluacionOReto == "evaluacion") {
+    if (evaluacionOReto == "evaluacion" && rolGlobal == 1) {
         $.ajax({
             url: "../api/LMSFinish",
             method: "post",
@@ -27,7 +27,7 @@ API.LMSFinish = function(a) {
     }
 }
 API.calificar = function(calificacion, feedback) {
-    if (evaluacionOReto == "evaluacion") {
+    if (evaluacionOReto == "evaluacion" ) {
         var stopEvaluation = new Date();
         var durationEvaluation = Math.round((stopEvaluation - startEvaluation) / 1000);
         $.ajax({
@@ -49,7 +49,7 @@ API.calificar = function(calificacion, feedback) {
     }
 }
 API.LMSSetValue = function(a, b) {
-    if (evaluacionOReto == "evaluacion") {
+    if (evaluacionOReto == "evaluacion" && rolGlobal == 1) {
         $.ajax({
             url: "../api/LMSSetValue",
             method: "post",
@@ -63,7 +63,7 @@ API.LMSSetValue = function(a, b) {
     }
 }
 API.notifyDaemon = function(calificacion) {
-  
+
     if (evaluacionOReto == "reto") {
         if (calificacion == 1) {
             var status = "correcto";

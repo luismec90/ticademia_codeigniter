@@ -24,7 +24,6 @@ class Entrar extends CI_Controller {
             if ($usuario) {
                 $_SESSION["idUsuario"] = $usuario[0]->id_usuario;
                 $_SESSION["nombre"] = $usuario[0]->nombres . " " . $usuario[0]->apellidos;
-                $_SESSION["rol"] = $usuario[0]->rol;
                 redirect(base_url());
             } else {
                 $this->mensaje("E-mail o contraseña incorrectos", "error");

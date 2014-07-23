@@ -48,8 +48,32 @@ $(function() {
         var idUsuario = $(this).data("id-usuario");
         modalInfoUsuario(idUsuario, idCurso);
     });
-   
+
     verificarNuevoLogro();
+    $("#asesorias").click(function() {
+        $("#coverDisplay").css({
+            "opacity": "1",
+            "width": "100%",
+            "height": "100%"
+        });
+        $.ajax({
+            method: "POST",
+            url: base_url + "curso/asesorias",
+            data: {
+                idCurso: idCursoGlobal
+            },
+            success: function(data) {
+                $("#coverDisplay").css({
+                    "opacity": "0",
+                    "width": "0",
+                    "height": "0"
+                });
+                $("#custom-modal-title").html("Asesorias");
+                $("#body-custom-modal").html(data);
+                $("#custom-modal").modal();
+            }
+        });
+    });
 });
 
 function modalInfoUsuario(idUsuario, idCurso) {

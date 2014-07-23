@@ -40,7 +40,7 @@ class Api extends CI_Controller {
     }
 
     public function checkSinInformacion() {
-        if(empty($_POST['idEvaluacion'])){
+        if (empty($_POST['idEvaluacion'])) {
             exit();
         }
         $data = array(
@@ -71,6 +71,9 @@ class Api extends CI_Controller {
             $realimentacion = $feedback;
         }
         echo $feedback;
+        if ($_SESSION["rol"] != 1) { //Si no es un estudiante no continuar
+            exit();
+        }
         $data = array(
             'id_usuario_evaluacion' => $_SESSION[$_SESSION["idUsuario"] . "-" . $_POST['idEvaluacion']],
             'calificacion' => $_POST["calificacion"],

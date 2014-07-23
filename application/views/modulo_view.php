@@ -6,11 +6,11 @@
 
             </div>  
         </div> 
-        <?php if ($cantidadMateriales || validarProfesor($idCurso, $_SESSION["idUsuario"])) { ?>
-            <div id="div-material" class="col-xs-12 col-sm-12 <?= ($cantidadEvaluaciones || validarProfesor($idCurso, $_SESSION["idUsuario"])) ? "col-md-4" : "col-md-9" ?> <?= (validarProfesor($idCurso, $_SESSION["idUsuario"])) ? "profesor" : "" ?>">
+        <?php if ($cantidadMateriales || $_SESSION["rol"]==2) { ?>
+            <div id="div-material" class="col-xs-12 col-sm-12 <?= ($cantidadEvaluaciones || $_SESSION["rol"]==2) ? "col-md-4" : "col-md-9" ?> <?= ($_SESSION["rol"]==2) ? "profesor" : "" ?>">
                 <div class="widget-box">
                     <div class="widget-header header-color-green2">
-                        <?php if (validarProfesor($idCurso, $_SESSION["idUsuario"])) { ?>
+                        <?php if ($_SESSION["rol"]==2) { ?>
 
                             <button title="Ordenar materiales" class="btn btn-default pull-right" data-toggle="modal" data-target="#modalOrdenarMaterial"> <i class="fa fa-plus"></i> Oredenar materiales</button>                  
                             <button title="Crear material" class="btn btn-default pull-right" data-toggle="modal" data-target="#modalCrearMaterial"> <i class="fa fa-plus"></i> Crear material</button>  
@@ -37,7 +37,7 @@
                                             <div id="star-<?= $row->id_material ?>" class="estrellas" data-score="<?= $row->puntaje_promedio ?>" data-id-material="<?= $row->id_material ?>" data-comentario="<?= $row->comentario ?>"></div><span class="text-muted"> (<?= $row->total_valoraciones ?>)</span>
                                             <a href="#" class="ver-comentarios" data-id-material="<?= $row->id_material ?>" data-toggle="modal" data-target="#modalVerValoracionesMaterial">Ver comentarios</a> <span class="text-muted"> (<?= $row->total_comentarios ?>)</span>
                                         </td>
-                                        <?php if (validarProfesor($idCurso, $_SESSION["idUsuario"])) { ?>
+                                        <?php if ($_SESSION["rol"]==2) { ?>
                                             <td class="min-with-estudiante">
                                                 <button title="Estadísticas" class="btn btn-primary btn-size-custom-1 estadisticasMaterial" data-id-material="<?= $row->id_material ?>" data-tipo="<?= $row->extension ?>"> <i class="fa fa-bar-chart-o"></i></button>
                                                 <button title="Editar" class="btn btn-warning btn-size-custom-1 editarMaterial" data-toggle="modal" data-target="#modalEditarMaterial" data-id-material="<?= $row->id_material ?>" data-nombre="<?= $row->nombre ?>" data-descripcion="<?= $row->descripcion ?>"> <i class="fa fa-pencil-square-o"></i></button>
@@ -66,12 +66,12 @@
                     <i class="fa fa-trophy"></i> Ranking</span>
             </div>
         </div>
-        <?php if ($cantidadEvaluaciones || validarProfesor($idCurso, $_SESSION["idUsuario"])) { ?>
-            <div  id="div-evaluaciones" class="col-xs-12 col-sm-12 <?= ($cantidadMateriales || validarProfesor($idCurso, $_SESSION["idUsuario"])) ? "col-md-5" : "col-md-9" ?>">
+        <?php if ($cantidadEvaluaciones || $_SESSION["rol"]==2) { ?>
+            <div  id="div-evaluaciones" class="col-xs-12 col-sm-12 <?= ($cantidadMateriales || $_SESSION["rol"]==2) ? "col-md-5" : "col-md-9" ?>">
                 <div id="container-evaluaciones" >
                     <div class="widget-box">
                         <div class="widget-header header-color-green2">
-                            <?php if (validarProfesor($idCurso, $_SESSION["idUsuario"])) { ?>
+                            <?php if ($_SESSION["rol"]==2) { ?>
                                 <button title="Ordenar evaluaciones" id="ordenarEvaluaciones"  class="btn btn-default pull-right" data-toggle="modal" data-target="#modalOrdenarEvaluacion"> <i class="fa fa-plus"></i>  Ordenar evaluaciones</button>                  
                                 <button title="Crear evaluaciones" class="btn btn-default pull-right" data-toggle="modal" data-target="#modalCrearEvaluacion"> <i class="fa fa-plus"></i> Crear evaluación</button>                  
 
@@ -109,13 +109,17 @@
                                                 <div class="puntaje"><?= $row->puntuacion ?><span class="glyphicon glyphicon-star"></span></div>
                                                 <div class="tiempo"><?= $row->menor_tiempo ?><span class="glyphicon glyphicon glyphicon-time"></span></div>
                                             </div>
-                                            <?php if (validarProfesor($idCurso, $_SESSION["idUsuario"])) { ?>
-                                                <div class="opciones">
+                                            <div class="opciones">
+                                                <?php if ($_SESSION["rol"]==2) { ?>
                                                     <button title="Estadísticas" class="btn btn-primary btn-size-custom-1 estadisticasEvaluacion" data-id-evaluacion="<?= $row->id_evaluacion ?>"> <i class="fa fa-bar-chart-o"></i></button>
                                                     <button title="Editar" class="btn btn-warning btn-size-custom-1 editarEvaluacion"  data-toggle="modal" data-target="#modalEditarEvaluacion"  data-id-evaluacion="<?= $row->id_evaluacion ?>" data-tipo="<?= $row->id_tipo_evaluacion ?>"> <i class="fa fa-pencil-square-o"></i></button>
                                                     <button title="Eliminar" class="btn btn-danger btn-size-custom-1 eliminarEvaluacion"  data-toggle="modal" data-target="#modalEliminarEvaluacion"  data-id-evaluacion="<?= $row->id_evaluacion ?>" data-numero="<?= $i ?>"><i class="fa fa-trash-o"></i></button>
-                                                </div>
-                                            <?php } ?>
+                                                <?php } else if ($row->veces_intentado > 0 && $row->veces_aprobado == 0 && $row->calificacion_minima!=-1 ) { ?>
+                                                    <button title="Saltar" class="btn btn-primary btn-size-custom-1 saltarEvaluacion pull-left" data-id-evaluacion="<?= $row->id_evaluacion ?>"> <i class="fa fa-share"></i></button>
+                                                <?php } else { ?>
+                                                    <!--<button title="Saltar" class="btn btn-default btn-size-custom-1 " disabled > <i class="fa fa-share"></i></button>-->
+                                                <?php } ?>        
+                                            </div>
                                         </div>
                                         <?php
                                         $i++;
@@ -148,7 +152,7 @@
     <div id="popover-contenido" class="popover-content">bla bla <br> bla bla<br>bla bla
     </div>
 </div>
-<?php if (validarProfesor($idCurso, $_SESSION["idUsuario"])) { ?>
+<?php if ($_SESSION["rol"]==2) { ?>
     <div class="modal fade" id="modalCrearMaterial" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
         <div class="modal-dialog">
             <div class="modal-content">
@@ -518,7 +522,7 @@
 
             <div id="bodymodalEstadisticasMaterial" class="modal-body">
                 <div id="modal-estadistica1"></div>
-                    <div id="modal-estadistica2"></div>
+                <div id="modal-estadistica2"></div>
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>
@@ -538,7 +542,7 @@
 
             <div class="modal-body">
                 <div id="modal-estadistica-evaluacion1"></div>
-                   <div id="modal-estadistica-evaluacion2"></div>
+                <div id="modal-estadistica-evaluacion2"></div>
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>

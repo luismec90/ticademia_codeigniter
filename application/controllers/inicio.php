@@ -18,6 +18,7 @@ class Inicio extends CI_Controller {
 
         $data["cursos"] = $this->curso_model->obtenerCursos();
 
+       // var_dump( $data["cursos"]);
         foreach ($data["cursos"] as $row) {
             $datetime1 = new DateTime($row->fecha_inicio);
             $datetime2 = new DateTime($row->fecha_fin);

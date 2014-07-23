@@ -11,7 +11,7 @@ class Curso_model extends CI_Model {
 
     function obtenerCursos() {
         if (isset($_SESSION["idUsuario"])) {
-            $query = "SELECT c.*,a.*,uc.id_usuario esta_matriculado
+            $query = "SELECT c.*,a.*,uc.id_usuario,uc.rol
                 FROM curso c
                 JOIN asignatura a ON a.id_asignatura=c.id_asignatura
                 LEFT JOIN usuario_x_curso uc ON uc.id_curso=c.id_curso AND uc.id_usuario='{$_SESSION["idUsuario"]}'";
@@ -19,6 +19,7 @@ class Curso_model extends CI_Model {
             $query = "SELECT c.*,a.* 
                 FROM curso c
                 JOIN asignatura a ON a.id_asignatura=c.id_asignatura";
+               
         }
         return $this->db->query($query)->result();
     }

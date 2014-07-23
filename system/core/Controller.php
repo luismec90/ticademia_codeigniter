@@ -83,26 +83,23 @@ class CI_Controller {
         $this->load->model('usuario_x_curso_model');
         $where = array("id_curso" => $idCurso, "id_usuario" => $_SESSION["idUsuario"]);
         $usuario = $this->usuario_x_curso_model->obtenerRegistro($where);
-        if (!$usuario) {
-            $this->load->model('curso_model');
-            $where = array("id_curso" => $idCurso, "id_usuario" => $_SESSION["idUsuario"]);
-            $usuario = $this->curso_model->obtenerCursoPorProfesor($where);
-            if (!$usuario) {
-                $this->mensaje("El curso no existe o no se encuentra matriculado", "error");
+        if ($usuario) {
+            if (!isset($_SESSION["rol"])) {
+                $_SESSION["rol"] = $usuario[0]->rol;
             }
-        }
-    }
-
-    protected function soyElProfesor($idCurso) {
-        $this->load->model('curso_model');
-        $where = array("id_curso" => $idCurso, "id_usuario" => $_SESSION["idUsuario"]);
-        $usuario = $this->curso_model->obtenerCursoPorProfesor($where);
-        if (!$usuario) {
+        } else {
             $this->mensaje("El curso no existe o no se encuentra matriculado", "error");
         }
     }
 
-  
+    protected function soyElProfesor($idCurso) {
+        $this->load->model('usuario_x_curso_model');
+        $where = array("id_curso" => $idCurso, "id_usuario" => $_SESSION["idUsuario"],"rol"=>2);
+        $usuario = $this->usuario_x_curso_model->obtenerRegistro($where);
+        if (!$usuario) {
+            $this->mensaje("El curso no existe o no se encuentra matriculado", "error");
+        }
+    }
 
 }
 

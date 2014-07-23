@@ -59,9 +59,10 @@
                     <ul class="nav navbar-nav navbar-right">
                         <?php if (isset($_SESSION["nombre"])) { ?>
                             <?php if (isset($idCurso)) { ?>
-                                <?php if ($_SESSION["rol"] == "estudiante") { ?>
+                                <?php if ($_SESSION["rol"] == 1) { ?>
+                                    <li ><a id="asesorias" title="Asesorias" class="white"><span class="glyphicon glyphicon-earphone"></span></a></li>
                                     <li ><a id="arena" title="Arena" class="white"><span class="glyphicon glyphicon-play"></span></a></li>
-                                    <?php } if (validarProfesor($idCurso, $_SESSION["idUsuario"])) { ?>
+                                <?php } if ($_SESSION["rol"] == 2) { ?>
                                     <li class="dropdown <?= ($tab == "estadisticaestudiantes" || $tab == "estadisticamateriales" || $tab == "estadisticapreguntas" ) ? "active" : ""; ?>">
                                         <a href="#" class="dropdown-toggle white" data-toggle="dropdown"> <i class="icon-position fa fa-bar-chart-o fa-lg"></i> <b class="caret"></b></a>
                                         <ul  class="dropdown-menu">

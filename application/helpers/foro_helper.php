@@ -7,7 +7,14 @@ if (!function_exists('tabForo')) {
     function tabForo($idCurso) {
         $CI = & get_instance();
         $CI->load->model('tema_foro_model');
-        $ultimaActividad = $CI->tema_foro_model->ultimaActividad($idCurso);
+        $CI->load->model('bitacora_model');
+        $lastLogin=$CI->bitacora_model->penultimoAcceso($_SESSION["idUsuario"], $idCurso);
+        if($lastLogin){
+            $lastLogin=$lastLogin[0]->fecha_ingreso;
+        }else{
+            $lastLogin="0000-00-00 00:00:00";
+        }
+        $ultimaActividad = $CI->tema_foro_model->ultimaActividad($idCurso,$lastLogin);
         if ($ultimaActividad) {
             ?>
             <a  id="link-foro-color" title="Ver foro" href="#" class="dropdown-toggle white" data-toggle="dropdown"> <i class="icon-position fa fa-comments icon-animated-vertical"></i> <?= sizeof($ultimaActividad) ?> <b class="caret white"></b></a> 

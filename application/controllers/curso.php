@@ -1,5 +1,4 @@
 <?php
-
 if (!defined('BASEPATH'))
     exit('No direct script access allowed');
 
@@ -80,7 +79,7 @@ class Curso extends CI_Controller {
         $c['timeline']['text'] = '';
         $c['timeline']['date'] = array();
 
-       if (validarProfesor($idCurso, $_SESSION["idUsuario"])) {
+        if ($_SESSION["rol"] == 2) {
             foreach ($modulos as $row) {
                 $topN = $this->calcultarTopN($row->id_modulo, 10, $idCurso);
                 array_push($c['timeline']['date'], array(
@@ -139,6 +138,31 @@ class Curso extends CI_Controller {
             $i++;
         }
         return $string . "<a id='link-posicion' href='" . base_url() . "modulo/$idModulo'>$posicion</a>";
+    }
+
+    public function asesorias() {
+        $idCurso = $this->input->post('idCurso');
+        if (!$idCurso) {
+            exit();
+        }
+        $this->load->model('usuario_x_curso_model');
+        $monitores = $this->usuario_x_curso_model->obtenerMonitores($idCurso);
+        ?>
+        <table class='table table-bordered table-hover'>
+            <th>Monitor</th>
+            <th>Información de contacto</th>
+            <?php
+            foreach ($monitores as $row) {
+                ?>
+                <tr>
+                    <td><?= $row->nombres." ".$row->apellidos ?></td>
+                    <td><?= $row->informacion_contacto ?></td>
+                </tr>
+                <?php
+            }
+            ?>
+        </table>
+        <?php
     }
 
 }

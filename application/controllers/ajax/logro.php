@@ -18,8 +18,8 @@ class Logro extends CI_Controller {
             $logrosPendientes = $this->usuario_curso_logro_model->logroPediente();
             if (sizeof($logrosPendientes) > 0) {
                 $logrosPendientes[0]->imagen = base_url() . "assets/img/logro/{$logrosPendientes[0]->id_logro}.png";
-                $logrosPendientes[0]->share_facebook = "https://www.facebook.com/sharer/sharer.php?u=http://guiame.medellin.unal.edu.co/minerva/logros/{$logrosPendientes[0]->id_curso}/{$logrosPendientes[0]->id_usuario_curso_logro}";
-                $logrosPendientes[0]->share_twitter = "https://twitter.com/intent/tweet?text=" . urlencode($logrosPendientes[0]->nombre) . "&url=http://guiame.medellin.unal.edu.co/minerva/logros/{$logrosPendientes[0]->id_curso}/{$logrosPendientes[0]->id_usuario_curso_logro}";
+                $logrosPendientes[0]->share_facebook = "https://www.facebook.com/sharer/sharer.php?u=".base_url()."logros/{$logrosPendientes[0]->id_curso}/{$logrosPendientes[0]->id_usuario_curso_logro}";
+                $logrosPendientes[0]->share_twitter = "https://twitter.com/intent/tweet?text=" . urlencode($logrosPendientes[0]->nombre) . "&url=".base_url()."logros/{$logrosPendientes[0]->id_curso}/{$logrosPendientes[0]->id_usuario_curso_logro}";
 //    var_dump($logrosPendientes);
                 $this->usuario_curso_logro_model->visto($logrosPendientes[0]->id_usuario_curso_logro);
             }

@@ -96,46 +96,44 @@ class Fill_model extends CI_Model {
             'descripcion' => 'Lorem ipsum dolor sit amet, ex perfecto patrioque vim, per dolore animal ea'
         );
         $this->db->insert('nivel', $data);
-        
-         $data = array(
+
+        $data = array(
             'id_nivel' => 6,
             'nombre' => 'Conocedor',
             'imagen' => '5.jpg',
             'descripcion' => 'Lorem ipsum dolor sit amet, ex perfecto patrioque vim, per dolore animal ea'
         );
         $this->db->insert('nivel', $data);
-        
-         $data = array(
+
+        $data = array(
             'id_nivel' => 7,
             'nombre' => 'Maestro',
             'imagen' => '5.jpg',
             'descripcion' => 'Lorem ipsum dolor sit amet, ex perfecto patrioque vim, per dolore animal ea'
         );
         $this->db->insert('nivel', $data);
-        
-         $data = array(
+
+        $data = array(
             'id_nivel' => 8,
             'nombre' => 'Sabio',
             'imagen' => '5.jpg',
             'descripcion' => 'Lorem ipsum dolor sit amet, ex perfecto patrioque vim, per dolore animal ea'
         );
         $this->db->insert('nivel', $data);
-        
-         $data = array(
+
+        $data = array(
             'id_nivel' => 9,
             'nombre' => 'Erudito',
             'imagen' => '5.jpg',
             'descripcion' => 'Lorem ipsum dolor sit amet, ex perfecto patrioque vim, per dolore animal ea'
         );
         $this->db->insert('nivel', $data);
-        
     }
 
     private function curso() {
         $this->db->empty_table('curso');
         $data = array(
             'id_curso' => 1,
-            'id_usuario' => 2,
             'id_asignatura' => 1,
             'fecha_inicio' => '2014-06-26',
             'niveles' => '5',
@@ -146,7 +144,6 @@ class Fill_model extends CI_Model {
 
         $data = array(
             'id_curso' => 2,
-            'id_usuario' => 3,
             'id_asignatura' => 2,
             'fecha_inicio' => '2014-03-07',
             'niveles' => '5',
@@ -195,7 +192,7 @@ class Fill_model extends CI_Model {
             'sexo' => 'm',
             'password' => sha1("123"),
             'fecha_nacimiento' => date("Y-m-d"),
-            'rol' => 'estudiante', 'activo' => 1
+            'activo' => 1
         );
         $this->db->insert('usuario', $data);
 
@@ -208,7 +205,6 @@ class Fill_model extends CI_Model {
             'imagen' => 'default.png',
             'sexo' => 'm',
             'password' => sha1("123"),
-            'rol' => 'profesor',
             'activo' => 1
         );
         $this->db->insert('usuario', $data);
@@ -222,7 +218,6 @@ class Fill_model extends CI_Model {
             'imagen' => 'default.png',
             'sexo' => 'm',
             'password' => sha1("123"),
-            'rol' => 'profesor',
             'activo' => 1
         );
         $this->db->insert('usuario', $data);
@@ -237,7 +232,6 @@ class Fill_model extends CI_Model {
             'imagen' => 'default.png',
             'sexo' => 'm',
             'password' => sha1("123"),
-            'rol' => "estudiante",
             'activo' => 1
         );
         $this->db->insert('usuario', $data);
@@ -247,11 +241,10 @@ class Fill_model extends CI_Model {
             'id_afiliacion' => 1,
             'nombres' => 'Juan Camilo',
             'apellidos' => 'Monsalve Ramírez',
-            'correo' => 'estudiante3',
+            'correo' => 'monitor1',
             'imagen' => 'default.png',
             'sexo' => 'm',
             'password' => sha1("123"),
-            'rol' => "estudiante",
             'activo' => 1
         );
         $this->db->insert('usuario', $data);
@@ -266,7 +259,6 @@ class Fill_model extends CI_Model {
             'imagen' => 'default.png',
             'sexo' => 'm',
             'password' => sha1("123"),
-            'rol' => "estudiante",
             'activo' => 1
         );
         $this->db->insert('usuario', $data);
@@ -280,7 +272,6 @@ class Fill_model extends CI_Model {
             'imagen' => 'default.png',
             'sexo' => 'm',
             'password' => sha1("123"),
-            'rol' => "estudiante",
             'activo' => 1
         );
         $this->db->insert('usuario', $data);
@@ -294,7 +285,6 @@ class Fill_model extends CI_Model {
             'imagen' => 'default.png',
             'sexo' => 'm',
             'password' => sha1("123"),
-            'rol' => "estudiante",
             'activo' => 1
         );
         $this->db->insert('usuario', $data);
@@ -308,7 +298,6 @@ class Fill_model extends CI_Model {
             'imagen' => 'default.png',
             'sexo' => 'm',
             'password' => sha1("123"),
-            'rol' => "estudiante",
             'activo' => 1
         );
         $this->db->insert('usuario', $data);
@@ -322,7 +311,6 @@ class Fill_model extends CI_Model {
             'imagen' => 'default.png',
             'sexo' => 'm',
             'password' => sha1("123"),
-            'rol' => "estudiante",
             'activo' => 1
         );
         $this->db->insert('usuario', $data);
@@ -336,7 +324,6 @@ class Fill_model extends CI_Model {
             'imagen' => 'default.png',
             'sexo' => 'm',
             'password' => sha1("123"),
-            'rol' => "estudiante",
             'activo' => 1
         );
         $this->db->insert('usuario', $data);
@@ -350,7 +337,6 @@ class Fill_model extends CI_Model {
             'imagen' => 'default.png',
             'sexo' => 'm',
             'password' => sha1("123"),
-            'rol' => "estudiante",
             'activo' => 1
         );
         $this->db->insert('usuario', $data);
@@ -364,7 +350,6 @@ class Fill_model extends CI_Model {
             'imagen' => 'default.png',
             'sexo' => 'm',
             'password' => sha1("123"),
-            'rol' => "estudiante",
             'activo' => 1
         );
         $this->db->insert('usuario', $data);
@@ -378,7 +363,6 @@ class Fill_model extends CI_Model {
             'imagen' => 'default.png',
             'sexo' => 'm',
             'password' => sha1("123"),
-            'rol' => "estudiante",
             'activo' => 1
         );
         $this->db->insert('usuario', $data);
@@ -392,7 +376,6 @@ class Fill_model extends CI_Model {
             'imagen' => 'default.png',
             'sexo' => 'f',
             'password' => sha1("123"),
-            'rol' => "estudiante",
             'activo' => 1
         );
         $this->db->insert('usuario', $data);
@@ -406,7 +389,6 @@ class Fill_model extends CI_Model {
             'imagen' => 'default.png',
             'sexo' => 'm',
             'password' => sha1("123"),
-            'rol' => "estudiante",
             'activo' => 1
         );
         $this->db->insert('usuario', $data);
@@ -417,6 +399,7 @@ class Fill_model extends CI_Model {
         $data = array(
             'id_curso' => 1,
             'id_usuario' => 1,
+            'rol' => 1,
             'fecha' => '2014-11-03 10:23:54'
         );
         $this->db->insert('usuario_x_curso', $data);
@@ -424,7 +407,7 @@ class Fill_model extends CI_Model {
         $data = array(
             'id_curso' => 1,
             'id_usuario' => 2,
-            'id_nivel' => 2,
+            'rol' => 2,
             'fecha' => '2014-02-03 10:24:54'
         );
         $this->db->insert('usuario_x_curso', $data);
@@ -432,7 +415,7 @@ class Fill_model extends CI_Model {
         $data = array(
             'id_curso' => 1,
             'id_usuario' => 3,
-            'id_nivel' => 5,
+            'rol' => 2,
             'fecha' => '2014-02-03 10:25:54'
         );
         $this->db->insert('usuario_x_curso', $data);
@@ -440,6 +423,7 @@ class Fill_model extends CI_Model {
         $data = array(
             'id_curso' => 1,
             'id_usuario' => 4,
+            'rol' => 1,
             'id_nivel' => 1,
             'fecha' => '2014-02-03 10:26:54'
         );
@@ -448,14 +432,16 @@ class Fill_model extends CI_Model {
         $data = array(
             'id_curso' => 1,
             'id_usuario' => 5,
-            'id_nivel' => 4,
-            'fecha' => '2014-02-03 10:27:54'
+            'rol' => 3,
+            'fecha' => '2014-02-03 10:27:54',
+            'informacion_contacto' => 'Luner Martes Miecoles 6-8 pm skype: qwee32'
         );
         $this->db->insert('usuario_x_curso', $data);
 
         $data = array(
             'id_curso' => 1,
             'id_usuario' => 6,
+            'rol' => 1,
             'id_nivel' => 3,
             'fecha' => '2014-02-03 10:28:54'
         );
@@ -464,6 +450,7 @@ class Fill_model extends CI_Model {
         $data = array(
             'id_curso' => 1,
             'id_usuario' => 7,
+            'rol' => 1,
             'id_nivel' => 4,
             'fecha' => '2014-02-03 10:29:54'
         );
@@ -471,6 +458,7 @@ class Fill_model extends CI_Model {
         $data = array(
             'id_curso' => 1,
             'id_usuario' => 8,
+            'rol' => 1,
             'id_nivel' => 4,
             'fecha' => '2014-02-03 10:30:54'
         );
@@ -479,6 +467,7 @@ class Fill_model extends CI_Model {
         $data = array(
             'id_curso' => 1,
             'id_usuario' => 9,
+            'rol' => 1,
             'id_nivel' => 3,
             'fecha' => '2014-02-03 10:32:54'
         );
@@ -487,52 +476,63 @@ class Fill_model extends CI_Model {
         $data = array(
             'id_curso' => 1,
             'id_usuario' => 10,
-            'id_nivel' => 4,
-            'fecha' => '2014-02-03 10:34:54'
+            'rol' => 3,
+            'fecha' => '2014-02-03 10:34:54',
+            'informacion_contacto' => 'Luner Martes Miecoles 6-8 pm skype: qwee32'
         );
         $this->db->insert('usuario_x_curso', $data);
 
         $data = array(
             'id_curso' => 1,
             'id_usuario' => 11,
-            'id_nivel' => 3,
-            'fecha' => '2014-05-03 10:42:54'
+            'rol' => 3,
+            'fecha' => '2014-05-03 10:42:54',
+            'informacion_contacto' => 'Luner Martes Miecoles 6-8 pm skype: qwee32'
         );
         $this->db->insert('usuario_x_curso', $data);
 
         $data = array(
             'id_curso' => 1,
             'id_usuario' => 12,
-            'id_nivel' => 5,
-            'fecha' => '2014-06-03 10:52:54'
+            'rol' => 3,
+            'fecha' => '2014-06-03 10:52:54',
+            'informacion_contacto' => 'Luner Martes Miecoles 6-8 pm skype: qwee32'
         );
         $this->db->insert('usuario_x_curso', $data);
 
         $data = array(
             'id_curso' => 1,
             'id_usuario' => 13,
-            'fecha' => '2014-07-03 10:52:54'
+            'rol' => 3,
+            'fecha' => '2014-07-03 10:52:54',
+            'informacion_contacto' => 'Luner Martes Miecoles 6-8 pm skype: qwee32'
         );
         $this->db->insert('usuario_x_curso', $data);
 
         $data = array(
             'id_curso' => 1,
             'id_usuario' => 14,
-            'fecha' => '2014-08-03 10:52:54'
+            'rol' => 3,
+            'fecha' => '2014-08-03 10:52:54',
+            'informacion_contacto' => 'Luner Martes Miecoles 6-8 pm skype: qwee32'
         );
         $this->db->insert('usuario_x_curso', $data);
 
         $data = array(
             'id_curso' => 1,
             'id_usuario' => 15,
-            'fecha' => '2014-09-03 10:52:54'
+            'rol' => 3,
+            'fecha' => '2014-09-03 10:52:54',
+            'informacion_contacto' => 'Luner Martes Miecoles 6-8 pm skype: qwee32'
         );
         $this->db->insert('usuario_x_curso', $data);
 
         $data = array(
             'id_curso' => 1,
             'id_usuario' => 16,
-            'fecha' => '2014-10-03 10:52:54'
+            'rol' => 3,
+            'fecha' => '2014-10-03 10:52:54',
+            'informacion_contacto' => 'Luner Martes Miecoles 6-8 pm skype: qwee32'
         );
         $this->db->insert('usuario_x_curso', $data);
     }
@@ -828,46 +828,137 @@ class Fill_model extends CI_Model {
             'id_tipo_evaluacion' => 1
         );
         $this->db->insert('evaluacion', $data);
+
+        $data = array(
+            'id_evaluacion' => 16,
+            'id_modulo' => 1,
+            'orden' => 16,
+            'id_tipo_evaluacion' => 1
+        );
+        $this->db->insert('evaluacion', $data);
+
+        $data = array(
+            'id_evaluacion' => 17,
+            'id_modulo' => 1,
+            'orden' => 17,
+            'id_tipo_evaluacion' => 1
+        );
+        $this->db->insert('evaluacion', $data);
+
+        $data = array(
+            'id_evaluacion' => 18,
+            'id_modulo' => 1,
+            'orden' => 18,
+            'id_tipo_evaluacion' => 1
+        );
+        $this->db->insert('evaluacion', $data);
+
+        $data = array(
+            'id_evaluacion' => 19,
+            'id_modulo' => 1,
+            'orden' => 19,
+            'id_tipo_evaluacion' => 1
+        );
+        $this->db->insert('evaluacion', $data);
+
+        $data = array(
+            'id_evaluacion' => 20,
+            'id_modulo' => 1,
+            'orden' => 20,
+            'id_tipo_evaluacion' => 1
+        );
+        $this->db->insert('evaluacion', $data);
+
+        $data = array(
+            'id_evaluacion' => 21,
+            'id_modulo' => 1,
+            'orden' => 21,
+            'id_tipo_evaluacion' => 1
+        );
+        $this->db->insert('evaluacion', $data);
+
+        $data = array(
+            'id_evaluacion' => 22,
+            'id_modulo' => 1,
+            'orden' => 22,
+            'id_tipo_evaluacion' => 1
+        );
+        $this->db->insert('evaluacion', $data);
+
+        $data = array(
+            'id_evaluacion' => 23,
+            'id_modulo' => 1,
+            'orden' => 23,
+            'id_tipo_evaluacion' => 1
+        );
+        $this->db->insert('evaluacion', $data);
+
+        $data = array(
+            'id_evaluacion' => 24,
+            'id_modulo' => 1,
+            'orden' => 24,
+            'id_tipo_evaluacion' => 1
+        );
+        $this->db->insert('evaluacion', $data);
+
+        $data = array(
+            'id_evaluacion' => 25,
+            'id_modulo' => 1,
+            'orden' => 25,
+            'id_tipo_evaluacion' => 1
+        );
+        $this->db->insert('evaluacion', $data);
+
+        $data = array(
+            'id_evaluacion' => 26,
+            'id_modulo' => 1,
+            'orden' => 26,
+            'id_tipo_evaluacion' => 1
+        );
+        $this->db->insert('evaluacion', $data);
+
+        $data = array(
+            'id_evaluacion' => 27,
+            'id_modulo' => 1,
+            'orden' => 27,
+            'id_tipo_evaluacion' => 1
+        );
+        $this->db->insert('evaluacion', $data);
+
+        $data = array(
+            'id_evaluacion' => 28,
+            'id_modulo' => 1,
+            'orden' => 28,
+            'id_tipo_evaluacion' => 1
+        );
+        $this->db->insert('evaluacion', $data);
+
+        $data = array(
+            'id_evaluacion' => 29,
+            'id_modulo' => 1,
+            'orden' => 29,
+            'id_tipo_evaluacion' => 1
+        );
+        $this->db->insert('evaluacion', $data);
+
+        $data = array(
+            'id_evaluacion' => 30,
+            'id_modulo' => 1,
+            'orden' => 30,
+            'id_tipo_evaluacion' => 1
+        );
+        $this->db->insert('evaluacion', $data);
     }
 
     private function usuario_x_evaluacion() {
         $this->db->empty_table('usuario_x_evaluacion');
-        $data = array(
-            'id_usuario_evaluacion' => 1,
-            'id_usuario' => 2,
-            'id_evaluacion' => 1,
-            'calificacion' => 1,
-            'fecha_inicial' => '2014-06-30 12:14:44',
-            'fecha_final' => '2014-06-30 12:15:50',
-            'realimentacion' => 'Correcto'
-        );
-        $this->db->insert('usuario_x_evaluacion', $data);
 
-        $data = array(
-            'id_usuario_evaluacion' => 2,
-            'id_usuario' => 2,
-            'id_evaluacion' => 1,
-            'calificacion' => 1,
-            'fecha_inicial' => '2014-06-30 12:14:44',
-            'fecha_final' => '2014-06-30 12:15:50',
-            'realimentacion' => 'Correcto'
-        );
-        $this->db->insert('usuario_x_evaluacion', $data);
+
+
 
         $data = array(
             'id_usuario_evaluacion' => 3,
             'id_usuario' => 4,
-            'id_evaluacion' => 1,
-            'calificacion' => 1,
-            'fecha_inicial' => '2014-06-30 12:14:44',
-            'fecha_final' => '2014-06-30 12:15:50',
-            'realimentacion' => 'Correcto'
-        );
-        $this->db->insert('usuario_x_evaluacion', $data);
-
-        $data = array(
-            'id_usuario_evaluacion' => 4,
-            'id_usuario' => 5,
             'id_evaluacion' => 1,
             'calificacion' => 1,
             'fecha_inicial' => '2014-06-30 12:14:44',
@@ -1073,14 +1164,6 @@ class Fill_model extends CI_Model {
         $this->db->insert('usuario_x_material', $data);
 
         $data = array(
-            'id_usuario' => 2,
-            'id_material' => 4,
-            'fecha_inicial' => '2014-06-30 12:14:44',
-            'fecha_final' => '2014-06-30 12:25:50'
-        );
-        $this->db->insert('usuario_x_material', $data);
-
-        $data = array(
             'id_usuario' => 1,
             'id_material' => 1,
             'fecha_inicial' => '2014-06-30 12:14:44',
@@ -1108,14 +1191,6 @@ class Fill_model extends CI_Model {
         $this->db->insert('usuario_x_modulo', $data);
 
         $data = array(
-            'id_usuario_modulo' => 2,
-            'id_usuario' => 2,
-            'id_modulo' => 1,
-            'puntaje' => 1000
-        );
-        $this->db->insert('usuario_x_modulo', $data);
-
-        $data = array(
             'id_usuario_modulo' => 3,
             'id_usuario' => 4,
             'id_modulo' => 1,
@@ -1123,13 +1198,6 @@ class Fill_model extends CI_Model {
         );
         $this->db->insert('usuario_x_modulo', $data);
 
-        $data = array(
-            'id_usuario_modulo' => 4,
-            'id_usuario' => 5,
-            'id_modulo' => 1,
-            'puntaje' => 250
-        );
-        $this->db->insert('usuario_x_modulo', $data);
         $data = array(
             'id_usuario_modulo' => 5,
             'id_usuario' => 6,
@@ -1405,28 +1473,19 @@ class Fill_model extends CI_Model {
             'visto' => 1
         );
         $this->db->insert('usuario_curso_logro', $data);
-
-        $data = array(
-            'id_usuario_curso_logro' => 2,
-            'id_usuario' => 5,
-            'id_curso' => 1,
-            'id_logro' => 2,
-            'visto' => 1
-        );
-        $this->db->insert('usuario_curso_logro', $data);
     }
 
     private function muro() {
         $this->db->empty_table('muro');
-    /*    $data = array(
-            'id_muro' => 1,
-            'id_curso' => 1,
-            'id_usuario' => 1,
-            'mensaje' => 1,
-            'tipo' => 'logro'
-        );
-        $this->db->insert('muro', $data);
-*/
+        /*    $data = array(
+          'id_muro' => 1,
+          'id_curso' => 1,
+          'id_usuario' => 1,
+          'mensaje' => 1,
+          'tipo' => 'logro'
+          );
+          $this->db->insert('muro', $data);
+         */
 
         $data = array(
             'id_muro' => 2,
@@ -1437,16 +1496,15 @@ class Fill_model extends CI_Model {
         );
         $this->db->insert('muro', $data);
 
-       /* $data = array(
-            'id_muro' => 3,
-            'muro_id_muro' => 1,
-            'id_curso' => 1,
-            'id_usuario' => 10,
-            'mensaje' => "Felicitaciones!"
-        );
-        $this->db->insert('muro', $data);
-        * */
-        
+        /* $data = array(
+          'id_muro' => 3,
+          'muro_id_muro' => 1,
+          'id_curso' => 1,
+          'id_usuario' => 10,
+          'mensaje' => "Felicitaciones!"
+          );
+          $this->db->insert('muro', $data);
+         * */
     }
 
     private function bitacora_nivel() {
@@ -1483,14 +1541,6 @@ class Fill_model extends CI_Model {
             'id_curso' => 1,
             'id_nivel' => 1,
             'fecha' => '2014-06-27 13:14:13'
-        );
-        $this->db->insert('bitacora_nivel', $data);
-
-        $data = array(
-            'id_usuario' => 5,
-            'id_curso' => 1,
-            'id_nivel' => 1,
-            'fecha' => '2014-06-26 13:14:13'
         );
         $this->db->insert('bitacora_nivel', $data);
 

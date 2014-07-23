@@ -20,7 +20,7 @@ class Evaluacion_model extends CI_Model {
     }
 
     function obtenerEvaluacionesPorModulo($idModulo, $idEstudiante) {
-        $this->db->select('e.*,MAX(ue.calificacion) calificacion_maxima,count(ue.id_evaluacion) intentos,');
+        $this->db->select('e.*,MAX(ue.calificacion) calificacion_maxima,MIN(ue.calificacion) calificacion_minima,count(ue.id_evaluacion) intentos,');
         $this->db->from('evaluacion e');
         $this->db->join('modulo mo', "mo.id_modulo = e.id_modulo AND mo.id_modulo='$idModulo'");
         $this->db->join('usuario_x_evaluacion ue', "ue.id_evaluacion=e.id_evaluacion AND ue.id_usuario='$idEstudiante'", 'left');

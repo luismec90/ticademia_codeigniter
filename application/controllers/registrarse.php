@@ -45,7 +45,6 @@ class Registrarse extends CI_Controller {
             "correo" => $_POST["email"],
             "imagen" => "default.png",
             "password" => sha1($_POST["password"]),
-            "rol" => "estudiante",
             "activo" => "0"
         );
         $this->usuario_model->crear($data);

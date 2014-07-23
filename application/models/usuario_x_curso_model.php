@@ -19,6 +19,14 @@ class Usuario_x_curso_model extends CI_Model {
         return $this->db->query($query)->result();
     }
 
+    public function obtenerMonitores($idCurso) {
+        $query = "SELECT *
+              FROM usuario_x_curso uc
+              JOIN usuario u ON u.id_usuario=uc.id_usuario
+              WHERE uc.id_curso='$idCurso' AND uc.rol='3'";
+        return $this->db->query($query)->result();
+    }
+
     public function crear($data) {
         $this->db->insert('usuario_x_curso', $data);
     }
@@ -28,7 +36,7 @@ class Usuario_x_curso_model extends CI_Model {
     }
 
     public function cantidadEstudiantesMatriculados($idCurso) {
-        $query = "SELECT count(*) cantidad FROM usuario_x_curso uc JOIN usuario u ON uc.id_usuario=u.id_usuario AND u.rol='estudiante' WHERE uc.id_curso='$idCurso'";
+        $query = "SELECT count(*) cantidad FROM usuario_x_curso WHERE id_curso='$idCurso' AND rol=1";
         return $this->db->query($query)->result();
     }
 

@@ -16,15 +16,15 @@
                     <h4>Duración: <?= $row->duracion ?> semanas</h4>
                     <p><?= $row->descripcion ?></p>
                     <?php
-                    if (isset($_SESSION["idUsuario"]) && $row->id_usuario != $_SESSION["idUsuario"]) {
-                        if ($row->esta_matriculado) {
+                    if (isset($_SESSION["idUsuario"]) && ($row->rol == 1 || $row->rol == 3 || $row->rol == null )) {
+                        if ($row->id_usuario) {
                             ?>
                             <a class="btn btn-info" href="<?= base_url() ?>curso/<?= $row->id_curso ?>">Entrar <span class="glyphicon glyphicon-chevron-right"></span></a>
                         <?php } else { ?>
                             <a class="btn btn-info" href="<?= base_url() ?>curso/matricularse/<?= $row->id_curso ?>">Matricularse <span class="glyphicon glyphicon-chevron-right"></span></a>
                             <?php
                         }
-                    } else if (isset($_SESSION["idUsuario"]) && $row->id_usuario == $_SESSION["idUsuario"]) {
+                    } else if (isset($_SESSION["idUsuario"]) && $row->rol == 2) {
                         ?>
                         <a class="btn btn-info" href="<?= base_url() ?>curso/<?= $row->id_curso ?>">Entrar <span class="glyphicon glyphicon-chevron-right"></span></a>
                         <button title='Editar curso' class='btn btn-warning editarCurso' data-toggle='modal' data-target='#modalEditarCurso' data-id-curso="<?= $row->id_curso ?>"> <i class='fa fa-pencil-square-o'></i> Editar </button>

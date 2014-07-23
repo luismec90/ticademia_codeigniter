@@ -472,7 +472,7 @@
 }
 #container-evaluaciones .boxEvaluaciones2 .numeroEvaluacion{
     left: 5px;
-    font-size: 50px;
+    font-size: 40px;
 }
 #container-evaluaciones .boxEvaluaciones2 .tipo{
     width: 20px;
@@ -481,6 +481,10 @@
     top:auto;
     bottom: 10px;
     left: 15px;
+}
+#container-evaluaciones  .opciones{
+    display: inline-block;
+    height: 20px;
 }
 #container-evaluaciones .boxEvaluaciones2 .icono{
     right:10px;
@@ -494,6 +498,9 @@
 }
 #container-evaluaciones .boxEvaluaciones2 .fa-check{
     color:#2F895E;
+}
+#container-evaluaciones .boxEvaluaciones2 .fa-share{
+    color:#444;
 }
 #container-evaluaciones .boxEvaluaciones2 .intentos{
     right: 20px;

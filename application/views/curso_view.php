@@ -1,7 +1,7 @@
 <div id="contenedor-modulos">
     <div id="divAdminModulos">
         <!--<a href="<?= base_url() ?>" class="btn btn-info" title="Ir atrás"><i class="fa fa-reply"></i></a>-->
-        <?php if (validarProfesor($idCurso, $_SESSION["idUsuario"])) { ?>
+        <?php if ($_SESSION["rol"]==2) { ?>
             <button class="btn btn-primary" data-toggle="modal" data-target="#modalCrearModulo">
                 <i class="fa fa-plus"></i>  Crear módulo
             </button>
