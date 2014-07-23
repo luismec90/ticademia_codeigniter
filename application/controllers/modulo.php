@@ -13,148 +13,150 @@ class Modulo extends CI_Controller {
         $this->load->model('usuario_x_modulo_model');
     }
 
-    public function verModulo($idModulo) {
-        $this->load->model('curso_model');
-        $this->load->model('material_valoracion_model');
-        $modulo = $this->modulo_model->obtenerModulo($idModulo);
-        $idCurso = $modulo[0]->id_curso;
-        $this->verificarMatricula($idCurso);
+    /*
+      public function verModulo($idModulo) {
+      $this->load->model('curso_model');
+      $this->load->model('material_valoracion_model');
+      $modulo = $this->modulo_model->obtenerModulo($idModulo);
+      $idCurso = $modulo[0]->id_curso;
+      $this->verificarMatricula($idCurso);
 
-        $this->load->model('material_model');
-        $this->load->model('evaluacion_model');
+      $this->load->model('material_model');
+      $this->load->model('evaluacion_model');
 
-        $data["tab"] = "modulo";
-        $data["idCurso"] = $idCurso;
-        index_bitacora($idCurso);
-        $data["idModulo"] = $idModulo;
-        $data["css"] = array("libs/jquery-ui-1.10.4.custom/css/redmond/jquery-ui-1.10.4.custom.min", "libs/mediaElement/mediaelementplayer", "css/ranking", "css/modulo");
-        $data["js"] = array("libs/jquery-ui-1.10.4.custom/js/jquery-ui-1.10.4.custom.min", "libs/mediaElement/mediaelement-and-player", "libs/raty/lib/jquery.raty.min", "libs/googleCharts/jsapi", "js/modulo",);
+      $data["tab"] = "modulo";
+      $data["idCurso"] = $idCurso;
+      index_bitacora($idCurso);
+      $data["idModulo"] = $idModulo;
+      $data["css"] = array("libs/jquery-ui-1.10.4.custom/css/redmond/jquery-ui-1.10.4.custom.min", "libs/mediaElement/mediaelementplayer", "css/ranking", "css/modulo");
+      $data["js"] = array("libs/jquery-ui-1.10.4.custom/js/jquery-ui-1.10.4.custom.min", "libs/mediaElement/mediaelement-and-player", "libs/raty/lib/jquery.raty.min", "libs/googleCharts/jsapi", "js/modulo",);
 
-        $datos = $this->material_model->obtenerMaterialesUsuario($idModulo, $_SESSION["idUsuario"]);
-        $infoMaterial = array();
-        foreach ($datos as $row) {
-            $row->tiempo_total = round($row->tiempo_total / 60);
-            $infoMaterial[$row->id_material]["tiempo_total"] = $row->tiempo_total;
-        }
+      $datos = $this->material_model->obtenerMaterialesUsuario($idModulo, $_SESSION["idUsuario"]);
+      $infoMaterial = array();
+      foreach ($datos as $row) {
+      $row->tiempo_total = round($row->tiempo_total / 60);
+      $infoMaterial[$row->id_material]["tiempo_total"] = $row->tiempo_total;
+      }
 
-        $data["materiales"] = $this->material_model->obtenerMaterialesPorModulo($idModulo);
-        $data["cantidadMateriales"] = sizeof($data["materiales"]);
-        foreach ($data["materiales"] as $row) {
-            $row->extension = substr(strrchr($row->ubicacion, '.'), 1);
-            if ($row->extension != "pdf") {
-                $row->extension = "video";
-            }
-            $row->ubicacion = base_url() . "material/" . $row->id_curso . "/" . $row->id_modulo . "/" . $row->ubicacion;
+      $data["materiales"] = $this->material_model->obtenerMaterialesPorModulo($idModulo);
+      $data["cantidadMateriales"] = sizeof($data["materiales"]);
+      foreach ($data["materiales"] as $row) {
+      $row->extension = substr(strrchr($row->ubicacion, '.'), 1);
+      if ($row->extension != "pdf") {
+      $row->extension = "video";
+      }
+      $row->ubicacion = base_url() . "material/" . $row->id_curso . "/" . $row->id_modulo . "/" . $row->ubicacion;
 
-            $row->tiempo_total = 0;
-            if (isset($infoMaterial[$row->id_material]["tiempo_total"])) {
-                $row->visto = true;
-                $row->tiempo_total = $infoMaterial[$row->id_material]["tiempo_total"];
-            } else {
-                $row->visto = false;
-            }
-            $row->puntaje_promedio = round($row->puntaje_promedio) / 2;
-            $row->total_comentarios = $this->material_valoracion_model->contarComentarios($row->id_material);
-            $row->total_comentarios = $row->total_comentarios[0]->total;
-        }
-
-
-        $curso = $this->curso_model->obtenerCurso($idCurso);
-        $umbral = $curso[0]->umbral;
-        $valorMinimo = 150;
-        $datos = $this->evaluacion_model->obtenerIntentosAprobados($idModulo, $_SESSION["idUsuario"]);
-
-        $infoEvaluacion = array();
-        foreach ($datos as $row) {
-            if (!array_key_exists($row->id_evaluacion, $infoEvaluacion)) {
-                $infoEvaluacion[$row->id_evaluacion] = array();
-            }
-            if (!array_key_exists("veces_aprobado", $infoEvaluacion[$row->id_evaluacion])) {
-                $infoEvaluacion[$row->id_evaluacion]["veces_aprobado"] = 0;
-                $infoEvaluacion[$row->id_evaluacion]["veces_intentado"] = 0;
-                $infoEvaluacion[$row->id_evaluacion]["puntuacion"] = $row->valor;
-                $infoEvaluacion[$row->id_evaluacion]["flag"] = true;
-                $infoEvaluacion[$row->id_evaluacion]["menor_tiempo"] = -1;
-            }
-            $infoEvaluacion[$row->id_evaluacion]["veces_intentado"] ++;
-            if ($row->calificacion >= $umbral) {
-                $infoEvaluacion[$row->id_evaluacion]["veces_aprobado"] ++;
-            }
-            if ($infoEvaluacion[$row->id_evaluacion]["flag"] && $row->calificacion < $umbral) {
-                $infoEvaluacion[$row->id_evaluacion]["puntuacion"]-=10 - 10 * $row->calificacion;
-            } else if ($infoEvaluacion[$row->id_evaluacion]["flag"]) {
-                $infoEvaluacion[$row->id_evaluacion]["puntuacion"] = MAX($valorMinimo, $infoEvaluacion[$row->id_evaluacion]["puntuacion"]);
-                $infoEvaluacion[$row->id_evaluacion]["flag"] = false;
-            }
-            if ($row->calificacion >= $umbral && $row->fecha_inicial != null && $row->fecha_final != null) {
-                $tiempo = strtotime($row->fecha_final) - strtotime($row->fecha_inicial);
-                if ($tiempo < $infoEvaluacion[$row->id_evaluacion]["menor_tiempo"] || $infoEvaluacion[$row->id_evaluacion]["menor_tiempo"] == -1) {
-                    $infoEvaluacion[$row->id_evaluacion]["menor_tiempo"] = $tiempo;
-                }
-            }
-        }
-
-        $evaluaciones = $this->evaluacion_model->obtenerEvaluacionesPorModulo($idModulo, $_SESSION["idUsuario"]);
-
-        //  echo $this->db->last_query();
-        $estatusPrev = "solved";
-        foreach ($evaluaciones as $row) {
-            if ($row->calificacion_maxima >= $umbral) {
-                $row->estatus = "solved";
-                $row->icono = "check";
-                $estatusPrev = "solved";
-                $row->ubicacion = base_url() . "resources/$idCurso/$idModulo/" . $row->id_evaluacion . "/launch.html";
-                $row->veces_aprobado = $infoEvaluacion[$row->id_evaluacion]["veces_aprobado"];
-                $row->veces_intentado = $infoEvaluacion[$row->id_evaluacion]["veces_intentado"];
-                $row->puntuacion = 0;
-                $row->menor_tiempo = $infoEvaluacion[$row->id_evaluacion]["menor_tiempo"];
-            } else if ($row->calificacion_minima == -1) {
-                $row->estatus = "solved";
-                $row->icono = "share";
-                $estatusPrev = "solved";
-                $row->ubicacion = base_url() . "resources/$idCurso/$idModulo/" . $row->id_evaluacion . "/launch.html";
-                $row->veces_aprobado = $infoEvaluacion[$row->id_evaluacion]["veces_aprobado"];
-                $row->veces_intentado = $infoEvaluacion[$row->id_evaluacion]["veces_intentado"];
-                $row->puntuacion = 0;
-                $row->menor_tiempo = "--";
-            } else if ($estatusPrev == "solved") {
-                $row->estatus = "open";
-                $row->icono = "unlock";
-                $estatusPrev = "lock";
-                $row->ubicacion = base_url() . "resources/$idCurso/$idModulo/" . $row->id_evaluacion . "/launch.html";
-                $row->veces_aprobado = "0";
-                $row->puntuacion = "0";
-                $row->menor_tiempo = "--";
-                if (isset($infoEvaluacion[$row->id_evaluacion])) {
-                    $row->veces_intentado = $infoEvaluacion[$row->id_evaluacion]["veces_intentado"];
-                } else {
-                    $row->veces_intentado = "0";
-                }
-            } else {
-                $row->estatus = "lock";
-                $row->icono = "lock";
-                $estatusPrev = "lock";
-                $row->ubicacion = "";
-                $row->veces_aprobado = "0";
-                $row->veces_intentado = "0";
-                $row->puntuacion = "0";
-                $row->menor_tiempo = "--";
-            }
-            if ($_SESSION["rol"] == 2 || $_SESSION["rol"] == 3) {
-                $row->estatus = "open";
-                $row->icono = "unlock";
-                $row->ubicacion = base_url() . "resources/$idCurso/$idModulo/" . $row->id_evaluacion . "/launch.html";
-            }
-        }
+      $row->tiempo_total = 0;
+      if (isset($infoMaterial[$row->id_material]["tiempo_total"])) {
+      $row->visto = true;
+      $row->tiempo_total = $infoMaterial[$row->id_material]["tiempo_total"];
+      } else {
+      $row->visto = false;
+      }
+      $row->puntaje_promedio = round($row->puntaje_promedio) / 2;
+      $row->total_comentarios = $this->material_valoracion_model->contarComentarios($row->id_material);
+      $row->total_comentarios = $row->total_comentarios[0]->total;
+      }
 
 
-        $data["topN"] = $topN = $this->calcultarTopN($idModulo, 10, $idCurso);
-        $data["evaluaciones"] = $evaluaciones;
-        $data["cantidadEvaluaciones"] = sizeof($evaluaciones);
-        $this->load->view('include/header', $data);
-        $this->load->view('modulo_view');
-        $this->load->view('include/footer');
-    }
+      $curso = $this->curso_model->obtenerCurso($idCurso);
+      $umbral = $curso[0]->umbral;
+      $valorMinimo = 150;
+      $datos = $this->evaluacion_model->obtenerIntentosAprobados($idModulo, $_SESSION["idUsuario"]);
+
+      $infoEvaluacion = array();
+      foreach ($datos as $row) {
+      if (!array_key_exists($row->id_evaluacion, $infoEvaluacion)) {
+      $infoEvaluacion[$row->id_evaluacion] = array();
+      }
+      if (!array_key_exists("veces_aprobado", $infoEvaluacion[$row->id_evaluacion])) {
+      $infoEvaluacion[$row->id_evaluacion]["veces_aprobado"] = 0;
+      $infoEvaluacion[$row->id_evaluacion]["veces_intentado"] = 0;
+      $infoEvaluacion[$row->id_evaluacion]["puntuacion"] = $row->valor;
+      $infoEvaluacion[$row->id_evaluacion]["flag"] = true;
+      $infoEvaluacion[$row->id_evaluacion]["menor_tiempo"] = -1;
+      }
+      $infoEvaluacion[$row->id_evaluacion]["veces_intentado"] ++;
+      if ($row->calificacion >= $umbral) {
+      $infoEvaluacion[$row->id_evaluacion]["veces_aprobado"] ++;
+      }
+      if ($infoEvaluacion[$row->id_evaluacion]["flag"] && $row->calificacion < $umbral) {
+      $infoEvaluacion[$row->id_evaluacion]["puntuacion"]-=10 - 10 * $row->calificacion;
+      } else if ($infoEvaluacion[$row->id_evaluacion]["flag"]) {
+      $infoEvaluacion[$row->id_evaluacion]["puntuacion"] = MAX($valorMinimo, $infoEvaluacion[$row->id_evaluacion]["puntuacion"]);
+      $infoEvaluacion[$row->id_evaluacion]["flag"] = false;
+      }
+      if ($row->calificacion >= $umbral && $row->fecha_inicial != null && $row->fecha_final != null) {
+      $tiempo = strtotime($row->fecha_final) - strtotime($row->fecha_inicial);
+      if ($tiempo < $infoEvaluacion[$row->id_evaluacion]["menor_tiempo"] || $infoEvaluacion[$row->id_evaluacion]["menor_tiempo"] == -1) {
+      $infoEvaluacion[$row->id_evaluacion]["menor_tiempo"] = $tiempo;
+      }
+      }
+      }
+
+      $evaluaciones = $this->evaluacion_model->obtenerEvaluacionesPorModulo($idModulo, $_SESSION["idUsuario"]);
+
+      //  echo $this->db->last_query();
+      $estatusPrev = "solved";
+      foreach ($evaluaciones as $row) {
+      if ($row->calificacion_maxima >= $umbral) {
+      $row->estatus = "solved";
+      $row->icono = "check";
+      $estatusPrev = "solved";
+      $row->ubicacion = base_url() . "resources/$idCurso/$idModulo/" . $row->id_evaluacion . "/launch.html";
+      $row->veces_aprobado = $infoEvaluacion[$row->id_evaluacion]["veces_aprobado"];
+      $row->veces_intentado = $infoEvaluacion[$row->id_evaluacion]["veces_intentado"];
+      $row->puntuacion = 0;
+      $row->menor_tiempo = $infoEvaluacion[$row->id_evaluacion]["menor_tiempo"];
+      } else if ($row->calificacion_minima == -1) {
+      $row->estatus = "solved";
+      $row->icono = "share";
+      $estatusPrev = "solved";
+      $row->ubicacion = base_url() . "resources/$idCurso/$idModulo/" . $row->id_evaluacion . "/launch.html";
+      $row->veces_aprobado = $infoEvaluacion[$row->id_evaluacion]["veces_aprobado"];
+      $row->veces_intentado = $infoEvaluacion[$row->id_evaluacion]["veces_intentado"];
+      $row->puntuacion = 0;
+      $row->menor_tiempo = "--";
+      } else if ($estatusPrev == "solved") {
+      $row->estatus = "open";
+      $row->icono = "unlock";
+      $estatusPrev = "lock";
+      $row->ubicacion = base_url() . "resources/$idCurso/$idModulo/" . $row->id_evaluacion . "/launch.html";
+      $row->veces_aprobado = "0";
+      $row->puntuacion = "0";
+      $row->menor_tiempo = "--";
+      if (isset($infoEvaluacion[$row->id_evaluacion])) {
+      $row->veces_intentado = $infoEvaluacion[$row->id_evaluacion]["veces_intentado"];
+      } else {
+      $row->veces_intentado = "0";
+      }
+      } else {
+      $row->estatus = "lock";
+      $row->icono = "lock";
+      $estatusPrev = "lock";
+      $row->ubicacion = "";
+      $row->veces_aprobado = "0";
+      $row->veces_intentado = "0";
+      $row->puntuacion = "0";
+      $row->menor_tiempo = "--";
+      }
+      if ($_SESSION["rol"] == 2 || $_SESSION["rol"] == 3) {
+      $row->estatus = "open";
+      $row->icono = "unlock";
+      $row->ubicacion = base_url() . "resources/$idCurso/$idModulo/" . $row->id_evaluacion . "/launch.html";
+      }
+      }
+
+
+      $data["topN"] = $topN = $this->calcultarTopN($idModulo, 10, $idCurso);
+      $data["evaluaciones"] = $evaluaciones;
+      $data["cantidadEvaluaciones"] = sizeof($evaluaciones);
+      $this->load->view('include/header', $data);
+      $this->load->view('modulo_view');
+      $this->load->view('include/footer');
+      }
+     */
 
     public function crearModulo() {
         $this->escapar($_POST);
@@ -204,7 +206,7 @@ class Modulo extends CI_Controller {
         $this->modulo_model->eliminarModulo($where);
         $this->mensaje("Modulo eliminado exitosamente", "success", "curso/" . $_POST["curso"]);
     }
-
+/*
     private function calcultarTopN($idModulo, $n, $idCurso) {
         $topN = $this->usuario_x_modulo_model->obtenerTopN($idModulo, $n);
         $string = "";
@@ -226,5 +228,5 @@ class Modulo extends CI_Controller {
         }
         return $string . "<a id='link-posicion' href='" . base_url() . "modulo/$idModulo'>$posicion</a>";
     }
-
+*/
 }

@@ -31,7 +31,7 @@ class Evaluacion extends CI_Controller {
 
         $ruta = "/var/www/minerva/resources/$idCurso/$idModulo/$lastId";
         echo exec("unzip {$_FILES["file"]['tmp_name']} -d $ruta");
-        $this->mensaje("Evaluación creada exitosamente", "success", "modulo/$idModulo");
+        $this->mensaje("Evaluación creada exitosamente", "success", "curso/$idCurso");
     }
 
     public function editarEvaluacion() {
@@ -60,7 +60,7 @@ class Evaluacion extends CI_Controller {
             echo exec("rm -R $ruta");
         }
         echo exec("unzip {$_FILES["file"]['tmp_name']} -d $ruta");
-        $this->mensaje("Evaluación editada exitosamente", "success", "modulo/$idModulo");
+        $this->mensaje("Evaluación editada exitosamente", "success", "curso/$idCurso");
     }
 
     public function eliminarEvaluacion() {
@@ -86,7 +86,7 @@ class Evaluacion extends CI_Controller {
         if (file_exists($ruta)) {
             echo exec("rm -R $ruta");
         }
-        $this->mensaje("Evaluación eliminada exitosamente", "success", "modulo/$idModulo");
+        $this->mensaje("Evaluación eliminada exitosamente", "success", "curso/$idCurso");
     }
 
     public function ordenarEvaluacion() {
@@ -104,7 +104,7 @@ class Evaluacion extends CI_Controller {
                 $this->evaluacion_model->setOrden($row, $key);
             }
         }
-        $this->mensaje("Evaluaciones ordenados exitosamente", "success", "modulo/$idModulo");
+        $this->mensaje("Evaluaciones ordenados exitosamente", "success", "curso/$idCurso");
     }
 
     public function estadisticasRespuestas() {
@@ -220,8 +220,6 @@ class Evaluacion extends CI_Controller {
             'fecha_inicial' => $fechaInicial
         );
         $this->usuario_x_evaluacion_model->crearIntento($data);
-        $this->session->set_flashdata('mensaje', "Evaluación omitida correctamente");
-        $this->session->set_flashdata('tipo', "success");
     }
 
 }

@@ -226,4 +226,21 @@
     <?php } ?>
 
 </body>
+<?php if ($tab == "curso") { ?>
+    <script>
+                        $(function() {
+                            var months = <?= $modulos ?>;
+                            var idModulos = jQuery.parseJSON('<?= $idModulos ?>');
+                            $("#slider").slider({min: 0, max: <?= $cantidadModulos - 1 ?>, value: 0, animate: "normal"});
+                            $("#slider").slider("pips", {rest: "label", labels: months})
+                            $("#slider").on("slidechange", function(e, ui) {
+                                var idModulo = idModulos[ui.value];
+                                cargarModulo(idModulo);
+
+                            });
+
+                            cargarModulo(-1);
+                        });
+    </script>
+<?php } ?>
 </html>

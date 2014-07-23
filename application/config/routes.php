@@ -43,6 +43,7 @@ if (!defined('BASEPATH'))
 
 $route['default_controller'] = "inicio";
 $route['curso/(:num)'] = "curso/verCurso/$1";
+$route['curso2/(:num)'] = "curso2/verCurso/$1";
 $route['modulo/(:num)'] = "modulo/verModulo/$1";
 $route['ranking/(:num)'] = "ranking/index/$1";
 $route['logros/(:num)'] = "logros/index/$1";

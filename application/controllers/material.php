@@ -44,7 +44,7 @@ class Material extends CI_Controller {
             $this->material_model->actulizarDuracion($lastId, $duracionSegundos);
         }
         move_uploaded_file($_FILES["file"]["tmp_name"], "material/$idCurso/{$_POST["modulo"]}/" . $ubicacion);
-        $this->mensaje("Material creado exitosamente", "success", "modulo/$idCurso");
+        $this->mensaje("Material creado exitosamente", "success", "curso/$idCurso");
     }
 
     public function editarMaterial() {
@@ -74,7 +74,7 @@ class Material extends CI_Controller {
         $ubicacion = $_POST["material"] . "." . strtolower($extension);
         move_uploaded_file($_FILES["file"]["tmp_name"], "material/$idCurso/{$_POST["modulo"]}/" . $ubicacion);
         $this->material_model->actualizar($_POST["material"], $_POST["nombre"], $_POST["descripcion"], $ubicacion);
-        $this->mensaje("Material editado exitosamente", "success", "modulo/$idCurso");
+        $this->mensaje("Material editado exitosamente", "success", "curso/$idCurso");
     }
 
     public function eliminarMaterial() {
@@ -96,7 +96,7 @@ class Material extends CI_Controller {
             unlink("material/$idCurso/{$_POST["modulo"]}/" . $material[0]->ubicacion);
         }
         $this->material_model->eliminar($_POST["material"]);
-        $this->mensaje("Material eliminado exitosamente", "success", "modulo/$idModulo");
+        $this->mensaje("Material eliminado exitosamente", "success", "curso/$idCurso");
     }
 
     public function ordenarMaterial() {
@@ -114,7 +114,7 @@ class Material extends CI_Controller {
                 $this->material_model->setOrden($row, $key);
             }
         }
-        $this->mensaje("Materiales ordenados exitosamente", "success", "modulo/$idModulo");
+        $this->mensaje("Materiales ordenados exitosamente", "success", "curso/$idCurso");
     }
 
     public function crearRegistro() {
@@ -164,7 +164,7 @@ class Material extends CI_Controller {
                 'id_usuario' => $_SESSION["idUsuario"]
             );
             $this->material_valoracion_model->actualizarValoracion($data, $where);
-            $this->mensaje("Valoración actualizada exitosamente", "success", "modulo/$idModulo");
+            $this->mensaje("Valoración actualizada exitosamente", "success", "curso/$idCurso");
         } else {
             $data = array(
                 'id_usuario' => $_SESSION["idUsuario"],
@@ -173,7 +173,7 @@ class Material extends CI_Controller {
                 'comentario' => $_POST["comentario"]
             );
             $this->material_valoracion_model->crearValoracion($data);
-            $this->mensaje("Material valorado exitosamente", "success", "modulo/$idModulo");
+            $this->mensaje("Material valorado exitosamente", "success", "curso/$idCurso");
         }
     }
 
