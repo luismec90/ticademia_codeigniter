@@ -14,10 +14,26 @@
     </head>
     <body>
         <div id="contenedor" class="container-fluid">
-            <h1>La distancia entre los números reales <span class="mvar" value="a">a</span> y <span class="mvar" value="b">b</span> es:</h1>
+            <h1>Clasifica los siguientes triángulos según la medida de sus lados.</h1>
           
             <div id="div-asnwer">
-                <h4>Respuesta = <input id="answer" class="form-control" type="number" autofocus> <a id="verificar" class="btn btn-primary" >Enviar</a></h4>
+                <h4>
+                    <table align="center">
+                        <tr>
+                            <td width=120><label for="answer1">Equilátero</label> </td>
+                            <td><select name="answer1" id="answer1" class="form-control" ></select></td>
+                        </tr>
+                        <tr>
+                            <td><label for="answer2">Isósceles</label> </td>
+                            <td><select name="answer2" id="answer2" class="form-control" ></select></td>
+                        </tr>
+                        <tr>
+                            <td><label for="answer3">Escaleno</label> </td>
+                            <td><select name="answer3" id="answer3" class="form-control" ></select></td>
+                        </tr>
+                    </table>
+                    <br/><br/><a id="verificar" class="btn btn-primary" >Enviar</a>
+                </h4>
             </div>
         </div>
         <div class="modal fade" id="modal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">

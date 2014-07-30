@@ -12,7 +12,7 @@ class Evaluacion_model extends CI_Model {
     function crearEvaluacion($idModulo, $tipo, $orden) {
         $datos = array(
             'id_modulo' => $idModulo,
-            'tipo' => $tipo,
+            'id_tipo_evaluacion' => $tipo,
             'orden' => $orden
         );
         $this->db->insert('evaluacion', $datos);
@@ -59,7 +59,7 @@ class Evaluacion_model extends CI_Model {
 
     public function actualizarTipo($idEvaluacion, $tipo) {
         $data = array(
-            'tipo' => $tipo
+            'id_tipo_evaluacion' => $tipo
         );
         $where = array(
             'id_evaluacion' => $idEvaluacion

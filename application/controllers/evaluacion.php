@@ -11,6 +11,7 @@ class Evaluacion extends CI_Controller {
         $this->estoyLogueado();
         $this->load->model('evaluacion_model');
         $this->load->model('modulo_model');
+        $this->load->model('evaluacion_x_material_model');
     }
 
     public function crearEvaluacion() {
@@ -31,6 +32,13 @@ class Evaluacion extends CI_Controller {
 
         $ruta = "/var/www/minerva/resources/$idCurso/$idModulo/$lastId";
         echo exec("unzip {$_FILES["file"]['tmp_name']} -d $ruta");
+
+        $materiales = $this->input->post('materiales');
+        if ($materiales) {
+            foreach ($materiales as $row) {
+                $this->evaluacion_x_material_model->crear(array("id_material" => $row, "id_evaluacion" => $lastId));
+            }
+        }
         $this->mensaje("Evaluación creada exitosamente", "success", "curso/$idCurso");
     }
 
@@ -39,8 +47,8 @@ class Evaluacion extends CI_Controller {
 
         if (empty($_POST["modulo"]) || empty($_POST["evaluacion"])) {
             $this->mensaje("Por favor inténtalo nuevamente", "error");
-        } else if (empty($_POST["tipoEvaluacion"]) || empty($_FILES["file"]) || $_FILES["file"]["error"] > 0) {
-            $this->mensaje("Por favor inténtalo nuevamente", "error", "modulo/{$_POST["modulo"]}");
+        } else if (empty($_POST["tipoEvaluacion"])) {
+            $this->mensaje("Por favor inténtalo nuevamente", "error", "curso/$idCurso");
         }
         $idModulo = $_POST["modulo"];
         $idEvaluacion = $_POST["evaluacion"];
@@ -54,12 +62,22 @@ class Evaluacion extends CI_Controller {
         }
         $this->evaluacion_model->actualizarTipo($_POST["evaluacion"], $_POST["tipoEvaluacion"]);
 
-        $ruta = "/var/www/minerva/resources/$idCurso/$idModulo/{$evaluacion[0]->id_evaluacion}";
+        if ($_FILES["file"]['tmp_name'] != "") {
+            $ruta = "/var/www/minerva/resources/$idCurso/$idModulo/{$evaluacion[0]->id_evaluacion}";
 
-        if (file_exists($ruta)) {
-            echo exec("rm -R $ruta");
+            if (file_exists($ruta)) {
+                echo exec("rm -R $ruta");
+            }
+            echo exec("unzip {$_FILES["file"]['tmp_name']} -d $ruta");
+            echo "entro";
         }
-        echo exec("unzip {$_FILES["file"]['tmp_name']} -d $ruta");
+        $materiales = $this->input->post('materiales');
+        $this->evaluacion_x_material_model->eliminar(array("id_evaluacion" => $idEvaluacion));
+        if ($materiales) {
+            foreach ($materiales as $row) {
+                $this->evaluacion_x_material_model->crear(array("id_material" => $row, "id_evaluacion" => $idEvaluacion));
+            }
+        }
         $this->mensaje("Evaluación editada exitosamente", "success", "curso/$idCurso");
     }
 
@@ -209,8 +227,9 @@ class Evaluacion extends CI_Controller {
 
         $fechaInicial = date('Y-m-d H:i:s');
         $idEvaluacion = $this->input->post('idEvaluacion');
-        if (!$idEvaluacion) {
-            exit();
+        $idCurso = $this->input->post('idCurso');
+        if (!$idEvaluacion || !$idCurso) {
+            $this->mensaje("Intentalo nuevamente", "error", "");
         }
         $this->load->model('usuario_x_evaluacion_model');
         $data = array(
@@ -220,6 +239,13 @@ class Evaluacion extends CI_Controller {
             'fecha_inicial' => $fechaInicial
         );
         $this->usuario_x_evaluacion_model->crearIntento($data);
+        $this->mensaje("Evaluación saltada correctamente", "success", "curso/$idCurso");
+    }
+
+    public function materialesrelacionados() {
+        $idEvaluacion = $this->input->get('idEvaluacion');
+        $r = $this->evaluacion_x_material_model->obtener(array("id_evaluacion" => $idEvaluacion));
+        echo json_encode($r);
     }
 
 }

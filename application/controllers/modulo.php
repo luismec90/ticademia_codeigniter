@@ -190,6 +190,8 @@ class Modulo extends CI_Controller {
             'id_curso' => $_POST["curso"],
             'id_modulo' => $_POST["idModulo"]
         );
+        var_dump($datos);
+        var_dump($where);
         $this->modulo_model->editarModulo($datos, $where);
         $this->mensaje("Modulo editado exitosamente", "success", "curso/" . $_POST["curso"]);
     }
@@ -206,27 +208,28 @@ class Modulo extends CI_Controller {
         $this->modulo_model->eliminarModulo($where);
         $this->mensaje("Modulo eliminado exitosamente", "success", "curso/" . $_POST["curso"]);
     }
-/*
-    private function calcultarTopN($idModulo, $n, $idCurso) {
-        $topN = $this->usuario_x_modulo_model->obtenerTopN($idModulo, $n);
-        $string = "";
 
-        $i = 1;
-        foreach ($topN as $row) {
-            $string.="<img class='rank rank$i hide' title='Puesto: $i, Puntaje: {$row->puntaje},{$row->nombres} {$row->apellidos}' data-id-curso='$idCurso' data-id-modulo='$idModulo' data-id-estudiante='{$row->id_usuario}' data-nombre='{$row->nombres} {$row->apellidos}' data-puntaje='{$row->puntaje}' src='" . base_url() . "assets/img/avatares/thumbnails/{$row->imagen}'>";
-            $i++;
-        }
-        $posiciones = $this->usuario_x_modulo_model->rankingModulo($idModulo);
-        $i = 1;
-        $posicion = "N/A";
-        foreach ($posiciones as $row) {
-            if ($row->id_usuario == $_SESSION["idUsuario"]) {
-                $posicion = $i;
-                break;
-            }
-            $i++;
-        }
-        return $string . "<a id='link-posicion' href='" . base_url() . "modulo/$idModulo'>$posicion</a>";
-    }
-*/
+    /*
+      private function calcultarTopN($idModulo, $n, $idCurso) {
+      $topN = $this->usuario_x_modulo_model->obtenerTopN($idModulo, $n);
+      $string = "";
+
+      $i = 1;
+      foreach ($topN as $row) {
+      $string.="<img class='rank rank$i hide' title='Puesto: $i, Puntaje: {$row->puntaje},{$row->nombres} {$row->apellidos}' data-id-curso='$idCurso' data-id-modulo='$idModulo' data-id-estudiante='{$row->id_usuario}' data-nombre='{$row->nombres} {$row->apellidos}' data-puntaje='{$row->puntaje}' src='" . base_url() . "assets/img/avatares/thumbnails/{$row->imagen}'>";
+      $i++;
+      }
+      $posiciones = $this->usuario_x_modulo_model->rankingModulo($idModulo);
+      $i = 1;
+      $posicion = "N/A";
+      foreach ($posiciones as $row) {
+      if ($row->id_usuario == $_SESSION["idUsuario"]) {
+      $posicion = $i;
+      break;
+      }
+      $i++;
+      }
+      return $string . "<a id='link-posicion' href='" . base_url() . "modulo/$idModulo'>$posicion</a>";
+      }
+     */
 }

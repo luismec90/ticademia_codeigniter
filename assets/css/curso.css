@@ -1,7 +1,9 @@
 
 #linea{
-    margin:5px 50px;
-    height: 70px;
+    padding:10px 50px;
+    height: 80px;
+    background: whitesmoke;
+    border-bottom: 1px solid #CFCFCF;
 }
 .widget-box {
     padding: 0px;
@@ -64,11 +66,7 @@
     margin-bottom: -10px;
     border-color: transparent;
 }
-.icono-pdf{
-    background-image: url(../img/pdf.png); 
-    width: 32px;
-    height: 32px;
-}
+
 .icono-video{
     background-image: url(../img/video.png);
     width: 32px;
@@ -209,12 +207,16 @@
     border-color: transparent;
 }
 .icono-pdf{
-    background-image: url(../img/pdf.png); 
+    background: url(../img/temas/default/icono-libro-pdf.png) no-repeat; 
+    background-size: 32px;
+    display: inline-block;
     width: 32px;
     height: 32px;
 }
 .icono-video{
-    background-image: url(../img/video.png);
+    background: url(../img/temas/default/icono-video.png) no-repeat; 
+    background-size: 32px;
+    display: inline-block;
     width: 32px;
     height: 32px;
 }
@@ -274,6 +276,9 @@
     max-height:calc(100% - 25px);
     overflow-y:auto;
     padding: 0;
+}
+#div-evaluaciones{
+    margin-top: 15px;
 }
 #div-material.profesor{
     max-height:calc(100% - 75px);
@@ -432,38 +437,35 @@
 }
 #container-evaluaciones .boxEvaluaciones2{
     width: 100px;
-    height: 100px;
+    height: 110px;
     margin-left: 10px;
-
     -webkit-border-radius: 10px;
     -moz-border-radius: 10px;
     border-radius: 10px;
-    background: #3bb6e6;
-    color:white;
+    color:#444;
+    background:url('../img/temas/default/pergamino.png') no-repeat;
+    background-size: 100px;
+    cursor: pointer;
 }
 #container-evaluaciones .solved{
-    background: -webkit-gradient(linear,0% 0%,0% 100%,from(#008aea),to(#024dcf));
-    background: -webkit-linear-gradient(0% 0%,0% 100%,from(#008aea),to(#024dcf));
-    background: -moz-linear-gradient(center top,#008aea,#024dcf);
-    background: linear-gradient(#008aea,#024dcf);
-    border:1px solid #3bb6e6;
-    color:white;
-    background: #3bb6e6;
-    cursor:pointer;
-    transition: all 0.2s ease-out;  
+    /*    background: -webkit-gradient(linear,0% 0%,0% 100%,from(#008aea),to(#024dcf));
+        background: -webkit-linear-gradient(0% 0%,0% 100%,from(#008aea),to(#024dcf));
+        background: -moz-linear-gradient(center top,#008aea,#024dcf);
+        background: linear-gradient(#008aea,#024dcf);
+        border:1px solid #3bb6e6;
+        color:white;
+        background: #3bb6e6;
+        cursor:pointer;
+        transition: all 0.2s ease-out; */ 
 }
 #container-evaluaciones .lock{
-    background-color: #CCCCCC;
-    border: 1px solid #BABABA;
-    color: #fff;
-    color:#444;
+    /*    background-color: #CCCCCC;
+        border: 1px solid #BABABA;
+        color: #fff;
+        color:#444;*/
 }
 #container-evaluaciones .open{
-    -webkit-box-shadow: -1px -1px 17px 0px #762c59;
-    -moz-box-shadow:    -1px -1px 17px 0px #762c59;
-    box-shadow:         -1px -1px 17px 0px #762c59;
-    cursor:pointer;
-    transition: all 0.2s ease-out;  
+
 }
 #container-evaluaciones .solved:hover,#container-evaluaciones .open:hover{
     -webkit-transform: scale(1.1,1.1);
@@ -476,16 +478,17 @@
     position: absolute;
 }
 #container-evaluaciones .boxEvaluaciones2 .numeroEvaluacion{
-    left: 5px;
-    font-size: 40px;
+    left: 12px;
+    top:15px;
+    font-size: 35px;
 }
 #container-evaluaciones .boxEvaluaciones2 .tipo{
-    width: 20px;
+    width: 25px;
     height: 20px;
     font-size: 20px;
     top:auto;
-    bottom: 10px;
-    left: 15px;
+    bottom: 25px;
+    left: 20px;
 }
 #container-evaluaciones  .opciones{
     display: inline-block;
@@ -493,7 +496,7 @@
 }
 #container-evaluaciones .boxEvaluaciones2 .icono{
     right:10px;
-    top:-15px;
+    top:-10px;
 }
 #container-evaluaciones .boxEvaluaciones2 .fa-lock{
     color:#444;
@@ -513,7 +516,7 @@
     font-size:14px;
 }
 #container-evaluaciones .boxEvaluaciones2 .puntaje{
-    right: 0px;
+    right: 10px;
     top:40px;
     font-size:14px;
 }
@@ -521,7 +524,7 @@
     margin: 0 6px 0 6px;
 }
 #container-evaluaciones .boxEvaluaciones2 .tiempo{
-    right: 0px;
+    right: 12px;
     top:65px;
     font-size:14px;
 }
@@ -556,4 +559,84 @@
 }
 #div-canvas{
     margin-bottom: 50px;
+}
+#container-evaluaciones .resaltar-evaluacion{
+    color:white;
+}
+/*#modal-info-usuario .modal-dialog {
+width: 90%;
+}*/
+
+.fa-candado-abierto{
+    background:url('../img/temas/default/candado-abierto.png') no-repeat;
+    width: 15px;
+    height: 21px;
+}
+
+.fa-candado-cerrado{
+    background:url('../img/temas/default/candado-cerrado.png') no-repeat;
+    width: 15px;
+    height: 21px;
+}
+.glyphicon-time{
+    background:url('../img/temas/default/reloj-de-arena.png') no-repeat;
+    background-size: 11px;
+    width: 11px;
+    height: 20px;
+    margin-bottom: -3px !important;
+}
+.glyphicon-time:before {
+    content: "";
+}
+.glyphicon-star{
+    background:url('../img/temas/default/estrella.png') no-repeat;
+    background-size: 15px;
+    width: 15px;
+    height: 15px;
+}
+.glyphicon-star:before {
+    content: "";
+}
+.glyphicon-list{
+    background:url('../img/temas/default/icono-seleccion-multi.png') no-repeat;
+    background-size:30px;
+    width: 30px;
+    height: 30px;
+}
+.glyphicon-list:before {
+    content: "";
+}
+.glyphicon-tower{
+    background:url('../img/temas/default/icono-analizis.png') no-repeat;
+    background-size:22px;
+    width: 30px;
+    height: 30px;
+}
+.glyphicon-tower:before {
+    content: "";
+}
+
+.glyphicon-pencil{
+    background:url('../img/temas/default/icono-escribir-completar.png') no-repeat;
+    background-size:32px;
+    width: 30px;
+    height: 30px;
+}
+.glyphicon-pencil:before {
+    content: "";
+}
+.box-evaluacion{
+    width: 100px;
+    height: 110px;
+    display: inline-block;
+    margin: 0 0 10px 5px;
+}
+.profesor-in .box-evaluacion{
+     margin: 0 0 50px 5px;
+}
+.box-next{
+    width: 20px;
+    height: 20px;
+    display: inline-block;
+    margin: 10px 0 60px 10px;
 }

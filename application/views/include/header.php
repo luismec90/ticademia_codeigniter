@@ -56,15 +56,15 @@
                     <ul class="nav navbar-nav">
                         <li class="<?= ($tab == "inicio") ? "active" : "" ?>"><a href="<?= base_url() ?>" class="white"><i class="fa fa-list-ul fa-lg"></i> Ver cursos</a></li>
                     </ul>
-                    <ul class="nav navbar-nav navbar-right">
+                    <ul id="<?php if (isset($idCurso)) echo "fondo-menu" ?>" class="nav navbar-nav navbar-right">
                         <?php if (isset($_SESSION["nombre"])) { ?>
                             <?php if (isset($idCurso)) { ?>
                                 <?php if ($_SESSION["rol"] == 1) { ?>
-                                    <li ><a id="asesorias" title="Asesorias" class="white"><span class="glyphicon glyphicon-earphone"></span></a></li>
-                                    <li ><a id="arena" title="Arena" class="white"><span class="glyphicon glyphicon-play"></span></a></li>
-                                <?php } if ($_SESSION["rol"] == 2) { ?>
-                                    <li class="dropdown <?= ($tab == "estadisticaestudiantes" || $tab == "estadisticamateriales" || $tab == "estadisticapreguntas" ) ? "active" : ""; ?>">
-                                        <a href="#" class="dropdown-toggle white" data-toggle="dropdown"> <i class="icon-position fa fa-bar-chart-o fa-lg"></i> <b class="caret"></b></a>
+                                <!--                                    <li clas=" item item1"><a id="asesorias" title="Asesorias" class=""><span class="glyphicon glyphicon-earphone"></span></a></li>-->
+                                    <li  class="item item1"><a id="arena" title="Arena" class=""><span class="glyphicon glyphicon-play"></span></a></li>
+                                <?php } else if ($_SESSION["rol"] == 2) { ?>
+                                    <li class="dropdown  item item1-1 <?= ($tab == "estadisticaestudiantes" || $tab == "estadisticamateriales" || $tab == "estadisticapreguntas" ) ? "active" : ""; ?>">
+                                        <a href="#" class="dropdown-toggle" data-toggle="dropdown"> <i class="icon-position fa fa-bar-chart-o fa-lg"></i> <!--<b class="caret">--></b></a>
                                         <ul  class="dropdown-menu">
                                             <li class="<?= ($tab == "estadisticaestudiantes") ? "active" : ""; ?>">
                                                 <a href="<?= base_url() ?>estadisticaestudiantes/<?= $idCurso ?>">
@@ -84,17 +84,16 @@
                                         </ul>
                                     </li>
                                 <?php } ?>
-                                <li class="<?= ($tab == "curso") ? "active" : "" ?>"><a id="link-curso" title="Ver modulos" href="<?= base_url() ?>curso/<?= $idCurso ?>" class="white"><i class="icon-position fa fa-book fa-lg"></i></a></li>
-                                <li class="<?= ($tab == "muro") ? "active" : "" ?>"><a id="link-muro" title="Ver Muro" href="<?= base_url() ?>muro/<?= $idCurso ?>" class="white"><span class="glyphicon glyphicon-bullhorn"></span></a></li>
-                                <li class="<?= ($tab == "ranking") ? "active" : "" ?>"><a id="link-ranking" title="Ver ranking" href="<?= base_url() ?>ranking/<?= $idCurso ?>" class="white"><i class="icon-position fa fa-list-ol fa-lg"></i></a></li>
-                                <li class="<?= ($tab == "logros") ? "active" : "" ?>"><a id="link-trofeos" title="Ver trofeos" href="<?= base_url() ?>logros/<?= $idCurso ?>" class="white"> <i class="icon-position fa fa-trophy  fa-lg icon-animated-bell"></i> </a></li>
-                                <li class="<?= ($tab == "foro") ? "active" : "" ?>">
+                                <li class="<?= ($tab == "muro") ? "active" : "" ?> item item2"><a id="link-muro" title="Ver Muro" href="<?= base_url() ?>muro/<?= $idCurso ?>" class="white"><i class="icon-position fa icono-muro fa-lg"></i></a></li>
+                                <li class="<?= ($tab == "ranking") ? "active" : "" ?> item item3"><a id="link-ranking" title="Ver ranking" href="<?= base_url() ?>ranking/<?= $idCurso ?>" class="white"><i class="icon-position fa icono-ranking fa-lg"></i></a></li>
+                                <li class="<?= ($tab == "logros") ? "active" : "" ?> item item4"><a id="link-trofeos" title="Ver trofeos" href="<?= base_url() ?>logros/<?= $idCurso ?>" class="white"> <i class="icon-position fa icono-trofeo  fa-lg icon-animated-bell"></i> </a></li>
+                                <li class="<?= ($tab == "foro") ? "active" : "" ?> item item5 <?= ($_SESSION["rol"] == 2) ? "profesor-in" : "" ?>">
                                     <?= tabForo($idCurso); ?>
                                 </li>
 
                             <?php } ?>
 
-                            <li class="dropdown">
+                            <li class="dropdown item6">
                                 <a href="#" class="dropdown-toggle white" data-toggle="dropdown"> <?= $_SESSION["nombre"] ?> <b class="caret"></b></a>
                                 <ul class="dropdown-menu">
                                     <li>
@@ -103,7 +102,6 @@
                                             Pefil
                                         </a>
                                     </li>
-
                                     <li class="divider"></li>
 
                                     <li>
@@ -153,3 +151,7 @@
                 </div><!--/.nav-collapse -->
             </div>
         </div>
+        <?php if(isset($idCurso)) {?>
+        <div id="marco-superior">
+        </div>
+        <?php } ?>

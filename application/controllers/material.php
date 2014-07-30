@@ -44,7 +44,7 @@ class Material extends CI_Controller {
             $this->material_model->actulizarDuracion($lastId, $duracionSegundos);
         }
         move_uploaded_file($_FILES["file"]["tmp_name"], "material/$idCurso/{$_POST["modulo"]}/" . $ubicacion);
-        $this->mensaje("Material creado exitosamente", "success", "curso/$idCurso");
+       // $this->mensaje("Material creado exitosamente", "success", "curso/$idCurso");
     }
 
     public function editarMaterial() {

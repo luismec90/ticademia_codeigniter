@@ -51,8 +51,12 @@ class Api extends CI_Controller {
     }
 
     public function calificar() {
-        $mensajeCorrecto = array("Mensaje exito 1", "Mensaje exito 2", "Mensaje exito 3");
-        $mensajeIncorrecto = array("Mensaje incorrecto 1", "Mensaje incorrecto 2", "Mensaje incorrecto 3");
+        $A = array("Felicitaciones", "Enhorabuena", "Magnífico", "Perfecto", "Muy bien");
+        $B = array(", tu respuesta es correcta", ", has acertado", ", lo hiciste sin errores", ", te has lucido con la respuesta");
+
+        $C = array("Lamentablemente", "Desafortunadamente", "Tendrás que esforzarte más", "Lo siento");
+        $D = array(", la respuesta no es correcta", ", no has acertado");
+        
 
 
         $this->load->model('usuario_x_curso_model');
@@ -61,10 +65,10 @@ class Api extends CI_Controller {
             exit();
         }
         if ($_POST["calificacion"] == 1) {
-            $feedback = $mensajeCorrecto[rand(0, 2)];
+            $feedback = $A[rand(0, 4)].$B[rand(0, 3)];
             $realimentacion = "Correcto";
         } else if ($_POST["calificacion"] == 0) {
-            $feedback = $mensajeIncorrecto[rand(0, 2)];
+            $feedback =$C[rand(0, 3)].$D[rand(0, 1)];
             $realimentacion = "Incorrecto";
         } else {
             $feedback = $_POST["feedback"];

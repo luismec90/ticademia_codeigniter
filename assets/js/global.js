@@ -1,6 +1,7 @@
 
 $(function() {
-    $(".formSubmit").submit(function() {
+
+    $('body').on("submit", ".formSubmit", function() {
         $("#coverDisplay").css({
             "opacity": "1",
             "width": "100%",
@@ -28,8 +29,7 @@ $(function() {
             form[0].reset();
         }
     });
-    $(".btn-file :file").change(function() {
-
+    $("#contenedor").on("change", ".btn-file :file", function() {
         var input = $(this);
         var label = input.val().replace(/\\/g, '/').replace(/.*\//, '');
         input.parent().parent().siblings("input").val(label);

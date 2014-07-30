@@ -1,5 +1,3 @@
-var a,b,c;
-
 $(function() {
 	try{
 		API = getAPI();
@@ -8,41 +6,39 @@ $(function() {
 		console.log(e);
 	}
 
-    a = getRandom(-9,-2);
-    b = getRandom(7,12);
-    c = getRandom(0,5);
+    var labels = ["Lado-Ángulo-Lado","Ángulo-Lado-Ángulo","Lado-Lado-Lado"];
+    var correctAnswer = shuffleArray([0,1,2]);
     //console.log(correctAnswer + " " + missConception1);
-    var correctAnswer = draw();
+    draw(labels,correctAnswer);
 
     $("#verificar").click(function() {
-        var valor = $("input[name=answer]:checked").val().trim();
-        if (valor != "") {
+        var valor1 = $("#answer1").val().trim();
+        var valor2 = $("#answer2").val().trim();
+        var valor3 = $("#answer3").val().trim();
+        console.log(correctAnswer[valor1]);
+        if (valor1 != "-1" && valor2 != "-1" && valor3 != "-1") {
             $("#correcto").addClass("hide");
             $("#feedback").addClass("hide");
             var calificacion = 0;
             var feedback = "";
-            valor = parseFloat(valor);
-            switch (valor) {
-                case correctAnswer:
+            if(0==correctAnswer[valor1] && 1==correctAnswer[valor2] && 2==correctAnswer[valor3]){
                     calificacion = 1.0;
                     $("#correcto").html("Calificación: <b>" + calificacion + "</b>").removeClass("hide");
-                    break;
-                default:
+            }else{
                     calificacion = 0.0;
                     $("#feedback").html("Calificación: <b>" + calificacion + "</b> <br> ...").removeClass("hide");
-                    break;
             }
             $(this).attr("disabled", true);
-            /* $("#modal").modal({
+            $("#modal").modal({
                 backdrop: "static",
                 keyboard: "false"
             });
 
-            */ API.closeQuestion();  if (typeof API.calificar == 'function') {
+            if (typeof API.calificar == 'function') {
                 API.calificar(calificacion, feedback);
             }
             API.LMSSetValue("cmi.core.score.raw", calificacion);
-            API.LMSFinish("feedback", feedback); API.notifyDaemon(calificacion);
+            API.LMSFinish("feedback", feedback);
         }
     });
     $("#aceptar").click(function() {
@@ -56,25 +52,8 @@ $(function() {
 function getRandom(bottom, top) {
     return Math.floor(Math.random() * (1 + top - bottom)) + bottom;
 }
-function draw(){
-	var correct = 0;
-	var answers = ["(<span class='mvar' value='c'>c</span>,<span class='mvar' value='b'>b</span>]",
-					"[<span class='mvar' value='b'>b</span>,∞)",
-					"(<span class='mvar' value='a'>a</span>,<span class='mvar' value='c'>c</span>)",
-					"∅"];
-	var is = [0,1,2,3];
-	shuffleArray(is);
-	var i = 0;
-	while(i<4){
-		$("#label"+(i+1)).html(answers[is[i]]);
-		if(is[i]==0)correct=i+1;
-		i++;
-	}
-	
-	$('.mvar[value=a]').html(a);
-	$('.mvar[value=b]').html(b);
-	$('.mvar[value=c]').html(c);
-	return correct;
+function draw(labels,answer){
+	$("#answer1,#answer2,#answer3").html("<option value='-1'>---</option><option value='0'>"+labels[answer[0]]+"</option><option value='1'>"+labels[answer[1]]+"</option><option value='2'>"+labels[answer[2]]+"</option>");
 }
 function shuffleArray(array) {
     for (var i = array.length - 1; i > 0; i--) {

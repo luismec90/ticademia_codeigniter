@@ -1,147 +1,152 @@
-<div id="contenedor-modulos">
-    <div id="divAdminModulos">
-        <!--<a href="<?= base_url() ?>" class="btn btn-info" title="Ir atrás"><i class="fa fa-reply"></i></a>-->
-        <?php if ($_SESSION["rol"]==2) { ?>
-            <button class="btn btn-primary" data-toggle="modal" data-target="#modalCrearModulo">
-                <i class="fa fa-plus"></i>  Crear módulo
-            </button>
-        <?php } ?>
-    </div>
-    <div id="timeline-embed"></div>
-    <script type="text/javascript">
-        var dataObject = <?= $json ?>;
-        var timeline_config = {
-            width: "100%",
-            height: "100%",
-            //  source: "../assets/libs/time-line/example_json.json",
-            source: dataObject,
-            start_zoom_adjust: '2', //OPTIONAL TWEAK THE DEFAULT ZOOM LEVEL,
-            lang: "es",
-            start_at_slide: 0,
-            embed_id: 'timeline-embed'
-        }
-    </script>
+<div id="contenedor">
+   
+    <div id="linea">
+        <div id="slider">
 
-    <!-- END Timeline Embed-->
+        </div>
+    </div>
+    <div id="contenido" data-id-modulo="<?= $moduloActual ?>">
+
+    </div>
 </div>
-<?php if ($_SESSION["rol"] == "profesor") { ?>
-    <div class="modal fade" id="modalCrearModulo" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-        <div class="modal-dialog">
-            <div class="modal-content">
-                <form method="post"  class="formSubmit"  action="<?= base_url() ?>modulo/crearModulo" autocomplete="off">
-                    <div class="modal-header">
-                        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-                        <h4 class="modal-title" id="myModalLabel">Crear módulo</h4>
-                    </div>
-                    <div class="modal-body">
+<div id="contenedor-video" class="hide">
+    <div id="botonCerrarVideo" title="Cerrar">
+        <i class="fa fa-times fa-2x"></i> 
+    </div>
+    <video id="video" width="900" height="510" src="#test.mp4" ></video>
+</div>
+<div id="contenedor-pdf" class="hide">
+    <div id="botonCerrarPdf"  title="Cerrar">
+        <i class="fa fa-times fa-2x"></i> 
+    </div>
+    <embed id="pdf" src="">
+</div>
 
-                        <input type="hidden" name="curso" required="" readonly="" value="<?= $idCurso ?>">
-                        <div class="control-group">
-                            <label>Nombre:</label>
-                            <div class="controls">
-                                <input required="" id="nombre" name="nombre" type="text" class="form-control" placeholder="">
-                            </div>
-                        </div>
-                        <br>
-                        <div class="row">
-                            <div class="control-group col-md-6">
-                                <label>Fecha inicial:</label>
-                                <div class="controls">
-                                    <input required="" id="desde" name="desde" type="text" class="form-control datepicker" placeholder="">
-                                </div>
-                            </div>
-                            <div class="control-group col-md-6">
-                                <label>Fecha final:</label>
-                                <div class="controls">
-                                    <input required="" id="hasta" name="hasta" type="text" class="form-control datepicker" placeholder="">
-                                </div>
-                            </div>
-                        </div>
-                        <br>
-                        <div class="control-group">
-                            <label>Descripción:</label>
-                            <div class="controls">
-                                <textarea required="" id="descripcion" rows="10" name="descripcion" class="form-control" placeholder=""></textarea>
-                            </div>
-                        </div>
+<div id="custom-popover" class="popover fade top in">
+    <div class="arrow"></div><h3 class="popover-title"><div id="popover-titulo" ></div><button id="cerrar-popover" type="button" class="close">&times;</button> </h3>
+    <div id="popover-contenido" class="popover-content">bla bla <br> bla bla<br>bla bla
+    </div>
+</div>
 
-                    </div>
-                    <div class="modal-footer">
-                        <button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>
-                        <button type="submit" class="btn btn-primary">Enviar</button>
-                    </div>
-                </form>
+
+<div class="modal fade" id="modalValoracionMaterial" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <form method="post" class="formSubmit" action="<?= base_url() ?>material/valorarMaterial" autocomplete="off" >
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                    <h4 class="modal-title" id="myModalLabel">Valorar material <div id="preview-stars"></div></h4>
+                </div>
+
+                <div class="modal-body">
+                    <input type="hidden" id="idMaterial" name="idMaterial" required="" readonly="" >
+                    <textarea rows="5" id="comentario" class="form-control" name="comentario" placeholder="Comentario"></textarea>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Cancelar</button>
+                    <button type="submit" class="btn btn-primary">Enviar</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+
+<div class="modal fade" id="modalVerValoracionesMaterial" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                <h4 class="modal-title" id="myModalLabel">Comentarios del material <div id="preview-stars"></div></h4>
+            </div>
+
+            <div id="modal-body-ver-valoraciones" class="modal-body">
+
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>
             </div>
         </div>
     </div>
-    <div class="modal fade" id="modalEditarModulo" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-        <div class="modal-dialog">
-            <div class="modal-content">
-                <form method="post" class="formSubmit" action="<?= base_url() ?>modulo/editarModulo" autocomplete="off" >
-                    <div class="modal-header">
-                        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-                        <h4 class="modal-title" id="myModalLabel">Editar módulo</h4>
-                    </div>
-                    <div class="modal-body">
-                        <input type="hidden" name="curso" required="" readonly="" value="<?= $idCurso ?>">
-                        <input type="hidden" id="editarIdModulo" name="idModulo" required="" readonly="">
-                        <div class="control-group">
-                            <label>Nombre:</label>
-                            <div class="controls">
-                                <input required="" id="editarNombreModulo" name="nombre" type="text" class="form-control" placeholder="">
-                            </div>
-                        </div>
-                        <br>
-                        <div class="row">
-                            <div class="control-group col-md-6">
-                                <label>Fecha inicial:</label>
-                                <div class="controls">
-                                    <input required="" id="editarDesdeModulo" id="desde" name="desde" type="text" class="form-control datepicker" placeholder="">
-                                </div>
-                            </div>
-                            <div class="control-group col-md-6">
-                                <label>Fecha final:</label>
-                                <div class="controls">
-                                    <input required="" id="editarHastaModulo" name="hasta" type="text" class="form-control datepicker" placeholder="">
-                                </div>
-                            </div>
-                        </div>
-                        <br>
-                        <div class="control-group">
-                            <label>Descripción:</label>
-                            <div class="controls">
-                                <textarea required="" id="editarDescripcionModulo" rows="10" name="descripcion" class="form-control" placeholder=""></textarea>
-                            </div>
-                        </div>
+</div>
 
-                    </div>
-                    <div class="modal-footer">
-                        <button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>
-                        <button type="submit" class="btn btn-primary">Enviar</button>
-                    </div>
-                </form>
+<div class="modal fade" id="modalRespuestaEvaluacion" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                <h4 class="modal-title" id="myModalLabel">Retroalimentación<div id="preview-stars"></div></h4>
+            </div>
+
+            <div id="bodymodalRespuestaEvaluacion" class="modal-body">
+
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>
             </div>
         </div>
     </div>
-    <div class="modal fade" id="modalEliminarModulo" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-        <div class="modal-dialog">
-            <div class="modal-content">
-                <form method="post" class="formSubmit" action="<?= base_url() ?>modulo/eliminarModulo" autocomplete="off" >
-                    <div class="modal-header">
-                        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-                        <h4 class="modal-title" id="myModalLabel">Eliminar módulo</h4>
-                    </div>
-                    <div class="modal-body">
-                        <input type="hidden" name="curso" required="" readonly="" value="<?= $idCurso ?>">
-                        <input type="hidden" id="eliminarIdModulo" name="idModulo" required="" readonly="">
-                        <h5>Realmente desea eliminar el módulo: <span id="eliminarNombreModulo" class="text-info"></span> ?</h5>
-                    </div>
-                    <div class="modal-footer">
-                        <button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>
-                        <button type="submit" class="btn btn-primary">Enviar</button>
-                    </div>
-                </form>
+</div>
+
+<div class="modal fade" id="modalEstadisticasMaterial" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                <h4 class="modal-title" id="myModalLabel">Estadísticas<div id="preview-stars"></div></h4>
+            </div>
+
+            <div id="bodymodalEstadisticasMaterial" class="modal-body">
+                <div id="modal-estadistica1"></div>
+                <div id="modal-estadistica2"></div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>
             </div>
         </div>
     </div>
-<?php } ?>
+</div>
+
+<div class="modal fade" id="modalEstadisticasEvaluacion" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                <h4 class="modal-title" id="myModalLabel">Estadísticas<div id="preview-stars"></div></h4>
+            </div>
+
+            <div class="modal-body">
+                <div id="modal-estadistica-evaluacion1"></div>
+                <div id="modal-estadistica-evaluacion2"></div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="modal fade" id="modalSaltarEvaluacion" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <form method="post" class="formSubmit" action="<?= base_url() ?>evaluacion/saltar" autocomplete="off" >
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                    <h4 class="modal-title" id="myModalLabel">Saltar evaluación</h4>
+                </div>
+                <div class="modal-body">
+                    <input type="hidden" name="idCurso" value="<?= $idCurso ?>" required="" readonly="">
+                    <input type="hidden" id="idEvaluacionSaltar" name="idEvaluacion" required="" readonly="">
+                    <h5>¿Deseas saltar esta pregunta? ten en cuenta que luego la podrás realizar pero ya no recibirás puntuación</h5>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>
+                    <button type="submit" class="btn btn-primary">Enviar</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>

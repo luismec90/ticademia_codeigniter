@@ -20,24 +20,25 @@ class Fill_model extends CI_Model {
         $this->material();
         $this->tipo_evaluacion();
         $this->evaluacion();
-        $this->usuario_x_evaluacion();
-        $this->usuario_x_material();
-        $this->usuario_x_modulo();
-        $this->tema_foro();
-        $this->respuesta();
+        /*    $this->usuario_x_evaluacion();
+          $this->usuario_x_material();
+          $this->usuario_x_modulo();
+          $this->tema_foro();
+          $this->respuesta(); */
         $this->logro();
-        $this->usuario_curso_logro();
-        $this->muro();
-        $this->bitacora_nivel();
-        $this->bitacora();
+        /*      $this->usuario_curso_logro();
+          $this->muro();
+          $this->bitacora_nivel();
+          $this->bitacora(); */
+        $this->evaluacion_x_material();
     }
 
     private function asignatura() {
         $this->db->empty_table('asignatura');
         $data = array(
             'id_asignatura' => 1,
-            'nombre' => 'Cálculo Integral',
-            'descripcion' => 'Bienvenidos al curso de Cálculo Diferencial. En este curso se enseñan los conceptos matemáticos básicos que los ingenieros y científicos usamos para entender y cuantificar el mundo. ',
+            'nombre' => 'Matemáticas básicas',
+            'descripcion' => 'Este curso tiene como objetivo ofrecer al alumno recién admitido, y con una formación matemática deficiente, la oportunidad de nivelarse en temas que forman parte de los programas oficiales de la educación secundaria en matemáticas y cuyo conocimiento es pre-requisito esencial para asignaturas como Cálculo Diferencial.',
             'tabla_contenido' => 'Lorem ipsum dolor sit amet, ex perfecto patrioque vim, per dolore animal ea. Ei integre moderatius intellegebat eum. Mei facer fabulas ut, id eum stet regione. An posse albucius invidunt qui, nam mundi ceteros vulputate et. Ex unum reprehendunt his. Eam accusata mnesarchum an, eu his doming accusata. Et est consulatu assueverit, sit ancillae suavitate te. Ex omnium timeam indoctum vix, in viris deleniti eum, has discere recteque persequeris eu. Eum ne solet oblique tincidunt. Movet latine iuvaret eos ut, dicit regione in mei. Ea tibique corpora atomorum vel, dicant detracto intellegat vel et, graeco aliquid propriae ea ius. Odio paulo reprimique vix ex. Usu habemus dolores tacimates ex, ad aliquip fastidii sea, saepe forensibus ex duo. Has ullum causae dissentiet no, cum nostrud voluptatibus cu. Justo possit minimum duo cu, sea eu dolorum intellegat. Noster repudiare mea ut, cu ius appareat rationibus. Nec aliquip mediocrem ut, ius alterum concludaturque te. Vix no melius suavitate. Te facilis percipitur nec, minim forensibus mei eu. Te has maiorum percipitur. Pro bonorum detracto repudiandae at. Vim ferri eruditi appellantur an. Nam utinam eligendi lucilius ea, ad sea agam probatus. Ius homero commune id, te eam agam accusata.',
             'idioma' => 'Español',
             'prerequisitos' => 'Lorem ipsum dolor sit amet, ex perfecto patrioque vim, per dolore animal ea. Ei integre moderatius intellegebat eum. Mei facer fabulas ut, id eum stet regione. An posse albucius invidunt qui, nam mundi ceteros vulputate et. Ex unum reprehendunt his. Eam accusata mnesarchum an, eu his doming accusata. Et est consulatu assueverit, sit ancillae suavitate te. Ex omnium timeam indoctum vix, in viris deleniti eum, has discere recteque persequeris eu. Eum ne solet oblique tincidunt. Movet latine iuvaret eos ut, dicit regione in mei. Ea tibique corpora atomorum vel, dicant detracto intellegat vel et, graeco aliquid propriae ea ius. Odio paulo reprimique vix ex. Usu habemus dolores tacimates ex, ad aliquip fastidii sea, saepe forensibus ex duo. Has ullum causae dissentiet no, cum nostrud voluptatibus cu. Justo possit minimum duo cu, sea eu dolorum intellegat. Noster repudiare mea ut, cu ius appareat rationibus. Nec aliquip mediocrem ut, ius alterum concludaturque te. Vix no melius suavitate. Te facilis percipitur nec, minim forensibus mei eu. Te has maiorum percipitur. Pro bonorum detracto repudiandae at. Vim ferri eruditi appellantur an. Nam utinam eligendi lucilius ea, ad sea agam probatus. Ius homero commune id, te eam agam accusata.'
@@ -46,8 +47,8 @@ class Fill_model extends CI_Model {
 
         $data = array(
             'id_asignatura' => 2,
-            'nombre' => 'Fisica mecanica',
-            'descripcion' => 'La física mecánica se complementa con los temas de trabajo y energía donde se incluye la energía cinética y la potencial, el momento lineal',
+            'nombre' => 'Análisis de fallas en líneas de transmisión',
+            'descripcion' => 'Descripción....	',
             'tabla_contenido' => 'Lorem ipsum dolor sit amet, ex perfecto patrioque vim, per dolore animal ea. Ei integre moderatius intellegebat eum. Mei facer fabulas ut, id eum stet regione. An posse albucius invidunt qui, nam mundi ceteros vulputate et. Ex unum reprehendunt his. Eam accusata mnesarchum an, eu his doming accusata. Et est consulatu assueverit, sit ancillae suavitate te. Ex omnium timeam indoctum vix, in viris deleniti eum, has discere recteque persequeris eu. Eum ne solet oblique tincidunt. Movet latine iuvaret eos ut, dicit regione in mei. Ea tibique corpora atomorum vel, dicant detracto intellegat vel et, graeco aliquid propriae ea ius. Odio paulo reprimique vix ex. Usu habemus dolores tacimates ex, ad aliquip fastidii sea, saepe forensibus ex duo. Has ullum causae dissentiet no, cum nostrud voluptatibus cu. Justo possit minimum duo cu, sea eu dolorum intellegat. Noster repudiare mea ut, cu ius appareat rationibus. Nec aliquip mediocrem ut, ius alterum concludaturque te. Vix no melius suavitate. Te facilis percipitur nec, minim forensibus mei eu. Te has maiorum percipitur. Pro bonorum detracto repudiandae at. Vim ferri eruditi appellantur an. Nam utinam eligendi lucilius ea, ad sea agam probatus. Ius homero commune id, te eam agam accusata.',
             'idioma' => 'Español',
             'prerequisitos' => 'Lorem ipsum dolor sit amet, ex perfecto patrioque vim, per dolore animal ea. Ei integre moderatius intellegebat eum. Mei facer fabulas ut, id eum stet regione. An posse albucius invidunt qui, nam mundi ceteros vulputate et. Ex unum reprehendunt his. Eam accusata mnesarchum an, eu his doming accusata. Et est consulatu assueverit, sit ancillae suavitate te. Ex omnium timeam indoctum vix, in viris deleniti eum, has discere recteque persequeris eu. Eum ne solet oblique tincidunt. Movet latine iuvaret eos ut, dicit regione in mei. Ea tibique corpora atomorum vel, dicant detracto intellegat vel et, graeco aliquid propriae ea ius. Odio paulo reprimique vix ex. Usu habemus dolores tacimates ex, ad aliquip fastidii sea, saepe forensibus ex duo. Has ullum causae dissentiet no, cum nostrud voluptatibus cu. Justo possit minimum duo cu, sea eu dolorum intellegat. Noster repudiare mea ut, cu ius appareat rationibus. Nec aliquip mediocrem ut, ius alterum concludaturque te. Vix no melius suavitate. Te facilis percipitur nec, minim forensibus mei eu. Te has maiorum percipitur. Pro bonorum detracto repudiandae at. Vim ferri eruditi appellantur an. Nam utinam eligendi lucilius ea, ad sea agam probatus. Ius homero commune id, te eam agam accusata.'
@@ -60,7 +61,7 @@ class Fill_model extends CI_Model {
         $data = array(
             'id_nivel' => 1,
             'nombre' => 'Zombie',
-            'imagen' => '1.jpg',
+            'imagen' => '1.png',
             'descripcion' => 'Lorem ipsum dolor sit amet, ex perfecto patrioque vim, per dolore animal ea'
         );
         $this->db->insert('nivel', $data);
@@ -68,7 +69,7 @@ class Fill_model extends CI_Model {
         $data = array(
             'id_nivel' => 2,
             'nombre' => 'Principiante',
-            'imagen' => '2.jpg',
+            'imagen' => '2.png',
             'descripcion' => 'Lorem ipsum dolor sit amet, ex perfecto patrioque vim, per dolore animal ea'
         );
         $this->db->insert('nivel', $data);
@@ -76,7 +77,7 @@ class Fill_model extends CI_Model {
         $data = array(
             'id_nivel' => 3,
             'nombre' => 'Pupilo',
-            'imagen' => '3.jpg',
+            'imagen' => '3.png',
             'descripcion' => 'Lorem ipsum dolor sit amet, ex perfecto patrioque vim, per dolore animal ea'
         );
         $this->db->insert('nivel', $data);
@@ -84,7 +85,7 @@ class Fill_model extends CI_Model {
         $data = array(
             'id_nivel' => 4,
             'nombre' => 'Aprendiz',
-            'imagen' => '4.jpg',
+            'imagen' => '4.png',
             'descripcion' => 'Lorem ipsum dolor sit amet, ex perfecto patrioque vim, per dolore animal ea'
         );
         $this->db->insert('nivel', $data);
@@ -92,7 +93,7 @@ class Fill_model extends CI_Model {
         $data = array(
             'id_nivel' => 5,
             'nombre' => 'Iniciado',
-            'imagen' => '5.jpg',
+            'imagen' => '5.png',
             'descripcion' => 'Lorem ipsum dolor sit amet, ex perfecto patrioque vim, per dolore animal ea'
         );
         $this->db->insert('nivel', $data);
@@ -100,7 +101,7 @@ class Fill_model extends CI_Model {
         $data = array(
             'id_nivel' => 6,
             'nombre' => 'Conocedor',
-            'imagen' => '5.jpg',
+            'imagen' => '6.png',
             'descripcion' => 'Lorem ipsum dolor sit amet, ex perfecto patrioque vim, per dolore animal ea'
         );
         $this->db->insert('nivel', $data);
@@ -108,7 +109,7 @@ class Fill_model extends CI_Model {
         $data = array(
             'id_nivel' => 7,
             'nombre' => 'Maestro',
-            'imagen' => '5.jpg',
+            'imagen' => '7.png',
             'descripcion' => 'Lorem ipsum dolor sit amet, ex perfecto patrioque vim, per dolore animal ea'
         );
         $this->db->insert('nivel', $data);
@@ -116,7 +117,7 @@ class Fill_model extends CI_Model {
         $data = array(
             'id_nivel' => 8,
             'nombre' => 'Sabio',
-            'imagen' => '5.jpg',
+            'imagen' => '8.png',
             'descripcion' => 'Lorem ipsum dolor sit amet, ex perfecto patrioque vim, per dolore animal ea'
         );
         $this->db->insert('nivel', $data);
@@ -124,7 +125,15 @@ class Fill_model extends CI_Model {
         $data = array(
             'id_nivel' => 9,
             'nombre' => 'Erudito',
-            'imagen' => '5.jpg',
+            'imagen' => '9.png',
+            'descripcion' => 'Lorem ipsum dolor sit amet, ex perfecto patrioque vim, per dolore animal ea'
+        );
+        $this->db->insert('nivel', $data);
+
+        $data = array(
+            'id_nivel' => 10,
+            'nombre' => 'Dios de la Sapiensa',
+            'imagen' => '10.png',
             'descripcion' => 'Lorem ipsum dolor sit amet, ex perfecto patrioque vim, per dolore animal ea'
         );
         $this->db->insert('nivel', $data);
@@ -145,9 +154,9 @@ class Fill_model extends CI_Model {
         $data = array(
             'id_curso' => 2,
             'id_asignatura' => 2,
-            'fecha_inicio' => '2014-03-07',
+            'fecha_inicio' => '2014-06-30',
             'niveles' => '5',
-            'fecha_fin' => '2014-010-07',
+            'fecha_fin' => '2014-09-07',
             'umbral' => 0.6
         );
         $this->db->insert('curso', $data);
@@ -255,7 +264,7 @@ class Fill_model extends CI_Model {
             'id_afiliacion' => 1,
             'nombres' => 'Jhon Alejandro',
             'apellidos' => 'Gómez',
-            'correo' => 'estudiante4',
+            'correo' => 'estudiante3',
             'imagen' => 'default.png',
             'sexo' => 'm',
             'password' => sha1("123"),
@@ -268,7 +277,7 @@ class Fill_model extends CI_Model {
             'id_afiliacion' => 1,
             'nombres' => 'Esteban',
             'apellidos' => 'Hoyos',
-            'correo' => 'estudiante5',
+            'correo' => 'estudiante4',
             'imagen' => 'default.png',
             'sexo' => 'm',
             'password' => sha1("123"),
@@ -281,7 +290,7 @@ class Fill_model extends CI_Model {
             'id_afiliacion' => 1,
             'nombres' => 'Andres Felipe',
             'apellidos' => 'Castaño',
-            'correo' => 'estudiante6',
+            'correo' => 'estudiante5',
             'imagen' => 'default.png',
             'sexo' => 'm',
             'password' => sha1("123"),
@@ -294,7 +303,7 @@ class Fill_model extends CI_Model {
             'id_afiliacion' => 1,
             'nombres' => 'Ricardo',
             'apellidos' => 'Cardona',
-            'correo' => 'estudiante7',
+            'correo' => 'estudiante6',
             'imagen' => 'default.png',
             'sexo' => 'm',
             'password' => sha1("123"),
@@ -307,7 +316,7 @@ class Fill_model extends CI_Model {
             'id_afiliacion' => 1,
             'nombres' => 'Manuel Fernando',
             'apellidos' => 'Betancur',
-            'correo' => 'estudiante8',
+            'correo' => 'estudiante7',
             'imagen' => 'default.png',
             'sexo' => 'm',
             'password' => sha1("123"),
@@ -320,7 +329,7 @@ class Fill_model extends CI_Model {
             'id_afiliacion' => 1,
             'nombres' => 'Oscar Alejandro',
             'apellidos' => 'Montoya Gómez',
-            'correo' => 'estudiante9',
+            'correo' => 'estudiante8',
             'imagen' => 'default.png',
             'sexo' => 'm',
             'password' => sha1("123"),
@@ -333,7 +342,7 @@ class Fill_model extends CI_Model {
             'id_afiliacion' => 1,
             'nombres' => 'Maria Soledad',
             'apellidos' => 'Ramirez Castaño',
-            'correo' => 'estudiante10',
+            'correo' => 'estudiante9',
             'imagen' => 'default.png',
             'sexo' => 'm',
             'password' => sha1("123"),
@@ -346,7 +355,7 @@ class Fill_model extends CI_Model {
             'id_afiliacion' => 1,
             'nombres' => 'Paola Andrea',
             'apellidos' => 'Vargas',
-            'correo' => 'estudiante11',
+            'correo' => 'estudiante10',
             'imagen' => 'default.png',
             'sexo' => 'm',
             'password' => sha1("123"),
@@ -359,7 +368,7 @@ class Fill_model extends CI_Model {
             'id_afiliacion' => 1,
             'nombres' => 'Vanessa ',
             'apellidos' => 'Molina',
-            'correo' => 'estudiante12',
+            'correo' => 'estudiante11',
             'imagen' => 'default.png',
             'sexo' => 'm',
             'password' => sha1("123"),
@@ -372,7 +381,7 @@ class Fill_model extends CI_Model {
             'id_afiliacion' => 1,
             'nombres' => 'Daniela',
             'apellidos' => 'Gómez Ramírez',
-            'correo' => 'estudiante13',
+            'correo' => 'estudiante12',
             'imagen' => 'default.png',
             'sexo' => 'f',
             'password' => sha1("123"),
@@ -385,7 +394,7 @@ class Fill_model extends CI_Model {
             'id_afiliacion' => 1,
             'nombres' => 'Juan',
             'apellidos' => 'Escobar',
-            'correo' => 'estudiante14',
+            'correo' => 'estudiante13',
             'imagen' => 'default.png',
             'sexo' => 'm',
             'password' => sha1("123"),
@@ -406,6 +415,14 @@ class Fill_model extends CI_Model {
 
         $data = array(
             'id_curso' => 1,
+            'id_usuario' => 2,
+            'rol' => 2,
+            'fecha' => '2014-02-03 10:24:54'
+        );
+        $this->db->insert('usuario_x_curso', $data);
+
+        $data = array(
+            'id_curso' => 2,
             'id_usuario' => 2,
             'rol' => 2,
             'fecha' => '2014-02-03 10:24:54'
@@ -542,40 +559,100 @@ class Fill_model extends CI_Model {
         $data = array(
             'id_modulo' => 1,
             'id_curso' => 1,
-            'nombre' => 'Integrales',
-            'fecha_inicio' => '2014-01-07',
-            'fecha_fin' => '2014-02-07',
-            'descripcion' => 'La integración es un concepto fundamental del cálculo y del análisis matemático. Básicamente, una integral es una generalización de la suma de infinitos sumandos, infinitamente pequeños.'
+            'nombre' => 'Geometría elemental, conjuntos y sistemas numéricos',
+            'fecha_inicio' => '2014-08-04',
+            'fecha_fin' => '2014-08-20',
+            'descripcion' => 'Descripción...'
         );
         $this->db->insert('modulo', $data);
 
         $data = array(
             'id_modulo' => 2,
             'id_curso' => 1,
-            'nombre' => 'Aplicaciones de la integración',
-            'fecha_inicio' => '2014-02-07',
-            'fecha_fin' => '2014-03-07',
-            'descripcion' => 'Lorem ipsum dolor sit amet, ex perfecto patrioque vim, per dolore animal ea. Ei integre moderatius intellegebat eum. Mei facer fabulas ut, id eum stet regione.'
+            'nombre' => 'Álgebra',
+            'fecha_inicio' => '2014-08-21',
+            'fecha_fin' => '2014-09-14',
+            'descripcion' => 'Descripción...'
         );
         $this->db->insert('modulo', $data);
 
         $data = array(
             'id_modulo' => 3,
             'id_curso' => 1,
-            'nombre' => 'Sucesiones y series infinitas',
-            'fecha_inicio' => '2014-03-07',
-            'fecha_fin' => '2014-04-07',
-            'descripcion' => 'Lorem ipsum dolor sit amet, ex perfecto patrioque vim, per dolore animal ea. Ei integre moderatius intellegebat eum. Mei facer fabulas ut, id eum stet regione.'
+            'nombre' => 'Ecuaciones y desigualdades',
+            'fecha_inicio' => '2014-09-15',
+            'fecha_fin' => '2014-09-28',
+            'descripcion' => 'Descripción...'
         );
         $this->db->insert('modulo', $data);
 
         $data = array(
             'id_modulo' => 4,
             'id_curso' => 1,
-            'nombre' => 'Aplicaciones de la derivación',
-            'fecha_inicio' => '2014-04-07',
-            'fecha_fin' => '2014-05-07',
-            'descripcion' => 'Lorem ipsum dolor sit amet, ex perfecto patrioque vim, per dolore animal ea. Ei integre moderatius intellegebat eum. Mei facer fabulas ut, id eum stet regione.'
+            'nombre' => 'Funciones reales',
+            'fecha_inicio' => '2014-09-29',
+            'fecha_fin' => '2014-10-29',
+            'descripcion' => 'Descripción...'
+        );
+        $this->db->insert('modulo', $data);
+
+        $data = array(
+            'id_modulo' => 5,
+            'id_curso' => 1,
+            'nombre' => 'Trigonometría',
+            'fecha_inicio' => '2014-10-30',
+            'fecha_fin' => '2014-11-19',
+            'descripcion' => 'Descripción...'
+        );
+        $this->db->insert('modulo', $data);
+
+        $data = array(
+            'id_modulo' => 6,
+            'id_curso' => 2,
+            'nombre' => 'Introducción al análisis de fallas en sistemas de potencia',
+            'fecha_inicio' => '2014-06-30',
+            'fecha_fin' => '2014-07-13',
+            'descripcion' => 'Descripción...'
+        );
+        $this->db->insert('modulo', $data);
+
+        $data = array(
+            'id_modulo' => 7,
+            'id_curso' => 2,
+            'nombre' => 'Generalidades del análisis de fallas en líneas de transmisión',
+            'fecha_inicio' => '2014-07-14',
+            'fecha_fin' => '2014-07-27',
+            'descripcion' => 'Descripción...'
+        );
+        $this->db->insert('modulo', $data);
+
+        $data = array(
+            'id_modulo' => 8,
+            'id_curso' => 2,
+            'nombre' => 'Fenómenos relacionados con las fallas en líneas de transmisión',
+            'fecha_inicio' => '2014-07-28',
+            'fecha_fin' => '2014-08-10',
+            'descripcion' => 'Descripción...'
+        );
+        $this->db->insert('modulo', $data);
+
+        $data = array(
+            'id_modulo' => 9,
+            'id_curso' => 2,
+            'nombre' => 'Fenómenos del sistema de potencia y su impacto en los relés de protección',
+            'fecha_inicio' => '2014-08-11',
+            'fecha_fin' => '2014-08-24',
+            'descripcion' => 'Descripción...'
+        );
+        $this->db->insert('modulo', $data);
+
+        $data = array(
+            'id_modulo' => 10,
+            'id_curso' => 2,
+            'nombre' => 'Tópicos especiales en el análisis de fallas',
+            'fecha_inicio' => '2014-08-25',
+            'fecha_fin' => '2014-09-07',
+            'descripcion' => 'Descripción...'
         );
         $this->db->insert('modulo', $data);
     }
@@ -628,6 +705,7 @@ class Fill_model extends CI_Model {
         );
         $this->db->insert('material', $data);
         $data = array(
+            'id_material' => 5,
             'id_modulo' => 1,
             'nombre' => 'Álgebra de funciones, composición de funciones',
             'descripcion' => 'Lorem ipsum dolor sit amet, ex perfecto patrioque vim, per dolore animal ea. Ei integre moderatius intellegebat eum.',
@@ -639,6 +717,7 @@ class Fill_model extends CI_Model {
         $this->db->insert('material', $data);
 
         $data = array(
+            'id_material' => 6,
             'id_modulo' => 1,
             'nombre' => 'Funciones exponenciales: gráficas, leyes de los exponentes, modelación con funciones exponenciales, el número e',
             'descripcion' => 'Lorem ipsum dolor sit amet, ex perfecto patrioque vim, per dolore animal ea. Ei integre moderatius intellegebat eum. Mei facer fabulas ut, id eum stet regione.',
@@ -649,6 +728,7 @@ class Fill_model extends CI_Model {
         $this->db->insert('material', $data);
 
         $data = array(
+            'id_material' => 7,
             'id_modulo' => 1,
             'nombre' => 'Función inversa: función uno a uno, prueba de la recta horizontal, definición de función inversa, gráfica de la función inversa',
             'descripcion' => 'Lorem ipsum dolor sit amet, ex perfecto patrioque vim, per dolore animal ea. Ei integre moderatius intellegebat eum. Mei facer fabulas ut, id eum stet regione.',
@@ -660,6 +740,7 @@ class Fill_model extends CI_Model {
         $this->db->insert('material', $data);
 
         $data = array(
+            'id_material' => 8,
             'id_modulo' => 1,
             'nombre' => 'Funciones logarítmicas: definición, gráficas, leyes de los logaritmos, logaritmo natural, fórmula para el cambio de base, gráfica de la función logaritmo natural',
             'descripcion' => 'Lorem ipsum dolor sit amet, ex perfecto patrioque vim, per dolore animal ea. Ei integre moderatius intellegebat eum. Mei facer fabulas ut, id eum stet regione.',
@@ -671,12 +752,47 @@ class Fill_model extends CI_Model {
         $this->db->insert('material', $data);
 
         $data = array(
+            'id_material' =>9,
             'id_modulo' => 1,
             'nombre' => 'Funciones trigonométricas inversas: función seno inverso, función tangente inversa, función coseno inverso',
             'descripcion' => 'Lorem ipsum dolor sit amet, ex perfecto patrioque vim, per dolore animal ea. Ei integre moderatius intellegebat eum. Mei facer fabulas ut, id eum stet regione.',
             'ubicacion' => '1.pdf',
             'tipo' => 'pdf',
             'orden' => 9
+        );
+        $this->db->insert('material', $data);
+
+        $data = array(
+            'id_material' => 10,
+            'id_modulo' => 6,
+            'nombre' => 'Introducción a los sistemas de potencia I',
+            'descripcion' => 'En este vídeo ...',
+            'ubicacion' => '10.mp4',
+            'tipo' => 'video',
+            'orden' => 1
+        );
+        $this->db->insert('material', $data);
+
+        $data = array(
+            'id_material' => 11,
+            'id_modulo' => 6,
+            'nombre' => 'Introducción a los sistemas de potencia II',
+            'descripcion' => 'En este vídeo ...',
+            'ubicacion' => '11.mp4',
+            'tipo' => 'video',
+            'orden' => 2
+        );
+        $this->db->insert('material', $data);
+
+
+        $data = array(
+            'id_material' => 12,
+            'id_modulo' => 6,
+            'nombre' => 'Introducción a los sistemas de potencia III',
+            'descripcion' => 'En este vídeo ...',
+            'ubicacion' => '12.mp4',
+            'tipo' => 'video',
+            'orden' => 3
         );
         $this->db->insert('material', $data);
     }
@@ -799,152 +915,265 @@ class Fill_model extends CI_Model {
 
         $data = array(
             'id_evaluacion' => 12,
-            'id_modulo' => 1,
-            'orden' => 12,
+            'id_modulo' => 2,
+            'orden' => 1,
             'id_tipo_evaluacion' => 1
         );
         $this->db->insert('evaluacion', $data);
 
         $data = array(
             'id_evaluacion' => 13,
-            'id_modulo' => 1,
-            'orden' => 13,
+            'id_modulo' => 2,
+            'orden' => 2,
             'id_tipo_evaluacion' => 1
         );
         $this->db->insert('evaluacion', $data);
 
         $data = array(
             'id_evaluacion' => 14,
-            'id_modulo' => 1,
-            'orden' => 14,
+            'id_modulo' => 2,
+            'orden' => 3,
             'id_tipo_evaluacion' => 1
         );
         $this->db->insert('evaluacion', $data);
 
         $data = array(
             'id_evaluacion' => 15,
-            'id_modulo' => 1,
-            'orden' => 15,
+            'id_modulo' => 2,
+            'orden' => 4,
             'id_tipo_evaluacion' => 1
         );
         $this->db->insert('evaluacion', $data);
 
         $data = array(
             'id_evaluacion' => 16,
-            'id_modulo' => 1,
-            'orden' => 16,
+            'id_modulo' => 2,
+            'orden' => 5,
             'id_tipo_evaluacion' => 1
         );
         $this->db->insert('evaluacion', $data);
 
         $data = array(
             'id_evaluacion' => 17,
-            'id_modulo' => 1,
-            'orden' => 17,
+            'id_modulo' => 2,
+            'orden' => 6,
             'id_tipo_evaluacion' => 1
         );
         $this->db->insert('evaluacion', $data);
 
         $data = array(
             'id_evaluacion' => 18,
-            'id_modulo' => 1,
-            'orden' => 18,
+            'id_modulo' => 2,
+            'orden' => 7,
             'id_tipo_evaluacion' => 1
         );
         $this->db->insert('evaluacion', $data);
 
         $data = array(
             'id_evaluacion' => 19,
-            'id_modulo' => 1,
-            'orden' => 19,
+            'id_modulo' => 2,
+            'orden' => 8,
             'id_tipo_evaluacion' => 1
         );
         $this->db->insert('evaluacion', $data);
 
         $data = array(
             'id_evaluacion' => 20,
-            'id_modulo' => 1,
-            'orden' => 20,
+            'id_modulo' => 2,
+            'orden' => 9,
             'id_tipo_evaluacion' => 1
         );
         $this->db->insert('evaluacion', $data);
 
         $data = array(
             'id_evaluacion' => 21,
-            'id_modulo' => 1,
-            'orden' => 21,
+            'id_modulo' => 2,
+            'orden' => 10,
             'id_tipo_evaluacion' => 1
         );
         $this->db->insert('evaluacion', $data);
 
         $data = array(
             'id_evaluacion' => 22,
-            'id_modulo' => 1,
-            'orden' => 22,
+            'id_modulo' => 2,
+            'orden' => 11,
             'id_tipo_evaluacion' => 1
         );
         $this->db->insert('evaluacion', $data);
 
         $data = array(
             'id_evaluacion' => 23,
-            'id_modulo' => 1,
-            'orden' => 23,
+            'id_modulo' => 2,
+            'orden' => 12,
             'id_tipo_evaluacion' => 1
         );
         $this->db->insert('evaluacion', $data);
 
         $data = array(
             'id_evaluacion' => 24,
-            'id_modulo' => 1,
-            'orden' => 24,
+            'id_modulo' => 2,
+            'orden' => 13,
             'id_tipo_evaluacion' => 1
         );
         $this->db->insert('evaluacion', $data);
 
         $data = array(
             'id_evaluacion' => 25,
-            'id_modulo' => 1,
-            'orden' => 25,
+            'id_modulo' => 2,
+            'orden' => 14,
             'id_tipo_evaluacion' => 1
         );
         $this->db->insert('evaluacion', $data);
 
         $data = array(
             'id_evaluacion' => 26,
-            'id_modulo' => 1,
-            'orden' => 26,
+            'id_modulo' => 2,
+            'orden' => 15,
             'id_tipo_evaluacion' => 1
         );
         $this->db->insert('evaluacion', $data);
 
         $data = array(
             'id_evaluacion' => 27,
-            'id_modulo' => 1,
-            'orden' => 27,
+            'id_modulo' => 2,
+            'orden' => 16,
             'id_tipo_evaluacion' => 1
         );
         $this->db->insert('evaluacion', $data);
 
         $data = array(
             'id_evaluacion' => 28,
-            'id_modulo' => 1,
-            'orden' => 28,
+            'id_modulo' => 2,
+            'orden' => 17,
             'id_tipo_evaluacion' => 1
         );
         $this->db->insert('evaluacion', $data);
 
         $data = array(
             'id_evaluacion' => 29,
-            'id_modulo' => 1,
-            'orden' => 29,
+            'id_modulo' => 2,
+            'orden' => 18,
             'id_tipo_evaluacion' => 1
         );
         $this->db->insert('evaluacion', $data);
 
         $data = array(
             'id_evaluacion' => 30,
-            'id_modulo' => 1,
+            'id_modulo' => 2,
+            'orden' => 19,
+            'id_tipo_evaluacion' => 1
+        );
+        $this->db->insert('evaluacion', $data);
+
+
+        $data = array(
+            'id_evaluacion' => 31,
+            'id_modulo' => 2,
+            'orden' => 20,
+            'id_tipo_evaluacion' => 1
+        );
+        $this->db->insert('evaluacion', $data);
+
+        $data = array(
+            'id_evaluacion' => 32,
+            'id_modulo' => 2,
+            'orden' => 21,
+            'id_tipo_evaluacion' => 1
+        );
+        $this->db->insert('evaluacion', $data);
+
+        $data = array(
+            'id_evaluacion' => 33,
+            'id_modulo' => 2,
+            'orden' => 22,
+            'id_tipo_evaluacion' => 1
+        );
+        $this->db->insert('evaluacion', $data);
+
+        $data = array(
+            'id_evaluacion' => 34,
+            'id_modulo' => 2,
+            'orden' => 23,
+            'id_tipo_evaluacion' => 1
+        );
+        $this->db->insert('evaluacion', $data);
+
+        $data = array(
+            'id_evaluacion' => 35,
+            'id_modulo' => 2,
+            'orden' => 24,
+            'id_tipo_evaluacion' => 1
+        );
+        $this->db->insert('evaluacion', $data);
+
+        $data = array(
+            'id_evaluacion' => 36,
+            'id_modulo' => 2,
+            'orden' => 25,
+            'id_tipo_evaluacion' => 1
+        );
+        $this->db->insert('evaluacion', $data);
+
+        $data = array(
+            'id_evaluacion' => 37,
+            'id_modulo' => 2,
+            'orden' => 26,
+            'id_tipo_evaluacion' => 1
+        );
+        $this->db->insert('evaluacion', $data);
+
+        $data = array(
+            'id_evaluacion' => 38,
+            'id_modulo' => 2,
+            'orden' => 27,
+            'id_tipo_evaluacion' => 1
+        );
+        $this->db->insert('evaluacion', $data);
+
+        $data = array(
+            'id_evaluacion' => 39,
+            'id_modulo' => 2,
+            'orden' => 28,
+            'id_tipo_evaluacion' => 1
+        );
+        $this->db->insert('evaluacion', $data);
+
+        $data = array(
+            'id_evaluacion' => 40,
+            'id_modulo' => 2,
+            'orden' => 29,
+            'id_tipo_evaluacion' => 1
+        );
+        $this->db->insert('evaluacion', $data);
+
+        $data = array(
+            'id_evaluacion' => 41,
+            'id_modulo' => 2,
             'orden' => 30,
+            'id_tipo_evaluacion' => 1
+        );
+        $this->db->insert('evaluacion', $data);
+
+        $data = array(
+            'id_evaluacion' => 42,
+            'id_modulo' => 6,
+            'orden' => 1,
+            'id_tipo_evaluacion' => 1
+        );
+        $this->db->insert('evaluacion', $data);
+
+        $data = array(
+            'id_evaluacion' => 43,
+            'id_modulo' => 6,
+            'orden' => 2,
+            'id_tipo_evaluacion' => 1
+        );
+        $this->db->insert('evaluacion', $data);
+
+        $data = array(
+            'id_evaluacion' => 44,
+            'id_modulo' => 6,
+            'orden' => 2,
             'id_tipo_evaluacion' => 1
         );
         $this->db->insert('evaluacion', $data);
@@ -1757,6 +1986,33 @@ class Fill_model extends CI_Model {
             'fecha_salida' => '2014-06-28 15:15:13'
         );
         $this->db->insert('bitacora', $data);
+    }
+
+    private function evaluacion_x_material() {
+        $this->db->empty_table('evaluacion_x_material');
+        $data = array(
+            'id_evaluacion' => 1,
+            'id_material' => 1,
+        );
+        $this->db->insert('evaluacion_x_material', $data);
+
+        $data = array(
+            'id_evaluacion' => 2,
+            'id_material' => 1,
+        );
+        $this->db->insert('evaluacion_x_material', $data);
+
+        $data = array(
+            'id_evaluacion' => 3,
+            'id_material' => 2,
+        );
+        $this->db->insert('evaluacion_x_material', $data);
+
+        $data = array(
+            'id_evaluacion' => 4,
+            'id_material' => 2,
+        );
+        $this->db->insert('evaluacion_x_material', $data);
     }
 
 }

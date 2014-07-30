@@ -23,7 +23,8 @@ function cargarModulo(idModulo) {
     $.ajax({
         url: "../curso/getmodulo",
         data: {
-            idModulo: idModulo
+            idModulo: idModulo,
+            idCurso: idCursoGlobal
         },
         success: function(data) {
             $("#contenido").html(data);
@@ -41,9 +42,6 @@ function cargarModulo(idModulo) {
                 }
             });
 
-            $('.link-material').popover({
-                trigger: "hover"
-            });
 
             if (rolGlobal == 1) {
                 var readOnly = false;
@@ -72,7 +70,52 @@ function cargarModulo(idModulo) {
                 "width": "0",
                 "height": "0"
             });
-            verificarNuevoLogro();
+            if (countCallsCargarModulo) {
+                verificarNuevoLogro();
+            }
+            countCallsCargarModulo++;
+            $('.tip').tooltip();
+            if (idModulo == -1) {
+                $("#desde").datepicker({
+                    changeMonth: true,
+                    dateFormat: "yy-mm-dd",
+                    monthNamesShort: ["Enero", "Febrero", "Marzo", "Abril", "Mayo", "Junio", "Julio", "Agosto", "Septiembre", "Octubre", "Noviembre", "Diciembre"],
+                    dayNamesMin: ["Dom", "Lun", "Mar", "Mie", "Juv", "Vie", "Sab"],
+                    onClose: function(selectedDate) {
+                        $("#hasta").datepicker("option", "minDate", selectedDate);
+                    }
+                });
+
+                $("#hasta").datepicker({
+                    changeMonth: true,
+                    dateFormat: "yy-mm-dd",
+                    monthNamesShort: ["Enero", "Febrero", "Marzo", "Abril", "Mayo", "Junio", "Julio", "Agosto", "Septiembre", "Octubre", "Noviembre", "Diciembre"],
+                    dayNamesMin: ["Dom", "Lun", "Mar", "Mie", "Juv", "Vie", "Sab"],
+                    onClose: function(selectedDate) {
+                        $("#desde").datepicker("option", "maxDate", selectedDate);
+                    }
+                });
+            } else if (rolGlobal == 2) {
+                $("#desde,#editarDesdeModulo").datepicker({
+                    changeMonth: true,
+                    dateFormat: "yy-mm-dd",
+                    monthNamesShort: ["Enero", "Febrero", "Marzo", "Abril", "Mayo", "Junio", "Julio", "Agosto", "Septiembre", "Octubre", "Noviembre", "Diciembre"],
+                    dayNamesMin: ["Dom", "Lun", "Mar", "Mie", "Juv", "Vie", "Sab"],
+                    onClose: function(selectedDate) {
+                        $("#editarHastaModulo").datepicker("option", "minDate", selectedDate);
+                    }
+                });
+
+                $("#hasta,#editarHastaModulo").datepicker({
+                    changeMonth: true,
+                    dateFormat: "yy-mm-dd",
+                    monthNamesShort: ["Enero", "Febrero", "Marzo", "Abril", "Mayo", "Junio", "Julio", "Agosto", "Septiembre", "Octubre", "Noviembre", "Diciembre"],
+                    dayNamesMin: ["Dom", "Lun", "Mar", "Mie", "Juv", "Vie", "Sab"],
+                    onClose: function(selectedDate) {
+                        $("#editarDesdeModulo").datepicker("option", "maxDate", selectedDate);
+                    }
+                });
+            }
         }
     });
 }
@@ -255,8 +298,22 @@ $(function() {
     });
 
     $("#contenedor").on("click", ".editarEvaluacion", function() {
-        $("#inputIdEvaluacion").val($(this).data("id-evaluacion"));
+        var idEvaluacion = $(this).data("id-evaluacion");
+        $("#inputIdEvaluacion").val(idEvaluacion);
         $("#editarTipoEvaluacion").val($(this).data("tipo"));
+        $("#modalEditarEvaluacion .input-check").prop("checked", false);
+        $.ajax({
+            url: "../evaluacion/materialesrelacionados",
+            data: {
+                idEvaluacion: idEvaluacion
+            },
+            success: function(data) {
+                var json = JSON.parse(data);
+                $.each(json, function(key, value) {
+                    $("#check-evaluacion-" + value.id_material).prop("checked", true);
+                });
+            }
+        });
     });
 
     $("#contenedor").on("click", ".eliminarEvaluacion", function() {
@@ -265,23 +322,8 @@ $(function() {
     });
 
     $("#contenedor").on("click", ".saltarEvaluacion", function() {
-        var idEvaluacion = $(this).data("id-evaluacion");
-        $("#coverDisplay").css({
-            "opacity": "1",
-            "width": "100%",
-            "height": "100%"
-        });
-        $.ajax({
-            url: "../evaluacion/saltar",
-            method: "post",
-            data: {
-                idEvaluacion: idEvaluacion
-            },
-            success: function(data) {
-                cargarModulo(-1);
-            }
-        });
-
+        $("#idEvaluacionSaltar").val($(this).data("id-evaluacion"));
+        $("#modalSaltarEvaluacion").modal();
     });
 
 
@@ -371,6 +413,15 @@ $(function() {
         chart.draw(data, {title: "Respuestas", hAxis: {showTextEvery: 4}, width: 550});
 
         $("#modalEstadisticasEvaluacion").modal();
+    });
+
+    $("#contenedor").on('mouseenter', 'tr.material', function(event) {
+        var idMaterial = $(this).data("id-material");
+        $(".resaltar-evaluacion-" + idMaterial).addClass("resaltar-evaluacion");
+    });
+    $("#contenedor").on('mouseleave', 'tr.material', function() {
+        var idMaterial = $(this).data("id-material");
+        $(".resaltar-evaluacion-" + idMaterial).removeClass("resaltar-evaluacion");
     });
 });
 

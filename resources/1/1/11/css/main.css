@@ -22,18 +22,15 @@ h1{
     text-align: center;
 
 }
-
-.input-group{
-	width:200px;
-	margin:auto;
+#answer{
+    width: 100px;
+    display: inline-block;
 }
 
-.equation {
-	font-family:times new roman;
-	font-size:120%;
-	font-style: italic;
-}
 
+table{
+    text-align: left;
+}
 
 
 

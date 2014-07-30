@@ -17,4 +17,9 @@ class Reto_model extends CI_Model {
         $this->db->insert($this->tabla, $datos);
     }
 
+    function cantidadRetosUsuario($idUsuario, $idCurso) {
+        $query = "select count(*) cantidad from reto where retador='$idUsuario' or retado='$idUsuario' or id_curso='$idCurso'";
+        return $this->db->query($query)->result();
+    }
+
 }

@@ -1,3 +1,7 @@
+<?php if (isset($idCurso)) { ?>
+    <div id="marco-inferior">
+    </div>
+<?php } ?>
 <footer>
     <div id="contenedor-footer" class="container-fluid">
         <div class="row">
@@ -229,14 +233,17 @@
 <?php if ($tab == "curso") { ?>
     <script>
                         $(function() {
-                            var months = <?= $modulos ?>;
+                            countCallsCargarModulo = 0;
+                            var numeroModulos = <?= $numeroModulos ?>;
                             var idModulos = jQuery.parseJSON('<?= $idModulos ?>');
                             $("#slider").slider({min: 0, max: <?= $cantidadModulos - 1 ?>, value: 0, animate: "normal"});
-                            $("#slider").slider("pips", {rest: "label", labels: months})
+                            $("#slider").slider("pips", {rest: "label", labels: numeroModulos})
                             $("#slider").on("slidechange", function(e, ui) {
-                                var idModulo = idModulos[ui.value];
-                                cargarModulo(idModulo);
 
+                                var idModulo = idModulos[ui.value];
+
+                                cargarModulo(idModulo);
+                             
                             });
 
                             cargarModulo(-1);

@@ -22,9 +22,20 @@ h1{
     text-align: center;
 
 }
-#answer, .form-control{
-    width: 100px;
-    display: inline-block;
+
+.input-group{
+	width:200px;
+	margin:auto;
+}
+
+.input-group>label{
+	height:auto;
+}
+
+.equation {
+	font-family:times new roman;
+	font-size:120%;
+	font-style: italic;
 }
 
 .fraccion{
@@ -41,6 +52,3 @@ h1{
 .fraccion>span:last-child{
 	border-top:thin solid black;
 }
-
-
-

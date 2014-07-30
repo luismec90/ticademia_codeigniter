@@ -1,100 +1,48 @@
-var a,b,r;
+var a,x;
 
 $(function() {
-	try{
-		API = getAPI();
-		API.LMSInitialize("");
-	}catch(e){
-		console.log(e);
-	}
+     API = getAPI();
+     API.LMSInitialize("");
 
-    a = getRandom(2,4);
-	do{
-		b = getRandom(2,4);
-	}while(b==a);
-	r = getRandom(2,4);
+    a = getRandom(100, 145);
+    x = 180 - a;
 
-	var correctAnswer = Array(9);
-    correctAnswer[0] = a*a*a;
-    correctAnswer[1] = 3;
-    correctAnswer[2] = 3*a*a*b;
-    correctAnswer[3] = 2;
-    correctAnswer[4] = r;
-    correctAnswer[5] = 3*a*b*b;
-    correctAnswer[6] = 2*r;
-    correctAnswer[7] = b*b*b;
-    correctAnswer[8] = 3*r;
-    /*var missConception1 = fn/fr;
-	var missConception2 = fn/fnr;
-	var missConception3 = fr;*/
-    console.log(correctAnswer + " " );
+    var correctAnswer = x;
+    var missConception1 =a;
+     console.log(correctAnswer + " " + missConception1);
     draw();
 
     $("#verificar").click(function() {
-		var valor = Array(9);
-        valor[0] = $("#answer1").val().trim();
-        valor[1] = $("#answer2").val().trim();
-        valor[2] = $("#answer3").val().trim();
-        valor[3] = $("#answer4").val().trim();
-        valor[4] = $("#answer5").val().trim();
-        valor[5] = $("#answer6").val().trim();
-        valor[6] = $("#answer7").val().trim();
-        valor[7] = $("#answer8").val().trim();
-        valor[8] = $("#answer9").val().trim();
-		
-		var valid = true;
-		var j = 0;
-		while(j < 9){
-			if(valor[j]=="")valid = false;
-			j++;
-		}
-        if (valid) {
+        var valor = $("#answer").val().trim();
+        if (valor != "") {
             $("#correcto").addClass("hide");
             $("#feedback").addClass("hide");
-            var calificacion = 1.0;
+            var calificacion = 0;
             var feedback = "";
-			var correcto = true;
-			var i = 0;
-			while(i < 9){
-				if(correctAnswer[i] != parseFloat(valor[i])){
-					calificacion-=0.111;
-					correcto = false;
-				}
-				i++;
-			}
-			calificacion = Math.round(calificacion*100)/100;
-           
-			if(correcto){
-                $("#correcto").html("Calificación: <b>" + calificacion + "</b>").removeClass("hide");
-			}else{
-                $("#feedback").html("Calificación: <b>" + calificacion + "</b> <br> ...").removeClass("hide");
-			}
-           /* switch (valor) {
+            valor = parseFloat(valor);
+            switch (valor) {
                 case correctAnswer:
                     calificacion = 1.0;
                     $("#correcto").html("Calificación: <b>" + calificacion + "</b>").removeClass("hide");
                     break;
                 case missConception1:
                     calificacion = 0.5;
-                    feedback = "n!/r!";
-                    $("#feedback").html("Calificación: <b>" + calificacion + "</b> <br> ...").removeClass("hide");
+                    feedback = "No tiene clara la teoría de triángulos";
+                    $("#feedback").html("Calificación: <b>" + calificacion + "</b> <br> Probablemente no tienes clara la teoría de triángulos").removeClass("hide");
                     break;
                 default:
                     calificacion = 0.0;
-                    $("#feedback").html("Calificación: <b>" + calificacion + "</b> <br> ...").removeClass("hide");
+                    $("#feedback").html("Calificación: <b>" + calificacion + "</b> <br>Te recomendamos este <a href='https://www.youtube.com/watch?v=CA1jtq4luMo' target='_blank'>video</a> acerca de triángulos.").removeClass("hide");
                     break;
-            }*/
-            $(this).attr("disabled", true);
-            /* $("#modal").modal({
-                backdrop: "static",
-                keyboard: "false"
-            });
-
-            */ API.closeQuestion();  if (typeof API.calificar == 'function') {
+            }
+           $(this).attr("disabled", true);
+            API.closeQuestion();
+            if (typeof API.calificar == 'function') {
                 API.calificar(calificacion, feedback);
             }
             API.LMSSetValue("cmi.core.score.raw", calificacion);
-            API.LMSFinish("feedback", feedback); API.notifyDaemon(calificacion);
+            API.LMSFinish("feedback", feedback);
+            API.notifyDaemon(calificacion);
         }
     });
     $("#aceptar").click(function() {
@@ -108,12 +56,97 @@ $(function() {
 function getRandom(bottom, top) {
     return Math.floor(Math.random() * (1 + top - bottom)) + bottom;
 }
-function fact(n){
-	if(n==1)return 1;
-	return n*fact(n-1);
+function draw() {
+    var canvas = document.getElementById('canvas');
+
+    var ctx = canvas.getContext('2d');
+
+    ctx.strokeStyle = "#0069B2";
+    ctx.lineWidth = 1;
+
+    ctx.save();
+    ctx.translate(150, 110);
+    ctx.rotate(toDegrees(-(90 - a / 2)));
+    ctx.moveTo(0, 0);
+    ctx.lineTo(50, 0);
+    ctx.translate(50, 0);
+    ctx.rotate(toDegrees(90 - a / 2));
+    ctx.font = "12px Verdana";
+    ctx.fillText("L2", 10, 3);
+    ctx.stroke();
+    ctx.restore();
+
+    ctx.save();
+    ctx.translate(150, 110);
+    ctx.rotate(toDegrees((90 - a / 2)));
+    ctx.moveTo(0, 0);
+    ctx.lineTo(50, 0);
+    ctx.translate(50, 0);
+    ctx.rotate(toDegrees(-(90 - a / 2)));
+    ctx.font = "12px Verdana";
+    ctx.fillText("L3", 10, 3);
+    ctx.stroke();
+    ctx.restore();
+
+
+    ctx.save();
+    ctx.translate(150, 110);
+    ctx.rotate(toDegrees((-(270 - a / 2))));
+    ctx.moveTo(0, 0);
+    ctx.lineTo(50, 0);
+    ctx.stroke();
+    ctx.translate(50, 0);
+    ctx.rotate(toDegrees(90 + (180 - a)));
+    ctx.moveTo(0, 0);
+    ctx.lineTo(0, 100);
+
+
+
+
+
+
+    ctx.translate(0, 100);
+    ctx.rotate(toDegrees(a / 2));
+    ctx.font = "12px Verdana";
+    ctx.fillText("L4", 10, 3);
+    ctx.restore();
+
+    ctx.save();
+    ctx.translate(150, 110);
+    ctx.rotate(toDegrees(((270 - a / 2))));
+    ctx.moveTo(0, 0);
+    ctx.lineTo(50, 0);
+    ctx.stroke();
+    ctx.translate(50, 0);
+    ctx.rotate(toDegrees(-90 + a));
+    ctx.moveTo(0, 0);
+    ctx.lineTo(0, 100);
+    ctx.translate(0, 100);
+    ctx.rotate(toDegrees(180 - a / 2));
+    ctx.font = "12px Verdana";
+    ctx.fillText("L1", 10, 3);
+    ctx.stroke();
+    ctx.restore();
+
+    ctx.beginPath(); //iniciar ruta
+    ctx.strokeStyle = "FF9900";
+    ctx.arc(150, 110, 10, toDegrees(-90 - a / 2), toDegrees(-90 + a / 2));
+    ctx.stroke();
+    ctx.font = "10px Verdana";
+    ctx.fillText("a=" + a + String.fromCharCode(176), 130, 93);
+
+    var x = 150 - Math.sin(toDegrees(a / 2)) * 50;
+    var y = 110 + Math.cos(toDegrees(a / 2)) * 50;
+
+    ctx.beginPath(); //iniciar ruta
+    ctx.strokeStyle = "FF9900";
+    ctx.arc(x, y, 12, toDegrees(-(90 - a/2) ), toDegrees(90 - a/2));
+    ctx.stroke();
+    ctx.font = "10px Verdana";
+    ctx.fillText("x=?", x+20, y+2);
+    ctx.stroke();
+
 }
-function draw(){
-	$('.mvar[value=a]').html(a);
-	$('.mvar[value=b]').html(b);
-	$('.mvar[value=r]').html(r);
+function toDegrees(angle) {
+    return angle * (Math.PI / 180);
 }
