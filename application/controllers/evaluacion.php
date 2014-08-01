@@ -30,8 +30,18 @@ class Evaluacion extends CI_Controller {
         $num = $maxOrden[0]->num + 1;
         $lastId = $this->evaluacion_model->crearEvaluacion($idModulo, $_POST["tipoEvaluacion"], $num);
 
-        $ruta = "/var/www/minerva/resources/$idCurso/$idModulo/$lastId";
-        echo exec("unzip {$_FILES["file"]['tmp_name']} -d $ruta");
+        $ruta = "resources/$idCurso";
+
+        if (!file_exists($ruta)) {
+            mkdir($ruta, 0777);
+        }
+
+        if (!file_exists("$ruta/$idModulo")) {
+            mkdir("$ruta/$idModulo", 0777);
+        }
+
+
+        echo exec("unzip {$_FILES["file"]['tmp_name']} -d $ruta/$idModulo/$lastId");
 
         $materiales = $this->input->post('materiales');
         if ($materiales) {
@@ -63,13 +73,12 @@ class Evaluacion extends CI_Controller {
         $this->evaluacion_model->actualizarTipo($_POST["evaluacion"], $_POST["tipoEvaluacion"]);
 
         if ($_FILES["file"]['tmp_name'] != "") {
-            $ruta = "/var/www/minerva/resources/$idCurso/$idModulo/{$evaluacion[0]->id_evaluacion}";
+            $ruta = "resources/$idCurso/$idModulo/{$evaluacion[0]->id_evaluacion}";
 
             if (file_exists($ruta)) {
                 echo exec("rm -R $ruta");
             }
             echo exec("unzip {$_FILES["file"]['tmp_name']} -d $ruta");
-            echo "entro";
         }
         $materiales = $this->input->post('materiales');
         $this->evaluacion_x_material_model->eliminar(array("id_evaluacion" => $idEvaluacion));
@@ -100,7 +109,7 @@ class Evaluacion extends CI_Controller {
 
         $this->evaluacion_model->eliminar($_POST["evaluacion"]);
 
-        $ruta = "/var/www/minerva/resources/$idCurso/$idModulo/{$evaluacion[0]->id_evaluacion}";
+        $ruta = "resources/$idCurso/$idModulo/{$evaluacion[0]->id_evaluacion}";
         if (file_exists($ruta)) {
             echo exec("rm -R $ruta");
         }

@@ -43,16 +43,29 @@ class Material extends CI_Controller {
             $duracionSegundos = $duracionSegundos[0] * 60 + $duracionSegundos[1];
             $this->material_model->actulizarDuracion($lastId, $duracionSegundos);
         }
-        move_uploaded_file($_FILES["file"]["tmp_name"], "material/$idCurso/{$_POST["modulo"]}/" . $ubicacion);
-       // $this->mensaje("Material creado exitosamente", "success", "curso/$idCurso");
+
+        $ruta = "material/$idCurso";
+
+        if (!file_exists($ruta)) {
+            mkdir($ruta, 0777);
+        }
+        if (!file_exists("$ruta/{$_POST["modulo"]}")) {
+            mkdir("$ruta/{$_POST["modulo"]}", 0777);
+        }
+
+        move_uploaded_file($_FILES["file"]["tmp_name"], "$ruta/{$_POST["modulo"]}/$ubicacion");
+        $this->mensaje("Material creado exitosamente", "success", "curso/$idCurso");
     }
 
     public function editarMaterial() {
         $this->escapar($_POST);
         if (empty($_POST["modulo"]) || empty($_POST["material"])) {
             $this->mensaje("Por favor inténtalo nuevamente", "error");
-        } else if (empty($_POST["nombre"]) || !isset($_POST["descripcion"]) || empty($_FILES["file"]) || $_FILES["file"]["error"] > 0) {
-            $this->mensaje("Por favor inténtalo nuevamente", "error", "modulo/{$_POST["modulo"]}");
+        } else if (empty($_POST["nombre"]) || !isset($_POST["descripcion"])) {
+            $idModulo = $_POST["modulo"];
+            $modulo = $this->modulo_model->obtenerModulo($idModulo);
+            $idCurso = $modulo[0]->id_curso;
+            $this->mensaje("Por favor inténtalo nuevamente", "error", "curso/$idCurso");
         }
         $idModulo = $_POST["modulo"];
         $idMaterial = $_POST["material"];
@@ -64,17 +77,19 @@ class Material extends CI_Controller {
         if ($material[0]->id_modulo != $_POST["modulo"]) {
             $this->mensaje("Por favor inténtalo nuevamente", "error");
         }
-        if (file_exists("material/$idCurso/{$_POST["modulo"]}/" . $material[0]->ubicacion)) {
-            unlink("material/$idCurso/{$_POST["modulo"]}/" . $material[0]->ubicacion);
-        }
+        if ($_FILES["file"]['tmp_name'] != "") {
+            if (file_exists("material/$idCurso/{$_POST["modulo"]}/" . $material[0]->ubicacion)) {
+                unlink("material/$idCurso/{$_POST["modulo"]}/" . $material[0]->ubicacion);
+            }
 
-        $extension = $_FILES["file"]["name"];
-        $extension = explode(".", $extension);
-        $extension = end($extension);
-        $ubicacion = $_POST["material"] . "." . strtolower($extension);
-        move_uploaded_file($_FILES["file"]["tmp_name"], "material/$idCurso/{$_POST["modulo"]}/" . $ubicacion);
-        $this->material_model->actualizar($_POST["material"], $_POST["nombre"], $_POST["descripcion"], $ubicacion);
-        $this->mensaje("Material editado exitosamente", "success", "curso/$idCurso");
+            $extension = $_FILES["file"]["name"];
+            $extension = explode(".", $extension);
+            $extension = end($extension);
+            $ubicacion = $_POST["material"] . "." . strtolower($extension);
+            move_uploaded_file($_FILES["file"]["tmp_name"], "material/$idCurso/{$_POST["modulo"]}/" . $ubicacion);
+        }
+        $this->material_model->actualizar($_POST["material"], $_POST["nombre"], $_POST["descripcion"], $material[0]->ubicacion);
+        //   $this->mensaje("Material editado exitosamente", "success", "curso/$idCurso");
     }
 
     public function eliminarMaterial() {

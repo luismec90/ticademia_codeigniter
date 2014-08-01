@@ -470,7 +470,7 @@ iframe{
     background:url('../img/temas/default/barra.png');
 }
 #fondo-menu{
-    width: 600px;
+
     background:url(../img/temas/default/barras-menu.png) 0px no-repeat,url('../img/temas/default/fondo-menu.png') 15px  no-repeat;
 }
 
@@ -499,7 +499,7 @@ iframe{
     padding-left: 25px;
 }
 #fondo-menu>li.item6>a{
-   margin-left: 25px;
+    margin-left: 15px;
 }
 #fondo-menu>li.item5>a.notificacion{
     padding-left: 10px;
@@ -510,5 +510,17 @@ iframe{
     background-color: transparent;
 }
 .navbar-default .navbar-nav>.open>a, .navbar-default .navbar-nav>.open>a:hover, .navbar-default .navbar-nav>.open>a:focus {
-background-color:transparent;
+    background-color:transparent;
+}
+@media (max-width: 767px) {
+    #fondo-menu{
+
+        background:none;
+    }
+    .navbar-default .navbar-toggle .icon-bar {
+        background-color: white;
+    }
+}
+#intro p{
+    font-size: 17px;
 }

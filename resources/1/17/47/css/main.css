@@ -1,0 +1,59 @@
+body {
+    padding-top: 50px;
+    padding-bottom: 20px;
+}
+#contenedor{
+    position: relative;
+    width: 100%;
+    height: 600px;
+}
+
+@media (max-width: 767px) { h1{ font-size:20px !important; } }#canvas{
+    position: absolute;
+    left: calc(50% - 150px);
+
+}
+h1{
+    text-align: center;
+}
+#div-asnwer{
+
+    margin-top: 20px;
+    text-align: center;
+
+}
+#answer1, #answer2{
+    width: 100px;
+    display: inline-block;
+}
+
+#imagen {
+    background: url('../img/image.jpg') no-repeat center;
+    width: 350px;
+    height: 200px;
+    margin: 50px auto;
+    left: 0;
+    right: 0;
+    position: relative;
+    font-size: 18px;
+}
+#p1 {
+    position: absolute;
+    top: 100px;
+    left: 50px;
+}
+#p2 {
+    position: absolute;
+    top: 10px;
+    left: 190px;
+}
+#p3 {
+    position: absolute;
+    top: 70px;
+    left: 270px;
+}
+#p4 {
+    position: absolute;
+    top: 170px;
+    left: 130px;
+}

@@ -260,6 +260,7 @@ $(function() {
             "height": "100%"
         });
         $("#contenedor-frame").removeClass("hide");
+        
 
     });
     $("#botonCerrarFrame").click(function() {

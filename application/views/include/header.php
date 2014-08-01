@@ -59,7 +59,7 @@
                     <ul id="<?php if (isset($idCurso)) echo "fondo-menu" ?>" class="nav navbar-nav navbar-right">
                         <?php if (isset($_SESSION["nombre"])) { ?>
                             <?php if (isset($idCurso)) { ?>
-                                <?php if ($_SESSION["rol"] == 1) { ?>
+                                <?php if ($_SESSION["rol"] == 1 ||  $_SESSION["rol"] == 3) { ?>
                                 <!--                                    <li clas=" item item1"><a id="asesorias" title="Asesorias" class=""><span class="glyphicon glyphicon-earphone"></span></a></li>-->
                                     <li  class="item item1"><a id="arena" title="Arena" class=""><span class="glyphicon glyphicon-play"></span></a></li>
                                 <?php } else if ($_SESSION["rol"] == 2) { ?>

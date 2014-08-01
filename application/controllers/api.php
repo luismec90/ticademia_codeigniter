@@ -56,7 +56,7 @@ class Api extends CI_Controller {
 
         $C = array("Lamentablemente", "Desafortunadamente", "Tendrás que esforzarte más", "Lo siento");
         $D = array(", la respuesta no es correcta", ", no has acertado");
-        
+
 
 
         $this->load->model('usuario_x_curso_model');
@@ -65,16 +65,16 @@ class Api extends CI_Controller {
             exit();
         }
         if ($_POST["calificacion"] == 1) {
-            $feedback = $A[rand(0, 4)].$B[rand(0, 3)];
+            $feedback = $A[rand(0, 4)] . $B[rand(0, 3)];
             $realimentacion = "Correcto";
-        } else if ($_POST["calificacion"] == 0) {
-            $feedback =$C[rand(0, 3)].$D[rand(0, 1)];
+        } else if (true || $_POST["calificacion"] == 0) {
+            $feedback = $C[rand(0, 3)] . $D[rand(0, 1)];
             $realimentacion = "Incorrecto";
         } else {
             $feedback = $_POST["feedback"];
             $realimentacion = $feedback;
         }
-        echo $feedback;
+        echo $feedback . ".";
         if ($_SESSION["rol"] != 1) { //Si no es un estudiante no continuar
             exit();
         }
@@ -90,39 +90,30 @@ class Api extends CI_Controller {
         $curso = $this->curso_model->obtenerCursoConEvaluacion($_POST['idEvaluacion']);
         $idCurso = $curso[0]->id_curso;
         $umbral = $curso[0]->umbral;
+
         if ($_POST["calificacion"] >= $umbral) {
-            $this->actualizarPuntaje($_POST['idEvaluacion'], $umbral);
+            $puntajeLogrado = $this->actualizarPuntaje($_POST['idEvaluacion'], $umbral);
             $where = array("id_usuario" => $_SESSION["idUsuario"], "id_curso" => $idCurso);
             $logrosObtenidos = $this->usuario_curso_logro_model->obtenerRegistros($where);
             $idLogrosObtenidos = array();
             foreach ($logrosObtenidos as $row) {
                 array_push($idLogrosObtenidos, $row->id_logro);
             }
-            if (!in_array("1", $idLogrosObtenidos)) {// Si no tiene el logro 1
-                $this->primeraEvaluacionResuelta($idCurso, $umbral);
-            }
+
 
             $evaluacionesResueltas = $this->usuario_x_evaluacion_model->obtenerEvaluacionesAprobadas($idCurso, $umbral);
             $totalEvaluaciones = $this->evaluacion_model->obtenerTotalEvaluacionesCurso($idCurso);
             $totalEvaluaciones = $totalEvaluaciones[0]->total;
             $porcentaje = round(sizeof($evaluacionesResueltas) / $totalEvaluaciones, 2) * 100;
-            $flag = true; // Si no obtuve un porcetnaje mayor al 25% no tiene sentido comprobar los demas porcentajes
-            if (!in_array("2", $idLogrosObtenidos)) {
-                $flag = $this->checkPorcentaje25($idCurso, $umbral, $porcentaje);
-            }
-            if ($flag && !in_array("3", $idLogrosObtenidos)) {
-                $flag = $this->checkPorcentaje50($idCurso, $umbral, $porcentaje);
-            }
-            if ($flag && !in_array("4", $idLogrosObtenidos)) {
-                $flag = $this->checkPorcentaje75($idCurso, $umbral, $porcentaje);
-            }
-            if ($flag && !in_array("5", $idLogrosObtenidos)) {
-                $this->checkPorcentaje100($idCurso, $umbral, $porcentaje);
-            }
+
             if (!in_array("11", $idLogrosObtenidos) || !in_array("12", $idLogrosObtenidos) || !in_array("13", $idLogrosObtenidos)) {
                 $this->enLinea($idCurso, $umbral);
             }
-            $this->checkNivel($idCurso, $curso[0]->niveles, $porcentaje);
+            $mensajeNivel = $this->checkNivel($idCurso, $curso[0]->niveles, $porcentaje);
+            if ($puntajeLogrado != -1) {// Si es la primera vez que responde la pregunta
+                echo "<br><br>Acabas de ganar <b>$puntajeLogrado puntos</b> y tu tiempo fue de <b>{$_POST['duracion']} segundos</b>.";
+            }
+            echo $mensajeNivel;
         }
     }
 
@@ -149,6 +140,7 @@ class Api extends CI_Controller {
                     $array[$row->id_evaluacion]['flag'] = false;
                 }
             }
+            $retornarPuntajeTotal = $puntajeTotal;
             $where = array("id_usuario" => $_SESSION["idUsuario"], "id_modulo" => $idModulo);
             $existe = $this->usuario_x_modulo_model->obtenerRegistro($where);
             if ($existe) {
@@ -161,71 +153,9 @@ class Api extends CI_Controller {
                     "puntaje" => $puntajeTotal);
                 $this->usuario_x_modulo_model->crear($data);
             }
-        }
-    }
-
-    public function primeraEvaluacionResuelta($idCurso, $umbral) {
-        $evaluacionesResueltas = $this->usuario_x_evaluacion_model->obtenerEvaluacionesAprobadas($idCurso, $umbral);
-        if (sizeof($evaluacionesResueltas) == 1) {
-            $data = array(
-                'id_usuario' => $_SESSION["idUsuario"],
-                'id_logro' => 1,
-                'id_curso' => $idCurso
-            );
-            $this->usuario_curso_logro_model->crear($data);
-        }
-    }
-
-    public function checkPorcentaje25($idCurso, $umbral, $porcentaje) {
-        if ($porcentaje >= 25) {
-            $data = array(
-                'id_usuario' => $_SESSION["idUsuario"],
-                'id_logro' => 2,
-                'id_curso' => $idCurso
-            );
-            $this->usuario_curso_logro_model->crear($data);
-            return true;
+            return $retornarPuntajeTotal;
         } else {
-            return false;
-        }
-    }
-
-    public function checkPorcentaje50($idCurso, $umbral, $porcentaje) {
-        if ($porcentaje >= 50) {
-            $data = array(
-                'id_usuario' => $_SESSION["idUsuario"],
-                'id_logro' => 3,
-                'id_curso' => $idCurso
-            );
-            $this->usuario_curso_logro_model->crear($data);
-            return true;
-        } else {
-            return false;
-        }
-    }
-
-    public function checkPorcentaje75($idCurso, $umbral, $porcentaje) {
-        if ($porcentaje >= 75) {
-            $data = array(
-                'id_usuario' => $_SESSION["idUsuario"],
-                'id_logro' => 4,
-                'id_curso' => $idCurso
-            );
-            $this->usuario_curso_logro_model->crear($data);
-            return true;
-        } else {
-            return false;
-        }
-    }
-
-    public function checkPorcentaje100($idCurso, $umbral, $porcentaje) {
-        if ($porcentaje == 100) {
-            $data = array(
-                'id_usuario' => $_SESSION["idUsuario"],
-                'id_logro' => 5,
-                'id_curso' => $idCurso
-            );
-            $this->usuario_curso_logro_model->crear($data);
+            return -1;
         }
     }
 
@@ -279,9 +209,29 @@ class Api extends CI_Controller {
 
     public function checkNivel($idCurso, $cantidadNiveles, $porcentaje) {
         $this->load->model('bitacora_nivel_model');
+        $this->load->model('nivel_model');
+        $this->load->model('usuario_model');
 
-        $valorPorNivel = 100 / $cantidadNiveles;
-        $nivel = ceil($porcentaje / $valorPorNivel);
+        if ($porcentaje > 90) {
+            $nivel = 9;
+        } else if ($porcentaje > 80) {
+            $nivel = 8;
+        } else if ($porcentaje > 70) {
+            $nivel = 7;
+        } else if ($porcentaje > 50) {
+            $nivel = 6;
+        } else if ($porcentaje > 30) {
+            $nivel = 5;
+        } else if ($porcentaje > 20) {
+            $nivel = 4;
+        } else if ($porcentaje > 10) {
+            $nivel = 3;
+        } else if ($porcentaje > 0) {
+            $nivel = 2;
+        }
+
+        $mensaje = "";
+
         $nivelActual = $this->usuario_x_curso_model->obtenerRegistro(array("id_curso" => $idCurso, "id_usuario" => $_SESSION["idUsuario"]));
         if ($nivel != $nivelActual[0]->id_nivel) {
             $this->usuario_x_curso_model->actualizar(array("id_nivel" => $nivel), array("id_curso" => $idCurso, "id_usuario" => $_SESSION["idUsuario"]));
@@ -291,7 +241,21 @@ class Api extends CI_Controller {
                 "id_nivel" => $nivel
             );
             $this->bitacora_nivel_model->crear($data);
+            $nivelAnterior = $this->nivel_model->obtener(array("id_nivel" => $nivelActual[0]->id_nivel));
+            $nivelaActual = $this->nivel_model->obtener(array("id_nivel" => $nivel));
+
+
+            $usuario = $this->usuario_model->obtenerUsuario(array("id_usuario" => $_SESSION["idUsuario"]));
+            if ($usuario[0]->sexo == "m") {
+                $rutaImagenNivel = base_url() . "assets/img/niveles/hombre/{$nivelaActual[0]->imagen}";
+            } else {
+                $rutaImagenNivel = base_url() . "assets/img/niveles/mujer/{$nivelaActual[0]->imagen}";
+            }
+
+            $mensaje = "<br><br>Ya no eres más un(a) {$nivelAnterior[0]->nombre}, ahora eres un(a) {$nivelaActual[0]->nombre}.";
+            $mensaje.="<center><img class='featurette-image img-responsive' src='$rutaImagenNivel'></center>";
         }
+        return $mensaje;
     }
 
 }

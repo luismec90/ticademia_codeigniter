@@ -232,22 +232,39 @@
 </body>
 <?php if ($tab == "curso") { ?>
     <script>
-                        $(function() {
-                            countCallsCargarModulo = 0;
-                            var numeroModulos = <?= $numeroModulos ?>;
-                            var idModulos = jQuery.parseJSON('<?= $idModulos ?>');
-                            $("#slider").slider({min: 0, max: <?= $cantidadModulos - 1 ?>, value: 0, animate: "normal"});
-                            $("#slider").slider("pips", {rest: "label", labels: numeroModulos})
-                            $("#slider").on("slidechange", function(e, ui) {
+                            $(function() {
+                                countCallsCargarModulo = 0;
+                                var numeroModulos = <?= $numeroModulos ?>;
+                                var idModulos = jQuery.parseJSON('<?= $idModulos ?>');
+                                $("#slider").slider({min: 0, max: <?= $cantidadModulos - 1 ?>, value: 0, animate: "normal"});
+                                $("#slider").slider("pips", {rest: "label", labels: numeroModulos})
+                                $("#slider").on("slidechange", function(e, ui) {
 
-                                var idModulo = idModulos[ui.value];
+                                    var idModulo = idModulos[ui.value];
 
-                                cargarModulo(idModulo);
-                             
+                                    cargarModulo(idModulo);
+
+                                });
+
+                                cargarModulo(-1);
                             });
+                            
+                            /* Google Analytics*/
+                            (function(i, s, o, g, r, a, m) {
+                                i['GoogleAnalyticsObject'] = r;
+                                i[r] = i[r] || function() {
+                                    (i[r].q = i[r].q || []).push(arguments)
+                                }, i[r].l = 1 * new Date();
+                                a = s.createElement(o),
+                                        m = s.getElementsByTagName(o)[0];
+                                a.async = 1;
+                                a.src = g;
+                                m.parentNode.insertBefore(a, m)
+                            })(window, document, 'script', '//www.google-analytics.com/analytics.js', 'ga');
 
-                            cargarModulo(-1);
-                        });
+                            ga('create', 'UA-42717766-4', 'auto');
+                            ga('send', 'pageview');
+
     </script>
 <?php } ?>
 </html>

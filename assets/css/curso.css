@@ -478,9 +478,9 @@
     position: absolute;
 }
 #container-evaluaciones .boxEvaluaciones2 .numeroEvaluacion{
-    left: 12px;
-    top:15px;
-    font-size: 35px;
+    left: 14px;
+    top: 10px;
+    font-size: 32px;
 }
 #container-evaluaciones .boxEvaluaciones2 .tipo{
     width: 25px;
@@ -632,11 +632,25 @@ width: 90%;
     margin: 0 0 10px 5px;
 }
 .profesor-in .box-evaluacion{
-     margin: 0 0 50px 5px;
+    margin: 0 0 50px 5px;
 }
 .box-next{
     width: 20px;
     height: 20px;
     display: inline-block;
     margin: 10px 0 60px 10px;
+}
+@media (max-width: 767px) {
+
+    #imagen{
+        width:250px;
+    }    
+    #imagen img{
+        width: 250px;
+        margin-bottom: 20px;
+    }
+    #opcionesModulo {
+        margin-left: 0px;
+    }
+
 }

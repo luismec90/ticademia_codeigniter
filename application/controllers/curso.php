@@ -444,12 +444,12 @@ class Curso extends CI_Controller {
                                         <br>
                                         <div class="control-group">
                                             <div class="controls">
-                                                <label>Material: <span class="text-danger">*</span></label>
+                                                <label>Material:</label>
                                                 <div class="input-group">
                                                     <input type="text" class="form-control" readonly="">
                                                     <span class="input-group-btn">
                                                         <span class="btn btn-primary btn-file">
-                                                            Cambiar archivo<input type="file" name="file" accept=".pdf,.mp4" required>
+                                                            Cambiar archivo<input type="file" name="file" accept=".pdf,.mp4">
                                                         </span>
                                                     </span>
 
@@ -823,7 +823,7 @@ class Curso extends CI_Controller {
                 <div class="row">
                     <div class="col-xs-12">
                         <br><br>
-                        <center><button class='btn btn-primary' data-toggle="modal" data-target="#modalCrearModulo">Crear el primer modulo</button></center>
+                        <center><button class='btn btn-primary' data-toggle="modal" data-target="#modalCrearModulo">Crear el primer módulo</button></center>
                     </div>  
                 </div> 
             </div> 
@@ -899,7 +899,8 @@ class Curso extends CI_Controller {
             }
             $i++;
         }
-        return $string . "<a id='link-posicion'>$posicion</a>";
+         return $string; // return $string . "<a id='link-posicion' >$posicion</a>";
+       
     }
 
     public function matricularse($idCurso) {

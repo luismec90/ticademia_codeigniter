@@ -235,7 +235,7 @@
                                     <input type="text" class="form-control" readonly="">
                                     <span class="input-group-btn">
                                         <span class="btn btn-primary btn-file">
-                                            Cambiar archivo<input type="file" name="file" accept=".pdf,.mp4" required>
+                                            Cambiar archivo<input type="file" name="file" accept=".pdf,.mp4">
                                         </span>
                                     </span>
 

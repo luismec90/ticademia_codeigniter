@@ -20,7 +20,7 @@
                         if ($row->id_usuario) {
                             ?>
                             <a class="btn btn-info" href="<?= base_url() ?>curso/<?= $row->id_curso ?>">Entrar <span class="glyphicon glyphicon-chevron-right"></span></a>
-                        <?php } else { ?>
+                        <?php } else if($row->tipo_matricula==0){ ?>
                             <a class="btn btn-info" href="<?= base_url() ?>curso/matricularse/<?= $row->id_curso ?>">Matricularse <span class="glyphicon glyphicon-chevron-right"></span></a>
                             <?php
                         }
