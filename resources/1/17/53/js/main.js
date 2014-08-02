@@ -1,17 +1,17 @@
-var x,z;
+var x, z;
 
 $(function() {
-    try{
+    try {
         API = getAPI();
         API.LMSInitialize("");
-    }catch(e){
+    } catch (e) {
         console.log(e);
     }
 
-    x = getRandom(1,6);
-    z = getRandom(1,9);
+    x = getRandom(1, 6);
+    z = getRandom(1, 9);
 
-    var correctAnswer1 = 6*z*z;
+    var correctAnswer1 = customRound(Math.pow(6 * z * z, 1 / 3), 2);
     draw();
 
     $("#verificar").click(function() {
@@ -21,15 +21,15 @@ $(function() {
             $("#feedback").addClass("hide");
             var calificacion = 0;
             var feedback = "";
-            valor1 = parseFloat(valor1);
-            if (Math.abs(valor1 - correctAnswer1)<0.009) {
-                    calificacion = 1.0;
-                    $("#correcto").html("Calificación: <b>" + calificacion + "</b>").removeClass("hide");
-            }else{
-                    calificacion = 0.0;
-                    $("#feedback").html("Calificación: <b>" + calificacion + "<br/><br/> ...").removeClass("hide");
+            valor1 = customRound(parseFloat(valor1), 2);
+            if (Math.abs(valor1 - correctAnswer1) < 0.009) {
+                calificacion = 1.0;
+                $("#correcto").html("Calificación: <b>" + calificacion + "</b>").removeClass("hide");
+            } else {
+                calificacion = 0.0;
+                $("#feedback").html("Calificación: <b>" + calificacion + "<br/><br/> ...").removeClass("hide");
             }
-             $(this).attr("disabled", true);
+            $(this).attr("disabled", true);
             API.closeQuestion();
             if (typeof API.calificar == 'function') {
                 API.calificar(calificacion, feedback);
@@ -50,11 +50,14 @@ $(function() {
 function getRandom(bottom, top) {
     return Math.floor(Math.random() * (1 + top - bottom)) + bottom;
 }
-function draw(){
+function draw() {
     $('.mvar[value=z]').html(z);
-    $('.mvar[value=x6]').html(6*x);
-    $('.mvar[value=v]').html(18*x*x+"π");
+    $('.mvar[value=x6]').html(6 * x);
+    $('.mvar[value=v]').html(18 * x * x + "π");
 }
 function toRadians(angle) {
     return angle * (Math.PI / 180);
+}
+function customRound(value, decimals) {
+    return Number(Math.round(value + 'e' + decimals) + 'e-' + decimals);
 }

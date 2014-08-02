@@ -8,9 +8,9 @@ $(function() {
         console.log(e);
     }
 
-    z = getRandom(2,13)*3;
+    z = getRandom(1,8)*5;
 
-    var correctAnswer1 = 15*(z+125)/z;
+    var correctAnswer1 = customRound(15*(z+125)/z,2);
     draw();
 
     $("#verificar").click(function() {
@@ -20,7 +20,7 @@ $(function() {
             $("#feedback").addClass("hide");
             var calificacion = 0;
             var feedback = "";
-            valor1 = parseFloat(valor1);
+            valor1 = customRound(parseFloat(valor1),2);
             if (Math.abs(valor1 - correctAnswer1)<0.009) {
                     calificacion = 1.0;
                     $("#correcto").html("Calificación: <b>" + calificacion + "</b>").removeClass("hide");
@@ -54,4 +54,7 @@ function draw(){
 }
 function toRadians(angle) {
     return angle * (Math.PI / 180);
+}
+function customRound(value, decimals) {
+    return Number(Math.round(value+'e'+decimals)+'e-'+decimals);
 }

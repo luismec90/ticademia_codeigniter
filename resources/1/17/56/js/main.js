@@ -10,7 +10,7 @@ $(function() {
 
     w = getRandom(10,30)/10;
 
-    var correctAnswer1 = 1000*w*w;
+    var correctAnswer1 = Math.round(1000*w*w);
     draw();
 
     $("#verificar").click(function() {
@@ -20,7 +20,7 @@ $(function() {
             $("#feedback").addClass("hide");
             var calificacion = 0;
             var feedback = "";
-            valor1 = parseFloat(valor1);
+            valor1 = Math.round(parseFloat(valor1));
             if (Math.abs(valor1 - correctAnswer1)<0.006) {
                     calificacion = 1.0;
                     $("#correcto").html("Calificación: <b>" + calificacion + "</b>").removeClass("hide");

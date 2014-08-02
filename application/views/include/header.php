@@ -49,8 +49,8 @@
                         <span class="icon-bar"></span>
                         <span class="icon-bar"></span>
                     </button>
-                    <img id="logo" width="47" height="47" src="<?= base_url() ?>assets/img/minerva.png" alt="Jason's Photo">
-                    <a id="texto-logo" class="navbar-brand white" href="<?= base_url() ?>">TICADEMIA</a>
+                    <img id="logo"  height="47" src="<?= base_url() ?>assets/img/minerva.png" alt="Jason's Photo">
+                    <!--<a id="texto-logo" class="navbar-brand white" href="<?= base_url() ?>">TICADEMIA</a>-->
                 </div>
                 <div class="navbar-collapse collapse">
                     <ul class="nav navbar-nav">
