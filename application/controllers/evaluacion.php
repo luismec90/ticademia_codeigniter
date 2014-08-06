@@ -248,7 +248,7 @@ class Evaluacion extends CI_Controller {
             'fecha_inicial' => $fechaInicial
         );
         $this->usuario_x_evaluacion_model->crearIntento($data);
-        $this->mensaje("Evaluación saltada correctamente", "success", "curso/$idCurso");
+      
     }
 
     public function materialesrelacionados() {

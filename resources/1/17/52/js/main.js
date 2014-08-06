@@ -11,6 +11,7 @@ $(function() {
     z = getRandom(1,8)*5;
 
     var correctAnswer1 = customRound(15*(z+125)/z,2);
+    console.log(correctAnswer1+" "+z);
     draw();
 
     $("#verificar").click(function() {

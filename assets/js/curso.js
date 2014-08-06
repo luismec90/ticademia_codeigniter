@@ -260,7 +260,7 @@ $(function() {
             "height": "100%"
         });
         $("#contenedor-frame").removeClass("hide");
-        
+
 
     });
     $("#botonCerrarFrame").click(function() {
@@ -326,7 +326,22 @@ $(function() {
         $("#idEvaluacionSaltar").val($(this).data("id-evaluacion"));
         $("#modalSaltarEvaluacion").modal();
     });
-
+    $("#confirmarSaltarEvaluacion").click(function() {
+        var idEvaluacion = $("#idEvaluacionSaltar").val();
+        var idCurso = $("#idCursoEvaluacionSaltar").val();
+        $.ajax({
+            url: "../evaluacion/saltar",
+            method: "POST",
+            data: {
+                idEvaluacion: idEvaluacion,
+                idCurso: idCurso
+            },
+            success: function(data) {
+                $("#modalSaltarEvaluacion").modal("hide");
+                cargarModulo(-1);
+            }
+        });
+    });
 
     $("#contenedor").on("click", "a.ver-comentarios", function() {
         var idMaterial = $(this).data("id-material");

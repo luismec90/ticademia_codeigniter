@@ -1,5 +1,5 @@
 <div id="contenedor">
-   
+
     <div id="linea">
         <div id="slider">
 
@@ -132,21 +132,21 @@
 <div class="modal fade" id="modalSaltarEvaluacion" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
     <div class="modal-dialog">
         <div class="modal-content">
-            <form method="post" class="formSubmit" action="<?= base_url() ?>evaluacion/saltar" autocomplete="off" >
+            
                 <div class="modal-header">
                     <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
                     <h4 class="modal-title" id="myModalLabel">Saltar evaluación</h4>
                 </div>
                 <div class="modal-body">
-                    <input type="hidden" name="idCurso" value="<?= $idCurso ?>" required="" readonly="">
+                    <input type="hidden" id="idCursoEvaluacionSaltar" name="idCurso" value="<?= $idCurso ?>" required="" readonly="">
                     <input type="hidden" id="idEvaluacionSaltar" name="idEvaluacion" required="" readonly="">
                     <h5>¿Deseas saltar esta pregunta? ten en cuenta que luego la podrás realizar pero ya no recibirás puntuación</h5>
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>
-                    <button type="submit" class="btn btn-primary">Enviar</button>
+                    <button id="confirmarSaltarEvaluacion"  class="btn btn-primary">Enviar</button>
                 </div>
-            </form>
+           
         </div>
     </div>
 </div>

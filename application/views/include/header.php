@@ -49,19 +49,18 @@
                         <span class="icon-bar"></span>
                         <span class="icon-bar"></span>
                     </button>
-                    <a href="<?= base_url()?>" title="Ir al inicio"> <img id="logo"  height="47" src="<?= base_url() ?>assets/img/ticademia.png"></a>
+                    <a href="<?= base_url() ?>" title="Ir al inicio"> <img id="logo"  height="47" src="<?= base_url() ?>assets/img/ticademia.png"></a>
                     <!--<a id="texto-logo" class="navbar-brand white" href="<?= base_url() ?>">TICADEMIA</a>-->
                 </div>
                 <div class="navbar-collapse collapse">
-<!--                    <ul class="nav navbar-nav">
-                        <li class="<?= ($tab == "inicio") ? "active" : "" ?>"><a href="<?= base_url() ?>" class="white"><i class="fa fa-list-ul fa-lg"></i> Ver cursos</a></li>
-                    </ul>-->
+                    <!--                    <ul class="nav navbar-nav">
+                                            <li class="<?= ($tab == "inicio") ? "active" : "" ?>"><a href="<?= base_url() ?>" class="white"><i class="fa fa-list-ul fa-lg"></i> Ver cursos</a></li>
+                                        </ul>-->
                     <ul id="nav-menu" class="nav navbar-nav navbar-right">
                         <?php if (isset($_SESSION["nombre"])) { ?>
                             <?php if (isset($idCurso)) { ?>
-                                <?php if ($_SESSION["rol"] == 1 || $_SESSION["rol"] == 3) { ?>
-                        <li class="icono"><a id="asesorias" title="Asesorias" class=""><img src="<?= base_url() ?>assets/img/temas/default/asesoria.png" height="37"></a></li>
-                                <?php } if ($_SESSION["rol"] == 1) { ?>
+                                <li class="icono"><a id="asesorias" title="Asesorias" class=""><img src="<?= base_url() ?>assets/img/temas/default/asesoria.png" height="37"></a></li>
+                                <?php if ($_SESSION["rol"] == 1) { ?>
                                     <li class="icono"><a id="arena" title="Duelos" class=""><img src="<?= base_url() ?>assets/img/temas/default/duelo.png" height="37"></a></li>
                                 <?php } else if ($_SESSION["rol"] == 2) { ?>
                                     <li class="dropdown <?= ($tab == "estadisticaestudiantes" || $tab == "estadisticamateriales" || $tab == "estadisticapreguntas" ) ? "active" : ""; ?> icono">
