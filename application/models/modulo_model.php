@@ -46,12 +46,17 @@ class Modulo_model extends CI_Model {
         return $this->db->query($query)->result();
     }
 
-    function puntajePorModuloPorCurso($idCurso,$idUsuario) {
+    function puntajePorModuloPorCurso($idCurso, $idUsuario) {
         $query = "SELECT m.id_modulo,m.nombre,COALESCE(um.puntaje,0) puntaje
                 FROM modulo m
                 LEFT JOIN usuario_x_modulo um ON um.id_modulo=m.id_modulo AND um.id_usuario='$idUsuario'
                 WHERE m.id_curso='$idCurso'
                 ORDER BY m.fecha_inicio ASC";
+        return $this->db->query($query)->result();
+    }
+
+    function ultimoModulo($idCurso) {
+          $query = "select * from modulo where id_curso='$idCurso' order by fecha_fin desc limit 1";
         return $this->db->query($query)->result();
     }
 

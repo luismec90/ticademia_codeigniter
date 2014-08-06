@@ -111,7 +111,7 @@ class Api extends CI_Controller {
             }
             $mensajeNivel = $this->checkNivel($idCurso, $curso[0]->niveles, $porcentaje);
             if ($puntajeLogrado != -1) {// Si es la primera vez que responde la pregunta
-                echo "<br><br>Acabas de ganar <b>$puntajeLogrado puntos</b> y tu tiempo fue de <b>{$_POST['duracion']} segundos</b>.";
+                echo "<br><br>Acabas de ganar <b>$puntajeLogrado <span class='glyphicon glyphicon-star'></span> puntos</b> y tu tiempo fue de <b>{$_POST['duracion']} <span class='glyphicon glyphicon glyphicon-time'></span> segundos</b>.";
             }
             echo $mensajeNivel;
         }

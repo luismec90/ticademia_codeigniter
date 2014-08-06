@@ -8,16 +8,16 @@ if (!function_exists('tabForo')) {
         $CI = & get_instance();
         $CI->load->model('tema_foro_model');
         $CI->load->model('bitacora_model');
-        $lastLogin=$CI->bitacora_model->penultimoAcceso($_SESSION["idUsuario"], $idCurso);
-        if($lastLogin){
-            $lastLogin=$lastLogin[0]->fecha_ingreso;
-        }else{
-            $lastLogin="0000-00-00 00:00:00";
+        $lastLogin = $CI->bitacora_model->penultimoAcceso($_SESSION["idUsuario"], $idCurso);
+        if ($lastLogin) {
+            $lastLogin = $lastLogin[0]->fecha_ingreso;
+        } else {
+            $lastLogin = "0000-00-00 00:00:00";
         }
-        $ultimaActividad = $CI->tema_foro_model->ultimaActividad($idCurso,$lastLogin);
+        $ultimaActividad = $CI->tema_foro_model->ultimaActividad($idCurso, $lastLogin);
         if ($ultimaActividad) {
             ?>
-<a  id="link-foro-color" title="Ver foro" href="#" class="dropdown-toggle white notificacion" data-toggle="dropdown"> <i class="icon-position fa icono-foro icon-animated-vertical"></i> <span id="numero-notificaciones-foro"><?= sizeof($ultimaActividad) ?><b class="caret white"></b> <br> <br></span></a> 
+            <a  title="Foro" href="#" class="dropdown-toggle" data-toggle="dropdown"> <img id="icono-foro" src="<?= base_url() ?>assets/img/temas/default/foro.png" height="30"> <?= sizeof($ultimaActividad) ?> <b class="caret white"></b></span></a> 
             <ul class="dropdown-menu">
                 <li class="dropdown-header">Desde tu última visita esto ha acontecido</li>
                 <li class="divider"></li>
@@ -38,7 +38,7 @@ if (!function_exists('tabForo')) {
             <?php
         } else {
             ?>
-            <a  id="link-foro-color" title="Ver foro" href="<?= base_url() ?>foro/<?= $idCurso ?>" class="white"> <i class="icon-position fa icono-foro icon-animated-vertical"></i></a> 
+            <a title="Foro" href="<?= base_url() ?>foro/<?= $idCurso ?>" > <img id="icono-foro" src="<?= base_url() ?>assets/img/temas/default/foro.png" height="30" ></a> 
             <?php
         }
     }

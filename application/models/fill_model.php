@@ -10,7 +10,7 @@ class Fill_model extends CI_Model {
     }
 
     function poblarBD() {
-    
+        exit();
         $this->afiliacion();
         $this->nivel();
         $this->usuario();
@@ -49,7 +49,7 @@ class Fill_model extends CI_Model {
             'prerequisitos' => 'Lorem ipsum dolor sit amet, ex perfecto patrioque vim, per dolore animal ea. Ei integre moderatius intellegebat eum. Mei facer fabulas ut, id eum stet regione. An posse albucius invidunt qui, nam mundi ceteros vulputate et. Ex unum reprehendunt his. Eam accusata mnesarchum an, eu his doming accusata. Et est consulatu assueverit, sit ancillae suavitate te. Ex omnium timeam indoctum vix, in viris deleniti eum, has discere recteque persequeris eu. Eum ne solet oblique tincidunt. Movet latine iuvaret eos ut, dicit regione in mei. Ea tibique corpora atomorum vel, dicant detracto intellegat vel et, graeco aliquid propriae ea ius. Odio paulo reprimique vix ex. Usu habemus dolores tacimates ex, ad aliquip fastidii sea, saepe forensibus ex duo. Has ullum causae dissentiet no, cum nostrud voluptatibus cu. Justo possit minimum duo cu, sea eu dolorum intellegat. Noster repudiare mea ut, cu ius appareat rationibus. Nec aliquip mediocrem ut, ius alterum concludaturque te. Vix no melius suavitate. Te facilis percipitur nec, minim forensibus mei eu. Te has maiorum percipitur. Pro bonorum detracto repudiandae at. Vim ferri eruditi appellantur an. Nam utinam eligendi lucilius ea, ad sea agam probatus. Ius homero commune id, te eam agam accusata.'
         );
         $this->db->insert('asignatura', $data);
-      
+
         $data = array(
             'id_asignatura' => 2,
             'nombre' => 'Análisis de fallas en líneas de transmisión',

@@ -13,6 +13,7 @@ class Usuario_model extends CI_Model {
 
     public function crear($data) {
         $this->db->insert('usuario', $data);
+        return $this->db->insert_id();
     }
 
     public function actualizar($data, $where) {

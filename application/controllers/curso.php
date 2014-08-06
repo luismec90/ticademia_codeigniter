@@ -268,7 +268,7 @@ class Curso extends CI_Controller {
                     </div>
                     <div id="opcionesModulo">
 
-                                                                                                                                                                                                                                                                    <!--                    <a href="<?= base_url() ?>curso/<?= $idCurso ?>" class="btn btn-info" title="Ir atrás"><i class="fa fa-reply"></i></a>-->
+                                                                                                                                                                                                                                                                                                        <!--                    <a href="<?= base_url() ?>curso/<?= $idCurso ?>" class="btn btn-info" title="Ir atrás"><i class="fa fa-reply"></i></a>-->
                         <?= $topN ?><span title="Ver ranking" class="btn btn-info pull-right" onclick="loadRankingMod(this)" data-id-modulo="1" data-id-curso="1">
                             <i class="fa fa-trophy"></i> Ranking</span>
                     </div>
@@ -366,7 +366,10 @@ class Curso extends CI_Controller {
                     </div>
                 </div>
                 <?php //}  ?>
-                <?php if ($_SESSION["rol"] == 2) { ?>
+                <?php
+                if ($_SESSION["rol"] == 2) {
+                    $ultimoModulo = $this->modulo_model->ultimoModulo($idCurso);
+                    ?>
                     <div class="modal fade" id="modalCrearMaterial" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
                         <div class="modal-dialog">
                             <div class="modal-content">
@@ -705,7 +708,7 @@ class Curso extends CI_Controller {
 
                                         <input type="hidden" name="curso" required="" readonly="" value="<?= $idCurso ?>">
                                         <div class="control-group">
-                                            <label>Nombre:</label>
+                                            <label>Nombre: <span class="text-danger">*</span></label>
                                             <div class="controls">
                                                 <input required="" id="nombre" name="nombre" type="text" class="form-control" placeholder="">
                                             </div>
@@ -713,13 +716,13 @@ class Curso extends CI_Controller {
                                         <br>
                                         <div class="row">
                                             <div class="control-group col-md-6">
-                                                <label>Fecha inicial:</label>
+                                                <label>Fecha inicial: <span class="text-danger">*</span></label>
                                                 <div class="controls">
-                                                    <input required="" id="desde" name="desde" type="text" class="form-control datepicker" placeholder="">
+                                                    <input required="" id="desde" name="desde" type="text" class="form-control datepicker" value="<?= $ultimoModulo[0]->fecha_fin ?>" placeholder="">
                                                 </div>
                                             </div>
                                             <div class="control-group col-md-6">
-                                                <label>Fecha final:</label>
+                                                <label>Fecha final: <span class="text-danger">*</span></label>
                                                 <div class="controls">
                                                     <input required="" id="hasta" name="hasta" type="text" class="form-control datepicker" placeholder="">
                                                 </div>
@@ -727,7 +730,7 @@ class Curso extends CI_Controller {
                                         </div>
                                         <br>
                                         <div class="control-group">
-                                            <label>Descripción:</label>
+                                            <label>Descripción: <span class="text-danger">*</span></label>
                                             <div class="controls">
                                                 <textarea required="" id="descripcion" rows="10" name="descripcion" class="form-control" placeholder=""></textarea>
                                             </div>
@@ -755,7 +758,7 @@ class Curso extends CI_Controller {
                                         <input type="hidden" name="curso" required="" readonly="" value="<?= $idCurso ?>">
                                         <input type="hidden" id="editarIdModulo" name="idModulo" value="<?= $modulo[0]->id_modulo ?>" required="" readonly="">
                                         <div class="control-group">
-                                            <label>Nombre:</label>
+                                            <label>Nombre: <span class="text-danger">*</span></label>
                                             <div class="controls">
                                                 <input required="" id="editarNombreModulo" value="<?= $modulo[0]->nombre ?>" name="nombre" type="text" class="form-control" placeholder="">
                                             </div>
@@ -763,13 +766,13 @@ class Curso extends CI_Controller {
                                         <br>
                                         <div class="row">
                                             <div class="control-group col-md-6">
-                                                <label>Fecha inicial:</label>
+                                                <label>Fecha inicial: <span class="text-danger">*</span></label>
                                                 <div class="controls">
                                                     <input required="" id="editarDesdeModulo" id="desde" name="desde" value="<?= $modulo[0]->fecha_inicio ?>" type="text" class="form-control datepicker" placeholder="">
                                                 </div>
                                             </div>
                                             <div class="control-group col-md-6">
-                                                <label>Fecha final:</label>
+                                                <label>Fecha final: <span class="text-danger">*</span></label>
                                                 <div class="controls">
                                                     <input required="" id="editarHastaModulo" name="hasta" type="text" value="<?= $modulo[0]->fecha_fin ?>" class="form-control datepicker" placeholder="">
                                                 </div>
@@ -777,7 +780,7 @@ class Curso extends CI_Controller {
                                         </div>
                                         <br>
                                         <div class="control-group">
-                                            <label>Descripción:</label>
+                                            <label>Descripción: <span class="text-danger">*</span></label>
                                             <div class="controls">
                                                 <textarea required="" id="editarDescripcionModulo" rows="10" name="descripcion" class="form-control" placeholder=""><?= $modulo[0]->descripcion ?></textarea>
                                             </div>
@@ -818,6 +821,7 @@ class Curso extends CI_Controller {
             <?php
         } else if ($_SESSION["rol"] == 2) {
             $idCurso = $this->input->get('idCurso');
+            $curso = $this->curso_model->obtenerCurso($idCurso);
             ?>
             <div class="container-fluid">
                 <div class="row">
@@ -839,7 +843,7 @@ class Curso extends CI_Controller {
 
                                 <input type="hidden" name="curso" required="" readonly="" value="<?= $idCurso ?>">
                                 <div class="control-group">
-                                    <label>Nombre:</label>
+                                    <label>Nombre: <span class="text-danger">*</span></label>
                                     <div class="controls">
                                         <input required="" id="nombre" name="nombre" type="text" class="form-control" placeholder="">
                                     </div>
@@ -847,13 +851,13 @@ class Curso extends CI_Controller {
                                 <br>
                                 <div class="row">
                                     <div class="control-group col-md-6">
-                                        <label>Fecha inicial:</label>
+                                        <label>Fecha inicial: <span class="text-danger">*</span></label>
                                         <div class="controls">
-                                            <input required="" id="desde" name="desde" type="text" class="form-control datepicker" placeholder="">
+                                            <input required="" id="desde" name="desde" type="text" class="form-control datepicker" value='<?= $curso[0]->fecha_inicio ?>' placeholder="">
                                         </div>
                                     </div>
                                     <div class="control-group col-md-6">
-                                        <label>Fecha final:</label>
+                                        <label>Fecha final: <span class="text-danger">*</span></label>
                                         <div class="controls">
                                             <input required="" id="hasta" name="hasta" type="text" class="form-control datepicker" placeholder="">
                                         </div>
@@ -861,7 +865,7 @@ class Curso extends CI_Controller {
                                 </div>
                                 <br>
                                 <div class="control-group">
-                                    <label>Descripción:</label>
+                                    <label>Descripción: <span class="text-danger">*</span></label>
                                     <div class="controls">
                                         <textarea required="" id="descripcion" rows="10" name="descripcion" class="form-control" placeholder=""></textarea>
                                     </div>
@@ -899,8 +903,7 @@ class Curso extends CI_Controller {
             }
             $i++;
         }
-         return $string; // return $string . "<a id='link-posicion' >$posicion</a>";
-       
+        return $string; // return $string . "<a id='link-posicion' >$posicion</a>";
     }
 
     public function matricularse($idCurso) {
@@ -948,12 +951,14 @@ class Curso extends CI_Controller {
             <th>Información de contacto</th>
             <?php
             foreach ($monitores as $row) {
+                if($row->informacion_contacto!=""){
                 ?>
                 <tr>
                     <td><?= $row->nombres . " " . $row->apellidos ?></td>
                     <td><?= $row->informacion_contacto ?></td>
                 </tr>
                 <?php
+                }
             }
             ?>
         </table>

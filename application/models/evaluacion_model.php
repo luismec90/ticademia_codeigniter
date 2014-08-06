@@ -9,6 +9,10 @@ class Evaluacion_model extends CI_Model {
         $this->load->database();
     }
 
+    public function crear($data) {
+        $this->db->insert('evaluacion', $data);
+    }
+
     function crearEvaluacion($idModulo, $tipo, $orden) {
         $datos = array(
             'id_modulo' => $idModulo,

@@ -12,10 +12,10 @@ $(function() {
     draw(labels,correctAnswer);
 
     $("#verificar").click(function() {
-        var valor1 = $("#answer1").val().trim();
-        var valor2 = $("#answer2").val().trim();
-        var valor3 = $("#answer3").val().trim();
-        var valor4 = $("#answer4").val().trim();
+        var valor1 = $("#answer1").val().trim(); valor1 = ((valor1.split(",")).length == 2) ? valor1.replace(",", ".") : valor1;
+        var valor2 = $("#answer2").val().trim(); valor2 = ((valor2.split(",")).length == 2) ? valor2.replace(",", ".") : valor2;
+        var valor3 = $("#answer3").val().trim(); valor3 = ((valor3.split(",")).length == 2) ? valor3.replace(",", ".") : valor3;
+        var valor4 = $("#answer4").val().trim(); valor4 = ((valor4.split(",")).length == 2) ? valor4.replace(",", ".") : valor4;
         console.log(correctAnswer[valor1]);
         if (valor1 != "-1" && valor2 != "-1" && valor3 != "-1" && valor4 != "-1") {
             $("#correcto").addClass("hide");

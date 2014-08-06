@@ -15,7 +15,7 @@ $(function() {
     draw();
 
     $("#verificar").click(function() {
-        var valor = $("#answer").val().trim();
+        var valor = $("#answer").val().trim(); valor = ((valor.split(",")).length == 2) ? valor.replace(",", ".") : valor;
         if (valor != "") {
             $("#correcto").addClass("hide");
             $("#feedback").addClass("hide");

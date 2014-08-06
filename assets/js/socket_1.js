@@ -33,8 +33,7 @@ $(function() {
                 conn.send(JSON.stringify(data));
             } else {
                 $("#custom-modal-title").html("Información");
-                //$("#body-custom-modal").html("No hay conexión con el servidor, inténtelo más tarde.");
-                $("#body-custom-modal").html("Los duelos serán habilitados durante la segunda semana del curso.");
+                $("#body-custom-modal").html("No hay conexión con el servidor, inténtelo más tarde.");
                 $("#custom-modal").modal();
             }
         });

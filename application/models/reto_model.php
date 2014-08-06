@@ -18,7 +18,7 @@ class Reto_model extends CI_Model {
     }
 
     function cantidadRetosUsuario($idUsuario, $idCurso) {
-        $query = "select count(*) cantidad from reto where retador='$idUsuario' or retado='$idUsuario' or id_curso='$idCurso'";
+        $query = "select count(*) cantidad from reto where id_curso='$idCurso' AND (retador='$idUsuario' or retado='$idUsuario')";
         return $this->db->query($query)->result();
     }
 

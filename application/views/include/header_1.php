@@ -40,7 +40,7 @@
     <body>
 
         <!-- Static navbar -->
-        <div id="menu" class="navbar navbar-default navbar-static-top " role="navigation">
+        <div id="menu" class="navbar navbar-default navbar-static-top" role="navigation">
             <div class="container-fluid">
                 <div class="navbar-header">
                     <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
@@ -49,23 +49,22 @@
                         <span class="icon-bar"></span>
                         <span class="icon-bar"></span>
                     </button>
-                    <a href="<?= base_url()?>" title="Ir al inicio"> <img id="logo"  height="47" src="<?= base_url() ?>assets/img/ticademia.png"></a>
+                    <img id="logo"  height="47" src="<?= base_url() ?>assets/img/minerva.png" alt="Jason's Photo">
                     <!--<a id="texto-logo" class="navbar-brand white" href="<?= base_url() ?>">TICADEMIA</a>-->
                 </div>
                 <div class="navbar-collapse collapse">
-<!--                    <ul class="nav navbar-nav">
+                    <ul class="nav navbar-nav">
                         <li class="<?= ($tab == "inicio") ? "active" : "" ?>"><a href="<?= base_url() ?>" class="white"><i class="fa fa-list-ul fa-lg"></i> Ver cursos</a></li>
-                    </ul>-->
-                    <ul id="nav-menu" class="nav navbar-nav navbar-right">
+                    </ul>
+                    <ul id="<?php if (isset($idCurso)) echo "fondo-menu" ?>" class="nav navbar-nav navbar-right">
                         <?php if (isset($_SESSION["nombre"])) { ?>
                             <?php if (isset($idCurso)) { ?>
                                 <?php if ($_SESSION["rol"] == 1 || $_SESSION["rol"] == 3) { ?>
-                        <li class="icono"><a id="asesorias" title="Asesorias" class=""><img src="<?= base_url() ?>assets/img/temas/default/asesoria.png" height="37"></a></li>
-                                <?php } if ($_SESSION["rol"] == 1) { ?>
-                                    <li class="icono"><a id="arena" title="Duelos" class=""><img src="<?= base_url() ?>assets/img/temas/default/duelo.png" height="37"></a></li>
+                                    <li class="item item1"><a id="asesorias" title="Asesorias" class=""><span class="glyphicon glyphicon-earphone"></span></a></li>
+            <li  class="item item1"><a id="arena" title="Arena" class=""><span class="glyphicon glyphicon-play"></span></a></li>
                                 <?php } else if ($_SESSION["rol"] == 2) { ?>
-                                    <li class="dropdown <?= ($tab == "estadisticaestudiantes" || $tab == "estadisticamateriales" || $tab == "estadisticapreguntas" ) ? "active" : ""; ?> icono">
-                                        <a href="#" title="Estadísticas" class="dropdown-toggle" data-toggle="dropdown"> <img src="<?= base_url() ?>assets/img/temas/default/estadisticas.png" height="37"> <b class="caret"></b></a>
+                                    <li class="dropdown  item item1-1 <?= ($tab == "estadisticaestudiantes" || $tab == "estadisticamateriales" || $tab == "estadisticapreguntas" ) ? "active" : ""; ?>">
+                                        <a href="#" class="dropdown-toggle" data-toggle="dropdown"> <i class="icon-position fa fa-bar-chart-o fa-lg"></i> <!--<b class="caret">--></b></a>
                                         <ul  class="dropdown-menu">
                                             <li class="<?= ($tab == "estadisticaestudiantes") ? "active" : ""; ?>">
                                                 <a href="<?= base_url() ?>estadisticaestudiantes/<?= $idCurso ?>">
@@ -85,10 +84,10 @@
                                         </ul>
                                     </li>
                                 <?php } ?>
-                                <li class="<?= ($tab == "muro") ? "active" : "" ?> icono"><a  title="Muro" href="<?= base_url() ?>muro/<?= $idCurso ?>"><img src="<?= base_url() ?>assets/img/temas/default/muro.png" height="37"></a></li>
-                                <li class="<?= ($tab == "ranking") ? "active" : "" ?> icono"><a title="Ranking" href="<?= base_url() ?>ranking/<?= $idCurso ?>"><img src="<?= base_url() ?>assets/img/temas/default/ranking.png" height="37"></a></li>
-                                <li class="<?= ($tab == "logros") ? "active" : "" ?> icono"><a title="Logros" href="<?= base_url() ?>logros/<?= $idCurso ?>"><img src="<?= base_url() ?>assets/img/temas/default/logro.png" height="37"></a></li>
-                                <li class="<?= ($tab == "foro") ? "active" : "" ?> icono">
+                                <li class="<?= ($tab == "muro") ? "active" : "" ?> item item2"><a id="link-muro" title="Ver Muro" href="<?= base_url() ?>muro/<?= $idCurso ?>" class="white"><i class="icon-position fa icono-muro fa-lg"></i></a></li>
+                                <li class="<?= ($tab == "ranking") ? "active" : "" ?> item item3"><a id="link-ranking" title="Ver ranking" href="<?= base_url() ?>ranking/<?= $idCurso ?>" class="white"><i class="icon-position fa icono-ranking fa-lg"></i></a></li>
+                                <li class="<?= ($tab == "logros") ? "active" : "" ?> item item4"><a id="link-trofeos" title="Ver trofeos" href="<?= base_url() ?>logros/<?= $idCurso ?>" class="white"> <i class="icon-position fa icono-trofeo  fa-lg icon-animated-bell"></i> </a></li>
+                                <li class="<?= ($tab == "foro") ? "active" : "" ?> item item5 <?= ($_SESSION["rol"] == 2) ? "profesor-in" : "" ?>">
                                     <?= tabForo($idCurso); ?>
                                 </li>
 

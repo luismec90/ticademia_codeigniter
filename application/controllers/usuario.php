@@ -102,7 +102,7 @@ class Usuario extends CI_Controller {
                                     }
                                     ?>
 
-                                    <div class="col-sm-3"><a href="#x"><img src="<?= base_url() . "assets/img/logro/{$row->id_logro}.png " ?> " alt="Image" class="img-responsive"></a>
+                                    <div class="col-sm-3"><a href="#x" title="Nombre: <?= $row->nombre ?>. Descripción: <?=  $row->descripcion?>."><img src="<?= base_url() . "assets/img/logro/{$row->id_logro}.png " ?> " alt="Image" class="img-responsive"></a>
                                     </div>
 
                                     <!--/row-->
@@ -119,6 +119,7 @@ class Usuario extends CI_Controller {
 
 
                             </div>
+                            <?php if(sizeof($logros)>4){?>
                             <!-- Controls -->
                             <a class="left carousel-control" href="#myCarousel" role="button" data-slide="prev">
                                 <span class="glyphicon glyphicon-chevron-left"></span>
@@ -126,6 +127,7 @@ class Usuario extends CI_Controller {
                             <a class="right carousel-control" href="#myCarousel" role="button" data-slide="next">
                                 <span class="glyphicon glyphicon-chevron-right"></span>
                             </a>
+                            <?php } ?>
                         </div>
                         <!--/myCarousel-->
                     <?php } ?>

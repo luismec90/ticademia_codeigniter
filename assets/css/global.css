@@ -15,14 +15,11 @@ body {
     background: #438eb9;
     margin-bottom:0;
 }
-#menu .white {
+#menu #nav-menu>li>a {
     color: #FFFFFF;
-}
+}   
 
-#menu .navbar-toggle {
 
-    background-color: #79B1D3;
-}
 h1,h2,h3{
     margin-top: 10px;
 }
@@ -33,11 +30,24 @@ h3.no-margin-top{
     #menu  .navbar-nav .open .dropdown-menu>li>a,#menu  .navbar-nav .open .dropdown-header {
         color: #FFFFFF;
     }  
+    .navbar-default .navbar-nav .open .dropdown-menu>.active>a, .navbar-default .navbar-nav .open .dropdown-menu>.active>a:hover, .navbar-default .navbar-nav .open .dropdown-menu>.active>a:focus {
+        color: #555;
+        background-color: #79B1D3;
+    }
+    #nav-menu .text-info{
+        color: #FFFFFF;
+    }
 
 }
-.navbar-default .navbar-nav>.open>a:focus {
+.navbar-nav>li.icono>a {
+ padding:6px 8px;
+}
+.navbar-nav>li>a {
+ border-left: 1px solid #79B1D3;
+}
+.navbar-default .navbar-nav>.open>a, .navbar-default .navbar-nav>.open>a:hover, .navbar-default .navbar-nav>.open>a:focus,#menu .navbar-toggle,#menu #nav-menu>li.active>a,#menu #nav-menu>li>a:hover  {
     background-color: #79B1D3;
-    color: #555;
+
 }
 #logo{
     float:left;
@@ -505,12 +515,6 @@ iframe{
 }
 
 
-.navbar-default .navbar-nav>.active>a, .navbar-default .navbar-nav>.active>a:hover, .navbar-default .navbar-nav>.active>a:focus {
-    background-color: transparent;
-}
-.navbar-default .navbar-nav>.open>a, .navbar-default .navbar-nav>.open>a:hover, .navbar-default .navbar-nav>.open>a:focus {
-    background-color:transparent;
-}
 @media (max-width: 767px) {
     #fondo-menu{
 
@@ -522,4 +526,7 @@ iframe{
 }
 #intro p{
     font-size: 17px;
+}
+#icono-foro{
+    margin: 4px 0;
 }
