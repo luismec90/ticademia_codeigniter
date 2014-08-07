@@ -1,11 +1,11 @@
 <?php
 
-include_once 'application/helpers/sendemail_helper.php';
+//include_once 'application/helpers/sendemail_helper.php';
 
-recordatorioCursoTresDiasAntes();
-despedidaDelCurso();
+//recordatorioCursoTresDiasAntes();
+//despedidaDelCurso();
 updateBitacoraNivel();
-cumpleAnios();
+//cumpleAnios();
 
 function recordatorioCursoTresDiasAntes() {//Correo de recordatorio cuando falten 3 días para iniciar el curso
     $result = sql("SELECT a.nombre,u.nombres,u.correo 
@@ -52,7 +52,7 @@ function cumpleAnios() {//Correo de despedida al finalizar un curso
 }
 
 function sql($query) {
-    $link = mysqli_connect("localhost", "root", "", "ticademia");
+    $link = mysqli_connect("localhost", "root", "1Minerva.Unal", "ticademia");
     $r = mysqli_query($link, $query);
     mysqli_close($link);
     return $r;
