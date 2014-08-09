@@ -40,13 +40,22 @@ h3.no-margin-top{
 
 }
 .navbar-nav>li.icono>a {
- padding:6px 8px;
+    padding:6px 0px;
+    margin-left: 27px;
 }
-.navbar-nav>li>a {
- border-left: 1px solid #79B1D3;
+.navbar-nav li.icono-drop {
+    padding-left:10px;
 }
+
+.navbar-nav li.icono,.navbar-nav li.icono-drop {
+    background:url(../img/temas/default/pilar.png) no-repeat 0px;
+}
+
+
 .navbar-default .navbar-nav>.open>a, .navbar-default .navbar-nav>.open>a:hover, .navbar-default .navbar-nav>.open>a:focus,#menu .navbar-toggle,#menu #nav-menu>li.active>a,#menu #nav-menu>li>a:hover  {
-    background-color: #79B1D3;
+  background:transparent;
+ 
+
 
 }
 #logo{
@@ -523,10 +532,30 @@ iframe{
     .navbar-default .navbar-toggle .icon-bar {
         background-color: white;
     }
+    .navbar-nav>li.icono>a {
+    padding:6px 0px;
+    margin-left: 5px;
+}
+    .navbar-nav li.icono-drop {
+        padding-left:0px;
+    }
+
+    .navbar-nav li.icono,.navbar-nav li.icono-drop {
+        background:none;
+    }
 }
 #intro p{
     font-size: 17px;
 }
 #icono-foro{
     margin: 4px 0;
+}
+#body-modal-info-usuario hr{
+    margin-top:5px;
+    margin-bottom:10px;
+}
+#tabla-puntaje-modulos{
+    height: 120px;
+    display: block;
+    overflow-y: scroll;
 }

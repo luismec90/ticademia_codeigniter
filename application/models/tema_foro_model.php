@@ -9,17 +9,19 @@ class Tema_foro_model extends CI_Model {
         $this->load->database();
     }
 
-    function obtenerTema($idTema) {
-        $this->db->select('t.*,e.nombres,e.apellidos');
+    function obtenerTema($idCurso,$idTema) {
+        $this->db->select('t.*,e.nombres,e.apellidos,uc.rol');
         $this->db->from('tema_foro t');
         $this->db->join('usuario e', "t.id_usuario = e.id_usuario AND t.id_tema_foro='$idTema' ");
+        $this->db->join('usuario_x_curso uc', "uc.id_usuario=e.id_usuario AND uc.id_curso='$idCurso'");
         return $this->db->get()->result();
     }
 
     function listarTemas($idCurso, $filasPorPagina, $inicio) {
-        $this->db->select('SQL_CALC_FOUND_ROWS t.*,e.nombres,e.apellidos', false);
+        $this->db->select('SQL_CALC_FOUND_ROWS t.*,e.nombres,e.apellidos,uc.rol', false);
         $this->db->from('tema_foro t');
         $this->db->join('usuario e', "t.id_usuario = e.id_usuario AND t.id_curso='$idCurso'");
+        $this->db->join('usuario_x_curso uc', "uc.id_usuario=e.id_usuario AND uc.id_curso='$idCurso'");
         $this->db->order_by("t.fecha_creacion", "asc");
         $this->db->limit($filasPorPagina, $inicio);
         return $this->db->get()->result();
@@ -64,7 +66,7 @@ class Tema_foro_model extends CI_Model {
         return $this->db->query($query)->result();
     }
 
-    public function ultimaActividad($idCurso,$lastLogin) {
+    public function ultimaActividad($idCurso, $lastLogin) {
         $query = "SELECT t.id_tema_foro,t.id_tema_foro id_respuesta,t.nombre  nombre,u.nombres,u.apellidos,t.fecha_creacion fecha,'tipo' 'tema'
                   FROM tema_foro t
                   JOIN usuario u ON u.id_usuario=t.id_usuario AND u.id_usuario<>'{$_SESSION["idUsuario"]}'

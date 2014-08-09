@@ -8,7 +8,8 @@
             <div class="col-xs-12">
                 <img id="escudo-un" class="pull-right" height="60" src="<?= base_url() ?>assets/img/logo_un.png"> 
                 <ul class="list-unstyled list-inline social">
-                    <li><a href="#" ><i class="fa fa-facebook"></i></a></li>
+                    <li><a href="https://www.facebook.com/groups/ticademia/" target="_blank"><i class="fa fa-facebook"></i></a></li>
+                    <li><a href="https://twitter.com/grupoGUIAME" target="_blank" ><i class="fa fa-twitter"></i></a></li>
                 </ul>
             </div>
         </div>

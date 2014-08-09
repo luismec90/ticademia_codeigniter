@@ -33,7 +33,7 @@
 
 
                                 <td class="created">
-                                    Por <span class="text-info"> <?= $item->nombres." ".$item->apellidos ?></span> 
+                                    Por <span class="text-info"> <?= $item->nombres." ".$item->apellidos ?></span>   <span class="text-danger"> <?= ($item->rol==3)? "<b>(Monitor)</b>":""?></span>
                                     <br>A las <?= $item->fecha_creacion ?>
                                 </td>
 

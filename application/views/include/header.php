@@ -63,7 +63,7 @@
                                 <?php if ($_SESSION["rol"] == 1) { ?>
                                     <li class="icono"><a id="arena" title="Duelos" class=""><img src="<?= base_url() ?>assets/img/temas/default/duelo.png" height="37"></a></li>
                                 <?php } else if ($_SESSION["rol"] == 2) { ?>
-                                    <li class="dropdown <?= ($tab == "estadisticaestudiantes" || $tab == "estadisticamateriales" || $tab == "estadisticapreguntas" ) ? "active" : ""; ?> icono">
+                                    <li class="icono dropdown <?= ($tab == "estadisticaestudiantes" || $tab == "estadisticamateriales" || $tab == "estadisticapreguntas" ) ? "active" : ""; ?> icono">
                                         <a href="#" title="Estadísticas" class="dropdown-toggle" data-toggle="dropdown"> <img src="<?= base_url() ?>assets/img/temas/default/estadisticas.png" height="37"> <b class="caret"></b></a>
                                         <ul  class="dropdown-menu">
                                             <li class="<?= ($tab == "estadisticaestudiantes") ? "active" : ""; ?>">
@@ -93,7 +93,7 @@
 
                             <?php } ?>
 
-                            <li class="dropdown item6">
+                            <li class="dropdown <?= (isset($idCurso))?"icono-drop":"" ?>">
                                 <a href="#" class="dropdown-toggle white" data-toggle="dropdown"> <?= $_SESSION["nombre"] ?> <b class="caret"></b></a>
                                 <ul class="dropdown-menu">
                                     <li>

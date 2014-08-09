@@ -18,9 +18,10 @@ class Muro_model extends CI_Model {
     }
 
     public function obtenerMensajesCompletos($idCurso) {
-        $query = "SELECT m.*,u.nombres,u.apellidos,u.imagen 
+        $query = "SELECT m.*,u.nombres,u.apellidos,u.imagen ,uc.rol
                 FROM muro m
                 JOIN usuario u ON m.id_usuario=u.id_usuario
+                JOIN usuario_x_curso uc ON uc.id_usuario=u.id_usuario AND uc.id_curso='$idCurso'
                 WHERE m.muro_id_muro IS NULL
                 AND m.id_curso='$idCurso'
                 ORDER BY m.fecha_creacion DESC";

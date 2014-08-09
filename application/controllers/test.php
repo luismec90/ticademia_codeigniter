@@ -11,17 +11,15 @@ class Test extends CI_Controller {
     }
 
     public function index() {
-       /*
-        
-        $k=74;
-        for ($j = 18; $j <= 21; $j++) {
-            $idModulo = $j;
-            for ($i = 1; $i <= 40; $i++) {
-                  echo exec("cp -R /var/www/html/resources/1/74 /var/www/html/resources/1/$j/$k");
-                  $k++;
-            }
-        }
-        */
+        $data["tab"] = "test";
+        $data["css"] = array("css/test");
+        $data["js"] = array("js/test");
+
+
+
+        $this->load->view('include/header', $data);
+        $this->load->view('test_view');
+        $this->load->view('include/footer');
     }
 
 }

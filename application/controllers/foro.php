@@ -78,8 +78,8 @@ class Foro extends CI_Controller {
         $data['paginaActiva'] = $paginaActual;
 
 
-        $data["tema"] = $this->tema_foro_model->obtenerTema($idTema);
-        $data["respuestas"] = $this->respuesta_model->listarRespuestas($idTema, $filasPorPagina, $inicio);
+        $data["tema"] = $this->tema_foro_model->obtenerTema($idCurso,$idTema);
+        $data["respuestas"] = $this->respuesta_model->listarRespuestas($idCurso,$idTema, $filasPorPagina, $inicio);
         $data["cantidadRegistros"] = $this->respuesta_model->cantidadRegistros();
         $data["cantidadRegistros"] = $data["cantidadRegistros"][0]->cantidad;
         $data["filasPorPagina"] = $filasPorPagina;

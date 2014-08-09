@@ -31,7 +31,7 @@ class Usuario extends CI_Controller {
         $data = array("id_curso" => $idCurso, "id_usuario" => $idUsuario);
         $matricula = $this->usuario_x_curso_model->obtenerRegistroCompleto($data);
         $this->verificarMatricula($idCurso);
-        $puntajePorModulo = $this->modulo_model->puntajePorModuloPorCurso($idCurso,$idUsuario);
+        $puntajePorModulo = $this->modulo_model->puntajePorModuloPorCurso($idCurso, $idUsuario);
         $tiempo = $this->bitacora_model->obtenerTiempoLogueado($idUsuario, $idCurso);
         $tiempo = round($tiempo[0]->tiempo, 1);
         $escala = "horas";
@@ -62,8 +62,16 @@ class Usuario extends CI_Controller {
             }
             $i++;
         }
-        $cantidadDuelos=$this->reto_model->cantidadRetosUsuario($idUsuario,$idCurso);
-        $cantidadDuelos=$cantidadDuelos[0]->cantidad;
+        $cantidadDuelos = $this->reto_model->cantidadRetosUsuario($idUsuario, $idCurso);
+        $cantidadDuelos = $cantidadDuelos[0]->cantidad;
+        $cantidadDuelosGanados = $this->reto_model->cantidadRetosUsuarioGanados($idUsuario, $idCurso);
+        $cantidadDuelosGanados = $cantidadDuelosGanados[0]->cantidad;
+
+        if ($cantidadDuelos == 0) {
+            $porcentajeDuelosganados = 0;
+        } else {
+            $porcentajeDuelosganados = round($cantidadDuelosGanados / $cantidadDuelos * 100);
+        }
         if ($usuario[0]->sexo == "m") {
             $rutaImagenNivel = base_url() . "assets/img/niveles/hombre/{$matricula[0]->imagen}";
         } else {
@@ -102,7 +110,7 @@ class Usuario extends CI_Controller {
                                     }
                                     ?>
 
-                                    <div class="col-sm-3"><a href="#x" title="Nombre: <?= $row->nombre ?>. Descripción: <?=  $row->descripcion?>."><img src="<?= base_url() . "assets/img/logro/{$row->id_logro}.png " ?> " alt="Image" class="img-responsive"></a>
+                                    <div class="col-sm-3"><a href="#x" title="Nombre: <?= $row->nombre ?>. Descripción: <?= $row->descripcion ?>."><img src="<?= base_url() . "assets/img/logro/{$row->id_logro}.png " ?> " alt="Image" class="img-responsive"></a>
                                     </div>
 
                                     <!--/row-->
@@ -119,14 +127,14 @@ class Usuario extends CI_Controller {
 
 
                             </div>
-                            <?php if(sizeof($logros)>4){?>
-                            <!-- Controls -->
-                            <a class="left carousel-control" href="#myCarousel" role="button" data-slide="prev">
-                                <span class="glyphicon glyphicon-chevron-left"></span>
-                            </a>
-                            <a class="right carousel-control" href="#myCarousel" role="button" data-slide="next">
-                                <span class="glyphicon glyphicon-chevron-right"></span>
-                            </a>
+                            <?php if (sizeof($logros) > 4) { ?>
+                                <!-- Controls -->
+                                <a class="left carousel-control" href="#myCarousel" role="button" data-slide="prev">
+                                    <span class="glyphicon glyphicon-chevron-left"></span>
+                                </a>
+                                <a class="right carousel-control" href="#myCarousel" role="button" data-slide="next">
+                                    <span class="glyphicon glyphicon-chevron-right"></span>
+                                </a>
                             <?php } ?>
                         </div>
                         <!--/myCarousel-->
@@ -152,7 +160,28 @@ class Usuario extends CI_Controller {
                 <div class="row">
                     <div class="col-xs-12">
                         <hr>
-                        Duelos: <?= $cantidadDuelos ?>
+                        Duelos: <?= $cantidadDuelosGanados ?>/<?= $cantidadDuelos ?> <?= $porcentajeDuelosganados ?>%
+                        <hr>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-xs-12">
+                        <table id="tabla-puntaje-modulos"  class="table-striped table-bordered table-condensed table-hover table-responsive">
+                                <tr>
+                                    <td><b>Módulo</b></td>
+                                    <td><b>Puntaje</b></td>
+                                </tr>
+                            <?php foreach ($puntajePorModulo as $row) { ?>
+                                <tr>
+                                    <td>
+                                        <?= $row->nombre ?>
+                                    </td>
+                                    <td>
+                                        <?= $row->puntaje ?>
+                                    </td>
+                                </tr>
+                            <?php } ?>
+                        </table>
                     </div>
                 </div>
             </div>
@@ -164,7 +193,5 @@ class Usuario extends CI_Controller {
 
         <?php
     }
-
- 
 
 }

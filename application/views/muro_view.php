@@ -2,7 +2,7 @@
     <div id="contenedor-1-1" class="container-fluid">
         <div class="row">
             <div class="col-sm-12">
-                <h1> <a href="<?= base_url()?>curso/<?= $idCurso?>" class="btn btn-info" title="Ir al primer módulo"><i class="fa fa-reply"></i></a> Muro   <small> <?= $nombre_curso ?></small></h1>
+                <h1> <a href="<?= base_url() ?>curso/<?= $idCurso ?>" class="btn btn-info" title="Ir al primer módulo"><i class="fa fa-reply"></i></a> Muro   <small> <?= $nombre_curso ?></small></h1>
             </div>
         </div>
     </div>
@@ -28,7 +28,10 @@
                 </div>
             </div>
             <div class="row">
-                <img class="img-responsive col-xs-3 col-sm-3 col-md-2 col-lg-1 info-usuario cursor" data-id-usuario="<?= $row->id_usuario ?>" data-id-curso="<?= $idCurso ?>" src="<?= base_url() ?>assets/img/avatares/thumbnails/<?= $row->imagen ?>">
+                <div class="col-xs-3 col-sm-3 col-md-2 col-lg-1">
+                    <img class="img-responsive  info-usuario cursor" data-id-usuario="<?= $row->id_usuario ?>" data-id-curso="<?= $idCurso ?>" src="<?= base_url() ?>assets/img/avatares/thumbnails/<?= $row->imagen ?>">
+                    <div class="text-danger text-center"> <?= ($row->rol == 3) ? "<b>Monitor</b>" : "" ?></div>
+                </div>
                 <div  class="col-xs-9 col-sm-9 col-md-10 col-lg-11">
                     <div class="row">
                         <div  class="col-xs-12">
