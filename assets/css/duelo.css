@@ -1,0 +1,137 @@
+#marco-step-1,#slideshow,#marco-step-1 center,#marco-step-3, #marco-step-3 center,#marco-step-4, #marco-step-4 center{
+    width:340px;
+    display: inline-block;
+}
+
+#marco-step-1,#marco-step-3,#marco-step-4{
+    margin-left: 50px;    
+}
+#marco-step-2{
+    width:450px;
+    display: inline-block;   
+    text-align: center;
+}
+#marco-step-4{
+    width: 300px;
+    text-align: center;
+}
+#marco-step-4 img{
+    position: relative;
+    right: 0px;
+    bottom: 0px;
+    left: 0px;
+    top: 0px;
+    margin-left: 15px;
+}
+#slideshow{
+       position:relative;
+    overflow:hidden;
+    overflow:hidden; 
+    white-space:nowrap;
+    margin: 0;
+    padding: 0;
+     width:100px;
+    margin-left: 120px;
+}
+#slideshow-evaluaciones{
+
+    position:relative;
+    overflow:hidden;
+    overflow:hidden; 
+    white-space:nowrap;
+    margin: 0;
+    padding: 0;
+}
+
+#slideshow div,#slideshow-evaluaciones div{
+    display:inline-block;
+}
+#slideshow-evaluaciones div{
+    margin-left: 10px;
+}
+.arrow-down {
+    width: 0; 
+    height: 0; 
+    border-left: 15px solid transparent;
+    border-right: 15px solid transparent;
+    border-top: 15px solid #41BC81;
+}
+
+
+
+.panel-duelo{
+    width: 100px;
+    float: right;
+    text-align: center;
+}
+.panel-duelo img{
+    width: 40px;
+
+}
+.panel-duelo hr{
+    margin-top: 5px;
+    margin-bottom: 5px;
+}
+#modal-step-1 .modal-body{
+    overflow: hidden;
+}
+.panel-duelo .texto{
+    font-size: 12px;
+}
+.dado-left{
+    transform : rotate(-15deg);
+    -moz-transform : rotate(-15deg); /* Firefox */
+    -webkit-transform : rotate(-15deg); /* Chrome - Safari */
+    -o-transform : rotate(-15deg); /* Opera */
+}
+.dado-right{
+    transform : rotate(15deg);
+    -moz-transform : rotate(15deg); /* Firefox */
+    -webkit-transform : rotate(15deg); /* Chrome - Safari */
+    -o-transform : rotate(15deg); /* Opera */
+}
+
+#foto-retador,#avatar-retador{
+    position: absolute;
+}
+#foto-retado,#avatar-retado{
+    position: absolute;
+}
+#div-vs{
+    margin-top: 115px;
+}
+#div-vs h2{
+    margin:0;
+}
+#foto-retador,#foto-retado{
+    margin-top: 25px;
+}
+#foto-retador{
+    left:20px;
+}
+#avatar-retador{
+    left: 80px;
+}
+#foto-retado{
+    right: 20px;
+}
+#avatar-retado{
+    right: 80px;
+}
+#modal-vs .modal-body{
+
+    height: 300px;
+}
+.rotarY{
+-webkit-animation: spin 1s infinite linear;
+}
+
+@-webkit-keyframes spin {
+    0%   {-webkit-transform: rotateY(0deg)}
+    100% {-webkit-transform: rotateY(360deg)}
+}
+.rotar180{
+-webkit-transform: rotateY(180deg);
+}
+
+

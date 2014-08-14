@@ -42,7 +42,9 @@ class Reto implements MessageComponentInterface {
                 }
 
                 if (!isset($this->disponibles[$idCurso][$idUsuario]) && !isset($this->enDuelo[$idCurso][$idUsuario])) {// Si no esta en disponibles y no esta en duelo es la primera vez que se conecta
-                    $this->disponibles[$idCurso][$idUsuario] = true;
+                    $imagen = $this->ejecutarQuery2("SELECT nombres,apellidos,imagen,sexo FROM usuario WHERE id_usuario='$idUsuario'");
+                    $row = mysql_fetch_array($imagen);
+                    $this->disponibles[$idCurso][$idUsuario] = array("nombre" => $row["nombres"] . " " . $row["apellidos"], "sexo" => $row["sexo"], "imagen" => $row["imagen"]);
                     var_dump($this->disponibles);
                 }
 
@@ -95,9 +97,9 @@ class Reto implements MessageComponentInterface {
                     $ruta = $datos["ruta"];
                     $reto = array();
                     $reto["reto"] = $ruta;
-                    $dataToUser = json_encode(array("tipo" => "reto_aceptado", "datos" => $reto));
+                    echo $dataToUser = $this->dataToUserRetoAceptado($idCurso, $usuarioRetador, $idUsuario, $datos["id_modulo"], $idEvaluacion);
 
-                    foreach ($this->aulas[$idCurso][$usuarioRetador] as $row) {// Se le notofica a todas las conexiones del usuario retador para que inicie el duelo
+                    foreach ($this->aulas[$idCurso][$usuarioRetador] as $row) {// Se le notifica a todas las conexiones del usuario retador para que inicie el duelo
                         $row->send($dataToUser);
                     }
                     foreach ($this->aulas[$idCurso][$idUsuario] as $row) { // Se le notifica a todas las conexiones del usuario retado para que inicie el duelo
@@ -234,10 +236,14 @@ class Reto implements MessageComponentInterface {
     }
 
     function seleccionarRetado($idCurso, $idRetador) {
-        $consultaPreguntasRetador = $this->ejecutarQuery2("SELECT id_usuario, GROUP_CONCAT(DISTINCT id_evaluacion) as evaluaciones 
-              FROM `usuario_x_evaluacion` 
-             WHERE calificacion = 1  AND id_usuario = $idRetador
-             GROUP BY id_usuario");
+        return 4;
+
+
+        $consultaPreguntasRetador = $this->ejecutarQuery2("SELECT ue.id_usuario, GROUP_CONCAT(DISTINCT ue.id_evaluacion) as evaluaciones 
+              FROM `usuario_x_evaluacion` ue
+              JOIN usuario_x_curso uc ON ue.id_usuario=uc.id_usuario AND uc.id_curso='$idCurso'
+             WHERE ue.calificacion = 1  AND ue.id_usuario = '$idRetador'
+             GROUP BY ue.id_usuario");
 
         while ($row = mysql_fetch_array($consultaPreguntasRetador)) {
             $Px = explode(",", $row['evaluaciones']);
@@ -250,10 +256,12 @@ class Reto implements MessageComponentInterface {
         }
         $where = rtrim($where, ",");
         $consultaPreguntasRetados = $this->ejecutarQuery2("
-            SELECT id_usuario, GROUP_CONCAT(DISTINCT id_evaluacion) as evaluaciones 
-            FROM `usuario_x_evaluacion` 
-            WHERE calificacion = 1  AND  id_usuario IN ($where)
-            GROUP BY id_usuario");
+           SELECT ue.id_usuario, GROUP_CONCAT(DISTINCT ue.id_evaluacion) as evaluaciones 
+            FROM `usuario_x_evaluacion` ue 
+            JOIN usuario_x_curso uc ON ue.id_usuario=ue.id_usuario AND uc.id_curso='$idCurso'
+            WHERE ue.calificacion = 1  AND  ue.id_usuario IN ($where)
+            GROUP BY ue.id_usuario");
+
         $P = array();
         $idRetados = array();
         while ($row = mysql_fetch_array($consultaPreguntasRetados)) {
@@ -304,10 +312,12 @@ class Reto implements MessageComponentInterface {
             $d += $VP[$y];
             $y++;
         }
-        return $idRetados[$y - 1]; //Indice del retado elegido
+        return $idRetados[$y - 1]; //Indice del retado elegido 
     }
 
     function seleccionEvaluacion($idCurso, $idRetador, $idRetado) {
+        return array("id_evaluacion" => 52, "id_modulo" => 17, "ruta" => "resources/1/17/52/launch.html");
+
         $consultaPreguntasReto = $this->ejecutarQuery2("
                             SELECT evaluaciones.id_usuario, evaluaciones.id_evaluacion, evaluaciones.id_modulo, evaluaciones.orden, evaluaciones.dias, COALESCE(retos.aciertos,0) aciertos 
 
@@ -319,6 +329,7 @@ class Reto implements MessageComponentInterface {
                             (U.id_usuario = '$idRetador' OR U.id_usuario = '$idRetado') 
                             AND U.calificacion = 1
                             AND U.id_evaluacion = E.id_evaluacion
+                            AND M.id_curso=1
                             AND E.id_modulo = M.id_modulo) evaluaciones
 
                             LEFT JOIN 
@@ -400,7 +411,7 @@ class Reto implements MessageComponentInterface {
 
         $idPregunta = $idPreguntas[$k - 1]; //identificador de la pregunta elegida
         $idModulo = $idModulos[$k - 1]; //identificador del módulo al que pertenece
-        return array("id_evaluacion" => $idPregunta, "ruta" => "resources/$idCurso/$idModulo/$idPregunta/launch.html");
+        return array("id_evaluacion" => $idPregunta, "id_modulo" => $idModulo, "ruta" => "resources/$idCurso/$idModulo/$idPregunta/launch.html");
     }
 
     private function ejecutarQuery($query) {
@@ -436,6 +447,57 @@ class Reto implements MessageComponentInterface {
         foreach ($this->aulas[$idCurso][$idUsuario] as $row) {
             $row->send($mensaje);
         }
+    }
+
+    private function dataToUserRetoAceptado($idCurso, $usuarioRetador, $usuarioRetado, $idModulo, $idEvaluacion) {
+
+        $retador = $this->ejecutarQuery2("SELECT * FROM usuario WHERE id_usuario='$usuarioRetador'");
+        $row = mysql_fetch_array($retador);
+        $retador = array("id_usuario" => $usuarioRetador, "nombre" => utf8_encode($row["nombres"] . " " . $row["apellidos"]), "avatar" => $row["imagen"]);
+
+
+        $retado = $this->ejecutarQuery2("SELECT * FROM usuario WHERE id_usuario='$usuarioRetado'");
+        $row = mysql_fetch_array($retado);
+        $retado = array("id_usuario" => $usuarioRetado, "nombre" => utf8_encode($row["nombres"] . " " . $row["apellidos"]), "avatar" => $row["imagen"]);
+
+        $oponentesDummies = array();
+        $i = 1;
+        foreach ($this->disponibles[$idCurso] as $row) {
+            array_push($oponentesDummies, $row["imagen"]);
+            if ($i >= 19) {
+                break;
+            }
+            $i++;
+        }
+        if ($i < 20) {
+            while ($i < 20) {
+                array_push($oponentesDummies, "default.png");
+                $i++;
+            }
+        }
+
+        $cantidadModulos = 0;
+        $modulos = $this->ejecutarQuery2("SELECT *  FROM modulo WHERE id_curso='$idCurso' order by fecha_inicio");
+        while ($row = mysql_fetch_array($modulos)) {
+            $cantidadModulos++;
+            if ($row["id_modulo"] == $idModulo) {
+                $posicionModuloSeleccionado = $cantidadModulos;
+            }
+        }
+
+        $cantidadEvaluaciones = 0;
+        $evaluaciones = $this->ejecutarQuery2("SELECT *  FROM evaluacion WHERE id_modulo='$idModulo' order by orden");
+        while ($row = mysql_fetch_array($evaluaciones)) {
+            $cantidadEvaluaciones++;
+            if ($row["id_evaluacion"] == $idEvaluacion) {
+                $posicionEvaluacionSeleccionada = $cantidadEvaluaciones;
+            }
+        }
+        $monto=rand(2,12);
+
+        $arrayDatos = array("retador" => $retador, "retado" => $retado, "oponentesDummies" => $oponentesDummies, "cantidadModulos" => $cantidadModulos, "posMod" => $posicionModuloSeleccionado, "id_modulo" => $idModulo, "cantidadEvaluaciones" => $cantidadEvaluaciones, "posEv" => $posicionEvaluacionSeleccionada, "id_evaluacion" => $idEvaluacion,"monto"=>$monto);
+
+        return json_encode(array("tipo" => "reto_aceptado", "datos" => $arrayDatos));
     }
 
 }

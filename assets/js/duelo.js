@@ -1,0 +1,7 @@
+$(function() {
+
+    /*vs();
+    return;
+*/
+   
+});

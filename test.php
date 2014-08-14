@@ -1,5 +1,40 @@
 <?php
 
+$usuarioRetador=1;
+$usuarioRetado=4;
+
+$retador = ejecutarQuery3("SELECT * FROM usuario WHERE id_usuario='$usuarioRetador'");
+$row = mysql_fetch_array($retador);
+$retador = array("id_usuario" => "$usuarioRetador", "nombre" => utf8_encode($row["nombres"] . " " . $row["apellidos"]), "avatar" => $row["imagen"]);
+
+
+$retado =ejecutarQuery3("SELECT * FROM usuario WHERE id_usuario='$usuarioRetado'");
+$row = mysql_fetch_array($retado);
+$retado = array("id_usuario" => "$usuarioRetador","nombre" =>  utf8_encode($row["nombres"] . " " . $row["apellidos"]), "avatar" => $row["imagen"]);
+
+
+/*
+$retador = array("id_usuario" => "1", "nombre" => "Luis Fernando Montoya Gómez", "avatar" =>"default.png");
+
+$retado =array("id_usuario" => "1", "nombre" => "Luis Fernando Montoya Gómez", "avatar" =>"default.png");
+*/
+$arrayDatos = array("retador" => $retador, "retado" => $retado);
+var_dump($arrayDatos);
+var_dump(json_encode($arrayDatos));
+
+
+function ejecutarQuery3($query) {
+    $link = mysql_connect("localhost", "root", "");
+    mysql_select_db("ticademia", $link);
+    $r = mysql_query($query, $link);
+    mysql_close($link);
+    return $r;
+}
+
+exit();
+
+
+
 $idRetado = seleccionarRetado(1, 1);
 echo $idRetado;
 echo seleccionEvaluacion(1, 1, $idRetado);

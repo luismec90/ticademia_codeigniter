@@ -9,11 +9,11 @@ class Respuesta_model extends CI_Model {
         $this->load->database();
     }
 
-    function listarRespuestas($idCurso,$idTema, $filasPorPagina, $inicio) {
+    function listarRespuestas($idCurso, $idTema, $filasPorPagina, $inicio) {
         $this->db->select('SQL_CALC_FOUND_ROWS r.*,e.nombres,e.apellidos,uc.rol', false);
         $this->db->from('respuesta r');
         $this->db->join('usuario e', "e.id_usuario = r.id_usuario");
-          $this->db->join('usuario_x_curso uc', "uc.id_usuario = e.id_usuario AND uc.id_curso='$idCurso'");
+        $this->db->join('usuario_x_curso uc', "uc.id_usuario = e.id_usuario AND uc.id_curso='$idCurso'");
         $this->db->where('r.id_tema_foro', $idTema);
         $this->db->order_by("r.id_respuesta", "desc");
         $this->db->limit($filasPorPagina, $inicio);
@@ -26,10 +26,11 @@ class Respuesta_model extends CI_Model {
     }
 
     function obtenerUltimaRespuesta($idTema) {
-        $this->db->select('r.*,e.nombres,e.apellidos usuario_ultima_respuesta, count(r.id_respuesta) cantidad_respuestas');
+        $this->db->select('SQL_CALC_FOUND_ROWS r.*,e.nombres,e.apellidos',false);
         $this->db->from('respuesta r');
         $this->db->join('usuario e', "e.id_usuario = r.id_usuario");
         $this->db->where('r.id_tema_foro', $idTema);
+        $this->db->order_by("r.fecha_creacion", "desc");
         $this->db->limit(1);
         return $this->db->get()->result();
     }

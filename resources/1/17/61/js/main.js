@@ -10,7 +10,7 @@ $(function() {
 
     z = getRandom(10,40)/10;
 
-    var correctAnswer1 = 4.17*z*z*z;
+    var correctAnswer1 = 4/3*3.14*z*z*z;
     draw();
 
     $("#verificar").click(function() {

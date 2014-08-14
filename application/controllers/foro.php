@@ -41,10 +41,16 @@ class Foro extends CI_Controller {
         $data['cantidadPaginas'] = ceil($data["cantidadRegistros"] / $filasPorPagina);
         foreach ($data["temas"] as $row) {
             $respuestas = $this->respuesta_model->obtenerUltimaRespuesta($row->id_tema_foro);
-            $row->cantidad_respuestas = $respuestas[0]->cantidad_respuestas;
-            $row->ultima_respuesta = $respuestas[0]->respuesta;
-            $row->usuario_ultima_respuesta = $respuestas[0]->usuario_ultima_respuesta;
-            $row->fecha_ultimo_comentario = $respuestas[0]->fecha_creacion;
+            if ($respuestas) {
+                $cantidaRespuestas = $this->respuesta_model->cantidadRegistros();
+                $row->cantidad_respuestas = $cantidaRespuestas[0]->cantidad;
+                $row->ultima_respuesta = $respuestas[0]->respuesta;
+                $row->usuario_ultima_respuesta = $respuestas[0]->nombres . " " . $respuestas[0]->apellidos;
+                $row->fecha_ultimo_comentario = $respuestas[0]->fecha_creacion;
+            } else {
+                $row->cantidad_respuestas = 0;
+                $row->ultima_respuesta = "";
+            }
             if (strlen($row->descripcion) > 100) {
                 $row->descripcion = substr($row->descripcion, 0, 100) . "...";
             }
@@ -78,8 +84,8 @@ class Foro extends CI_Controller {
         $data['paginaActiva'] = $paginaActual;
 
 
-        $data["tema"] = $this->tema_foro_model->obtenerTema($idCurso,$idTema);
-        $data["respuestas"] = $this->respuesta_model->listarRespuestas($idCurso,$idTema, $filasPorPagina, $inicio);
+        $data["tema"] = $this->tema_foro_model->obtenerTema($idCurso, $idTema);
+        $data["respuestas"] = $this->respuesta_model->listarRespuestas($idCurso, $idTema, $filasPorPagina, $inicio);
         $data["cantidadRegistros"] = $this->respuesta_model->cantidadRegistros();
         $data["cantidadRegistros"] = $data["cantidadRegistros"][0]->cantidad;
         $data["filasPorPagina"] = $filasPorPagina;

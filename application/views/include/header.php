@@ -22,6 +22,7 @@
         <link href="<?= base_url() ?>assets/libs/bootstrap-3.1.1/css/bootstrap.min.css" rel="stylesheet">
         <link rel="stylesheet" href="<?= base_url() ?>assets/libs/font-awesome-4.0.3/css/font-awesome.min.css">
         <link rel="stylesheet" href="<?= base_url() ?>assets/css/global.css">
+        <link rel="stylesheet" href="<?= base_url() ?>assets/css/duelo.css">
         <?php if (isset($css)) foreach ($css as $row) { ?>
                 <link rel="stylesheet" href="<?= base_url() ?>assets/<?= $row ?>.css">
             <?php } ?>
@@ -93,7 +94,7 @@
 
                             <?php } ?>
 
-                            <li class="dropdown <?= (isset($idCurso))?"icono-drop":"" ?>">
+                            <li class="dropdown <?= (isset($idCurso)) ? "icono-drop" : "" ?>">
                                 <a href="#" class="dropdown-toggle white" data-toggle="dropdown"> <?= $_SESSION["nombre"] ?> <b class="caret"></b></a>
                                 <ul class="dropdown-menu">
                                     <li>

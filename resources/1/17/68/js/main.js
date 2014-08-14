@@ -10,7 +10,7 @@ $(function() {
 
     y = getRandom(12, 100);
 
-    var correctAnswer1 = 220 - y;
+    var correctAnswer1 = 200 - y;
     var correctAnswer2 = y - 8;
     draw();
 

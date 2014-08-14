@@ -11,7 +11,7 @@ $(function() {
     z = getRandom(1,10);
     w = getRandom(1,10);
 
-    var correctAnswer1 = 1.03*z*z*w+2.09*z*z*z;
+    var correctAnswer1 = 1/3*3.14*z*z*w+2/3*3.14*z*z*z;
     draw();
 
     $("#verificar").click(function() {
