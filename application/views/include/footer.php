@@ -96,12 +96,11 @@
         </div>
     </div>
 </div>
-<div class="modal fade" id="retado" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+<div class="modal fade" id="retado" data-keyboard="false" data-backdrop="static" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">
-                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-                <h4 class="modal-title" id="myModalLabel">Has sido retado</h4>
+                <h4 class="modal-title" id="myModalLabel">Duelo</h4>
             </div>
             <div id="body-modal-retado" class="modal-body">
                 <span id="content-modal-retado"></span> 
@@ -119,10 +118,10 @@
         <div class="modal-content">
             <div class="modal-header">
                 <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-                <h4 class="modal-title" id="myModalLabel">Reto rechazado</h4>
+                <h4 class="modal-title" id="myModalLabel">Duelo</h4>
             </div>
             <div id="body-modal-retado" class="modal-body">
-                <em id="nombre-usuario-reto-rechazado" class="text-info"></em> ha rechazado el reto.
+                Los posibles oponentes no estan disponibles, vuelve a intentarlo
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>
@@ -149,22 +148,7 @@
     </div>
 </div>
 
-<div class="modal fade" id="modal-desconectado-antes" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-    <div class="modal-dialog">
-        <div class="modal-content">
-            <div class="modal-header">
-                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-                <h4 class="modal-title" id="myModalLabel">Duelo cancelado</h4>
-            </div>
-            <div id="body-modal-retado" class="modal-body">
-                El usuario retador se ha desconectado.
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-primary" data-dismiss="modal">Aceptar</button>
-            </div>
-        </div>
-    </div>
-</div>
+
 <div class="modal fade" id="custom-modal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
     <div class="modal-dialog">
         <div class="modal-content">
@@ -181,7 +165,7 @@
         </div>
     </div>
 </div>
-<div class="modal fade" id="modal-arena" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+<div class="modal fade" data-keyboard="false" data-backdrop="static"  id="modal-arena" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">
@@ -199,7 +183,7 @@
         </div>
     </div>
 </div>
-<div id="modal-step-1" class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+<div id="modal-step-1" data-keyboard="false" data-backdrop="static" class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">
@@ -215,13 +199,15 @@
                 <div id="marco-step-2" class="hide">
                     <div class="text-info text-center">Seleccionando módulo... <br><br></div>
                     <center><div class="arrow-down"></div></center>
-                    <img class='img-circle' id='pie-step-2' src="<?= base_url() ?>assets/img/pie.png" alt="" />
+                    <img class='img-circle' id='pie-step-2' width="200" src="<?= base_url() ?>assets/img/pie.png" alt="" />
+                    <br> <br>
+                    <img width="400" src="<?= base_url() ?>assets/img/pie-labels.png" alt="" />
                 </div>
                 <div id="marco-step-3" class="hide">
                     <div class="text-info text-center">Seleccionando pregunta... <br><br></div>
                     <center><div class="arrow-down"></div></center>
                     <div id="slideshow-evaluaciones">
-                     
+
                     </div>
                 </div>
                 <div id="marco-step-4" class="hide">
@@ -240,7 +226,7 @@
                                 <img id="imagen-oponente" class='img-circle' src="" alt="" />
                             </div>
                             <div id="nombre-oponente" class="texto">
-                               
+
                             </div>
                         </div>
                         <hr>

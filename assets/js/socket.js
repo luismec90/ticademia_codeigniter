@@ -1,15 +1,27 @@
 var conn;
 var usuarioRetadorGlobal;
 var statusSocket;
+var t;
+var velocidad;
+var count;
 var cantidadEvalucaiones;
+var posMod;
 var posEv;
+var monto1;
+var monto2;
+var ruta;
 $(function() {
 
 
     if (idUsuarioGlobal != -1 && rolGlobal == 1) {
-        socket();
+        if (idUsuarioGlobal == 1 || idUsuarioGlobal == 4 || idUsuarioGlobal == 6) {
+            socket();
+        } else {
+            statusSocket == "off";
+        }
 
         $("#arena,#arena2").click(function() {// Retar a alguien
+            clearTimeout(t);
             $(".modal").modal('hide');
             if (statusSocket == "on") {
                 $("#modal-arena").modal({
@@ -18,7 +30,7 @@ $(function() {
                 });
                 var time = 10;
                 $("#cuenta-regresiva").html(time--);
-                var t = setInterval(function() {
+                t = setInterval(function() {
                     if (time == 0) {
                         clearTimeout(t);
                         if ($("#modal-arena").is(":visible")) {
@@ -44,8 +56,9 @@ $(function() {
         });
 
         $("#aceptar-modal-retado").click(function() {// Aceptar el reto
+            clearTimeout(t);
             var data = {
-                tipo: 'acpetar_reto',
+                tipo: 'aceptar_reto',
                 id_curso: idCursoGlobal,
                 id_usuario: idUsuarioGlobal,
                 nombre_usuario: nombreUsuarioGlobal,
@@ -55,6 +68,7 @@ $(function() {
         });
 
         $("#rechazar-modal-retado").click(function() {
+            clearTimeout(t);
             var data = {
                 tipo: 'rechazar_reto',
                 id_curso: idCursoGlobal,
@@ -90,15 +104,18 @@ function socket() {
             switch (data.tipo) {
 
                 case "retado":// Notificacion de que ha sido retado
+                    clearTimeout(t);
                     $(".modal").modal('hide');
                     $.each(data.datos, function(id_usuario, nombre_usuario) {
                         usuarioRetadorGlobal = id_usuario;
-                        $("#content-modal-retado").html("El usuario " + nombre_usuario + " te ha retado a un duelo, deseas aceptar?");
+                        //  $("#content-modal-retado").html("El usuario " + nombre_usuario + " te ha retado a un duelo, deseas aceptar?");
+                        $("#content-modal-retado").html("Has sido seleccionado para participar en un duelo, ¿deseas aceptar?");
                         $("#retado").modal();
                     });
+
                     var time = 10;
                     $("#cuenta-regresiva-retado").html(time--);
-                    var t = setInterval(function() {
+                    t = setInterval(function() {
                         if (time == 0) {
                             clearTimeout(t);
                             if ($("#retado").is(":visible")) {
@@ -122,12 +139,27 @@ function socket() {
                     $(".modal").modal('hide');
                     cerrarReto();
                     $.each(data.datos, function(id_usuario, nombre_usuario) {
-                        $("#nombre-usuario-reto-rechazado").html(nombre_usuario);
+                        // $("#nombre-usuario-reto-rechazado").html(nombre_usuario);
                         $("#reto-rechazado").modal();
                     });
                     break;
 
                 case "reto_aceptado"://Notificacion de iniciar el duelo, este mensaje le llega tanto al retado como al retador
+                    /*reset modal*/
+                    $("#marco-step-4").addClass("hide");
+                    $("#marco-step-1").removeClass("hide");
+
+                    $("#info-oponente-before").removeClass("hide");
+                    $("#info-oponente").addClass("hide");
+
+                    $("#info-modulo-before").removeClass("hide");
+                    $("#info-modulo").addClass("hide");
+
+                    $("#info-pregunta-before").removeClass("hide");
+                    $("#info-pregunta").addClass("hide");
+
+                    $("#info-monto-before").removeClass("hide");
+                    $("#info-monto").addClass("hide");
 
                     var datos = data.datos;
                     $(".modal").modal('hide');
@@ -143,10 +175,14 @@ function socket() {
                     $("#nombre-oponente").html(nombreOponente);
                     $("#modulo-seleccionado").html(datos.posMod);
                     $("#pregunta-seleccionada").html(datos.posEv);
-                    $("#monto-pregunta").html(datos.monto);
+                    $("#monto-pregunta").html(datos.monto1 + datos.monto2);
 
                     cantidadEvalucaiones = datos.cantidadEvaluaciones;
+                    posMod = datos.posMod;
                     posEv = datos.posEv;
+                    monto1 = datos.monto1;
+                    monto2 = datos.monto2;
+                    ruta = datos.ruta;
 
                     var step1 = "";
                     for (var i = 0; i < 19; i++) {
@@ -173,22 +209,10 @@ function socket() {
                         keyboard: false,
                         backdrop: "static"
                     });
+                    velocidad = 100;
+                    count = 0;
                     seleccionOponente();
 
-
-                    /*  $(".modal").modal('hide');
-                     $.each(data.datos, function(reto, ruta) {
-                     evaluacionOReto = "reto";
-                     $("#contenedor-frame iframe").attr("src", base_url + ruta);
-                     $("#coverDisplay").css({
-                     "opacity": "1",
-                     "width": "100%",
-                     "height": "100%"
-                     });
-                     $("#botonCerrarFrame").addClass("hide");
-                     $("#contenedor-frame").removeClass("hide");
-                     fechaInicioReto = date_to_server_date(new Date());
-                     });*/
                     break;
 
                 case "desconectado_antes":
@@ -196,7 +220,7 @@ function socket() {
                     cerrarReto();
                     $.each(data.datos, function(id_usuario, nombre_usuario) {
                         $(".modal").modal('hide');
-                        $("#modal-desconectado-antes").modal();
+                       $("#reto-rechazado").modal();
                     });
                     break;
 
@@ -227,7 +251,11 @@ function socket() {
                     $.each(data.datos, function(id_usuario, nombre_usuario) {
                         $(".modal").modal('hide');
                         $("#custom-modal-title").html("Ganador");
-                        $("#body-custom-modal").html("El usuario " + nombre_usuario + " ha  ganado el reto");
+                        if (id_usuario == idUsuarioGlobal) {
+                            $("#body-custom-modal").html("Felicitaciones, has ganado el duelo!");
+                        } else {
+                            $("#body-custom-modal").html("El usuario " + nombre_usuario + " ha  ganado el duelo");
+                        }
                         $("#custom-modal").modal();
                     });
                     break;
@@ -264,7 +292,6 @@ function date_to_server_date(date) {
     return anio + "-" + mes + "-" + dia + " " + hora + ":" + ":" + min + ":" + sec;
 }
 function cerrarReto() {
-    console.log("si");
     $("#coverDisplay").css({
         "opacity": "0",
         "width": "0",
@@ -275,9 +302,6 @@ function cerrarReto() {
 
 
 /* Preambulo Duelo*/
-
-var velocidad = 100;
-var count = 0;
 
 function seleccionOponente() {
     $('#slideshow').stop().animate({scrollLeft: 100}, velocidad, 'linear', function() {
@@ -307,7 +331,9 @@ function seleccionModulo() {
 
     $("#marco-step-1").addClass("hide");
     $("#marco-step-2").removeClass("hide");
-    var d = 2260;
+
+    var d = 2880 + 36 + 72 * (posMod - 1);
+    d = d * -1;
     var elem = $("#pie-step-2");
     $({deg: 0}).animate({deg: d}, {
         duration: 5000,
@@ -326,7 +352,6 @@ function seleccionModulo() {
                 count = 0;
                 $("#marco-step-2").addClass("hide");
                 $("#marco-step-3").removeClass("hide");
-                console.log(posEv + " " + cantidadEvalucaiones);
                 seleccionPregunta(posEv, cantidadEvalucaiones);
             }, 1000);
         }
@@ -343,11 +368,11 @@ function seleccionPregunta(pos, cantidadEv) {
         current = current % cantidadEv;
         $(this).scrollLeft(0).find('div:last').after($('div:first', this));
 
-        if (count > 30 && velocidad < 300)
-            velocidad += 15;
+        if (count > 20 && velocidad < 150)
+            velocidad += 10;
         else
             count++;
-        if (velocidad < 300 || current != pos) {
+        if (velocidad < 150 || current != pos) {
             seleccionPregunta(pos, cantidadEv);
         }
         else {
@@ -374,6 +399,7 @@ function seleccionMonto() {
     var i;
     var j = 0;
     var direccion;
+    var ocurrencias = 0;
     var timer = setInterval(function() {
         i = j % 6;
         direccion = j % 4;
@@ -381,6 +407,9 @@ function seleccionMonto() {
         j++;
         direccion++;
         $(img).attr("src", url + i + ".jpg");
+        if (i == monto1) {
+            ocurrencias++
+        }
         if (direccion == 1) {
             $(img).css('top', '0px').removeClass('dado-right');
             $(img).css('left', '-10px').addClass('dado-left');
@@ -395,7 +424,7 @@ function seleccionMonto() {
             $(img).css('top', '10px').addClass('dado-right');
         }
 
-        if (j == 20) {
+        if (ocurrencias == 3) {
             $(img).removeClass('dado-right').removeClass('dado-left');
             clearInterval(timer);
         }
@@ -408,6 +437,7 @@ function seleccionMonto() {
     var i2;
     var j2 = 0;
     var direccion2;
+    var ocurrencias2 = 0;
     var timer2 = setInterval(function() {
         i2 = j2 % 6;
         direccion2 = j2 % 4;
@@ -415,6 +445,9 @@ function seleccionMonto() {
         j2++;
         direccion++;
         $(img2).attr("src", url + i2 + ".jpg");
+        if (i2 == monto2) {
+            ocurrencias2++;
+        }
         if (direccion2 == 1) {
             $(img2).css('top', '0px').removeClass('dado-left');
             $(img2).css('left', '-10px').addClass('dado-right');
@@ -429,7 +462,7 @@ function seleccionMonto() {
             $(img2).css('top', '10px').addClass('dado-left');
         }
 
-        if (j2 == 20) {
+        if (ocurrencias2 == 3) {
             clearInterval(timer2);
             $(img2).removeClass('dado-right').removeClass('dado-left');
             $("#info-monto-before").addClass("hide");
@@ -471,6 +504,16 @@ function vs() {
         $("#foto-retado").animate({"right": "430px"}, time, function() {
             complete: {
                 $("#modal-vs").modal("hide");
+                evaluacionOReto = "reto";
+                $("#contenedor-frame iframe").attr("src", base_url + ruta);
+                $("#coverDisplay").css({
+                    "opacity": "1",
+                    "width": "100%",
+                    "height": "100%"
+                });
+                $("#botonCerrarFrame").addClass("hide");
+                $("#contenedor-frame").removeClass("hide");
+                fechaInicioReto = date_to_server_date(new Date());
             }
         });
         setTimeout(function() {

@@ -138,13 +138,14 @@ class Curso extends CI_Controller {
             $evaluaciones = $this->evaluacion_model->obtenerEvaluacionesPorModulo($idModulo, $_SESSION["idUsuario"]);
 //  var_dump($evaluaciones);
 //  echo $this->db->last_query();
+            $version=2;
             $estatusPrev = "solved";
             foreach ($evaluaciones as $row) {
                 if ($row->calificacion_maxima >= $umbral) {
                     $row->estatus = "solved";
                     $row->icono = "check";
                     $estatusPrev = "solved";
-                    $row->ubicacion = base_url() . "resources/$idCurso/$idModulo/" . $row->id_evaluacion . "/launch.html";
+                    $row->ubicacion = base_url() . "resources/$idCurso/$idModulo/" . $row->id_evaluacion . "/launch.html?version=$version";
                     $row->veces_aprobado = $infoEvaluacion[$row->id_evaluacion]["veces_aprobado"];
                     $row->veces_intentado = $infoEvaluacion[$row->id_evaluacion]["veces_intentado"];
                     $row->puntuacion = $infoEvaluacion[$row->id_evaluacion]["puntuacion"];
@@ -153,7 +154,7 @@ class Curso extends CI_Controller {
                     $row->estatus = "solved";
                     $row->icono = "share";
                     $estatusPrev = "solved";
-                    $row->ubicacion = base_url() . "resources/$idCurso/$idModulo/" . $row->id_evaluacion . "/launch.html";
+                    $row->ubicacion = base_url() . "resources/$idCurso/$idModulo/" . $row->id_evaluacion . "/launch.html?version=$version";
                     $row->veces_aprobado = $infoEvaluacion[$row->id_evaluacion]["veces_aprobado"];
                     $row->veces_intentado = $infoEvaluacion[$row->id_evaluacion]["veces_intentado"];
                     $row->puntuacion = 0;
@@ -162,7 +163,7 @@ class Curso extends CI_Controller {
                     $row->estatus = "open";
                     $row->icono = "candado-abierto";
                     $estatusPrev = "lock";
-                    $row->ubicacion = base_url() . "resources/$idCurso/$idModulo/" . $row->id_evaluacion . "/launch.html";
+                    $row->ubicacion = base_url() . "resources/$idCurso/$idModulo/" . $row->id_evaluacion . "/launch.html?version=$version";
                     $row->veces_aprobado = "0";
                     $row->puntuacion = "0";
                     $row->menor_tiempo = "--";
@@ -184,7 +185,7 @@ class Curso extends CI_Controller {
                 if ($_SESSION["rol"] == 2 || $_SESSION["rol"] == 3) {
                     $row->estatus = "open";
                     $row->icono = "candado-abierto";
-                    $row->ubicacion = base_url() . "resources/$idCurso/$idModulo/" . $row->id_evaluacion . "/launch.html";
+                    $row->ubicacion = base_url() . "resources/$idCurso/$idModulo/" . $row->id_evaluacion . "/launch.html?version=$version";
                 }
             }
 
