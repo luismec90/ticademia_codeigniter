@@ -10,7 +10,7 @@ class Respuesta_model extends CI_Model {
     }
 
     function listarRespuestas($idCurso, $idTema, $filasPorPagina, $inicio) {
-        $this->db->select('SQL_CALC_FOUND_ROWS r.*,e.nombres,e.apellidos,uc.rol', false);
+        $this->db->select('SQL_CALC_FOUND_ROWS r.*,e.nombres,e.apellidos,uc.rol,e.imagen', false);
         $this->db->from('respuesta r');
         $this->db->join('usuario e', "e.id_usuario = r.id_usuario");
         $this->db->join('usuario_x_curso uc', "uc.id_usuario = e.id_usuario AND uc.id_curso='$idCurso'");

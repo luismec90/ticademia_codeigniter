@@ -28,10 +28,11 @@ class Muro_model extends CI_Model {
         return $this->db->query($query)->result();
     }
 
-    public function obtenerRespuestas($idMensaje) {
-        $query = "SELECT m.*,u.nombres,u.apellidos,u.imagen 
+    public function obtenerRespuestas($idCurso, $idMensaje) {
+        $query = "SELECT m.*,u.nombres,u.apellidos,u.imagen,uc.rol
                 FROM muro m
                 JOIN usuario u ON m.id_usuario=u.id_usuario
+                 JOIN usuario_x_curso uc ON u.id_usuario=uc.id_usuario AND uc.id_curso='$idCurso'
                 WHERE muro_id_muro='$idMensaje'
                 ORDER BY m.fecha_creacion ASC";
         return $this->db->query($query)->result();

@@ -29,7 +29,10 @@ class Usuario_x_evaluacion_model extends CI_Model {
         $query = "SELECT COUNT(*) total FROM usuario_x_evaluacion WHERE id_usuario={$_SESSION["idUsuario"]} AND id_evaluacion='$idEvaluacion' AND calificacion>=$umbral";
         return $this->db->query($query)->result();
     }
-
+ function vecesSaltada($idEvaluacion) {
+        $query = "SELECT COUNT(*) total FROM usuario_x_evaluacion WHERE id_usuario={$_SESSION["idUsuario"]} AND id_evaluacion='$idEvaluacion' AND calificacion=-1";
+        return $this->db->query($query)->result();
+    }
     function obtenerIntentos($idEvaluacion) {
         $query = "SELECT ue.*
                  FROM usuario_x_evaluacion ue

@@ -12,7 +12,7 @@
                 <table id="tabla-tema" class="table">
                     <tr  id="tema">
                         <td class="col-md-2">
-                            <span class="text-info"> <?= $tema[0]->nombres." ".$tema[0]->apellidos ?></span> <span class="text-danger"> <?= ($tema[0]->rol==3)? "<b>(Monitor)</b>":""?></span><br>
+                            <span class="text-info"> <?= $tema[0]->nombres . " " . $tema[0]->apellidos ?></span> <span class="text-danger"> <?= ($tema[0]->rol == 3) ? "<b>(Monitor)</b>" : "" ?></span><br>
                             <?= $tema[0]->fecha_creacion ?>
                         </td>
 
@@ -35,7 +35,8 @@
                     <?php foreach ($respuestas as $item): ?>
                         <tr >
                             <td class="who">
-                                <span class="text-info">  <?= $item->nombres." ".$item->apellidos ?></span> <span class="text-danger"> <?= ($item->rol==3)? "<b>(Monitor)</b>":""?></span><br>
+                                <img width="100"  class="img-responsive <?= ($item->rol == 1) ? "info-usuario cursor" : "" ?>" data-id-usuario="<?= $item->id_usuario ?>" data-id-curso="<?= $idCurso ?>" src="<?= base_url() ?>assets/img/avatares/thumbnails/<?= $item->imagen ?>">
+                                <span class="text-info">  <?= $item->nombres . " " . $item->apellidos ?></span> <span class="text-danger"> <?= ($item->rol == 3) ? "<b>(Monitor)</b>" : "" ?></span><br>
                                 <?= $item->fecha_creacion ?>
                             </td>
 

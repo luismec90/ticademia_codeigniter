@@ -121,7 +121,8 @@ class Api extends CI_Controller {
         $this->load->model('usuario_x_modulo_model');
 
         $vecesAprobadaEvaluacion = $this->usuario_x_evaluacion_model->vecesAprobada($idEvaluacion, $umbral);
-        if ($vecesAprobadaEvaluacion[0]->total == 1) {
+        $vecesSaltada=$this->usuario_x_evaluacion_model->vecesSaltada($idEvaluacion);
+        if ($vecesAprobadaEvaluacion[0]->total == 1 && $vecesSaltada[0]->total==0) {
             $modulo = $this->modulo_model->obtenerModuloConEvaluacion($idEvaluacion);
             $idModulo = $modulo[0]->id_modulo;
             $intentos = $this->usuario_x_evaluacion_model->obtenerIntentos($idEvaluacion);

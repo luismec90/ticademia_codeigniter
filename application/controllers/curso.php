@@ -141,7 +141,7 @@ class Curso extends CI_Controller {
             $version=2;
             $estatusPrev = "solved";
             foreach ($evaluaciones as $row) {
-                if ($row->calificacion_maxima >= $umbral) {
+                if ($row->calificacion_maxima >= $umbral && $row->calificacion_minima!=-1) {
                     $row->estatus = "solved";
                     $row->icono = "check";
                     $estatusPrev = "solved";
@@ -149,6 +149,15 @@ class Curso extends CI_Controller {
                     $row->veces_aprobado = $infoEvaluacion[$row->id_evaluacion]["veces_aprobado"];
                     $row->veces_intentado = $infoEvaluacion[$row->id_evaluacion]["veces_intentado"];
                     $row->puntuacion = $infoEvaluacion[$row->id_evaluacion]["puntuacion"];
+                    $row->menor_tiempo = $infoEvaluacion[$row->id_evaluacion]["menor_tiempo"];
+                }else if ($row->calificacion_maxima >= $umbral && $row->calificacion_minima==-1) {
+                    $row->estatus = "solved";
+                    $row->icono = "check";
+                    $estatusPrev = "solved";
+                    $row->ubicacion = base_url() . "resources/$idCurso/$idModulo/" . $row->id_evaluacion . "/launch.html?version=$version";
+                    $row->veces_aprobado = $infoEvaluacion[$row->id_evaluacion]["veces_aprobado"];
+                    $row->veces_intentado = $infoEvaluacion[$row->id_evaluacion]["veces_intentado"];
+                    $row->puntuacion = 0;
                     $row->menor_tiempo = $infoEvaluacion[$row->id_evaluacion]["menor_tiempo"];
                 } else if ($row->calificacion_minima == -1) {
                     $row->estatus = "solved";

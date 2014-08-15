@@ -221,22 +221,24 @@ class Reto implements MessageComponentInterface {
             }
 
             /* Si era el retado se le informa de la desconexion al retador */
-            foreach ($this->enDuelo[$idCurso] as $idUsuarioRetador => $val) {//recorrer todos los duelos
-                if ($val["usuario_retado"] == $idUsuario) {
-                    if (isset($val["id_reto_tabla"])) {
-                        $tipo = "desconectado";
-                    } else {
-                        $tipo = "desconectado_antes";
-                    }
+            if (isset($this->enDuelo[$idCurso])) {
+                foreach ($this->enDuelo[$idCurso] as $idUsuarioRetador => $val) {//recorrer todos los duelos
+                    if ($val["usuario_retado"] == $idUsuario) {
+                        if (isset($val["id_reto_tabla"])) {
+                            $tipo = "desconectado";
+                        } else {
+                            $tipo = "desconectado_antes";
+                        }
 
-                    $user = array();
-                    $user[$idUsuario] = $nombreUsuario;
-                    $data_to_user = json_encode(array("tipo" => $tipo, "datos" => $user));
-                    foreach ($this->aulas[$idCurso][$idUsuarioRetador] as $row) {
-                        $row->send($data_to_user);
+                        $user = array();
+                        $user[$idUsuario] = $nombreUsuario;
+                        $data_to_user = json_encode(array("tipo" => $tipo, "datos" => $user));
+                        foreach ($this->aulas[$idCurso][$idUsuarioRetador] as $row) {
+                            $row->send($data_to_user);
+                        }
+                        $this->disponibles[$idCurso][$idUsuarioRetador] = true;
+                        unset($this->enDuelo[$idCurso][$idUsuarioRetador]);
                     }
-                    $this->disponibles[$idCurso][$idUsuarioRetador] = true;
-                    unset($this->enDuelo[$idCurso][$idUsuarioRetador]);
                 }
             }
 
