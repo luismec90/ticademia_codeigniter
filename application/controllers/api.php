@@ -106,6 +106,15 @@ class Api extends CI_Controller {
             $totalEvaluaciones = $totalEvaluaciones[0]->total;
             $porcentaje = round(sizeof($evaluacionesResueltas) / $totalEvaluaciones, 2) * 100;
 
+            if (!in_array("1", $idLogrosObtenidos)) {//Si no tiene el logro primer ejercicio, darselo
+                $data = array(
+                    'id_usuario' => $_SESSION["idUsuario"],
+                    'id_logro' => 1,
+                    'id_curso' => $idCurso
+                );
+                $this->usuario_curso_logro_model->crear($data);
+            }
+
             if (!in_array("11", $idLogrosObtenidos) || !in_array("12", $idLogrosObtenidos) || !in_array("13", $idLogrosObtenidos)) {
                 $this->enLinea($idCurso, $umbral);
             }
@@ -121,8 +130,8 @@ class Api extends CI_Controller {
         $this->load->model('usuario_x_modulo_model');
 
         $vecesAprobadaEvaluacion = $this->usuario_x_evaluacion_model->vecesAprobada($idEvaluacion, $umbral);
-        $vecesSaltada=$this->usuario_x_evaluacion_model->vecesSaltada($idEvaluacion);
-        if ($vecesAprobadaEvaluacion[0]->total == 1 && $vecesSaltada[0]->total==0) {
+        $vecesSaltada = $this->usuario_x_evaluacion_model->vecesSaltada($idEvaluacion);
+        if ($vecesAprobadaEvaluacion[0]->total == 1 && $vecesSaltada[0]->total == 0) {
             $modulo = $this->modulo_model->obtenerModuloConEvaluacion($idEvaluacion);
             $idModulo = $modulo[0]->id_modulo;
             $intentos = $this->usuario_x_evaluacion_model->obtenerIntentos($idEvaluacion);

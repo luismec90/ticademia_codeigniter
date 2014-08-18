@@ -8,10 +8,11 @@ $(function() {
         console.log(e);
     }
 
-    x = getRandom(1, 6);
-    z = getRandom(1, 9);
+    x = getRandom(1, 9);
+    z = getRandom(7, 15);
 
-    var correctAnswer1 = customRound(Math.pow(6 * z * z, 1 / 3), 2);
+    var correctAnswer1 = customRound(Math.pow(6 * z * z, (1 / 3)), 2);
+    console.log(correctAnswer1);
     draw();
 
     $("#verificar").click(function() {

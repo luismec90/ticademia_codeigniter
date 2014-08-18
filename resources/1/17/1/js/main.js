@@ -11,7 +11,7 @@ $(function() {
 
     var correctAnswer = x;
     var missConception1 = 270 - a - b;
-    console.log(correctAnswer + " " + missConception1);
+ //   console.log(correctAnswer + " " + missConception1);
     draw();
 
     $("#verificar").click(function() {

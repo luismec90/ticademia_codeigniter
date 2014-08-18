@@ -283,7 +283,7 @@
                     <img id="avatar-retador" width="100" class='img-circle rotar180' src="<?= base_url() ?>assets/img/niveles/hombre/3.png" alt="" />
                 </div>
                 <div id="div-vs" >
-                    <center><h2>VS en <span id="duelo-cuenta-regresiva">3</span></h2></center>
+                    <center><img width="100" src="<?= base_url() ?>assets/img/vs.png"> en <span id="duelo-cuenta-regresiva">3</span></center>
                 </div>
                 <div >
                     <img id="foto-retado" width="70" class='img-circle rotarY' src="<?= base_url() ?>assets/img/avatares/default.png" alt="" />
@@ -293,6 +293,10 @@
         </div>
     </div>
 </div>
+<audio id="notify-sound" class="hide">
+    <source src="<?= base_url() ?>assets/sound/notify.mp3"></source>
+    Update your browser to enjoy HTML5 audio!
+</audio>
 <div id="contenedor-frame" class="hide">
     <div id="botonCerrarFrame">
         <i class="fa fa-times fa-2x"></i> 
@@ -320,7 +324,7 @@
 </script>
 <script src="<?= base_url() ?>assets/libs/jQuery-1.11.0/jQuery.min.js"></script>
 <script src="<?= base_url() ?>assets/libs/bootstrap-3.1.1/js/bootstrap.min.js"></script>
-<script src="<?= base_url() ?>assets/js/socket.js"></script>
+<script src="<?= base_url() ?>assets/js/socketv0.1.js"></script>
 <script src="<?= base_url() ?>assets/js/global.js"></script>
 <script src="<?= base_url() ?>assets/js/duelo.js"></script>
 <?php if (isset($js)) foreach ($js as $row) { ?>
@@ -330,22 +334,22 @@
 
 <?php if ($tab == "curso") { ?>
     <script>
-                            $(function() {
-                                countCallsCargarModulo = 0;
-                                var numeroModulos = <?= $numeroModulos ?>;
-                                var idModulos = jQuery.parseJSON('<?= $idModulos ?>');
-                                $("#slider").slider({min: 0, max: <?= $cantidadModulos - 1 ?>, value: 0, animate: "normal"});
-                                $("#slider").slider("pips", {rest: "label", labels: numeroModulos})
-                                $("#slider").on("slidechange", function(e, ui) {
+                        $(function() {
+                            countCallsCargarModulo = 0;
+                            var numeroModulos = <?= $numeroModulos ?>;
+                            var idModulos = jQuery.parseJSON('<?= $idModulos ?>');
+                            $("#slider").slider({min: 0, max: <?= $cantidadModulos - 1 ?>, value: 0, animate: "normal"});
+                            $("#slider").slider("pips", {rest: "label", labels: numeroModulos})
+                            $("#slider").on("slidechange", function(e, ui) {
 
-                                    var idModulo = idModulos[ui.value];
+                                var idModulo = idModulos[ui.value];
 
-                                    cargarModulo(idModulo);
+                                cargarModulo(idModulo);
 
-                                });
-
-                                cargarModulo(-1);
                             });
+
+                            cargarModulo(-1);
+                        });
 
 
 

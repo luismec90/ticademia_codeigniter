@@ -10,15 +10,18 @@ var posEv;
 var monto1;
 var monto2;
 var ruta;
+var notifySound = $('#notify-sound');
+var dueloCancelado;
 $(function() {
 
 
     if (idUsuarioGlobal != -1 && rolGlobal == 1) {
-        if (idUsuarioGlobal == 1 || idUsuarioGlobal == 4 || idUsuarioGlobal == 6) {
-            socket();
-        } else {
-            statusSocket == "off";
-        }
+        /*  if (idUsuarioGlobal == 1 || idUsuarioGlobal == 4 || idUsuarioGlobal == 6) {
+         socket();
+         } else {
+         statusSocket == "off";
+         }
+         */  socket();
 
         $("#arena,#arena2").click(function() {// Retar a alguien
             clearTimeout(t);
@@ -34,7 +37,7 @@ $(function() {
                     if (time == 0) {
                         clearTimeout(t);
                         if ($("#modal-arena").is(":visible")) {
-//                        $(".modal").modal('hide');
+                            $("#modal-arena").modal("hide");
                         }
                     }
                     $("#cuenta-regresiva").html(time--);
@@ -51,7 +54,7 @@ $(function() {
                 $("#custom-modal-title").html("Información");
                 //$("#body-custom-modal").html("No hay conexión con el servidor, inténtelo más tarde.");
                 $("#body-custom-modal").html("Los duelos serán habilitados durante la segunda semana del curso.");
-                $("#custom-modal").modal();
+                $("#custom-modal").modal('show');
             }
         });
 
@@ -110,7 +113,8 @@ function socket() {
                         usuarioRetadorGlobal = id_usuario;
                         //  $("#content-modal-retado").html("El usuario " + nombre_usuario + " te ha retado a un duelo, deseas aceptar?");
                         $("#content-modal-retado").html("Has sido seleccionado para participar en un duelo, ¿deseas aceptar?");
-                        $("#retado").modal();
+                        $("#retado").modal('show');
+                        notifySound[0].play();
                     });
 
                     var time = 10;
@@ -140,11 +144,12 @@ function socket() {
                     cerrarReto();
                     $.each(data.datos, function(id_usuario, nombre_usuario) {
                         // $("#nombre-usuario-reto-rechazado").html(nombre_usuario);
-                        $("#reto-rechazado").modal();
+                        $("#reto-rechazado").modal('show');
                     });
                     break;
 
                 case "reto_aceptado"://Notificacion de iniciar el duelo, este mensaje le llega tanto al retado como al retador
+                    dueloCancelado = false;
                     /*reset modal*/
                     $("#marco-step-4").addClass("hide");
                     $("#marco-step-1").removeClass("hide");
@@ -161,9 +166,16 @@ function socket() {
                     $("#info-monto-before").removeClass("hide");
                     $("#info-monto").addClass("hide");
 
+                    $("#foto-retador").css({left: "20px"});
+                    $("#avatar-retador").css({left: "80px"});
+
+                    $("#duelo-cuenta-regresiva").html("3");
+                    $("#foto-retado").css({right: "20px"});
+                    $("#avatar-retado").css({right: "80px"});
+
                     var datos = data.datos;
                     $(".modal").modal('hide');
-                    console.log(datos);
+                    // console.log(datos);
                     if (idUsuarioGlobal == datos.retador["id_usuario"]) {
                         var imagenOponente = datos.retado["avatar"];
                         var nombreOponente = datos.retado["nombre"];
@@ -176,6 +188,14 @@ function socket() {
                     $("#modulo-seleccionado").html(datos.posMod);
                     $("#pregunta-seleccionada").html(datos.posEv);
                     $("#monto-pregunta").html(datos.monto1 + datos.monto2);
+
+                    $("#foto-retador").attr("src", base_url + "assets/img/avatares/thumbnails/" + datos.retador["avatar"]);
+                    var genero = (datos.retador["sexo"] == "m") ? "hombre" : "mujer";
+                    $("#avatar-retador").attr("src", base_url + "assets/img/niveles/" + genero + "/" + datos.retador["imagenNivel"]);
+
+                    $("#foto-retado").attr("src", base_url + "assets/img/avatares/thumbnails/" + datos.retado["avatar"]);
+                    var genero = (datos.retador["sexo"] == "m") ? "hombre" : "mujer";
+                    $("#avatar-retado").attr("src", base_url + "assets/img/niveles/" + genero + "/" + datos.retado["imagenNivel"]);
 
                     cantidadEvalucaiones = datos.cantidadEvaluaciones;
                     posMod = datos.posMod;
@@ -216,33 +236,35 @@ function socket() {
                     break;
 
                 case "desconectado_antes":
+                    dueloCancelado = true;
                     $(".modal").modal('hide');
                     cerrarReto();
                     $.each(data.datos, function(id_usuario, nombre_usuario) {
                         $(".modal").modal('hide');
-                       $("#reto-rechazado").modal();
+                        $("#reto-rechazado").modal('show');
                     });
                     break;
 
                 case "desconectado":
+                    dueloCancelado = true;
                     $(".modal").modal('hide');
                     cerrarReto();
                     $.each(data.datos, function(id_usuario, nombre_usuario) {
                         $(".modal").modal('hide');
                         $("#nombre-usuario-desconectado").html(nombre_usuario);
-                        $("#ganador-reto-por-w").modal();
+                        $("#ganador-reto-por-w").modal('show');
                     });
                     break;
 
                 case "empate":
                     $(".modal").modal('hide');
                     cerrarReto();
-                    $.each(data.datos, function(id_usuario, nombre_usuario) {
-                        $(".modal").modal('hide');
+                    setTimeout(function() {
                         $("#custom-modal-title").html("Empate");
                         $("#body-custom-modal").html("Se ha producido un empate");
-                        $("#custom-modal").modal();
-                    });
+                        $("#custom-modal").modal("show");
+                    }, 500);
+
                     break;
 
                 case "ganador":
@@ -250,23 +272,31 @@ function socket() {
                     cerrarReto();
                     $.each(data.datos, function(id_usuario, nombre_usuario) {
                         $(".modal").modal('hide');
-                        $("#custom-modal-title").html("Ganador");
-                        if (id_usuario == idUsuarioGlobal) {
-                            $("#body-custom-modal").html("Felicitaciones, has ganado el duelo!");
-                        } else {
-                            $("#body-custom-modal").html("El usuario " + nombre_usuario + " ha  ganado el duelo");
-                        }
-                        $("#custom-modal").modal();
+                        setTimeout(function() {
+                            $("#custom-modal-title").html("Ganador");
+                            if (id_usuario == idUsuarioGlobal) {
+                                $("#body-custom-modal").html("Felicitaciones, has ganado el duelo!");
+                            } else {
+                                $("#body-custom-modal").html("El usuario " + nombre_usuario + " ha  ganado el duelo");
+                            }
+                            $("#custom-modal").modal("show");
+                        }, 500);
                     });
                     break;
-
+                case "esperando_respuesta_oponente":// Notificacion de que ha sido retado
+                    $(".modal").modal('hide');
+                    cerrarReto();
+                    $("#custom-modal-title").html("Duelo");
+                    $("#body-custom-modal").html("Tu respuesta no ha sido correcta.");
+                    $("#custom-modal").modal('show');
+                    break;
                 case "no_hay_oponentes":// Notificacion de que ha sido retado
                     $(".modal").modal('hide');
                     $.each(data.datos, function(id_usuario, nombre_usuario) {
                         $(".modal").modal('hide');
                         $("#custom-modal-title").html("Reto");
                         $("#body-custom-modal").html("No hay oponentes");
-                        $("#custom-modal").modal();
+                        $("#custom-modal").modal('show');
                     });
                     break;
             }
@@ -304,6 +334,9 @@ function cerrarReto() {
 /* Preambulo Duelo*/
 
 function seleccionOponente() {
+    if (dueloCancelado) {
+        return;
+    }
     $('#slideshow').stop().animate({scrollLeft: 100}, velocidad, 'linear', function() {
         $(this).scrollLeft(0).find('div:last').after($('div:first', this));
         if (count > 30)
@@ -328,7 +361,9 @@ function seleccionOponente() {
 
 
 function seleccionModulo() {
-
+    if (dueloCancelado) {
+        return;
+    }
     $("#marco-step-1").addClass("hide");
     $("#marco-step-2").removeClass("hide");
 
@@ -391,6 +426,9 @@ function seleccionPregunta(pos, cantidadEv) {
 
 
 function seleccionMonto() {
+    if (dueloCancelado) {
+        return;
+    }
     $("#marco-step-3").addClass("hide");
     $("#marco-step-4").removeClass("hide");
     var img = $("#imagen-dado");
@@ -479,6 +517,9 @@ function seleccionMonto() {
 
 }
 function vs() {
+    if (dueloCancelado) {
+        return;
+    }
     var count = 2;
 
     $("#modal-vs").modal({

@@ -10,7 +10,7 @@ $(function() {
 
     z = getRandom(10,40)/10;
 
-    var correctAnswer1 = 4/3*3.14*z*z*z;
+    var correctAnswer1 = customRound(4/3*3.14*z*z*z,2);
     draw();
 
     $("#verificar").click(function() {
@@ -54,4 +54,7 @@ function draw(){
 }
 function toRadians(angle) {
     return angle * (Math.PI / 180);
+}
+function customRound(value, decimals) {
+    return Number(Math.round(value + 'e' + decimals) + 'e-' + decimals);
 }

@@ -9,7 +9,7 @@ $(function() {
 
     var correctAnswer = y;
     var missConception1 = a;
-    console.log(correctAnswer + " " + missConception1);
+    //console.log(correctAnswer + " " + missConception1);
     draw();
 
     $("#verificar").click(function() {
