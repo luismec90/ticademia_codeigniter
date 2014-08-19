@@ -14,9 +14,25 @@
     </head>
     <body>
         <div id="contenedor" class="container-fluid">
-            <h1>Ingrese la clave secreta:</h1>
+            <h1>La distancia entre los números racionales 
+			<span class="fraccion">
+				<span class="mvar" value="a">a</span>
+				<span class="mvar" value="b">b</span>
+			</span> 
+			y 
+			<span class="fraccion">
+				<span class="mvar" value="c">c</span>
+				<span class="mvar" value="d">d</span>
+			</span> 
+			es:</h1>
+          
             <div id="div-asnwer">
-                <h4> <input id="answer" class="form-control" type="text" autofocus> <a id="verificar" class="btn btn-primary" >Enviar</a></h4>
+                <h4>Respuesta = 
+				<span class="fraccion">
+					<span><input id="answer1" class="form-control" type="number" autofocus></span>
+					<span><input id="answer2" class="form-control" type="number" autofocus></span>
+				</span>
+				<a id="verificar" class="btn btn-primary" >Enviar</a></h4>
             </div>
         </div>
         <div class="modal fade" id="modal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
@@ -38,7 +54,7 @@
                 </div>
             </div>
         </div>
-        <script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
+        <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
         <script>window.jQuery || document.write('<script src="js/vendor/jquery-1.11.0.min.js"><\/script>')</script>
         <script src="js/vendor/bootstrap.min.js"></script>
         <script src="js/api.js"></script>

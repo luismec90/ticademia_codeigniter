@@ -154,42 +154,43 @@ class Reto implements MessageComponentInterface {
                 /* ---- */
 
                 $usuarioRetador = $this->getRetador($idCurso, $posibleGanador);
-
-                if ($estatus == "correcto") {// si la respuesta es correcta
-                    $idRetoTabla = $this->enDuelo[$idCurso][$usuarioRetador]["id_reto_tabla"]; // Obtengo el id de la tabla reto correspondiente a este duelo
-                    $registroRetoTabla = $this->ejecutarQuery2("SELECT * FROM reto WHERE id_reto='$idRetoTabla'");
-                    $registroRetoTabla = mysql_fetch_array($registroRetoTabla);
-                    $this->ejecutarQuery("UPDATE usuario_x_modulo SET puntaje=puntaje+{$registroRetoTabla["monto"]} WHERE id_usuario='$posibleGanador' AND id_modulo=(SELECT id_modulo FROM evaluacion WHERE id_evaluacion='{$registroRetoTabla["id_evaluacion"]}')");
-                    $this->ejecutarQuery("UPDATE reto SET ganador='$posibleGanador' where id_reto='$idRetoTabla'"); //Establesco al ganador en la BD
-                    $perdedor = ($posibleGanador == $registroRetoTabla["retador"]) ? $registroRetoTabla["retado"] : $registroRetoTabla["retador"]; // Si el ganador es el retador perdio el retado y si el que gano es el retado perdio el retaor
-                    $this->ejecutarQuery("UPDATE usuario_x_modulo SET puntaje=puntaje-{$registroRetoTabla["monto"]} WHERE id_usuario='$perdedor' AND id_modulo=(SELECT id_modulo FROM evaluacion WHERE id_evaluacion='{$registroRetoTabla["id_evaluacion"]}')");
-                    /* Envio el mensaje; notifico a ambos estudiantes de quien fue el ganador */
-                    $user[$posibleGanador] = $nombreUsuario;
-                    $dataToUser = json_encode(array("tipo" => "ganador", "datos" => $user));
-                    $this->enviarMesajeAUsuario($idCurso, $usuarioRetador, $dataToUser);
-                    $this->enviarMesajeAUsuario($idCurso, $this->enDuelo[$idCurso][$usuarioRetador]["usuario_retado"], $dataToUser);
-                    /* ---- */
-                    $this->disponibles[$idCurso][$usuarioRetador] = true;
-                    $this->disponibles[$idCurso][$this->enDuelo[$idCurso][$usuarioRetador]["usuario_retado"]] = true;
-                    unset($this->enDuelo[$idCurso][$usuarioRetador]); // Elimino el duelo ps ya concluyo
-                } else if (isset($this->enDuelo[$idCurso][$usuarioRetador]["respuestas_enviadas"]) && $this->enDuelo[$idCurso][$usuarioRetador]["respuestas_enviadas"] != 0) {// Si no es correcto y un estudiante ya habia enviado una respuesta es empate
-                    /* Envio el mensaje; notiico a ambos estudiantes de que es empate */
-                    $user = array();
-                    $user[$posibleGanador] = $nombreUsuario;
-                    $dataToUser = json_encode(array("tipo" => "empate", "datos" => $user));
-                    $this->enviarMesajeAUsuario($idCurso, $usuarioRetador, $dataToUser);
-                    $this->enviarMesajeAUsuario($idCurso, $this->enDuelo[$idCurso][$usuarioRetador]["usuario_retado"], $dataToUser);
-                    /* ---- */
-                    $this->disponibles[$idCurso][$usuarioRetador] = true;
-                    $this->disponibles[$idCurso][$this->enDuelo[$idCurso][$usuarioRetador]["usuario_retado"]] = true;
-                    unset($this->enDuelo[$idCurso][$usuarioRetador]); // Elimino el duelo ps ya concluyo
-                } else {// de lo contrario es la primera respuetsa enviada y fue incorrecta
-                    if (isset($this->enDuelo[$idCurso][$usuarioRetador]["respuestas_enviadas"])) {
-                        $this->enDuelo[$idCurso][$usuarioRetador]["respuestas_enviadas"] ++; //Sirve de control para declarar el empate
+                if (isset($this->enDuelo[$idCurso][$usuarioRetador])) {
+                    if ($estatus == "correcto") {// si la respuesta es correcta
+                        $idRetoTabla = $this->enDuelo[$idCurso][$usuarioRetador]["id_reto_tabla"]; // Obtengo el id de la tabla reto correspondiente a este duelo
+                        $registroRetoTabla = $this->ejecutarQuery2("SELECT * FROM reto WHERE id_reto='$idRetoTabla'");
+                        $registroRetoTabla = mysql_fetch_array($registroRetoTabla);
+                        $this->ejecutarQuery("UPDATE usuario_x_modulo SET puntaje=puntaje+{$registroRetoTabla["monto"]} WHERE id_usuario='$posibleGanador' AND id_modulo=(SELECT id_modulo FROM evaluacion WHERE id_evaluacion='{$registroRetoTabla["id_evaluacion"]}')");
+                        $this->ejecutarQuery("UPDATE reto SET ganador='$posibleGanador' where id_reto='$idRetoTabla'"); //Establesco al ganador en la BD
+                        $perdedor = ($posibleGanador == $registroRetoTabla["retador"]) ? $registroRetoTabla["retado"] : $registroRetoTabla["retador"]; // Si el ganador es el retador perdio el retado y si el que gano es el retado perdio el retaor
+                        $this->ejecutarQuery("UPDATE usuario_x_modulo SET puntaje=puntaje-{$registroRetoTabla["monto"]} WHERE id_usuario='$perdedor' AND id_modulo=(SELECT id_modulo FROM evaluacion WHERE id_evaluacion='{$registroRetoTabla["id_evaluacion"]}')");
+                        /* Envio el mensaje; notifico a ambos estudiantes de quien fue el ganador */
+                        $user[$posibleGanador] = $nombreUsuario;
+                        $dataToUser = json_encode(array("tipo" => "ganador", "datos" => $user));
+                        $this->enviarMesajeAUsuario($idCurso, $usuarioRetador, $dataToUser);
+                        $this->enviarMesajeAUsuario($idCurso, $this->enDuelo[$idCurso][$usuarioRetador]["usuario_retado"], $dataToUser);
+                        /* ---- */
+                        $this->disponibles[$idCurso][$usuarioRetador] = true;
+                        $this->disponibles[$idCurso][$this->enDuelo[$idCurso][$usuarioRetador]["usuario_retado"]] = true;
+                        unset($this->enDuelo[$idCurso][$usuarioRetador]); // Elimino el duelo ps ya concluyo
+                    } else if (isset($this->enDuelo[$idCurso][$usuarioRetador]["respuestas_enviadas"]) && $this->enDuelo[$idCurso][$usuarioRetador]["respuestas_enviadas"] != 0) {// Si no es correcto y un estudiante ya habia enviado una respuesta es empate
+                        /* Envio el mensaje; notiico a ambos estudiantes de que es empate */
+                        $user = array();
+                        $user[$posibleGanador] = $nombreUsuario;
+                        $dataToUser = json_encode(array("tipo" => "empate", "datos" => $user));
+                        $this->enviarMesajeAUsuario($idCurso, $usuarioRetador, $dataToUser);
+                        $this->enviarMesajeAUsuario($idCurso, $this->enDuelo[$idCurso][$usuarioRetador]["usuario_retado"], $dataToUser);
+                        /* ---- */
+                        $this->disponibles[$idCurso][$usuarioRetador] = true;
+                        $this->disponibles[$idCurso][$this->enDuelo[$idCurso][$usuarioRetador]["usuario_retado"]] = true;
+                        unset($this->enDuelo[$idCurso][$usuarioRetador]); // Elimino el duelo ps ya concluyo
+                    } else {// de lo contrario es la primera respuetsa enviada y fue incorrecta
+                        if (isset($this->enDuelo[$idCurso][$usuarioRetador]["respuestas_enviadas"])) {
+                            $this->enDuelo[$idCurso][$usuarioRetador]["respuestas_enviadas"] ++; //Sirve de control para declarar el empate
+                        }
+                        $dataToUser = json_encode(array("tipo" => "esperando_respuesta_oponente", "datos" => array()));
+                        $this->enviarMesajeAUsuario($idCurso, $posibleGanador, $dataToUser);
+                        $this->enDuelo[$idCurso][$usuarioRetador]["done"] = $posibleGanador; // done, significa que el usuario ya respondio
                     }
-                    $dataToUser = json_encode(array("tipo" => "esperando_respuesta_oponente", "datos" => array()));
-                    $this->enviarMesajeAUsuario($idCurso, $posibleGanador, $dataToUser);
-                    $this->enDuelo[$idCurso][$usuarioRetador]["done"] = $posibleGanador; // done, significa que el usuario ya respondio
                 }
                 break;
         }
@@ -297,7 +298,7 @@ class Reto implements MessageComponentInterface {
               JOIN usuario_x_curso uc ON ue.id_usuario=uc.id_usuario AND uc.id_curso='$idCurso'
              WHERE ue.calificacion = 1  AND ue.id_usuario = '$idRetador'
              GROUP BY ue.id_usuario");
-
+        $Px = array();
         while ($row = mysql_fetch_array($consultaPreguntasRetador)) {
             $Px = explode(",", $row['evaluaciones']);
         }

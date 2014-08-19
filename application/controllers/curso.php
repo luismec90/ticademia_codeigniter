@@ -53,6 +53,7 @@ class Curso extends CI_Controller {
         $this->load->view('include/header', $data);
         $this->load->view('curso_view');
         $this->load->view('include/footer');
+       
     }
 
     private function dateToView($date) {
@@ -138,10 +139,10 @@ class Curso extends CI_Controller {
             $evaluaciones = $this->evaluacion_model->obtenerEvaluacionesPorModulo($idModulo, $_SESSION["idUsuario"]);
 //  var_dump($evaluaciones);
 //  echo $this->db->last_query();
-            $version=3;
+            $version = 3;
             $estatusPrev = "solved";
             foreach ($evaluaciones as $row) {
-                if ($row->calificacion_maxima >= $umbral && $row->calificacion_minima!=-1) {
+                if ($row->calificacion_maxima >= $umbral && $row->calificacion_minima != -1) {
                     $row->estatus = "solved";
                     $row->icono = "check";
                     $estatusPrev = "solved";
@@ -150,7 +151,7 @@ class Curso extends CI_Controller {
                     $row->veces_intentado = $infoEvaluacion[$row->id_evaluacion]["veces_intentado"];
                     $row->puntuacion = $infoEvaluacion[$row->id_evaluacion]["puntuacion"];
                     $row->menor_tiempo = $infoEvaluacion[$row->id_evaluacion]["menor_tiempo"];
-                }else if ($row->calificacion_maxima >= $umbral && $row->calificacion_minima==-1) {
+                } else if ($row->calificacion_maxima >= $umbral && $row->calificacion_minima == -1) {
                     $row->estatus = "solved";
                     $row->icono = "check";
                     $estatusPrev = "solved";
@@ -278,7 +279,7 @@ class Curso extends CI_Controller {
                     </div>
                     <div id="opcionesModulo">
 
-                                                                                                                                                                                                                                                                                                        <!--                    <a href="<?= base_url() ?>curso/<?= $idCurso ?>" class="btn btn-info" title="Ir atrás"><i class="fa fa-reply"></i></a>-->
+                                                                                                                                                                                                                                                                                                                                            <!--                    <a href="<?= base_url() ?>curso/<?= $idCurso ?>" class="btn btn-info" title="Ir atrás"><i class="fa fa-reply"></i></a>-->
                         <?= $topN ?><span title="Ver ranking" class="btn btn-info pull-right" onclick="loadRankingMod(this)" data-id-modulo="1" data-id-curso="1">
                             <i class="fa fa-trophy"></i> Ranking</span>
                     </div>
@@ -961,13 +962,13 @@ class Curso extends CI_Controller {
             <th>Información de contacto</th>
             <?php
             foreach ($monitores as $row) {
-                if($row->informacion_contacto!=""){
-                ?>
-                <tr>
-                    <td><?= $row->nombres . " " . $row->apellidos ?></td>
-                    <td><?= $row->informacion_contacto ?></td>
-                </tr>
-                <?php
+                if ($row->informacion_contacto != "") {
+                    ?>
+                    <tr>
+                        <td><?= $row->nombres . " " . $row->apellidos ?></td>
+                        <td><?= $row->informacion_contacto ?></td>
+                    </tr>
+                    <?php
                 }
             }
             ?>

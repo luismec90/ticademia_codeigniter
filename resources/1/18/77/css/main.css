@@ -17,19 +17,23 @@ h1{
     text-align: center;
 }
 #div-asnwer{
-
     margin-top: 100px;
     text-align: center;
 
 }
-#answer{
-    width: 100px;
+.form-control{
+    width: 65px;
     display: inline-block;
 }
+.form-control.sup{
+	vertical-align:super;
+}
 
-
-
-
+.equation {
+	font-family:times new roman;
+	font-size:120%;
+	font-style: italic;
+}
 
 
 

@@ -22,16 +22,25 @@ h1{
     text-align: center;
 
 }
-#answer{
+#answer, .form-control{
     width: 100px;
     display: inline-block;
 }
 
-
-
-
-
-
+.fraccion{
+	display:inline-block;
+	vertical-align:middle;
+	letter-spacing:0.01em;
+	text-align:center;
+}
+.fraccion>span{
+	display:block;
+	padding:0.2em;
+	
+}
+.fraccion>span:last-child{
+	border-top:thin solid black;
+}
 
 
 

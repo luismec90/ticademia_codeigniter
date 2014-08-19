@@ -22,14 +22,17 @@ h1{
     text-align: center;
 
 }
-#answer{
-    width: 100px;
-    display: inline-block;
+
+.input-group{
+	width:250px;
+	margin:auto;
 }
 
-
-
-
+.equation {
+	font-family:times new roman;
+	font-size:120%;
+	font-style: italic;
+}
 
 
 

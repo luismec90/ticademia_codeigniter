@@ -14,9 +14,23 @@
     </head>
     <body>
         <div id="contenedor" class="container-fluid">
-            <h1>Ingrese la clave secreta:</h1>
+            <h1>El coeficiente del término correspondiente a <span class="equation">x</span> en el desarrollo de 
+				<span class="equation" style="display:block;">(<span class="mvar" value="a">a</span> - 
+				
+				<span class="mvar nroot" value="r">r</span><span class="raiz">&radic;</span>
+				<span class="fraccion radicando">
+					<span>x</span>
+					<span>
+						<span class="mvar" value="a">a</span><sup><span class="mvar" value="nr2">n-r-2</span></sup>
+					</span>
+				</span>
+				
+				)<sup><span class="mvar" value="n">n</span></sup></span></h1>
+          
             <div id="div-asnwer">
-                <h4> <input id="answer" class="form-control" type="text" autofocus> <a id="verificar" class="btn btn-primary" >Enviar</a></h4>
+                <h4>Respuesta =
+					<input id="answer" class="form-control" type="number" autofocus>
+				<a id="verificar" class="btn btn-primary" >Enviar</a></h4>
             </div>
         </div>
         <div class="modal fade" id="modal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
@@ -38,7 +52,7 @@
                 </div>
             </div>
         </div>
-        <script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
+        <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
         <script>window.jQuery || document.write('<script src="js/vendor/jquery-1.11.0.min.js"><\/script>')</script>
         <script src="js/vendor/bootstrap.min.js"></script>
         <script src="js/api.js"></script>

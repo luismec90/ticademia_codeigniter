@@ -319,8 +319,13 @@
                             idCursoGlobal = "<?= $idCurso ?>";
 <?php }
 ?>
-
-
+<?php if (isset($_SESSION["notificar"]) && $_SESSION["notificar"] == 1) {
+    ?>
+                            notificarDuelos = true;
+<?php } else {
+    ?>
+                            notificarDuelos = false;
+<?php } ?>
 </script>
 <script src="<?= base_url() ?>assets/libs/jQuery-1.11.0/jQuery.min.js"></script>
 <script src="<?= base_url() ?>assets/libs/bootstrap-3.1.1/js/bootstrap.min.js"></script>

@@ -1,30 +1,46 @@
+var a,b,ab,axb;
 
 $(function() {
-    API = getAPI();
-    API.LMSInitialize("");
+	try{
+		API = getAPI();
+		API.LMSInitialize("");
+	}catch(e){
+		console.log(e);
+	}
 
-    var correctAnswer = "clavesecreta";
+	do{
+		a = getRandom(-9,9);
+	}while(a==0)
+	do{
+		b = getRandom(-9,9);
+	}while(b==0 || b==a)
+
+    var correctAnswer1 = a;
+    var correctAnswer2 = b;
+    //var missConception1 = n;
+    //console.log(correctAnswer + " " + missConception1);
+    draw();
 
     $("#verificar").click(function() {
-        var valor = $("#answer").val().trim();
-        if (valor != "") {
+        var valor1 = $("#answer1").val().trim();
+        var valor2 = $("#answer2").val().trim();
+        if (valor1 != "" && valor2 != "") {
             $("#correcto").addClass("hide");
             $("#feedback").addClass("hide");
             var calificacion = 0;
             var feedback = "";
-            switch (valor) {
-                case correctAnswer + "2014":
-                    calificacion = 1.0;
-                    $("#correcto").html("Calificación: <b>" + calificacion + "</b>").removeClass("hide");
-                    break;
-                default:
-                    calificacion = 0.0;
-                    $("#feedback").html("Calificación: <b>" + calificacion + "</b> <br>Te recomendamos este <a href='https://www.youtube.com/watch?v=CA1jtq4luMo' target='_blank'>video</a> acerca de triangulos.").removeClass("hide");
-                    break;
+            valor1 = parseFloat(valor1);
+            valor2 = parseFloat(valor2);
+			
+			if((valor1 == correctAnswer1 && valor2 == correctAnswer2) || (valor1 == correctAnswer2 && valor2 == correctAnswer1)){
+				calificacion = 1.0;
+				$("#correcto").html("Calificación: <b>" + calificacion + "</b>").removeClass("hide");
+            }else{
+				calificacion = 0.0;
+				$("#feedback").html("Calificación: <b>" + calificacion + "</b> <br> ...").removeClass("hide");
             }
-
             $(this).attr("disabled", true);
-            API.closeQuestion();
+              API.closeQuestion();
             if (typeof API.calificar == 'function') {
                 API.calificar(calificacion, feedback);
             }
@@ -33,7 +49,21 @@ $(function() {
             API.notifyDaemon(calificacion);
         }
     });
-
+    $("#aceptar").click(function() {
+        window.parent.location.reload();
+    });
+    $('#modal').on('hide.bs.modal', function(e) {
+        window.parent.location.reload();
+    });
 
 });
-
+function getRandom(bottom, top) {
+    return Math.floor(Math.random() * (1 + top - bottom)) + bottom;
+}
+function getRandomFrom(vals){
+	return vals[getRandom(0,vals.length-1)];
+}
+function draw(){
+	$('.mvar[value=ab]').html(a+b);
+	$('.mvar[value=axb]').html(a*b);
+}

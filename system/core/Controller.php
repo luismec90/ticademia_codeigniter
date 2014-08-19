@@ -80,6 +80,12 @@ class CI_Controller {
     }
 
     protected function verificarMatricula($idCurso) {
+        if (!isset($_SESSION["notificar"])) {
+            $_SESSION["notificar"] = 0;
+        } if ($_SESSION["notificar"] < 2) {
+            $_SESSION["notificar"] ++;
+        }
+
         $this->load->model('usuario_x_curso_model');
         $where = array("id_curso" => $idCurso, "id_usuario" => $_SESSION["idUsuario"]);
         $usuario = $this->usuario_x_curso_model->obtenerRegistro($where);
@@ -94,7 +100,7 @@ class CI_Controller {
 
     protected function soyElProfesor($idCurso) {
         $this->load->model('usuario_x_curso_model');
-        $where = array("id_curso" => $idCurso, "id_usuario" => $_SESSION["idUsuario"],"rol"=>2);
+        $where = array("id_curso" => $idCurso, "id_usuario" => $_SESSION["idUsuario"], "rol" => 2);
         $usuario = $this->usuario_x_curso_model->obtenerRegistro($where);
         if (!$usuario) {
             $this->mensaje("El curso no existe o no se encuentra matriculado", "error");

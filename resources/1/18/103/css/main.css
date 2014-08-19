@@ -22,16 +22,30 @@ h1{
     text-align: center;
 
 }
-#answer{
-    width: 100px;
+#answer, .form-control{
+    width: 70px;
     display: inline-block;
 }
 
+.equation {
+	font-family:times new roman;
+	font-size:120%;
+	font-style: italic;
+}
 
-
-
-
-
-
+.fraccion{
+	display:inline-block;
+	vertical-align:middle;
+	letter-spacing:0.01em;
+	text-align:center;
+}
+.fraccion>span{
+	display:block;
+	padding:0.2em;
+	
+}
+.fraccion>span:last-child{
+	border-top:thin solid black;
+}
 
 

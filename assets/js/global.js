@@ -74,6 +74,15 @@ $(function() {
             }
         });
     });
+    if (notificarDuelos) {
+        $("#arena").popover({
+            html: true
+        });
+        $("#arena").popover("show");
+        $("#cerrarPopOver").click(function() {
+            $("#arena").popover("hide");
+        });
+    }
 });
 
 function modalInfoUsuario(idUsuario, idCurso) {
