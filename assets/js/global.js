@@ -74,12 +74,15 @@ $(function() {
             }
         });
     });
+    var botonCerrar="<button id='cerrarPopOverDuelo' type='button' class='close' aria-hidden='true'>&times;</button>";
     if (notificarDuelos) {
         $("#arena").popover({
-            html: true
+            html: true,
+            trigger :"manual",
+            title :"Duelos"+botonCerrar
         });
         $("#arena").popover("show");
-        $("#cerrarPopOver").click(function() {
+        $("#cerrarPopOverDuelo").click(function() {
             $("#arena").popover("hide");
         });
     }

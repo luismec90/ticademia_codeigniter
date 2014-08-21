@@ -8,8 +8,8 @@ $(function() {
         console.log(e);
     }
 
-    n = getRandom(2, 5);
-    m = getRandom(n + 1, n + 4);
+    m = getRandom(2, 5);
+    n = getRandom(m + 1, m + 4);
     k = getRandom(2, 9);
 
     var correctAnswer1 = m * n;

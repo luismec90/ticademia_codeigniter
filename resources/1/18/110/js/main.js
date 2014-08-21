@@ -58,10 +58,10 @@ function getRandomFrom(vals) {
 function draw() {
     var correct = 0;
     var s = Math.pow(-1, k + 1);
-    var answers = ['<span class="fraccion"><span><span class="raiz" style="letter-spacing:-1px">&radic;</span><span class="radicando">' + (m * m) + '</span> + ' + (k * k) + ' <span class="raiz" style="letter-spacing:-1px">&radic;</span><span class="radicando">h<sup>2</sup></span></span><span>' + (m * m) + '</span></span>',
-        '<span class="fraccion"><span><span class="raiz" style="letter-spacing:-1px">&radic;</span><span class="radicando">' + (m * m) + '</span> + ' + (k * k) + ' <span class="raiz" style="letter-spacing:-1px">&radic;</span><span class="radicando">h</span></span><span>' + (m * m) + '</span></span>',
-        '<span class="fraccion"><span><span class="raiz" style="letter-spacing:-1px">&radic;</span><span class="radicando">' + (m * m) + '</span> - ' + (k * k) + ' <span class="raiz" style="letter-spacing:-1px">&radic;</span><span class="radicando">h</span></span><span>' + (m * m) + '</span></span>',
-        '<span class="fraccion"><span><span class="raiz" style="letter-spacing:-1px">&radic;</span><span class="radicando">' + (m * m) + '</span> - ' + (k * k) + ' <span class="raiz" style="letter-spacing:-1px">&radic;</span><span class="radicando">h<sup>2</sup></span></span><span>' + (m * m) + '</span></span>',
+    var answers = ['<span class="fraccion"><span><span class="raiz" style="letter-spacing:-1px">&radic;</span><span class="radicando">' + (m * m) + ' + ' + (k * k) + 'h<sup>2</sup></span> + ' + (k) + ' <span class="raiz" style="letter-spacing:-1px">&radic;</span><span class="radicando">h<sup>2</sup></span></span><span>' + (m * m) + '</span></span>',
+        '<span class="fraccion"><span><span class="raiz" style="letter-spacing:-1px">&radic;</span><span class="radicando">' + (m * m) + ' + ' + (k * k) + 'h<sup>2</sup></span> + ' + (k) + ' h</span><span>' + (m * m) + '</span></span>',
+        '<span class="fraccion"><span><span class="raiz" style="letter-spacing:-1px">&radic;</span><span class="radicando">' + (m * m) + ' + ' + (k * k) + 'h<sup>2</sup></span> - ' + (k) + ' h</span><span>' + (m * m) + '</span></span>',
+        '<span class="fraccion"><span><span class="raiz" style="letter-spacing:-1px">&radic;</span><span class="radicando">' + (m * m) + ' + ' + (k * k) + 'h<sup>2</sup></span> - ' + (k) + ' <span class="raiz" style="letter-spacing:-1px">&radic;</span><span class="radicando">h<sup>2</sup></span></span><span>' + (m * m) + '</span></span>',
         '<span class="fraccion"><span>1</span><span>' + (m) + '</span></span>', ];
     var is = [0, 1, 2, 3, 4];
     shuffleArray(is);

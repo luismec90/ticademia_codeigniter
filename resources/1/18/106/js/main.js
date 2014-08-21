@@ -14,7 +14,7 @@ $(function() {
     j = getRandom(6, 15);
 
     var correctAnswer1 = (100 * m + 10 * n + k) / 100;
-    var correctAnswer2 = j - 1;
+    var correctAnswer2 = j;
     //var missConception1 = n;
     //console.log(correctAnswer1 + " " + correctAnswer2);
     draw();
@@ -77,5 +77,5 @@ function decimalComparison(v1, v2, d) {
     return v1 == v2;
 }
 function draw() {
-    $('.mvar[value=x]').html((100 * m + 10 * n + k) + " × 10 <sup>" + j + "</sup>");
+    $('.mvar[value=x]').html((100 * m + 10 * n + k) * Math.pow(10, j));
 }

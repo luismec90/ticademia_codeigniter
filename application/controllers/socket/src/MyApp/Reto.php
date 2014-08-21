@@ -126,8 +126,14 @@ class Reto implements MessageComponentInterface {
                     $nombreUsuario = $data->nombre_usuario;
                     /* ---- */
 
-                    $this->disponibles[$idCurso][$usuarioRetador] = true;
-                    $this->disponibles[$idCurso][$usuarioRetado] = true;
+                    $imagen = $this->ejecutarQuery2("SELECT nombres,apellidos,imagen,sexo FROM usuario WHERE id_usuario='$usuarioRetador'");
+                    $row = mysql_fetch_array($imagen);
+                    $this->disponibles[$idCurso][$usuarioRetador] = array("nombre" => $row["nombres"] . " " . $row["apellidos"], "sexo" => $row["sexo"], "imagen" => $row["imagen"]);
+
+                    $imagen = $this->ejecutarQuery2("SELECT nombres,apellidos,imagen,sexo FROM usuario WHERE id_usuario='$usuarioRetado'");
+                    $row = mysql_fetch_array($imagen);
+                    $this->disponibles[$idCurso][$usuarioRetado] = array("nombre" => $row["nombres"] . " " . $row["apellidos"], "sexo" => $row["sexo"], "imagen" => $row["imagen"]);
+
                     unset($this->enDuelo[$idCurso][$usuarioRetador]);
 
                     if (isset($this->aulas[$idCurso][$usuarioRetador])) {// SI el usuario retador esta conectado se le notifica que el usuario retado no acepto
