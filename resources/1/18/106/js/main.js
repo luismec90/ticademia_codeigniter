@@ -14,7 +14,7 @@ $(function() {
     j = getRandom(6, 15);
 
     var correctAnswer1 = (100 * m + 10 * n + k) / 100;
-    var correctAnswer2 = j;
+    var correctAnswer2 = j+2;
     //var missConception1 = n;
     //console.log(correctAnswer1 + " " + correctAnswer2);
     draw();
