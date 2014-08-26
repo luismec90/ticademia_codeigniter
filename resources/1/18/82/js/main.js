@@ -1,24 +1,25 @@
-var a,b,c,d;
+var a, b, c, d, e, f, g;
 
 $(function() {
-	try{
-		API = getAPI();
-		API.LMSInitialize("");
-	}catch(e){
-		console.log(e);
-	}
+    try {
+        API = getAPI();
+        API.LMSInitialize("");
+    } catch (e) {
+        console.log(e);
+    }
 
-    a = -getRandomFrom([2,5,11]);
-    c = getRandomFrom([2,5,11]);
-    b = getRandomFrom([3,7,13]);
-	do{
-		d = getRandomFrom([3,7,13]);
-	}while(d==b)
+    a = getRandom(1, 6);
+    b = getRandom(1, 6);
+    c = getRandom(1, 6);
+    d = getRandom(1, 6);
+    e = getRandom(1, 6);
+    f = getRandom(1, 6);
+    g = getRandom(1, 6);
 
-    var correctAnswer1 = (-a*d)+(b*c);
-    var correctAnswer2 = b*d;
+    var correctAnswer1 = f;
+    var correctAnswer2 = g;
     //var missConception1 = n;
-    //console.log(correctAnswer + " " + missConception1);
+    //console.log(correctAnswer1 + " " + correctAnswer2 + " " + correctAnswer3 + " " + correctAnswer4);
     draw();
 
     $("#verificar").click(function() {
@@ -31,25 +32,22 @@ $(function() {
             var feedback = "";
             valor1 = parseFloat(valor1);
             valor2 = parseFloat(valor2);
-			
-			if(valor1 == correctAnswer1 && valor2 == correctAnswer2){
-				calificacion = 1.0;
-				$("#correcto").html("Calificación: <b>" + calificacion + "</b>").removeClass("hide");
-            }else{
-				calificacion = 0.0;
-				$("#feedback").html("Calificación: <b>" + calificacion + "</b> <br> ...").removeClass("hide");
+
+            if (valor1 == correctAnswer1 && valor2 == correctAnswer2) {
+                calificacion = 1.0;
+                $("#correcto").html("Calificación: <b>" + calificacion + "</b>").removeClass("hide");
+            } else {
+                calificacion = 0.0;
+                $("#feedback").html("Calificación: <b>" + calificacion + "</b> <br> ...").removeClass("hide");
             }
             $(this).attr("disabled", true);
-            /* $("#modal").modal({
-                backdrop: "static",
-                keyboard: "false"
-            });
-
-            */ API.closeQuestion();  if (typeof API.calificar == 'function') {
+            API.closeQuestion();
+            if (typeof API.calificar == 'function') {
                 API.calificar(calificacion, feedback);
             }
             API.LMSSetValue("cmi.core.score.raw", calificacion);
-            API.LMSFinish("feedback", feedback); API.notifyDaemon(calificacion);
+            API.LMSFinish("feedback", feedback);
+            API.notifyDaemon(calificacion);
         }
     });
     $("#aceptar").click(function() {
@@ -63,12 +61,24 @@ $(function() {
 function getRandom(bottom, top) {
     return Math.floor(Math.random() * (1 + top - bottom)) + bottom;
 }
-function getRandomFrom(vals){
-	return vals[getRandom(0,vals.length-1)];
+function getRandomFrom(vals) {
+    return vals[getRandom(0, vals.length - 1)];
 }
-function draw(){
-	$('.mvar[value=a]').html(a);
-	$('.mvar[value=b]').html(b);
-	$('.mvar[value=c]').html(c);
-	$('.mvar[value=d]').html(d);
+function shuffleArray(array) {
+    for (var i = array.length - 1; i > 0; i--) {
+        var j = Math.floor(Math.random() * (i + 1));
+        var temp = array[i];
+        array[i] = array[j];
+        array[j] = temp;
+    }
+    return array;
+}
+function draw() {
+    $('.mvar[value=a]').html(a);
+    $('.mvar[value=b]').html(b);
+    $('.mvar[value=c]').html(c);
+    $('.mvar[value=n1]').html(a * d);
+    $('.mvar[value=n2]').html(a * e + b * d);
+    $('.mvar[value=n3]').html(f + b * e + c * d);
+    $('.mvar[value=n4]').html(g + c * e);
 }

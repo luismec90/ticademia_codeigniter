@@ -14,13 +14,14 @@ $(function() {
     j = getRandom(6, 15);
 
     var correctAnswer1 = (100 * m + 10 * n + k) / 100;
-    var correctAnswer2 = j+2;
+    var correctAnswer2 = j - 1;
     //var missConception1 = n;
     //console.log(correctAnswer1 + " " + correctAnswer2);
     draw();
 
     $("#verificar").click(function() {
         var valor1 = $("#answer1").val().trim();
+        valor1 = ((valor1.split(",")).length == 2) ? valor1.replace(",", ".") : valor1;
         var valor2 = $("#answer2").val().trim();
         if (valor1 != "" && valor2 != "") {
             $("#correcto").addClass("hide");

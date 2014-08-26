@@ -1,4 +1,4 @@
-var a, b;
+var a, b, c, d;
 
 $(function() {
     try {
@@ -8,69 +8,30 @@ $(function() {
         console.log(e);
     }
 
-    a = getRandom(2, 4);
-    b = getRandom(2, 4);
-
-    var correctAnswer1 = a;
-    var correctAnswer2 = 1;
-    var correctAnswer3 = b;
-    var correctAnswer4 = 1;
-    var correctAnswer5 = a * a;
-    var correctAnswer6 = 2;
-    var correctAnswer7 = a * b;
-    var correctAnswer8 = 1;
-    var correctAnswer9 = 1;
-    var correctAnswer10 = b * b;
-    var correctAnswer11 = 2;
-    //var missConception1 = n;
-    //console.log(correctAnswer);
-    draw();
+    a = getRandom(-10, -1);
+    b = getRandom(-10, 10);
+    c = getRandom(-10, 9);
+    d = getRandom(c, 10);
+    //console.log(correctAnswer + " " + missConception1);
+    var correctAnswer = draw();
 
     $("#verificar").click(function() {
-        var valor1 = $("#answer1").val().trim();
-        var valor2 = $("#answer2").val().trim();
-        var valor3 = $("#answer3").val().trim();
-        var valor4 = $("#answer4").val().trim();
-        var valor5 = $("#answer5").val().trim();
-        var valor6 = $("#answer6").val().trim();
-        var valor7 = $("#answer7").val().trim();
-        var valor8 = $("#answer8").val().trim();
-        var valor9 = $("#answer9").val().trim();
-        var valor10 = $("#answer10").val().trim();
-        var valor11 = $("#answer11").val().trim();
-        if (valor1 != "" && valor2 != "" && valor3 != "" && valor4 != "" && valor5 != "" && valor6 != "" && valor7 != "" && valor8 != "" && valor9 != "" && valor10 != "" && valor11 != "") {
+        var valor = $("input[name=answer]:checked").val().trim();
+        if (valor != "") {
             $("#correcto").addClass("hide");
             $("#feedback").addClass("hide");
             var calificacion = 0;
             var feedback = "";
-            valor1 = parseFloat(valor1);
-            valor2 = parseFloat(valor2);
-            valor3 = parseFloat(valor3);
-            valor4 = parseFloat(valor4);
-            valor5 = parseFloat(valor5);
-            valor6 = parseFloat(valor6);
-            valor7 = parseFloat(valor7);
-            valor8 = parseFloat(valor8);
-            valor9 = parseFloat(valor9);
-            valor10 = parseFloat(valor10);
-            valor11 = parseFloat(valor11);
-
-            if (valor1 == correctAnswer1 &&
-                    valor2 == correctAnswer2 &&
-                    valor3 == correctAnswer3 &&
-                    valor4 == correctAnswer4 &&
-                    valor5 == correctAnswer5 &&
-                    valor6 == correctAnswer6 &&
-                    valor7 == correctAnswer7 &&
-                    valor8 == correctAnswer8 &&
-                    valor9 == correctAnswer9 &&
-                    valor10 == correctAnswer10 &&
-                    valor11 == correctAnswer11) {
-                calificacion = 1.0;
-                $("#correcto").html("Calificación: <b>" + calificacion + "</b>").removeClass("hide");
-            } else {
-                calificacion = 0.0;
-                $("#feedback").html("Calificación: <b>" + calificacion + "</b> <br> ...").removeClass("hide");
+            valor = parseFloat(valor);
+            switch (valor) {
+                case correctAnswer:
+                    calificacion = 1.0;
+                    $("#correcto").html("Calificación: <b>" + calificacion + "</b>").removeClass("hide");
+                    break;
+                default:
+                    calificacion = 0.0;
+                    $("#feedback").html("Calificación: <b>" + calificacion + "</b> <br> ...").removeClass("hide");
+                    break;
             }
             $(this).attr("disabled", true);
             API.closeQuestion();
@@ -96,6 +57,29 @@ function getRandom(bottom, top) {
 function getRandomFrom(vals) {
     return vals[getRandom(0, vals.length - 1)];
 }
+function draw() {
+    var correct = 0;
+    var answers = ['<span class="fraccion"><span>' + (d - b) + '</span><span>' + a + '</span></span> < x ≤ <span class="fraccion"><span>' + (c - b) + '</span><span>' + a + '</span></span>',
+        (c - b) + " ≤ x < " + (d - b),
+        '<span class="fraccion"><span>' + (c - b) + '</span><span>' + a + '</span></span> ≤ x < <span class="fraccion"><span>' + (d - b) + '</span><span>' + a + '</span></span>',
+        '<span class="fraccion"><span>' + (c - b) + '</span><span>' + a + '</span></span> < x ≤ <span class="fraccion"><span>' + (d - b) + '</span><span>' + a + '</span></span>'];
+    var is = [0, 1, 2, 3];
+    shuffleArray(is);
+    var i = 0;
+    while (i < 4) {
+        $("#label" + (i + 1)).html(answers[is[i]]);
+        if (is[i] == 0)
+            correct = i + 1;
+        i++;
+    }
+
+    $('.mvar[value=a]').html(a);
+    $('.mvar[value=b]').html(b);
+    $('.mvar[value=c]').html(c);
+    $('.mvar[value=d]').html(d);
+    return correct;
+}
+
 function shuffleArray(array) {
     for (var i = array.length - 1; i > 0; i--) {
         var j = Math.floor(Math.random() * (i + 1));
@@ -104,8 +88,4 @@ function shuffleArray(array) {
         array[j] = temp;
     }
     return array;
-}
-function draw() {
-    $('.mvar[value=a3]').html(a * a * a);
-    $('.mvar[value=b3]').html(b * b * b);
 }

@@ -8,7 +8,7 @@ body {
     height: 600px;
 }
 
-@media (max-width: 767px) { h1{ font-size:20px !important; } }#canvas{
+#canvas{
     position: absolute;
     left: calc(50% - 150px);
 
@@ -22,10 +22,9 @@ h1{
     text-align: center;
 
 }
-
-.input-group{
-	width:200px;
-	margin:auto;
+#answer, .form-control{
+    width: 100px;
+    display: inline-block;
 }
 
 .equation {
@@ -34,7 +33,19 @@ h1{
 	font-style: italic;
 }
 
-
-
+.fraccion{
+	display:inline-block;
+	vertical-align:middle;
+	letter-spacing:0.01em;
+	text-align:center;
+}
+.fraccion>span{
+	display:block;
+	padding:0.2em;
+	
+}
+.fraccion>span:last-child{
+	border-top:thin solid black;
+}
 
 

@@ -139,7 +139,7 @@ class Curso extends CI_Controller {
             $evaluaciones = $this->evaluacion_model->obtenerEvaluacionesPorModulo($idModulo, $_SESSION["idUsuario"]);
 //  var_dump($evaluaciones);
 //  echo $this->db->last_query();
-            $version = 4;
+            $version = 10;
             $estatusPrev = "solved";
             foreach ($evaluaciones as $row) {
                 if ($row->calificacion_maxima >= $umbral && $row->calificacion_minima != -1) {

@@ -1,55 +1,43 @@
-var a, b, c, d, e, f, g;
+var a,b,c,d;
 
 $(function() {
-    try {
-        API = getAPI();
-        API.LMSInitialize("");
-    } catch (e) {
-        console.log(e);
-    }
+	try{
+		API = getAPI();
+		API.LMSInitialize("");
+	}catch(e){
+		console.log(e);
+	}
 
-    a = getRandomFrom([-1, 1]) * getRandom(1, 9);
-    b = getRandomFrom([-1, 1]) * getRandom(1, 9);
-    c = getRandomFrom([-1, 1]) * getRandom(1, 9);
-    d = getRandomFrom([-1, 1]) * getRandom(1, 9);
-    e = getRandomFrom([-1, 1]) * getRandom(1, 9);
-    f = getRandomFrom([-1, 1]) * getRandom(1, 9);
-    g = getRandomFrom([-1, 1]) * getRandom(1, 9);
+    a = getRandomFrom([2,5,11]);
+    c = getRandomFrom([2,5,11]);
+    b = getRandomFrom([3,7]);
+	d = getRandomFrom([13,17]);
 
-    var correctAnswer1 = a;
-    var correctAnswer2 = b;
-    var correctAnswer3 = c;
-    var correctAnswer4 = d;
-    var correctAnswer5 = e;
+    var correctAnswer1 = Math.abs((-a*d)+(b*c));
+    var correctAnswer2 = b*d;
     //var missConception1 = n;
-    //console.log(correctAnswer1 + " " + correctAnswer2 + " " + correctAnswer3 + " " + correctAnswer4);
+    //console.log(correctAnswer + " " + missConception1);
     draw();
 
     $("#verificar").click(function() {
         var valor1 = $("#answer1").val().trim();
         var valor2 = $("#answer2").val().trim();
-        var valor3 = $("#answer3").val().trim();
-        var valor4 = $("#answer4").val().trim();
-        var valor5 = $("#answer5").val().trim();
-        if (valor1 != "" && valor2 != "" && valor3 != "" && valor4 != "" && valor5 != "") {
+        if (valor1 != "" && valor2 != "") {
             $("#correcto").addClass("hide");
             $("#feedback").addClass("hide");
             var calificacion = 0;
             var feedback = "";
             valor1 = parseFloat(valor1);
             valor2 = parseFloat(valor2);
-            valor3 = parseFloat(valor3);
-            valor4 = parseFloat(valor4);
-            valor5 = parseFloat(valor5);
-
-            if (valor1 == correctAnswer1 && valor2 == correctAnswer2 && valor3 == correctAnswer3 && valor4 == correctAnswer3 && valor5 == correctAnswer3) {
-                calificacion = 1.0;
-                $("#correcto").html("Calificación: <b>" + calificacion + "</b>").removeClass("hide");
-            } else {
-                calificacion = 0.0;
-                $("#feedback").html("Calificación: <b>" + calificacion + "</b> <br> ...").removeClass("hide");
+			
+			if(valor1 == correctAnswer1 && valor2 == correctAnswer2){
+				calificacion = 1.0;
+				$("#correcto").html("Calificación: <b>" + calificacion + "</b>").removeClass("hide");
+            }else{
+				calificacion = 0.0;
+				$("#feedback").html("Calificación: <b>" + calificacion + "</b> <br> ...").removeClass("hide");
             }
-            $(this).attr("disabled", true);
+                      $(this).attr("disabled", true);
             API.closeQuestion();
             if (typeof API.calificar == 'function') {
                 API.calificar(calificacion, feedback);
@@ -70,23 +58,12 @@ $(function() {
 function getRandom(bottom, top) {
     return Math.floor(Math.random() * (1 + top - bottom)) + bottom;
 }
-function getRandomFrom(vals) {
-    return vals[getRandom(0, vals.length - 1)];
+function getRandomFrom(vals){
+	return vals[getRandom(0,vals.length-1)];
 }
-function shuffleArray(array) {
-    for (var i = array.length - 1; i > 0; i--) {
-        var j = Math.floor(Math.random() * (i + 1));
-        var temp = array[i];
-        array[i] = array[j];
-        array[j] = temp;
-    }
-    return array;
-}
-function draw() {
-    $('.mvar[value=a]').html(a);
-    $('.mvar[value=g]').html(g);
-    $('.mvar[value=n1]').html(b + a * g);
-    $('.mvar[value=n2]').html(c + b * g);
-    $('.mvar[value=n3]').html(d + c * g);
-    $('.mvar[value=n4]').html(e + g * d);
+function draw(){
+	$('.mvar[value=a]').html(a);
+	$('.mvar[value=b]').html(b);
+	$('.mvar[value=c]').html(c);
+	$('.mvar[value=d]').html(d);
 }

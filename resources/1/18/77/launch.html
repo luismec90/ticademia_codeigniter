@@ -14,23 +14,42 @@
     </head>
     <body>
         <div id="contenedor" class="container-fluid">
-            <h1>El resultado de expandir <span class="equation">(<span class="mvar" value="a">a</span>X - <span class="mvar" value="b">b</span>Y<sup><span class="mvar" value="r">r</span></sup>)<sup>3</sup></span></h1>
+            <h1>Al expandir la expresión<br/>
+			<span class="equation">
+				(<span class="mvar" value="a">a</span>z<sup>2</sup> + <span class="mvar" value="b">b</span>w<sup>3</sup>y)<sup>2</sup>
+			</span> 
+			</br>se obtiene:</h1>
           
             <div id="div-asnwer">
-                <h4>Respuesta = <br/><br/>
-				<div>
-					<input id="answer1" class="form-control" type="number" autofocus> X
-					<input id="answer2" class="form-control sup" type="number" autofocus> - 
-					<input id="answer3" class="form-control" type="number" autofocus> X
-					<input id="answer4" class="form-control sup" type="number" autofocus> Y
-					<input id="answer5" class="form-control sup" type="number" autofocus> + 
-					<input id="answer6" class="form-control" type="number" autofocus> XY
-					<input id="answer7" class="form-control sup" type="number" autofocus> - 
-					<input id="answer8" class="form-control" type="number" autofocus> Y
-					<input id="answer9" class="form-control sup" type="number" autofocus>
-				</div>
-					<br/><br/>
-				<a id="verificar" class="btn btn-primary" >Enviar</a></h4>
+                <h4>Respuesta:<br/></br>
+				
+					<div class="input-group">
+					  <span class="input-group-addon">
+						<input id="answer1" name="answer" type="radio" value="1">
+					  </span>
+					  <label class="form-control" for="answer1" id="label1"></label>
+					</div>
+					<div class="input-group">
+					  <span class="input-group-addon">
+						<input id="answer2" name="answer" type="radio" value="2">
+					  </span>
+					  <label class="form-control" for="answer2" id="label2"></label>
+					</div>
+					<div class="input-group">
+					  <span class="input-group-addon">
+						<input id="answer3" name="answer" type="radio" value="3">
+					  </span>
+					  <label class="form-control" for="answer3" id="label3"></label>
+					</div>
+					<div class="input-group">
+					  <span class="input-group-addon">
+						<input id="answer4" name="answer" type="radio" value="4">
+					  </span>
+					  <label class="form-control" for="answer4" id="label4"></label>
+					</div>
+					
+					<br/></br><a id="verificar" class="btn btn-primary" >Enviar</a>
+				</h4>
             </div>
         </div>
         <div class="modal fade" id="modal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">

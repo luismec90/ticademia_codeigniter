@@ -14,23 +14,38 @@
     </head>
     <body>
         <div id="contenedor" class="container-fluid">
-            <h1>El resultado de la división <br/>
-			<span class="equation">
-                <span class="fraccion">
-                    <span>
-                        <span class="mvar" value="axb">a*b</span>x<sup>-3/2</sup> + <span class="mvar" value="ab">a+b</span>x<sup>-1/2</sup> + x<sup>1/2</sup>
-                    </span>
-                    <span>
-                        x<sup>-3/2</sup>(x + <span class="mvar" value="a">a</span>)
-                    </span>
-                </span>
-			</span> 
-			<br/>es:</h1>
+            <h1>El intervalo <span class="equation">[<span class="mvar" value="a">a</span>,<span class="mvar" value="b">b</span>) representa el conjunto:</h1>
           
             <div id="div-asnwer">
-                <h4>Respuesta = <br/><br/>
-                        x + <input id="answer" class="form-control" type="number" autofocus>
-				<a id="verificar" class="btn btn-primary" >Enviar</a></h4>
+                <h4>Respuesta = <br/></br>
+				
+					<div class="input-group">
+					  <span class="input-group-addon">
+						<input id="answer1" name="answer" type="radio" value="1">
+					  </span>
+					  <label class="form-control" for="answer1" id="label1"></label>
+					</div>
+					<div class="input-group">
+					  <span class="input-group-addon">
+						<input id="answer2" name="answer" type="radio" value="2">
+					  </span>
+					  <label class="form-control" for="answer2" id="label2"></label>
+					</div>
+					<div class="input-group">
+					  <span class="input-group-addon">
+						<input id="answer3" name="answer" type="radio" value="3">
+					  </span>
+					  <label class="form-control" for="answer3" id="label3"></label>
+					</div>
+					<div class="input-group">
+					  <span class="input-group-addon">
+						<input id="answer4" name="answer" type="radio" value="4">
+					  </span>
+					  <label class="form-control" for="answer4" id="label4"></label>
+					</div>
+					
+					<br/></br><a id="verificar" class="btn btn-primary" >Enviar</a>
+				</h4>
             </div>
         </div>
         <div class="modal fade" id="modal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">

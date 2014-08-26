@@ -1,4 +1,4 @@
-var a, b, c, d, e, f, g;
+var a, b;
 
 $(function() {
     try {
@@ -8,37 +8,36 @@ $(function() {
         console.log(e);
     }
 
-    a = getRandomFrom([-1, 1]);
-    b = 2 * getRandomFrom([-1, 1]);
-    c = 3 * getRandomFrom([-1, 1]);
-    d = 4 * getRandomFrom([-1, 1]);
-    e = 5 * getRandomFrom([-1, 1]);
-    f = 6 * getRandomFrom([-1, 1]);
-    g = 7 * getRandomFrom([-1, 1]);
+    b = getRandom(-10, 1);
+    a = getRandom(b + 5, b + 15);
 
-    var correctAnswer1 = f;
-    var correctAnswer2 = g;
+    var correctAnswer = Math.abs(a - b);
     //var missConception1 = n;
-    //console.log(correctAnswer1 + " " + correctAnswer2 + " " + correctAnswer3 + " " + correctAnswer4);
+    //console.log(correctAnswer + " " + missConception1);
     draw();
 
     $("#verificar").click(function() {
-        var valor1 = $("#answer1").val().trim();
-        var valor2 = $("#answer2").val().trim();
-        if (valor1 != "" && valor2 != "") {
+        var valor = $("#answer").val().trim();
+        if (valor != "") {
             $("#correcto").addClass("hide");
             $("#feedback").addClass("hide");
             var calificacion = 0;
             var feedback = "";
-            valor1 = parseFloat(valor1);
-            valor2 = parseFloat(valor2);
-
-            if (valor1 == correctAnswer1 && valor2 == correctAnswer2) {
-                calificacion = 1.0;
-                $("#correcto").html("Calificación: <b>" + calificacion + "</b>").removeClass("hide");
-            } else {
-                calificacion = 0.0;
-                $("#feedback").html("Calificación: <b>" + calificacion + "</b> <br> ...").removeClass("hide");
+            valor = parseFloat(valor);
+            switch (valor) {
+                case correctAnswer:
+                    calificacion = 1.0;
+                    $("#correcto").html("Calificación: <b>" + calificacion + "</b>").removeClass("hide");
+                    break;
+                    /*case missConception1:
+                     calificacion = 0.5;
+                     feedback = "n";
+                     $("#feedback").html("Calificación: <b>" + calificacion + "</b> <br> ...").removeClass("hide");
+                     break;*/
+                default:
+                    calificacion = 0.0;
+                    $("#feedback").html("Calificación: <b>" + calificacion + "</b> <br> ...").removeClass("hide");
+                    break;
             }
             $(this).attr("disabled", true);
             API.closeQuestion();
@@ -61,24 +60,7 @@ $(function() {
 function getRandom(bottom, top) {
     return Math.floor(Math.random() * (1 + top - bottom)) + bottom;
 }
-function getRandomFrom(vals) {
-    return vals[getRandom(0, vals.length - 1)];
-}
-function shuffleArray(array) {
-    for (var i = array.length - 1; i > 0; i--) {
-        var j = Math.floor(Math.random() * (i + 1));
-        var temp = array[i];
-        array[i] = array[j];
-        array[j] = temp;
-    }
-    return array;
-}
 function draw() {
     $('.mvar[value=a]').html(a);
     $('.mvar[value=b]').html(b);
-    $('.mvar[value=c]').html(c);
-    $('.mvar[value=n1]').html(a * d);
-    $('.mvar[value=n2]').html(a * e + b * d);
-    $('.mvar[value=n3]').html(f + b * e + c * d);
-    $('.mvar[value=n4]').html(g + c * e);
 }

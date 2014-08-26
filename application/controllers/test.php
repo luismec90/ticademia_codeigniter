@@ -11,18 +11,16 @@ class Test extends CI_Controller {
     }
 
     public function index() {
-        
-    
-        
-        $data["tab"] = "test";
-        $data["css"] = array("css/test");
-        $data["js"] = array("js/test");
-        $data["jsonDuelo"] = array("dummies" => array(), "retado" => array(), "modulo" => "", "pregunta" => "", "apuesta" => "");
-        $data["jsonDuelo"] = json_encode($data["jsonDuelo"]);
-
-        $this->load->view('include/header', $data);
-        $this->load->view('test_view');
-        $this->load->view('include/footer');
+        echo "asd";
+        exit();
+        $orden = 10;
+        for ($i = 74; $i < 104; $i++) {
+            $data = array("id_evaluacion" => $i,
+                "id_modulo" => 18,
+                "id_tipo_evaluacion" => 3,
+                "orden" => $orden++);
+            $this->evaluacion_model->crear($data);
+        }
     }
 
 }

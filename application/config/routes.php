@@ -59,6 +59,7 @@ $route['estadisticaevaluaciones/(:num)'] = "estadisticas/evaluacion/index/$1";
 $route['infoestudiante/(:num)/(:num)'] = "estadisticas/estudiante/infoestudiante/$1/$2";
 $route['404_override'] = '';
 
+$route['test'] = "test/index";
 
 /* End of file routes.php */
 /* Location: ./application/config/routes.php */

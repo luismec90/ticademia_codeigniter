@@ -1,4 +1,4 @@
-var a,b,ab,axb;
+var n;
 
 $(function() {
 	try{
@@ -8,39 +8,51 @@ $(function() {
 		console.log(e);
 	}
 
-	do{
-		a = getRandom(-9,9);
-	}while(a==0)
-	do{
-		b = getRandom(-9,9);
-	}while(b==0 || b==a)
+    n = getRandom(3,8);
 
-    var correctAnswer1 = a;
-    var correctAnswer2 = b;
-    //var missConception1 = n;
+	var fact = [2, 6, 24, 120, 720, 5040, 40320];
+    var correctAnswer = fact[n-2];
+    var missConception1 = n;
+	var missConception2 = Math.pow(n,n);
+	var missConception3 = fact[n-3];
     //console.log(correctAnswer + " " + missConception1);
     draw();
 
     $("#verificar").click(function() {
-        var valor1 = $("#answer1").val().trim();
-        var valor2 = $("#answer2").val().trim();
-        if (valor1 != "" && valor2 != "") {
+        var valor = $("#answer").val().trim();
+        if (valor != "") {
             $("#correcto").addClass("hide");
             $("#feedback").addClass("hide");
             var calificacion = 0;
             var feedback = "";
-            valor1 = parseFloat(valor1);
-            valor2 = parseFloat(valor2);
-			
-			if((valor1 == correctAnswer1 && valor2 == correctAnswer2) || (valor1 == correctAnswer2 && valor2 == correctAnswer1)){
-				calificacion = 1.0;
-				$("#correcto").html("Calificación: <b>" + calificacion + "</b>").removeClass("hide");
-            }else{
-				calificacion = 0.0;
-				$("#feedback").html("Calificación: <b>" + calificacion + "</b> <br> ...").removeClass("hide");
+            valor = parseFloat(valor);
+            switch (valor) {
+                case correctAnswer:
+                    calificacion = 1.0;
+                    $("#correcto").html("Calificación: <b>" + calificacion + "</b>").removeClass("hide");
+                    break;
+                case missConception1:
+                    calificacion = 0.5;
+                    feedback = "n";
+                    $("#feedback").html("Calificación: <b>" + calificacion + "</b> <br> ...").removeClass("hide");
+                    break;
+				case missConception2:
+                    calificacion = 0.5;
+                    feedback = "n^n";
+                    $("#feedback").html("Calificación: <b>" + calificacion + "</b> <br> ...").removeClass("hide");
+                    break;
+				case missConception3:
+                    calificacion = 0.5;
+                    feedback = "(n-1)!";
+                    $("#feedback").html("Calificación: <b>" + calificacion + "</b> <br> ...").removeClass("hide");
+                    break;
+                default:
+                    calificacion = 0.0;
+                    $("#feedback").html("Calificación: <b>" + calificacion + "</b> <br> ...").removeClass("hide");
+                    break;
             }
-            $(this).attr("disabled", true);
-              API.closeQuestion();
+                      $(this).attr("disabled", true);
+            API.closeQuestion();
             if (typeof API.calificar == 'function') {
                 API.calificar(calificacion, feedback);
             }
@@ -60,10 +72,6 @@ $(function() {
 function getRandom(bottom, top) {
     return Math.floor(Math.random() * (1 + top - bottom)) + bottom;
 }
-function getRandomFrom(vals){
-	return vals[getRandom(0,vals.length-1)];
-}
 function draw(){
-	$('.mvar[value=ab]').html(a+b);
-	$('.mvar[value=axb]').html(a*b);
+	$('.mvar[value=n]').html(n);
 }

@@ -1,4 +1,4 @@
-var a, b;
+var n, r;
 
 $(function() {
     try {
@@ -8,34 +8,28 @@ $(function() {
         console.log(e);
     }
 
-    a = getRandom(1, 9);
-    do {
-        b = getRandom(1, 9);
-    } while (b == a)
-
-    var correctAnswer1 = a;
-    var correctAnswer2 = -b;
-    //var missConception1 = n;
-    //console.log(correctAnswer1 + " " + correctAnswer2 + " " + correctAnswer3 + " " + correctAnswer4);
-    draw();
+    n = getRandom(12, 17);
+    r = getRandom(2, 4);
+    //console.log(correctAnswer + " " + missConception1);
+    var correctAnswer = draw();
 
     $("#verificar").click(function() {
-        var valor1 = $("#answer1").val().trim();
-        var valor2 = $("#answer2").val().trim();
-        if (valor1 != "" && valor2 != "") {
+        var valor = $("input[name=answer]:checked").val().trim();
+        if (valor != "") {
             $("#correcto").addClass("hide");
             $("#feedback").addClass("hide");
             var calificacion = 0;
             var feedback = "";
-            valor1 = parseFloat(valor1);
-            valor2 = parseFloat(valor2);
-
-            if (valor1 == correctAnswer1 && valor2 == correctAnswer2) {
-                calificacion = 1.0;
-                $("#correcto").html("Calificación: <b>" + calificacion + "</b>").removeClass("hide");
-            } else {
-                calificacion = 0.0;
-                $("#feedback").html("Calificación: <b>" + calificacion + "</b> <br> ...").removeClass("hide");
+            valor = parseFloat(valor);
+            switch (valor) {
+                case correctAnswer:
+                    calificacion = 1.0;
+                    $("#correcto").html("Calificación: <b>" + calificacion + "</b>").removeClass("hide");
+                    break;
+                default:
+                    calificacion = 0.0;
+                    $("#feedback").html("Calificación: <b>" + calificacion + "</b> <br> ...").removeClass("hide");
+                    break;
             }
             $(this).attr("disabled", true);
             API.closeQuestion();
@@ -61,6 +55,40 @@ function getRandom(bottom, top) {
 function getRandomFrom(vals) {
     return vals[getRandom(0, vals.length - 1)];
 }
+function draw() {
+    var correct = 0;
+
+    var factn = fact(n);
+    var factr = fact(r);
+    var factnr = fact(n - r);
+    var fact2r = fact(2 * r);
+    var factn2r = fact(n - 2 * r);
+
+    var answers = [(factn / (factr * factnr)) + 'u<sup>' + (n - r) + '</sup>v<sup>' + (2 * r) + '</sup>',
+        (factn / (fact2r * factn2r)) + 'u<sup>' + (n - 2 * r) + '</sup>v<sup>' + (2 * r) + '</sup>',
+        (factn / (factr * factnr)) + 'u<sup>' + (r) + '</sup>v<sup>' + (2 * r) + '</sup>',
+        (factn / (fact2r * factn2r)) + 'u<sup>' + (r) + '</sup>v<sup>' + (2 * r) + '</sup>'];
+
+    var is = [0, 1, 2, 3];
+    shuffleArray(is);
+    var i = 0;
+    while (i < 4) {
+        $("#label" + (i + 1)).html(answers[is[i]]);
+        if (is[i] == 0)
+            correct = i + 1;
+        i++;
+    }
+
+    $('.mvar[value=n]').html(n);
+    $('.mvar[value=r]').html(r);
+    $('.mvar[value=2r]').html(2 * r);
+    return correct;
+}
+function fact(n) {
+    if (n == 1)
+        return 1;
+    return n * fact(n - 1);
+}
 function shuffleArray(array) {
     for (var i = array.length - 1; i > 0; i--) {
         var j = Math.floor(Math.random() * (i + 1));
@@ -69,10 +97,4 @@ function shuffleArray(array) {
         array[j] = temp;
     }
     return array;
-}
-function draw() {
-    $('.mvar[value=a]').html(a);
-    $('.mvar[value=a2]').html(a * a);
-    $('.mvar[value=b]').html(b);
-    $('.mvar[value=b2]').html(b * b);
 }

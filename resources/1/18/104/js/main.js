@@ -57,7 +57,7 @@ function getRandomFrom(vals) {
 }
 function draw() {
     var correct = 0;
-    var answers = ['<span class="fraccion"><span>m<sup>' + (n - k) + '</sup> + 2m + 1</span><span>m<sup>' + (n) + '</sup></span></span>',
+    var answers = ['<span class="fraccion"><span>2m<sup>' + (n - k+1) + '</sup> + m<sup>' + (n - k) + '</sup> + 1</span><span>m<sup>' + (n) + '</sup></span></span>',
         '<span class="fraccion"><span>m<sup>' + (n - k + 1) + '</sup> + 2</span><span>m<sup>' + (n) + '</sup></span></span>',
         '<span class="fraccion"><span>m<sup>' + (n - k + 2) + '</sup> + 2</span><span>m<sup>' + (n) + '</sup></span></span>',
         '<span class="fraccion"><span>m<sup>' + (n - k + 1) + '</sup> + 2m</span><span>m<sup>' + (k) + '</sup></span></span>',

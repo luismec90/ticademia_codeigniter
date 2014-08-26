@@ -1,61 +1,48 @@
-var n,r;
+var a, b, ab, axb;
 
 $(function() {
-	try{
-		API = getAPI();
-		API.LMSInitialize("");
-	}catch(e){
-		console.log(e);
-	}
+    try {
+        API = getAPI();
+        API.LMSInitialize("");
+    } catch (e) {
+        console.log(e);
+    }
 
-    n = getRandom(45,55);
-	r = getRandom(5,10);
-	
-	var fn = fact(n);
-	var fr = fact(r);
-	var fnr = fact(n-r);
+    a = getRandom(1, 5);
+    b = getRandom(6, 9);
 
-    var correctAnswer = fn/(fr*fnr);
-    /*var missConception1 = fn/fr;
-	var missConception2 = fn/fnr;
-	var missConception3 = fr;*/
-    console.log(correctAnswer + " ");
+    var correctAnswer1 = a;
+    var correctAnswer2 = b;
+    //var missConception1 = n;
+    //console.log(correctAnswer + " " + missConception1);
     draw();
 
     $("#verificar").click(function() {
-        var valor = $("#answer").val().trim();
-        if (valor != "") {
+        var valor1 = $("#answer1").val().trim();
+        var valor2 = $("#answer2").val().trim();
+        if (valor1 != "" && valor2 != "") {
             $("#correcto").addClass("hide");
             $("#feedback").addClass("hide");
             var calificacion = 0;
             var feedback = "";
-            valor = parseFloat(valor);
-            switch (valor) {
-                case correctAnswer:
-                    calificacion = 1.0;
-                    $("#correcto").html("Calificación: <b>" + calificacion + "</b>").removeClass("hide");
-                    break;
-                /*case missConception1:
-                    calificacion = 0.5;
-                    feedback = "n!/r!";
-                    $("#feedback").html("Calificación: <b>" + calificacion + "</b> <br> ...").removeClass("hide");
-                    break;*/
-                default:
-                    calificacion = 0.0;
-                    $("#feedback").html("Calificación: <b>" + calificacion + "</b> <br> ...").removeClass("hide");
-                    break;
+            valor1 = parseFloat(valor1);
+            valor2 = parseFloat(valor2);
+
+            if ((valor1 == correctAnswer1 && valor2 == correctAnswer2) || (valor1 == correctAnswer2 && valor2 == correctAnswer1)) {
+                calificacion = 1.0;
+                $("#correcto").html("Calificación: <b>" + calificacion + "</b>").removeClass("hide");
+            } else {
+                calificacion = 0.0;
+                $("#feedback").html("Calificación: <b>" + calificacion + "</b> <br> ...").removeClass("hide");
             }
             $(this).attr("disabled", true);
-            /* $("#modal").modal({
-                backdrop: "static",
-                keyboard: "false"
-            });
-
-            */ API.closeQuestion();  if (typeof API.calificar == 'function') {
+            API.closeQuestion();
+            if (typeof API.calificar == 'function') {
                 API.calificar(calificacion, feedback);
             }
             API.LMSSetValue("cmi.core.score.raw", calificacion);
-            API.LMSFinish("feedback", feedback); API.notifyDaemon(calificacion);
+            API.LMSFinish("feedback", feedback);
+            API.notifyDaemon(calificacion);
         }
     });
     $("#aceptar").click(function() {
@@ -69,11 +56,10 @@ $(function() {
 function getRandom(bottom, top) {
     return Math.floor(Math.random() * (1 + top - bottom)) + bottom;
 }
-function fact(n){
-	if(n==1)return 1;
-	return n*fact(n-1);
+function getRandomFrom(vals) {
+    return vals[getRandom(0, vals.length - 1)];
 }
-function draw(){
-	$('.mvar[value=n]').html(n);
-	$('.mvar[value=r]').html(r);
+function draw() {
+    $('.mvar[value=ab]').html(a + b);
+    $('.mvar[value=axb]').html(a * b);
 }

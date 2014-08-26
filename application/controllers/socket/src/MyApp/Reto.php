@@ -63,6 +63,7 @@ class Reto implements MessageComponentInterface {
                 echo $idUsuario . " => " . $usuarioRetado . " / ";
                 /* ---- */
 
+
                 if ($usuarioRetado == -1) {
                     $user = array();
                     $user[$idUsuario] = $nombreUsuario;
@@ -70,7 +71,7 @@ class Reto implements MessageComponentInterface {
                     foreach ($this->aulas[$idCurso][$idUsuario] as $row) {
                         $row->send($dataToUser);
                     }
-                } else {
+                } else if (isset($this->aulas[$idCurso][$usuarioRetado])) {
                     $this->enDuelo[$idCurso][$idUsuario]["usuario_retado"] = $usuarioRetado;
                     unset($this->disponibles[$idCurso][$idUsuario]);
                     unset($this->disponibles[$idCurso][$usuarioRetado]);

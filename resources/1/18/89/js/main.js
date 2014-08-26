@@ -1,4 +1,4 @@
-var a, b, ra, rb;
+var a, b;
 
 $(function() {
     try {
@@ -8,10 +8,8 @@ $(function() {
         console.log(e);
     }
 
-    ra = getRandom(1, 7);
-    rb = getRandom(1, 7);
-    a = ra * ra;
-    b = rb * rb;
+    a = getRandom(2, 5);
+    b = getRandom(2, 5);
     //console.log(correctAnswer + " " + missConception1);
     var correctAnswer = draw();
 
@@ -34,7 +32,6 @@ $(function() {
                     break;
             }
             $(this).attr("disabled", true);
-
             API.closeQuestion();
             if (typeof API.calificar == 'function') {
                 API.calificar(calificacion, feedback);
@@ -60,22 +57,23 @@ function getRandomFrom(vals) {
 }
 function draw() {
     var correct = 0;
-    var answers = ['( ' + ra + 'x<sup>2</sup> + ' + rb + 'y<sup>3</sup>z<sup>4</sup> )( ' + ra + 'x<sup>2</sup> - ' + rb + 'y<sup>3</sup>z<sup>4</sup> )',
-        '( ' + ra + 'x<sup>2</sup> - ' + rb + 'y<sup>3</sup>z<sup>4</sup> )<sup>2</sup>',
-        '( ' + ra + 'x<sup>2</sup> - ' + rb + 'y<sup>3</sup>z<sup>4</sup> )( ' + a + 'x<sup>4</sup> + ' + ra + '' + rb + 'x<sup>2</sup>y<sup>3</sup>z<sup>4</sup> + ' + b + 'y<sup>6</sup>z<sup>8</sup> )',
-        '( ' + ra + 'x + ' + rb + 'yz )( ' + ra + 'x - ' + rb + 'yz )'];
-    var is = [0, 1, 2, 3];
+    var answers = ['(' + a + 'x + ' + b + 'y)(' + (a * a) + 'x<sup>2</sup> - ' + (a * b) + 'xy + ' + (b * b) + 'y<sup>2</sup>)',
+        '(x + y)(' + (a * a) + 'x<sup>2</sup> - ' + (a) + 'xy + ' + (b * b) + 'y<sup>2</sup>)',
+        '(x + y)(' + (a * a) + 'x<sup>2</sup> + ' + (a) + 'xy + ' + (b * b) + 'y<sup>2</sup>)',
+        '(' + a + 'x + y)(' + (a * a) + 'x<sup>2</sup> - ' + (a) + 'xy + ' + (b * b) + 'y<sup>2</sup>)',
+        '(x + ' + b + 'y)(' + (a * a) + 'x<sup>2</sup> - ' + (a) + 'xy + ' + (b * b) + 'y<sup>2</sup>)'];
+    var is = [0, 1, 2, 3, 4];
     shuffleArray(is);
     var i = 0;
-    while (i < 4) {
+    while (i < 5) {
         $("#label" + (i + 1)).html(answers[is[i]]);
         if (is[i] == 0)
             correct = i + 1;
         i++;
     }
 
-    $('.mvar[value=a]').html(a);
-    $('.mvar[value=b]').html(b);
+    $('.mvar[value=a3]').html(a * a * a);
+    $('.mvar[value=b3]').html(b * b * b);
     return correct;
 }
 

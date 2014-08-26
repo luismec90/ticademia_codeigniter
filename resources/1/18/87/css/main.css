@@ -8,7 +8,7 @@ body {
     height: 600px;
 }
 
-@media (max-width: 767px) { h1{ font-size:20px !important; } }#canvas{
+#canvas{
     position: absolute;
     left: calc(50% - 150px);
 
@@ -22,14 +22,9 @@ h1{
     text-align: center;
 
 }
-
-.input-group{
-	width:200px;
-	margin:auto;
-}
-
-.input-group>label{
-	height:auto;
+#answer, .form-control{
+    width: 100px;
+    display: inline-block;
 }
 
 .equation {
@@ -52,3 +47,5 @@ h1{
 .fraccion>span:last-child{
 	border-top:thin solid black;
 }
+
+

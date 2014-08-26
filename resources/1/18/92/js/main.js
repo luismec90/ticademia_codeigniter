@@ -1,4 +1,4 @@
-var a;
+var n, r;
 
 $(function() {
     try {
@@ -8,12 +8,22 @@ $(function() {
         console.log(e);
     }
 
-    a = getRandom(1, 6);
+    n = getRandom(45, 55);
+    r = getRandom(5, 10);
+
+    var fn = fact(n);
+    var fr = fact(r);
+    var fnr = fact(n - r);
+
+    var correctAnswer = fn / (fr * fnr);
+    /*var missConception1 = fn/fr;
+     var missConception2 = fn/fnr;
+     var missConception3 = fr;*/
     //console.log(correctAnswer + " " + missConception1);
-    var correctAnswer = draw();
+    draw();
 
     $("#verificar").click(function() {
-        var valor = $("input[name=answer]:checked").val().trim();
+        var valor = $("#answer").val().trim();
         if (valor != "") {
             $("#correcto").addClass("hide");
             $("#feedback").addClass("hide");
@@ -25,6 +35,11 @@ $(function() {
                     calificacion = 1.0;
                     $("#correcto").html("Calificación: <b>" + calificacion + "</b>").removeClass("hide");
                     break;
+                    /*case missConception1:
+                     calificacion = 0.5;
+                     feedback = "n!/r!";
+                     $("#feedback").html("Calificación: <b>" + calificacion + "</b> <br> ...").removeClass("hide");
+                     break;*/
                 default:
                     calificacion = 0.0;
                     $("#feedback").html("Calificación: <b>" + calificacion + "</b> <br> ...").removeClass("hide");
@@ -51,35 +66,12 @@ $(function() {
 function getRandom(bottom, top) {
     return Math.floor(Math.random() * (1 + top - bottom)) + bottom;
 }
-function getRandomFrom(vals) {
-    return vals[getRandom(0, vals.length - 1)];
+function fact(n) {
+    if (n == 1)
+        return 1;
+    return n * fact(n - 1);
 }
 function draw() {
-    var correct = 0;
-    var answers = ['<span class="fraccion"><span>' + (2 * a) + '</span><span>x<sup>2</sup> - ' + (a * a) + '</span></span>',
-        '0',
-        '<span class="fraccion"><span>' + (2 * a) + '</span><span>(x + ' + a + ')<sup>2</sup></span></span>',
-        '<span class="fraccion"><span>' + (2 * a) + '</span><span>x<sup>2</sup> - ' + (2 * a + a * a) + '</span></span>'];
-    var is = [0, 1, 2, 3];
-    shuffleArray(is);
-    var i = 0;
-    while (i < 4) {
-        $("#label" + (i + 1)).html(answers[is[i]]);
-        if (is[i] == 0)
-            correct = i + 1;
-        i++;
-    }
-
-    $('.mvar[value=a]').html(a);
-    return correct;
-}
-
-function shuffleArray(array) {
-    for (var i = array.length - 1; i > 0; i--) {
-        var j = Math.floor(Math.random() * (i + 1));
-        var temp = array[i];
-        array[i] = array[j];
-        array[j] = temp;
-    }
-    return array;
+    $('.mvar[value=n]').html(n);
+    $('.mvar[value=r]').html(r);
 }

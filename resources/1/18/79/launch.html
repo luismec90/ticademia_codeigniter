@@ -14,22 +14,25 @@
     </head>
     <body>
         <div id="contenedor" class="container-fluid">
-            <h1>El coeficiente del término correspondiente a <span class="equation">x</span> en el desarrollo de 
-				<span class="equation" style="display:block;">(<span class="mvar" value="a">a</span> - 
-				
-				<span class="mvar nroot" value="r">r</span><span class="raiz">&radic;</span>
-				<span class="fraccion radicando">
-					<span>x</span>
-					<span>
-						<span class="mvar" value="a">a</span><sup><span class="mvar" value="nr2">n-r-2</span></sup>
-					</span>
-				</span>
-				
-				)<sup><span class="mvar" value="n">n</span></sup></span></h1>
+            <h1>Al realizar la operación <br/>
+			<span class="equation">
+                <span class="fraccion">
+                    <span> x<sup>2</sup> + <span class="mvar" value="ab">a+b</span>x + <span class="mvar" value="axb">axb</span> </span>
+                    <span> x<sup>2</sup> + <span class="mvar" value="cd">c+d</span>x + <span class="mvar" value="cxd">cxd</span> </span>
+                </span> × 
+                <span class="fraccion">
+                    <span> x<sup>2</sup> + <span class="mvar" value="ce">c+e</span>x + <span class="mvar" value="cxe">cxe</span> </span>
+                    <span> x<sup>2</sup> + <span class="mvar" value="bf">b+f</span>x + <span class="mvar" value="bxf">bxf</span> </span>
+                </span>
+			</span> 
+			<br/>se obtiene:</h1>
           
             <div id="div-asnwer">
-                <h4>Respuesta =
-					<input id="answer" class="form-control" type="number" autofocus>
+                <h4>Respuesta = <br/><br/>
+                    <span class="fraccion">
+                        <span>(x + <input id="answer1" class="form-control" type="number" autofocus>)(x + <input id="answer2" class="form-control" type="number" autofocus>)</span>
+                        <span>(x + <input id="answer3" class="form-control" type="number" autofocus>)(x + <input id="answer4" class="form-control" type="number" autofocus>)</span>
+                    </span>
 				<a id="verificar" class="btn btn-primary" >Enviar</a></h4>
             </div>
         </div>

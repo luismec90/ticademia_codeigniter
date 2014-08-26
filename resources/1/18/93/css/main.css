@@ -8,7 +8,7 @@ body {
     height: 600px;
 }
 
-@media (max-width: 767px) { h1{ font-size:20px !important; } }#canvas{
+#canvas{
     position: absolute;
     left: calc(50% - 150px);
 
@@ -22,9 +22,14 @@ h1{
     text-align: center;
 
 }
-#answer, .form-control{
-    width: 100px;
-    display: inline-block;
+
+.input-group{
+	width:350px;
+	margin:auto;
+}
+
+.input-group>label{
+	height:auto;
 }
 
 .equation {
@@ -48,4 +53,19 @@ h1{
 	border-top:thin solid black;
 }
 
-
+.radicando { 
+	padding: 0.5ex;
+	border-top: thin black solid;
+	padding-top:0;
+}
+.raiz {
+	vertical-align:top;
+	font-size:1.7em;
+	letter-spacing:-12px;
+}
+.nroot{
+	position: relative;
+	vertical-align:top;
+	left: 1.9ex;
+	font-size: 45%;
+}
