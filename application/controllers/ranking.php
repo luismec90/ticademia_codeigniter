@@ -17,7 +17,7 @@ class Ranking extends CI_Controller {
         $this->verificarMatricula($idCurso);
 
         if ($_SESSION["rol"] != 2) {
-            $data["tab"] = "ranking";
+            $data["tab"] = "ranking_general";
             $data["limit"] = (empty($_GET["limit"])) ? 10 : $_GET["limit"];
             $curso = $this->curso_model->obtenerCursoCompleto($idCurso);
             $data["nombre_curso"] = $curso[0]->nombre;
@@ -105,10 +105,10 @@ class Ranking extends CI_Controller {
             $videos = $this->material_model->porcentajeVisualizacionTodoElCurso($row->id_usuario, $idCurso);
             $videos = $videos[0]->promedio;
 
-            if(!$videos){
-                $videos=0;
+            if (!$videos) {
+                $videos = 0;
             }
-            
+
             $foro = $this->tema_foro_model->contarPublicaciones($row->id_usuario, $idCurso);
             $foro = $foro[0]->cantidad;
 
@@ -129,13 +129,113 @@ class Ranking extends CI_Controller {
                 "modulos" => $modulosAprobados,
                 "evaluaciones" => $evaluaciones,
                 "materiales" => $materiales,
-                "videos" => $videos."%",
+                "videos" => $videos . "%",
                 "foro" => $foro,
                 "muro" => $muro
             );
             array_push($json, $aux);
         }
         echo json_encode($json);
+    }
+
+    public function rankingGrupal($idCurso) {
+        $this->load->model('usuario_x_curso_model');
+
+        $data["tab"] = "ranking_grupal";
+        $data["idCurso"] = $idCurso;
+        $curso = $this->curso_model->obtenerCursoCompleto($idCurso);
+        $data["nombre_curso"] = $curso[0]->nombre;
+        $grupoEstudiante = $this->usuario_x_curso_model->obtenerRegistroCompleto(array("id_curso" => $idCurso, "id_usuario" => $_SESSION["idUsuario"]));
+        $grupoEstudiante = $grupoEstudiante[0]->grupo;
+        $posiciones = $this->usuario_x_modulo_model->rankingCursoGrupal($idCurso);
+        $grupos = array();
+        $grupoAnterior = -1;
+        $max = 0;
+        $desviacionEstandar = array();
+        foreach ($posiciones as $row) {
+            if ($grupoAnterior != $row->grupo) {
+                $max = 0;
+                $grupos[$row->grupo]["cantidadEstudiantes"] = 0;
+                $grupos[$row->grupo]["sumaPuntaje"] = 0;
+                $grupos[$row->grupo]["desviacionEstandar"] = 0;
+                $grupos[$row->grupo]["puntajePromedio"] = 0;
+                if ($grupoAnterior != -1) {
+                    $grupos[$grupoAnterior]["desviacionEstandar"] = $this->SumatorioDesviacionEstandar($desviacionEstandar);
+                    $grupos[$grupoAnterior]["puntajePromedio"] = $grupos[$grupoAnterior]["sumaPuntaje"] / $grupos[$grupoAnterior]["cantidadEstudiantes"];
+                }
+            }
+            if ($row->puntaje_total > $max) {
+                $max = $row->puntaje_total;
+                $grupos[$row->grupo]["maxPuntaje"] = $row->puntaje_total;
+            }
+            $grupos[$row->grupo]["cantidadEstudiantes"] ++;
+            $grupos[$row->grupo]["sumaPuntaje"]+=$row->puntaje_total;
+            array_push($desviacionEstandar, $row->puntaje_total);
+
+            $grupoAnterior = $row->grupo;
+        }
+        $ranking = array();
+        $a = 0.3;
+        $b = 0.7;
+        foreach ($grupos as $grupo => $value) {
+            $ranking[$grupo] = $a * $value["maxPuntaje"] + $b * ($value["puntajePromedio"] - sqrt($value["desviacionEstandar"]));
+        }
+        asort($ranking, true);
+        $ranking = array_reverse($ranking, true);
+        $data["ranking"] = $ranking;
+        $pos = 0;
+        foreach ($ranking as $grupo => $value) {
+            $pos++;
+            if ($grupo == $grupoEstudiante) {
+                $data["puestoGrupoEstudiante"] = $pos;
+                $data["grupoEstudiante"] = $grupo;
+                 $data["grupoPuntajeEstudiante"] = $value;
+            }
+        }
+
+        $this->load->view('include/header', $data);
+        $this->load->view('ranking_grupal_view');
+        $this->load->view('include/footer');
+    }
+
+    function DesviacionEstandar($arr, $item) {
+        return pow($arr[$item] - $this->Promedio($arr), 2);
+    }
+
+    function Promedio($arr) {
+        $sum = $this->Sumatorio($arr);
+        $num = count($arr);
+
+        if ($num > 0):
+            return $sum / $num;
+        else:
+            return NULL;
+        endif;
+    }
+
+    function Sumatorio($arr) {
+        if (in_array('N/D', $arr)):
+            for ($i = 0; $i < count($arr); $i++):
+                if ($arr[$i] == 'N/D'):
+                    $arr[$i] = 0;
+                endif;
+            endfor;
+        endif;
+
+
+        return array_sum($arr);
+    }
+
+    function SumatorioDesviacionEstandar($arr) {
+        $sum = 0;
+
+        $num = count($arr);
+
+        for ($i = 0; $i < $num; $i++):
+            $sum = $sum + $this->DesviacionEstandar($arr, $i);
+        endfor;
+
+        return sqrt($sum / $num);
     }
 
 }

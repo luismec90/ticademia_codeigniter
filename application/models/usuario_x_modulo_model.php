@@ -44,6 +44,19 @@ class Usuario_x_modulo_model extends CI_Model {
         return $this->db->query($query)->result();
     }
 
+    function rankingCursoGrupal($idCurso) {
+        $query = "SELECT u.id_usuario,u.nombres,u.apellidos,u.imagen,SUM(um.puntaje) puntaje_total,uc.grupo
+                  FROM usuario_x_modulo um
+                  JOIN modulo m ON m.id_modulo=um.id_modulo
+                  JOIN usuario u ON u.id_usuario=um.id_usuario 
+                  JOIN usuario_x_curso uc ON uc.id_usuario=u.id_usuario AND uc.id_curso='$idCurso' AND uc.rol='1'
+                  WHERE m.id_curso='$idCurso' AND uc.grupo is not NULL
+                  GROUP BY u.id_usuario
+                  ORDER BY uc.grupo";
+        //  echo $query;
+        return $this->db->query($query)->result();
+    }
+
     function rankingCursoCompleto($idCurso) {
         $query = "SELECT u.id_usuario,u.nombres,u.apellidos,u.imagen,SUM(um.puntaje) puntaje_total
                   FROM usuario_x_modulo um
@@ -53,7 +66,7 @@ class Usuario_x_modulo_model extends CI_Model {
                   WHERE m.id_curso='$idCurso'
                   GROUP BY u.id_usuario
                   ORDER BY puntaje_total desc,uc.fecha desc";
-       // echo $query;
+        // echo $query;
         return $this->db->query($query)->result();
     }
 

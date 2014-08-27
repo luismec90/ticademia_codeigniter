@@ -86,7 +86,24 @@
                                     </li>
                                 <?php } ?>
                                 <li class="<?= ($tab == "muro") ? "active" : "" ?> icono"><a  title="Muro" href="<?= base_url() ?>muro/<?= $idCurso ?>"><img src="<?= base_url() ?>assets/img/temas/default/muro.png" height="37"></a></li>
-                                <li class="<?= ($tab == "ranking") ? "active" : "" ?> icono"><a title="Ranking" href="<?= base_url() ?>ranking/<?= $idCurso ?>"><img src="<?= base_url() ?>assets/img/temas/default/ranking.png" height="37"></a></li>
+                                <li class="<?= ($tab == "ranking_general" || $tab == "ranking_grupal") ? "active" : "" ?> icono">
+                                    <a class="dropdown-toggle" data-toggle="dropdown"  title="Muro" >
+                                        <img src="<?= base_url() ?>assets/img/temas/default/ranking.png" height="37">
+                                        <b class="caret white"></b>
+                                    </a>
+                                    <ul class="dropdown-menu">
+                                        <li class="<?= ($tab == "ranking_general") ? "active" : ""; ?>">
+                                            <a href="<?= base_url() ?>ranking/<?= $idCurso ?>">
+                                                Ranking general
+                                            </a>
+                                        </li>
+                                        <li class="<?= ($tab == "ranking_grupal") ? "active" : ""; ?>">
+                                            <a href="<?= base_url() ?>ranking-grupal/<?= $idCurso ?>">
+                                                Ranking grupal
+                                            </a>
+                                        </li>
+                                    </ul>
+                                </li>
                                 <li class="<?= ($tab == "logros") ? "active" : "" ?> icono"><a title="Logros" href="<?= base_url() ?>logros/<?= $idCurso ?>"><img src="<?= base_url() ?>assets/img/temas/default/logro.png" height="37"></a></li>
                                 <li class="<?= ($tab == "foro") ? "active" : "" ?> icono">
                                     <?= tabForo($idCurso); ?>
