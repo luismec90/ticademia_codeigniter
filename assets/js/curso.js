@@ -65,6 +65,7 @@ function cargarModulo(idModulo) {
                     $("#modalValoracionMaterial").modal("show");
                 }
             });
+            $('.imagen-mejor-tiempo').tooltip();
             $("#coverDisplay").css({
                 "opacity": "0",
                 "width": "0",
@@ -169,7 +170,7 @@ $(function() {
             }, false);
         }
     });
-    $("#contenedor").on("click", ".video", function() {
+    $("body").on("click", ".video", function() {
         $("#coverDisplay").css({
             "opacity": "1",
             "width": "100%",
@@ -252,7 +253,7 @@ $(function() {
     $("#contenedor").on("click", ".open,.solved", function() {
         evaluacionOReto = "evaluacion";
         idEvaluacion = $(this).data("id-evaluacion");
-        startEvaluation = new Date();
+        startEvaluation = Date.now();
         $("#contenedor-frame iframe").attr("src", $(this).data("ubicacion"))
         $("#coverDisplay").css({
             "opacity": "1",
@@ -396,7 +397,7 @@ $(function() {
 
         var data = new google.visualization.DataTable(jsonData2);
 
-        var chart = new google.visualization.LineChart(document.getElementById('modal-estadistica2'));
+        var chart = new google.visualization.LineChart(documentgetElementById('modal-estadistica2'));
         chart.draw(data, {title: "Vistas por día", width: 400, hAxis: {showTextEvery: 4}, width:550});
 
         $("#modalEstadisticasMaterial").modal();

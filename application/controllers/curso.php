@@ -335,11 +335,16 @@ class Curso extends CI_Controller {
                                             }
                                             ?>
                                             <div class="box-evaluacion">
+
                                                 <div id="evaluacion-<?= $row->id_evaluacion ?>" class="<?= $class ?> boxEvaluaciones2 <?= $row->estatus ?>" data-ubicacion="<?= $row->ubicacion ?>" data-id-evaluacion="<?= $row->id_evaluacion ?>">
+
                                                     <div class="icono fa fa-<?= $row->icono ?> fa-2x"></div>
                                                     <div class="numeroEvaluacion"><?= $i ?></div>
                                                     <?php if ($row->estatus != "lock") { ?>
                                                         <div class="tipo glyphicon <?= $tipo ?>"></div>
+                                                    <?php } ?>
+                                                    <?php if($row->imagen!=NULL) {?>
+                                                        <img class="imagen-mejor-tiempo" width="30" height="30"  data-toggle="tooltip" data-placement="bottom" title="Mejor tiempo: <?= (is_numeric($row->mejor_tiempo)) ? number_format($row->mejor_tiempo, 3, ',', ','): $row->mejor_tiempo ?> segundos. Obtenido por: <?= $row->nombresUsuarioMejorTiempo." ".$row->apellidosUsuarioMejorTiempo?>" src="<?= base_url()?>assets/img/avatares/thumbnails/<?= $row->imagen?>">
                                                     <?php } ?>
                                                     <div class="intentos"><?= $row->veces_aprobado ?>/<?= $row->veces_intentado ?></div>
                                                     <div class="puntaje"><?= $row->puntuacion ?><span class="glyphicon glyphicon-star"></span></div>

@@ -74,18 +74,6 @@ $(function() {
             }
         });
     });
-    var botonCerrar="<button id='cerrarPopOverDuelo' type='button' class='close' aria-hidden='true'>&times;</button>";
-    if (notificarDuelos) {
-        $("#arena").popover({
-            html: true,
-            trigger :"manual",
-            title :"Duelos"+botonCerrar
-        });
-        $("#arena").popover("show");
-        $("#cerrarPopOverDuelo").click(function() {
-            $("#arena").popover("hide");
-        });
-    }
 });
 
 function modalInfoUsuario(idUsuario, idCurso) {

@@ -1,6 +1,6 @@
 var a, b;
 
-$(function() {
+$(function () {
     try {
         API = getAPI();
         API.LMSInitialize("");
@@ -17,7 +17,7 @@ $(function() {
     //console.log(correctAnswer1 + " " + correctAnswer2 + " " + correctAnswer3 + " " + correctAnswer4);
     draw();
 
-    $("#verificar").click(function() {
+    $("#verificar").click(function () {
         var valor1 = $("#answer1").val().trim();
         var valor2 = $("#answer2").val().trim();
         if (valor1 != "" && valor2 != "") {
@@ -28,7 +28,7 @@ $(function() {
             valor1 = parseFloat(valor1);
             valor2 = parseFloat(valor2);
 
-            if (valor1 == correctAnswer1 && valor2 == correctAnswer2) {
+            if (valor1 == correctAnswer1 && valor2 == correctAnswer2 || valor1 == correctAnswer2 && valor2 == correctAnswer1) {
                 calificacion = 1.0;
                 $("#correcto").html("Calificación: <b>" + calificacion + "</b>").removeClass("hide");
             } else {
@@ -45,10 +45,10 @@ $(function() {
             API.notifyDaemon(calificacion);
         }
     });
-    $("#aceptar").click(function() {
+    $("#aceptar").click(function () {
         window.parent.location.reload();
     });
-    $('#modal').on('hide.bs.modal', function(e) {
+    $('#modal').on('hide.bs.modal', function (e) {
         window.parent.location.reload();
     });
 

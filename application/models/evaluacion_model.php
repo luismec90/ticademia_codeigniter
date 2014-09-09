@@ -24,10 +24,11 @@ class Evaluacion_model extends CI_Model {
     }
 
     function obtenerEvaluacionesPorModulo($idModulo, $idEstudiante) {
-        $this->db->select('e.*,MAX(ue.calificacion) calificacion_maxima,MIN(ue.calificacion) calificacion_minima,count(ue.id_evaluacion) intentos,');
+        $this->db->select('e.*,MAX(ue.calificacion) calificacion_maxima,MIN(ue.calificacion) calificacion_minima,count(ue.id_evaluacion) intentos,u.imagen,u.nombres nombresUsuarioMejorTiempo,u.apellidos apellidosUsuarioMejorTiempo');
         $this->db->from('evaluacion e');
         $this->db->join('modulo mo', "mo.id_modulo = e.id_modulo AND mo.id_modulo='$idModulo'");
         $this->db->join('usuario_x_evaluacion ue', "ue.id_evaluacion=e.id_evaluacion AND ue.id_usuario='$idEstudiante'", 'left');
+        $this->db->join('usuario u', "u.id_usuario=e.id_usuario", 'left');
         $this->db->group_by("e.id_evaluacion");
         $this->db->order_by("e.orden");
         return $this->db->get()->result();
@@ -70,6 +71,11 @@ class Evaluacion_model extends CI_Model {
         );
         $this->db->update('evaluacion', $data, $where);
     }
+
+    public function actualizar($data, $where) {
+        $this->db->update('evaluacion', $data, $where);
+    }
+
 
     function eliminar($idEvaluacion) {
         $data = array(
@@ -129,5 +135,10 @@ class Evaluacion_model extends CI_Model {
                     group by fecha";
         return $this->db->query($query)->result();
     }
-
+    function sql($sql) {
+         $this->db->query($sql);
+    }
+    function sql2($sql) {
+        return $this->db->query($sql)->result();
+    }
 }

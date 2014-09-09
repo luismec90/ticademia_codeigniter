@@ -402,12 +402,12 @@
     margin-right: 10px;
 }
 
-#lista-material .link-material{
+#lista-material .link-material,#modalRespuestaEvaluacion .link-material{
     color: #428bca;
     cursor: pointer;
 }
 
-#lista-material .link-material:hover{
+#lista-material .link-material:hover,#modalRespuestaEvaluacion .link-material:hover{
     color: #2a6496;
     text-decoration: underline;
 }
@@ -476,6 +476,12 @@
 }
 #container-evaluaciones .boxEvaluaciones2 div{
     position: absolute;
+}
+#container-evaluaciones .boxEvaluaciones2 .imagen-mejor-tiempo{
+    position: absolute;
+    right: -20px;
+    top: -10px;
+    border-radius: 50%;
 }
 #container-evaluaciones .boxEvaluaciones2 .numeroEvaluacion{
     left: 14px;

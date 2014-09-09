@@ -6,7 +6,7 @@ API.LMSInitialize = function(a) {
             method: "post",
             data: {
                 param1: a,
-                idEvaluacion: idEvaluacion,
+                idEvaluacion: idEvaluacion
             },
             success: function(data) {
             }
@@ -28,8 +28,9 @@ API.LMSFinish = function(a) {
 }
 API.calificar = function(calificacion, feedback) {
     if (evaluacionOReto == "evaluacion" ) {
-        var stopEvaluation = new Date();
-        var durationEvaluation = Math.round((stopEvaluation - startEvaluation) / 1000);
+        var stopEvaluation = Date.now();
+        var durationEvaluation =((stopEvaluation - startEvaluation)/1000);
+        console.log(durationEvaluation);
         $.ajax({
             url: "../api/calificar",
             method: "post",
