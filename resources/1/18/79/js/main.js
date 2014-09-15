@@ -16,12 +16,12 @@ $(function() {
      e = vars[4];
      f = vars[5];*/
 
-    a = getRandom(5, 9);
-    b = getRandom(5, 9);
-    c = getRandom(5, 9);
-    d = getRandom(-4, -1);
-    e = getRandom(-4, -1);
-    f = getRandom(-4, -1);
+    a = getRandom(7, 10);
+    b = getRandom(7, 10);
+    c = getRandom(7, 10);
+    d = getRandom(-6, -4);
+    e = getRandom(-3, -1);
+    f = getRandom(-6, -4);
 
     var correctAnswer1 = a;
     var correctAnswer2 = e;

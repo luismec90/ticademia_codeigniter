@@ -42,7 +42,7 @@ $(function() {
             valor4 = parseFloat(valor4);
             valor5 = parseFloat(valor5);
 
-            if (valor1 == correctAnswer1 && valor2 == correctAnswer2 && valor3 == correctAnswer3 && valor4 == correctAnswer3 && valor5 == correctAnswer3) {
+            if (valor1 == correctAnswer1 && valor2 == correctAnswer2 && valor3 == correctAnswer3 && valor4 == correctAnswer4 && valor5 == correctAnswer5) {
                 calificacion = 1.0;
                 $("#correcto").html("Calificación: <b>" + calificacion + "</b>").removeClass("hide");
             } else {
@@ -89,4 +89,5 @@ function draw() {
     $('.mvar[value=n2]').html(c + b * g);
     $('.mvar[value=n3]').html(d + c * g);
     $('.mvar[value=n4]').html(e + g * d);
+    $('.mvar[value=n5]').html(e*g);
 }
