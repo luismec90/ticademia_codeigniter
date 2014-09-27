@@ -1,7 +1,7 @@
 
-$(function() {
+$(function () {
 
-    $('body').on("submit", ".formSubmit", function() {
+    $('body').on("submit", ".formSubmit", function () {
         $("#coverDisplay").css({
             "opacity": "1",
             "width": "100%",
@@ -9,13 +9,13 @@ $(function() {
         });
     });
     $("#toast-container").delay(4000).fadeOut('normal');
-    $(document).on("click", "img.rank", function() {
+    $(document).on("click", "img.rank", function () {
         var idCurso = $(this).data("id-curso");
         var idUsuario = $(this).data("id-estudiante");
         modalInfoUsuario(idUsuario, idCurso);
 
     });
-    $("#cerrarPopover").click(function() {
+    $("#cerrarPopover").click(function () {
         $("img.rank").removeClass("clicked");
         $("#infoUsuario").hide();
     });
@@ -23,34 +23,34 @@ $(function() {
      $("img.rank").click(function(e) {
      $("#infoUsuario").show();
      }); */
-    $('.modal').on('hidden.bs.modal', function() {
+    $('.modal').on('hidden.bs.modal', function () {
         var form = $(this).find('form');
         if (form.length > 0) {
             form[0].reset();
         }
     });
-    $("#contenedor").on("change", ".btn-file :file", function() {
+    $("#contenedor").on("change", ".btn-file :file", function () {
         var input = $(this);
         var label = input.val().replace(/\\/g, '/').replace(/.*\//, '');
         input.parent().parent().siblings("input").val(label);
     });
-    $("#link-foro").click(function() {
+    $("#link-foro").click(function () {
         $.ajax({
             method: "GET",
             url: base_url + "ajax/notificaciones/foroOff",
-            success: function(data) {
+            success: function (data) {
                 //   console.log(data);
             }
         });
     });
-    $(".info-usuario").click(function() {
+    $(".info-usuario").click(function () {
         var idCurso = $(this).data("id-curso");
         var idUsuario = $(this).data("id-usuario");
         modalInfoUsuario(idUsuario, idCurso);
     });
 
     verificarNuevoLogro();
-    $("#asesorias").click(function() {
+    $("#asesorias").click(function () {
         $("#coverDisplay").css({
             "opacity": "1",
             "width": "100%",
@@ -62,7 +62,7 @@ $(function() {
             data: {
                 idCurso: idCursoGlobal
             },
-            success: function(data) {
+            success: function (data) {
                 $("#coverDisplay").css({
                     "opacity": "0",
                     "width": "0",
@@ -74,6 +74,18 @@ $(function() {
             }
         });
     });
+    var botonCerrar = "<button id='cerrarPopOverAsesoria' type='button' class='close' aria-hidden='true'>&times;</button>";
+    if (!(typeof notificarAsesorias === 'undefined') && notificarAsesorias) {
+        $("#asesorias").popover({
+            html: true,
+            trigger: "manual",
+            title: "Asesorias" + botonCerrar
+        });
+        $("#asesorias").popover("show");
+        $("#cerrarPopOverAsesoria").click(function () {
+            $("#asesorias").popover("hide");
+        });
+    }
 });
 
 function modalInfoUsuario(idUsuario, idCurso) {
@@ -88,7 +100,7 @@ function modalInfoUsuario(idUsuario, idCurso) {
             idCurso: idCurso,
             idUsuario: idUsuario
         },
-        success: function(data) {
+        success: function (data) {
             $("#coverDisplay").css({
                 "opacity": "0",
                 "width": "0",
@@ -105,9 +117,9 @@ function verificarNuevoLogro() {
     $.ajax({
         method: "GET",
         url: base_url + "ajax/logro",
-        success: function(data) {
+        success: function (data) {
             var json = JSON.parse(data);
-            $.each(json, function(key, value) {
+            $.each(json, function (key, value) {
                 $("#img-logro").attr("src", value.imagen);
                 $("#nombre-logro").html(value.nombre);
                 $("#nombre-asignatura").html(value.nombre_asignatura);

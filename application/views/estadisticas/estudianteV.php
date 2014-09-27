@@ -65,40 +65,46 @@
                                 function distribucionNivelesPorDia() {
                                     var data = google.visualization.arrayToDataTable([
 <?php
-$fila = "['Fecha'";
-foreach ($niveles as $nivel) {
-    $fila.=",'Nivel {$nivel->id_nivel}'";
-}
-$fila .= "],";
-echo $fila;
 $current = $fechaInicio;
 $end = Date('Y-m-d');
 $startDate = strtotime($current);
 $endDate = strtotime($end);
 $i = 0;
 $t = sizeof($distribucionNivelesPorDia);
+$fila ="";
 while ($startDate <= $endDate) {
 
 
 
-    $fila = "['" . dateToxAxis($current) . "'";
+    $fila .= "['" . dateToxAxis($current) . "'";
     foreach ($niveles as $nivel) {
         if (isset($distribucionNivelesPorDia[$current][$nivel->id_nivel])) {
-            $fila.= "," . round($distribucionNivelesPorDia[$current][$nivel->id_nivel] / $cantidadMatriculas * 100);
-        } else {
+                $fila.= "," . round($distribucionNivelesPorDia[$current][$nivel->id_nivel] / $cantidadMatriculas * 100,2);
+        } else if(array_key_exists($nivel->id_nivel-1,$niveles)){
             $fila.= ",0";
         }
     }
+
     $fila .= "],";
-    echo $fila;
+
+
+
+    
     $current = date("Y-m-d", $startDate = strtotime('+1 day', $startDate));
 }
+$fila0 = "['Fecha'";
+foreach ($niveles as $nivel) {
+    $fila0.=",'{$nivel->nombre}'";
+}
+$fila0 .= "],";
+echo $fila0;
+echo $fila;
 ?>
                                     ]);
 
 
                                     var options = {
-                                                hAxis:{title: 'Día del mes'},
+                                        hAxis: {title: 'Día del mes'},
                                         vAxis: {title: 'Cantidad de estudiantes matriculados %',
                                         },
                                         'height': 400};
@@ -109,7 +115,7 @@ while ($startDate <= $endDate) {
                             </script>
                         </div>
                     </div>
-                     <div class="row">
+                    <div class="row">
                         <div class="col-sm-12">
                             <hr>
                             <h3 class="text-center">  Estudiantes conectados: <?= $cantidadEstudiantesConectados ?> </h3>
@@ -161,8 +167,8 @@ while ($startDate <= $endDate) {
 
                                     // Set chart options
                                     var options = {
-                                          hAxis:{title: 'Día del mes'},
-                                           vAxis:{title: 'Cantidad de estudiantes conectados'},
+                                        hAxis: {title: 'Día del mes'},
+                                        vAxis: {title: 'Cantidad de estudiantes conectados'},
                                         height: 400};
 
                                     // Instantiate and draw our chart, passing in some options.
@@ -199,7 +205,7 @@ for ($i = 0; $i < 24; $i++) {
     $fila = "[$i";
     for ($j = 1; $j < 8; $j++) {
         if (isset($conexionesPorHora[$j][$i])) {
-            $fila.= "," . $conexionesPorHora[$j][$i]."";
+            $fila.= "," . $conexionesPorHora[$j][$i] . "";
         } else {
             $fila.= ",0";
         }
@@ -209,13 +215,13 @@ for ($i = 0; $i < 24; $i++) {
     echo $fila;
 }
 ?>
-                                    
+
                                     ]);
 
                                     // Set chart options
                                     var options = {
-                                          hAxis:{title: 'Hora del día (0-23)'},
-                                           vAxis:{title: 'Cantidad de estudiantes conectados'},
+                                        hAxis: {title: 'Hora del día (0-23)'},
+                                        vAxis: {title: 'Cantidad de estudiantes conectados'},
                                         height: 400};
 
                                     // Instantiate and draw our chart, passing in some options.
@@ -225,7 +231,7 @@ for ($i = 0; $i < 24; $i++) {
                             </script>
                         </div>
                     </div>
-                   
+
                 </div>
             </div>
         </div>

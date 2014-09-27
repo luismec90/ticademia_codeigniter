@@ -60,9 +60,9 @@
                     <ul id="nav-menu" class="nav navbar-nav navbar-right">
                         <?php if (isset($_SESSION["nombre"])) { ?>
                             <?php if (isset($idCurso)) { ?>
-                                <li class="icono"><a id="asesorias" title="Asesorias" class=""><img src="<?= base_url() ?>assets/img/temas/default/asesoria.png" height="37"></a></li>
+                                <li class="icono"><a id="asesorias" data-container="body" data-toggle="popover" data-placement="bottom" data-content="En esta semana universitaria solo se ofrecerán asesorias los días lunes y martes." class=""><img src="<?= base_url() ?>assets/img/temas/default/asesoria.png" height="37"></a></li>
                                 <?php if ($_SESSION["rol"] == 1) { ?>
-                                    <li class="icono"><a id="arena" class="" data-container="body" data-toggle="popover" data-placement="bottom" data-content="Los duelos acaban de ser habilitados, estos te permitirán batirte en conocimiento con tus demás compañeros en tiempo real, y a la vez aumentar tu puntuación. "2><img src="<?= base_url() ?>assets/img/temas/default/duelo.png" height="37"></a></li>
+                                    <li class="icono"><a id="arena" class="" data-container="body" data-toggle="popover" data-placement="bottom" data-content="Los duelos acaban de ser habilitados, estos te permitirán batirte en conocimiento con tus demás compañeros en tiempo real, y a la vez aumentar tu puntuación. "><img src="<?= base_url() ?>assets/img/temas/default/duelo.png" height="37"></a></li>
                                 <?php } else if ($_SESSION["rol"] == 2) { ?>
                                     <li class="icono dropdown <?= ($tab == "estadisticaestudiantes" || $tab == "estadisticamateriales" || $tab == "estadisticapreguntas" ) ? "active" : ""; ?> icono">
                                         <a href="#" title="Estadísticas" class="dropdown-toggle" data-toggle="dropdown"> <img src="<?= base_url() ?>assets/img/temas/default/estadisticas.png" height="37"> <b class="caret"></b></a>

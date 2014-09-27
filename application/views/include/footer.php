@@ -324,7 +324,7 @@
 <script src="<?= base_url() ?>assets/libs/jQuery-1.11.0/jQuery.min.js"></script>
 <script src="<?= base_url() ?>assets/libs/bootstrap-3.1.1/js/bootstrap.min.js"></script>
 <script src="<?= base_url() ?>assets/js/socketv0.1.js"></script>
-<script src="<?= base_url() ?>assets/js/global.js"></script>
+<script src="<?= base_url() ?>assets/js/global.js?v=1"></script>
 <script src="<?= base_url() ?>assets/js/duelo.js"></script>
 <?php if (isset($js)) foreach ($js as $row) { ?>
         <script src="<?= base_url() ?>assets/<?= $row ?>.js"></script>
@@ -333,13 +333,15 @@
 
 <?php if ($tab == "curso") { ?>
     <script>
-                        $(function() {
+
+
+                        $(function () {
                             countCallsCargarModulo = 0;
                             var numeroModulos = <?= $numeroModulos ?>;
                             var idModulos = jQuery.parseJSON('<?= $idModulos ?>');
                             $("#slider").slider({min: 0, max: <?= $cantidadModulos - 1 ?>, value: 0, animate: "normal"});
                             $("#slider").slider("pips", {rest: "label", labels: numeroModulos})
-                            $("#slider").on("slidechange", function(e, ui) {
+                            $("#slider").on("slidechange", function (e, ui) {
 
                                 var idModulo = idModulos[ui.value];
 
@@ -348,17 +350,23 @@
                             });
 
                             cargarModulo(-1);
+
                         });
 
-
+    <?php if (isset($_SESSION["notificar"]) && $_SESSION["notificar"]) { ?>
+                            notificarAsesorias = true;
+        <?php
+        $_SESSION["notificar"] = false;
+    }
+    ?>
 
     </script>
 <?php } ?>
 <script>
     /* Google Analytics*/
-    (function(i, s, o, g, r, a, m) {
+    (function (i, s, o, g, r, a, m) {
         i['GoogleAnalyticsObject'] = r;
-        i[r] = i[r] || function() {
+        i[r] = i[r] || function () {
             (i[r].q = i[r].q || []).push(arguments)
         }, i[r].l = 1 * new Date();
         a = s.createElement(o),

@@ -128,7 +128,7 @@ class Evaluacion_model extends CI_Model {
     }
 
     function cantidadPreguntasResueltasPorDia($idCurso) {
-        $query = "select date(ue.fecha_inicial) fecha,count( distinct ue.id_evaluacion) cantidad from usuario_x_evaluacion ue
+        $query = "select date(ue.fecha_inicial) fecha,count( ue.id_evaluacion) cantidad from usuario_x_evaluacion ue
                     join evaluacion e on ue.id_evaluacion=e.id_evaluacion
                     join modulo m on e.id_modulo=m.id_modulo and m.id_curso='$idCurso'
                     where ue.calificacion>=(select umbral from curso where id_curso='$idCurso')

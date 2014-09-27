@@ -52,14 +52,19 @@ class Estudiante extends CI_Controller {
     }
 
     function distribucionNivelesPorDia(&$data) {
+        $niveles = $this->nivel_model->getNiveles($data["nivelesCurso"]);
         $distribucionNivelesPorDia = $this->estudiante_model->distribucionNivelesPorDia($data["idCurso"]);
         $datos = array();
         foreach ($distribucionNivelesPorDia as $row) {
+            if (empty($datos[$row->fecha_aux][1])) {
+                $datos[$row->fecha_aux][1] = $data["cantidadMatriculas"];
+                 $data["niveles"][0] = $niveles[0];
+            }
             $datos[$row->fecha_aux][$row->id_nivel] = $row->cantidad;
+            $datos[$row->fecha_aux][1]-= $row->cantidad;
+            $data["niveles"][$row->id_nivel - 1] = $niveles[$row->id_nivel - 1];
         }
-
         $data["distribucionNivelesPorDia"] = $datos;
-        $data["niveles"] = $this->nivel_model->getNiveles($data["nivelesCurso"]);
     }
 
     function estudiantesConectados(&$data) {
@@ -104,16 +109,16 @@ class Estudiante extends CI_Controller {
             $data["materiales"][$row->id_modulo] = $this->usuario_x_material_model->obtenerMateriales($row->id_modulo, $idUsuario);
             $data["evaluaciones"][$row->id_modulo] = $this->usuario_x_evaluacion_model->obtenerEvaluaciones($idCurso, $row->id_modulo, $idUsuario);
             $porcentajeVisualizacion = $this->material_model->porcentajeVisualizacion($row->id_modulo, $idUsuario);
-           
+
             $tmp = array();
             foreach ($porcentajeVisualizacion as $row2) {
                 $tmp[$row2->id_material] = round($row2->tiempo_visto / $row2->duracion * 100);
-                if($tmp[$row2->id_material]>100){
-                    $tmp[$row2->id_material]=100;
+                if ($tmp[$row2->id_material] > 100) {
+                    $tmp[$row2->id_material] = 100;
                 }
             }
-           
-            $data["porcentajeVisualizacion"][$row->id_modulo]=$tmp;
+
+            $data["porcentajeVisualizacion"][$row->id_modulo] = $tmp;
         }
 
         $this->load->view('include/header', $data);
