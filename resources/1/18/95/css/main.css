@@ -55,17 +55,17 @@ h1{
 
 .radicando { 
 	padding: 0.5ex;
-	border-top: thin black solid;
+	border-top: 3px black solid;
 	padding-top:0;
 }
 .raiz {
 	vertical-align:top;
-	font-size:1.7em;
+	font-size:2.9em;
 	letter-spacing:-12px;
 }
 .nroot{
 	position: relative;
 	vertical-align:top;
-	left: 1.9ex;
-	font-size: 45%;
+	left: 2.9ex;
+	font-size: 70%;
 }
