@@ -56,7 +56,26 @@ class Modulo_model extends CI_Model {
     }
 
     function ultimoModulo($idCurso) {
-          $query = "select * from modulo where id_curso='$idCurso' order by fecha_fin desc limit 1";
+        $query = "select * from modulo where id_curso='$idCurso' order by fecha_fin desc limit 1";
+        return $this->db->query($query)->result();
+    }
+
+    function reporte($fechaFin) {
+        $query = "SELECT m.id_modulo,count(e.id_evaluacion) cantidad FROM `modulo` m
+join evaluacion e on e.id_modulo=m.id_modulo
+WHERE fecha_fin<='$fechaFin 23:59:59'
+group by m.id_modulo";
+        return $this->db->query($query)->result();
+    }
+
+    function reporteTotal($cantidadEvaluaciones, $in, $fechaFin, $umbral) {
+        $query = "select uc.grupo,u.dni,u.correo,u.apellidos,u.nombres, round(count(distinct ue.id_evaluacion)/$cantidadEvaluaciones*100,2)  porcentaje from usuario_x_evaluacion ue
+join evaluacion e on e.id_modulo in $in AND ue.id_evaluacion=e.id_evaluacion
+join usuario u On u.id_usuario=ue.id_usuario
+join usuario_x_curso uc on uc.id_usuario=u.id_usuario
+where ue.fecha_final<='$fechaFin 23:59:59'
+and ue.calificacion>=$umbral
+group by u.id_usuario order by uc.grupo,u.apellidos,u.nombres";
         return $this->db->query($query)->result();
     }
 

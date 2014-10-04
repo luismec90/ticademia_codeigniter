@@ -57,6 +57,8 @@ $route['activar'] = "registrarse/activar";
 $route['estadisticaestudiantes/(:num)'] = "estadisticas/estudiante/index/$1";
 $route['estadisticamateriales/(:num)'] = "estadisticas/material/index/$1";
 $route['estadisticaevaluaciones/(:num)'] = "estadisticas/evaluacion/index/$1";
+$route['reporte/(:num)'] = "estadisticas/reporte/index/$1";
+$route['reporte/excel'] = "estadisticas/reporte/excel/$1";
 $route['infoestudiante/(:num)/(:num)'] = "estadisticas/estudiante/infoestudiante/$1/$2";
 $route['404_override'] = '';
 

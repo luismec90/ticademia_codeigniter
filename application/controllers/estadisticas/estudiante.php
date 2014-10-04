@@ -23,7 +23,7 @@ class Estudiante extends CI_Controller {
     public function index($idCurso = -1) {
         if ($idCurso == -1)
             show_404();
-        $this->soyElProfesor($idCurso);
+        $this->soyElProfesorOMonitor($idCurso);
         $data["idCurso"] = $idCurso;
         $data["tab"] = "estadisticaestudiantes";
         $data["js"] = array("libs/googleCharts/jsapi", "js/estadisticas/estudiante");

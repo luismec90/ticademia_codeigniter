@@ -144,6 +144,13 @@ class Usuario extends CI_Controller {
         </div>
         <div class="row">
             <div class="col-xs-12 col-sm-7">
+                 <div class="row">
+
+                    <div class="col-xs-12">
+                        <hr>
+                        Grupo: <?= $matricula[0]->grupo ?>
+                    </div>
+                </div>
                 <div class="row">
 
                     <div class="col-xs-12">

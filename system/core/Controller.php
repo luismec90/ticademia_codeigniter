@@ -107,6 +107,19 @@ class CI_Controller {
         }
     }
 
+    protected function soyElProfesorOMonitor($idCurso) {
+        $this->load->model('usuario_x_curso_model');
+        $where = array("id_curso" => $idCurso, "id_usuario" => $_SESSION["idUsuario"], "rol" => 2);
+        $usuario = $this->usuario_x_curso_model->obtenerRegistro($where);
+        if (!$usuario) {
+            $where = array("id_curso" => $idCurso, "id_usuario" => $_SESSION["idUsuario"], "rol" => 3);
+            $usuario = $this->usuario_x_curso_model->obtenerRegistro($where);
+            if (!$usuario) {
+                $this->mensaje("El curso no existe o no se encuentra matriculado", "error");
+            }
+        }
+    }
+
 }
 
 // END Controller class
