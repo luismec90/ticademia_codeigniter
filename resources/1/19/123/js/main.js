@@ -1,29 +1,38 @@
+var a,b;
 
 $(function() {
-    API = getAPI();
-    API.LMSInitialize("");
+	try{
+		API = getAPI();
+		API.LMSInitialize("");
+	}catch(e){
+		console.log(e);
+	}
 
-    var correctAnswer = "clavesecreta";
+    a = getRandomFrom([6,8,10,12,14,16,18,20]);
+    b = getRandom(2,5);
+
+    var correctAnswer1 = a*b/(a+b);
+    //var missConception1 = n;
+    //console.log(correctAnswer1 + " " + correctAnswer2);
+    draw();
 
     $("#verificar").click(function() {
-        var valor = $("#answer").val().trim();
-        if (valor != "") {
+        var valor1 = $("#answer1").val().trim();
+        if (valor1 != "") {
             $("#correcto").addClass("hide");
             $("#feedback").addClass("hide");
             var calificacion = 0;
             var feedback = "";
-            switch (valor) {
-                case correctAnswer + "2014":
-                    calificacion = 1.0;
-                    $("#correcto").html("Calificación: <b>" + calificacion + "</b>").removeClass("hide");
-                    break;
-                default:
-                    calificacion = 0.0;
-                    $("#feedback").html("Calificación: <b>" + calificacion + "</b> <br>Te recomendamos este <a href='https://www.youtube.com/watch?v=CA1jtq4luMo' target='_blank'>video</a> acerca de triangulos.").removeClass("hide");
-                    break;
+            valor1 = parseFloat(valor1);
+			
+			if(decimalComparison(valor1,correctAnswer1,1)){
+				calificacion = 1.0;
+				$("#correcto").html("Calificación: <b>" + calificacion + "</b>").removeClass("hide");
+            }else{
+				calificacion = 0.0;
+				$("#feedback").html("Calificación: <b>" + calificacion + "</b> <br> ...").removeClass("hide");
             }
-
-            $(this).attr("disabled", true);
+           $(this).attr("disabled", true);
             API.closeQuestion();
             if (typeof API.calificar == 'function') {
                 API.calificar(calificacion, feedback);
@@ -33,7 +42,36 @@ $(function() {
             API.notifyDaemon(calificacion);
         }
     });
-
+    $("#aceptar").click(function() {
+        window.parent.location.reload();
+    });
+    $('#modal').on('hide.bs.modal', function(e) {
+        window.parent.location.reload();
+    });
 
 });
-
+function getRandom(bottom, top) {
+    return Math.floor(Math.random() * (1 + top - bottom)) + bottom;
+}
+function getRandomFrom(vals){
+	return vals[getRandom(0,vals.length-1)];
+}
+function shuffleArray(array) {
+    for (var i = array.length - 1; i > 0; i--) {
+        var j = Math.floor(Math.random() * (i + 1));
+        var temp = array[i];
+        array[i] = array[j];
+        array[j] = temp;
+    }
+    return array;
+}
+function decimalComparison(v1,v2,d){
+    d = Math.pow(10,d);
+    v1 = Math.round(v1*d);
+    v2 = Math.round(v2*d);
+    return v1==v2;
+}
+function draw(){
+    $('.mvar[value=e1]').html(a);
+    $('.mvar[value=e2]').html(b);
+}

@@ -14,9 +14,14 @@
     </head>
     <body>
         <div id="contenedor" class="container-fluid">
-            <h1>Ingrese la clave secreta:</h1>
+            <h1>El cociente de una división es nueve y el resto es <span class="mvar" value="e1">?</span>. Si el divisor se disminuye en tres, el cociente aumenta en tres y el resto disminuye en seis. ¿Cuál es el valor del divisor y del dividendo?</h1>
+          
             <div id="div-asnwer">
-                <h4> <input id="answer" class="form-control" type="text" autofocus> <a id="verificar" class="btn btn-primary" >Enviar</a></h4>
+                <h4>Respuesta = <br/><br/><br/>
+                       Divisor: <input id="answer1" class="form-control" type="number" autofocus><br><br>
+                       Dividendo: <input id="answer2" class="form-control" type="number" autofocus>
+                <br/><br/>
+				<a id="verificar" class="btn btn-primary" >Enviar</a></h4>
             </div>
         </div>
         <div class="modal fade" id="modal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
@@ -38,7 +43,7 @@
                 </div>
             </div>
         </div>
-        <script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
+        <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
         <script>window.jQuery || document.write('<script src="js/vendor/jquery-1.11.0.min.js"><\/script>')</script>
         <script src="js/vendor/bootstrap.min.js"></script>
         <script src="js/api.js"></script>

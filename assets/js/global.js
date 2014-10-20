@@ -76,15 +76,15 @@ $(function () {
     });
     var botonCerrar = "<button id='cerrarPopOverAsesoria' type='button' class='close' aria-hidden='true'>&times;</button>";
     if (!(typeof notificarAsesorias === 'undefined') && notificarAsesorias) {
-       /* $("#asesorias").popover({
+       $("#asesorias").popover({
             html: true,
             trigger: "manual",
-            title: "Asesorias" + botonCerrar
+            title: "Módulo 3" + botonCerrar
         });
         $("#asesorias").popover("show");
         $("#cerrarPopOverAsesoria").click(function () {
             $("#asesorias").popover("hide");
-        });*/
+        });
     }
 });
 
