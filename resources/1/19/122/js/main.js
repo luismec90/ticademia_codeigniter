@@ -27,7 +27,7 @@ $(function() {
             var feedback = "";
             valor1 = parseFloat(valor1);
             valor2 = parseFloat(valor2);
-			
+
 			if(decimalComparison(valor1,correctAnswer1,2) && decimalComparison(valor2,correctAnswer2,2)){
 				calificacion = 1.0;
 				$("#correcto").html("Calificación: <b>" + calificacion + "</b>").removeClass("hide");
@@ -68,13 +68,19 @@ function shuffleArray(array) {
     }
     return array;
 }
+
+
 function decimalComparison(v1,v2,d){
     d = Math.pow(10,d);
     v1 = Math.round(v1*d);
     v2 = Math.round(v2*d);
     return v1==v2;
 }
+
 function draw(){
-    $('.mvar[value=e1]').html(a);
-    $('.mvar[value=e2]').html(b);
+
+    $('.mvar[value=e2]').html(a);
+
+    $('.mvar[value=e1]').html(b);
+
 }
