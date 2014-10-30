@@ -4,16 +4,16 @@
         <div class="row">
             <div class="col-xs-12">
 
-            </div>  
-        </div> 
+            </div>
+        </div>
         <?php if ($cantidadMateriales || $_SESSION["rol"]==2) { ?>
             <div id="div-material" class="col-xs-12 col-sm-12 <?= ($cantidadEvaluaciones || $_SESSION["rol"]==2) ? "col-md-4" : "col-md-9" ?> <?= ($_SESSION["rol"]==2) ? "profesor" : "" ?>">
                 <div class="widget-box">
                     <div class="widget-header header-color-green2">
                         <?php if ($_SESSION["rol"]==2) { ?>
 
-                            <button title="Ordenar materiales" class="btn btn-default pull-right" data-toggle="modal" data-target="#modalOrdenarMaterial"> <i class="fa fa-plus"></i> Oredenar materiales</button>                  
-                            <button title="Crear material" class="btn btn-default pull-right" data-toggle="modal" data-target="#modalCrearMaterial"> <i class="fa fa-plus"></i> Crear material</button>  
+                            <button title="Ordenar materiales" class="btn btn-default pull-right" data-toggle="modal" data-target="#modalOrdenarMaterial"> <i class="fa fa-plus"></i> Oredenar materiales</button>
+                            <button title="Crear material" class="btn btn-default pull-right" data-toggle="modal" data-target="#modalCrearMaterial"> <i class="fa fa-plus"></i> Crear material</button>
                         <?php } ?>
                         <h4 class="lighter smaller">Materiales</h4>
                     </div>
@@ -32,8 +32,8 @@
                                         </td>
                                         <td class="no-padding-left">
                                             <span class="<?= $row->extension ?> link-material" data-ubicacion="<?= $row->ubicacion ?>" data-id-material="<?= $row->id_material ?>"  data-toggle="popover" data-placement="<?= ($i == $t) ? "top" : "bottom" ?>" data-content="<?= $row->descripcion ?>"><?= $row->nombre ?></span>
-                                            <?php if ($row->visto) { ?><i class="fa fa-check"></i><span class="tiempo"><?= $row->tiempo_total ?>m</span> <?php } ?> 
-                                            <br>  
+                                            <?php if ($row->visto) { ?><i class="fa fa-check"></i><span class="tiempo"><?= $row->tiempo_total ?>m</span> <?php } ?>
+                                            <br>
                                             <div id="star-<?= $row->id_material ?>" class="estrellas" data-score="<?= $row->puntaje_promedio ?>" data-id-material="<?= $row->id_material ?>" data-comentario="<?= $row->comentario ?>"></div><span class="text-muted"> (<?= $row->total_valoraciones ?>)</span>
                                             <a href="#" class="ver-comentarios" data-id-material="<?= $row->id_material ?>" data-toggle="modal" data-target="#modalVerValoracionesMaterial">Ver comentarios</a> <span class="text-muted"> (<?= $row->total_comentarios ?>)</span>
                                         </td>
@@ -72,8 +72,8 @@
                     <div class="widget-box">
                         <div class="widget-header header-color-green2">
                             <?php if ($_SESSION["rol"]==2) { ?>
-                                <button title="Ordenar evaluaciones" id="ordenarEvaluaciones"  class="btn btn-default pull-right" data-toggle="modal" data-target="#modalOrdenarEvaluacion"> <i class="fa fa-plus"></i>  Ordenar evaluaciones</button>                  
-                                <button title="Crear evaluaciones" class="btn btn-default pull-right" data-toggle="modal" data-target="#modalCrearEvaluacion"> <i class="fa fa-plus"></i> Crear evaluación</button>                  
+                                <button title="Ordenar evaluaciones" id="ordenarEvaluaciones"  class="btn btn-default pull-right" data-toggle="modal" data-target="#modalOrdenarEvaluacion"> <i class="fa fa-plus"></i>  Ordenar evaluaciones</button>
+                                <button title="Crear evaluaciones" class="btn btn-default pull-right" data-toggle="modal" data-target="#modalCrearEvaluacion"> <i class="fa fa-plus"></i> Crear evaluación</button>
 
 
                             <?php } ?>
@@ -100,7 +100,7 @@
                                         ?>
                                         <div class="boxEvaluaciones">
                                             <div id="evaluacion-<?= $row->id_evaluacion ?>" class="boxEvaluaciones2 <?= $row->estatus ?>" data-ubicacion="<?= $row->ubicacion ?>" data-id-evaluacion="<?= $row->id_evaluacion ?>">
-                                                <div class="icono fa fa-<?= $row->icono ?> fa-2x"></div>     
+                                                <div class="icono fa fa-<?= $row->icono ?> fa-2x"></div>
                                                 <div class="numeroEvaluacion"><?= $i ?></div>
                                                 <?php if ($row->estatus != "lock") { ?>
                                                     <div class="tipo glyphicon <?= $tipo ?>"></div>
@@ -118,7 +118,7 @@
                                                     <button title="Saltar" class="btn btn-primary btn-size-custom-1 saltarEvaluacion pull-left" data-id-evaluacion="<?= $row->id_evaluacion ?>"> <i class="fa fa-share"></i></button>
                                                 <?php } else { ?>
                                                     <!--<button title="Saltar" class="btn btn-default btn-size-custom-1 " disabled > <i class="fa fa-share"></i></button>-->
-                                                <?php } ?>        
+                                                <?php } ?>
                                             </div>
                                         </div>
                                         <?php
@@ -136,13 +136,13 @@
 </div>
 <div id="contenedor-video" class="hide">
     <div id="botonCerrarVideo" title="Cerrar">
-        <i class="fa fa-times fa-2x"></i> 
+        <i class="fa fa-times fa-2x"></i>
     </div>
     <video id="video" width="900" height="510" src="#test.mp4" ></video>
 </div>
 <div id="contenedor-pdf" class="hide">
     <div id="botonCerrarPdf"  title="Cerrar">
-        <i class="fa fa-times fa-2x"></i> 
+        <i class="fa fa-times fa-2x"></i>
     </div>
     <embed id="pdf" src="">
 </div>

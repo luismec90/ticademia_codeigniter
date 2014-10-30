@@ -9,11 +9,12 @@
 
     </div>
 </div>
+<div id="marco_video" class="hide">
 <div id="contenedor-video" class="hide">
     <div id="botonCerrarVideo" title="Cerrar">
-        <i class="fa fa-times fa-2x"></i> 
     </div>
     <video id="video" width="900" height="510" src="#test.mp4" ></video>
+</div>
 </div>
 <div id="contenedor-pdf" class="hide">
     <div id="botonCerrarPdf"  title="Cerrar">

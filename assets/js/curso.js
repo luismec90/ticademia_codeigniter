@@ -176,6 +176,7 @@ $(function() {
             "width": "100%",
             "height": "100%"
         });
+        $("#marco_video").removeClass("hide");
         $("#contenedor-video").addClass("class-contenedor-video").removeClass("hide");
         idMaterial = $(this).data("id-material");
         if (rolGlobal == 1) {
@@ -200,6 +201,7 @@ $(function() {
             "width": "0",
             "height": "0"
         });
+        $("#marco_video").addClass("hide");
         $("#contenedor-video").removeClass("class-contenedor-video button").addClass("hide");
         player.play();
         player.pause();

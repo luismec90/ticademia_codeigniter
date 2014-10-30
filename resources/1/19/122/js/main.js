@@ -8,18 +8,21 @@ $(function() {
 		console.log(e);
 	}
 
-    a = getRandomFrom([90,100,110,120]);
-    b = getRandomFrom([60,65,70,80]);
+
+    a = getRandomFrom([60,65,70,80]);
+    b = getRandomFrom([90,100,110,120]);
 
     var correctAnswer1 = 2*b/Math.abs(b-a);
     var correctAnswer2 = 2*a*b/Math.abs(b-a);
+
     //var missConception1 = n;
     //console.log(correctAnswer1 + " " + correctAnswer2);
     draw();
 
     $("#verificar").click(function() {
-        var valor1 = $("#answer1").val().trim();
-        var valor2 = $("#answer2").val().trim();
+        var valor1 = $("#answer1").val().trim(); valor1 = ((valor1.split(",")).length == 2) ? valor1.replace(",", ".") : valor1;
+        var valor2 = $("#answer2").val().trim(); valor2 = ((valor2.split(",")).length == 2) ? valor2.replace(",", ".") : valor2;
+
         if (valor1 != "" && valor2 != "") {
             $("#correcto").addClass("hide");
             $("#feedback").addClass("hide");
@@ -79,8 +82,8 @@ function decimalComparison(v1,v2,d){
 
 function draw(){
 
-    $('.mvar[value=e2]').html(a);
+    $('.mvar[value=e1]').html(a);
 
-    $('.mvar[value=e1]').html(b);
+    $('.mvar[value=e2]').html(b);
 
 }

@@ -14,9 +14,29 @@
     </head>
     <body>
         <div id="contenedor" class="container-fluid">
-            <h1>Ingrese la clave secreta:</h1>
+            <h1>¿Cuál es el conjunto de valores de x que satisfacen la siguiente desigualdad?<br><br>
+
+                <span class="equation">
+                    <span class="mvar" value="e1">?</span>x<sup>2</sup>   
+                    <span class="mvar" value="e2">?</span>x - <span class="mvar" value="e3">?</span> ≤ 0
+                </span>
+
+            </h1>
+          
             <div id="div-asnwer">
-                <h4> <input id="answer" class="form-control" type="text" autofocus> <a id="verificar" class="btn btn-primary" >Enviar</a></h4>
+                <h4>Respuesta = <br/><br/><br/>
+                        <select id="answer1" class="form-control" autofocus style="width:50px;padding-left:2px">
+                            <option value="[">[</option>
+                            <option value="(">(</option>
+                        </select> 
+                       <input id="answer2" class="form-control" type="number" autofocus> ,
+                       <input id="answer3" class="form-control" type="number" autofocus>
+                       <select id="answer4" class="form-control" autofocus style="width:50px;padding-left:2px">
+                            <option value="]">]</option>
+                            <option value=")">)</option>
+                        </select> 
+                <br/><br/>
+				<a id="verificar" class="btn btn-primary" >Enviar</a></h4>
             </div>
         </div>
         <div class="modal fade" id="modal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
@@ -38,7 +58,7 @@
                 </div>
             </div>
         </div>
-        <script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
+        <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
         <script>window.jQuery || document.write('<script src="js/vendor/jquery-1.11.0.min.js"><\/script>')</script>
         <script src="js/vendor/bootstrap.min.js"></script>
         <script src="js/api.js"></script>
