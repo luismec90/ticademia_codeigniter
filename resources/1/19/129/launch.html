@@ -14,7 +14,9 @@
     </head>
     <body>
         <div id="contenedor" class="container-fluid">
-            <h1>¿Cuál es el conjunto de valores de x que satisfacen la siguiente desigualdad?<br><br>
+
+            <h1>El conjunto de valores de x que satisfacen la desigualdad es (exprese su respuesta como un intervalo):
+                <br><br>
 
                 <span class="equation">
                     <span class="fraccion" style="border-left:1px solid black; border-right:1px solid black; padding-left:10px;padding-right:10px;">
@@ -25,24 +27,39 @@
                 </span>
 
             </h1>
-          
+
             <div id="div-asnwer">
                 <h4>Respuesta = <br/><br/><br/>
-                        <select id="answer1" class="form-control" autofocus style="width:50px;padding-left:2px">
-                            <option value="[">[</option>
-                            <option value="(">(</option>
-                        </select> 
+                    <select id="answer1" class="form-control" autofocus style="width:80px;padding-left:2px">
+                        <option value=""></option>
+                        <option value="(-inf">(-∞</option>
+                        <option value="(-5">(-5</option>
+                        <option value="[-11">[-11</option>
+                    </select>,
+                    <input id="answer2" class="form-control" type="number">
+                    <select id="answer3" class="form-control" autofocus style="width:80px;padding-left:2px">
+                        <option value=""></option>
+                        <option value=")">)</option>
+                        <option value="]">]</option>
+                    </select>
+                    U
+                    <select id="answer4" class="form-control" autofocus style="width:80px;padding-left:2px">
+                        <option value=""></option>
+                        <option value="(">(</option>
+                        <option value="[">[</option>
+                    </select>
                         <span class="fraccion">
-                            <span><input id="answer2" class="form-control" type="number" autofocus></span>
-                            <span><input id="answer3" class="form-control" type="number" autofocus></span>
+                            <span><input id="answer5" class="form-control" type="number" autofocus></span>
+                            <span><input id="answer6" class="form-control" type="number" autofocus></span>
                         </span> ,
-                       <input id="answer4" class="form-control" type="number" autofocus>
-                       <select id="answer5" class="form-control" autofocus style="width:50px;padding-left:2px">
-                            <option value="]">]</option>
-                            <option value=")">)</option>
-                        </select> 
-                <br/><br/>
-				<a id="verificar" class="btn btn-primary" >Enviar</a></h4>
+                    <select id="answer7" class="form-control" autofocus style="width:80px;padding-left:2px">
+                        <option value=""></option>
+                        <option value="inf)">∞)</option>
+                        <option value="10)">10)</option>
+                        <option value="8)">8)</option>
+                    </select>
+                    <br/><br/>
+                    <a id="verificar" class="btn btn-primary" >Enviar</a></h4>
             </div>
         </div>
         <div class="modal fade" id="modal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
@@ -66,7 +83,7 @@
         </div>
         <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
         <script>window.jQuery || document.write('<script src="js/vendor/jquery-1.11.0.min.js"><\/script>')</script>
-        <script src="js/vendor/bootstrap.min.js"></script>
+        <script src="js/vendor/bootstrap.min.js?v=2.0"></script>
         <script src="js/api.js"></script>
         <script src="js/main.js"></script>
     </body>
