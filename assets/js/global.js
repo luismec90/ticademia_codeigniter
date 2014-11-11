@@ -77,18 +77,18 @@ $(function () {
 
     /* Popover de noticias*/
 
-   /* var botonCerrar = "<button id='cerrarPopOverAsesoria' type='button' class='close' aria-hidden='true'>&times;</button>";
+    var botonCerrar = "<button id='cerrarPopOverAsesoria' type='button' class='close' aria-hidden='true'>&times;</button>";
     if (!(typeof notificarAsesorias === 'undefined') && notificarAsesorias) {
        $("#asesorias").popover({
             html: true,
             trigger: "manual",
-            title: "Módulo 3" + botonCerrar
+            title: "Módulo 4" + botonCerrar
         });
         $("#asesorias").popover("show");
         $("#cerrarPopOverAsesoria").click(function () {
             $("#asesorias").popover("hide");
         });
-    }*/
+    }
 });
 
 function modalInfoUsuario(idUsuario, idCurso) {

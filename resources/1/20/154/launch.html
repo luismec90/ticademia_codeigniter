@@ -14,9 +14,43 @@
     </head>
     <body>
         <div id="contenedor" class="container-fluid">
-            <h1>Ingrese la clave secreta:</h1>
+            <h1>Sea <span class="equation">f</span> la función de valor real definida por:<br><br>
+
+                <span class="equation">f(x) = 
+
+                    <span class="raiz">&radic;</span>
+                    <span class="radicando">
+                        <span class="fraccion">
+                            <span><span class="mvar" value="e1">?</span>x</span>
+                            <span><span class="mvar" value="e2">?</span>x - <span class="mvar" value="e3">?</span></span>
+                        </span>
+                    </span>
+
+                </span>
+
+            </h1>
+          
             <div id="div-asnwer">
-                <h4> <input id="answer" class="form-control" type="text" autofocus> <a id="verificar" class="btn btn-primary" >Enviar</a></h4>
+
+                <h4>Respuesta = <br/><br/><br/>
+                    (-∞,
+                        <input id="answer1" class="form-control" type="number" autofocus>
+                        <select id="answer2" class="form-control" autofocus style="width:50px;padding-left:2px">
+                            <option value="]">]</option>
+                            <option value=")">)</option>
+                        </select> 
+                        U
+                        <select id="answer3" class="form-control" autofocus style="width:50px;padding-left:2px">
+                            <option value="[">[</option>
+                            <option value="(">(</option>
+                        </select> 
+                        <span class="fraccion">
+                            <span><input id="answer4" class="form-control" type="number" autofocus></span>
+                            <span><input id="answer5" class="form-control" type="number" autofocus></span>
+                        </span>
+                    ,∞)
+                <br/><br/>
+				<a id="verificar" class="btn btn-primary" >Enviar</a></h4>
             </div>
         </div>
         <div class="modal fade" id="modal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
@@ -38,7 +72,7 @@
                 </div>
             </div>
         </div>
-        <script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
+        <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
         <script>window.jQuery || document.write('<script src="js/vendor/jquery-1.11.0.min.js"><\/script>')</script>
         <script src="js/vendor/bootstrap.min.js"></script>
         <script src="js/api.js"></script>

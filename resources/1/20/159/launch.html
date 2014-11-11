@@ -14,9 +14,35 @@
     </head>
     <body>
         <div id="contenedor" class="container-fluid">
-            <h1>Ingrese la clave secreta:</h1>
+            <h1>Si las funciones de valor real <span class="equation">f</span> y <span class="equation">g</span> están definidas como <br><br>
+
+                <span class="equation">
+                    f(x) = 
+                    <span class="raiz">&radic;</span>
+                    <span class="radicando">
+                        x - <span class="mvar" value="a">?</span>
+                    </span>
+                </span><br><br>
+                <span class="equation">
+                    g(x) = 
+                    <span class="fraccion">
+                        <span>1</span>
+                        <span>
+                            x/<span class="mvar" value="n">?</span> - <span class="mvar" value="b">?</span>
+                        </span>
+                    </span>
+                </span><br><br>
+               ¿Cuál debe ser el valor de <span class="equation">k</span> para que <br>
+               <span class="equation">D = {x: x≥a y x≠k}</span><br>
+               sea el dominio de la función <span class="equation">(g ○ f)</span>?
+            </h1>
+          
             <div id="div-asnwer">
-                <h4> <input id="answer" class="form-control" type="text" autofocus> <a id="verificar" class="btn btn-primary" >Enviar</a></h4>
+
+                <h4>Respuesta = <br/><br/>
+                        <input id="answer1" class="form-control" type="number" autofocus>
+                <br/><br/>
+				<a id="verificar" class="btn btn-primary" >Enviar</a></h4>
             </div>
         </div>
         <div class="modal fade" id="modal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
@@ -38,7 +64,7 @@
                 </div>
             </div>
         </div>
-        <script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
+        <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
         <script>window.jQuery || document.write('<script src="js/vendor/jquery-1.11.0.min.js"><\/script>')</script>
         <script src="js/vendor/bootstrap.min.js"></script>
         <script src="js/api.js"></script>
