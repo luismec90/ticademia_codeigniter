@@ -8,7 +8,7 @@ $(function() {
 		console.log(e);
 	}
 
-    a = getRandom(2,10);
+    a = getRandom(2,10)*-1;
     c = getRandom(2,10);
     b = getRandom(1,9);
     //console.log(correctAnswer + " " + missConception1);
