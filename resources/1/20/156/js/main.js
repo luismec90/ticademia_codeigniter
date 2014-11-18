@@ -9,9 +9,12 @@ $(function() {
 	}
 
     n = getRandom(1,7)*2;
-    a = getRandom(1,20);
-    b = getRandom(a+1,a+20);
-    //console.log(correctAnswer + " " + missConception1);
+
+    b = getRandom(1,20);
+
+    a = getRandom(b+1,b+20);
+
+    //console.log(a + " " + b);
     var correctAnswer = draw();
 
     $("#verificar").click(function() {

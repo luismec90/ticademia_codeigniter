@@ -1,25 +1,28 @@
 var m, k;
 
 $(function () {
-    try{
-     API = getAPI();
-     API.LMSInitialize("");
-     }catch(e){
-     console.log(e);
-     }
+    try {
+        API = getAPI();
+        API.LMSInitialize("");
+    } catch (e) {
+        console.log(e);
+    }
 
     m = getRandom(2, 16);
     k = getRandom(1, 15);
 
-   console.log((m+1) + " " + (k+1));
+    console.log((m + 1) + " " + (k + 1));
 
     var correctAnswer1 = "(-inf";
-    var correctAnswer2 = "-1";
-    var correctAnswer3 = ")";
-    var correctAnswer4 = "(";
-    var correctAnswer5 = -m * k;
-    var correctAnswer6 = m * k + 1;
-    var correctAnswer7 = "inf)"
+    var correctAnswer2 = "-";
+    var correctAnswer3 = m * k;
+    var correctAnswer4 = m * k - 1;
+    var correctAnswer5 = ")";
+    var correctAnswer6 = "(";
+    var correctAnswer7 = "-";
+    var correctAnswer8 = m * k;
+    var correctAnswer9 = m * k + 1;
+    var correctAnswer10 = "inf)"
 
 
     //var missConception1 = n;
@@ -35,22 +38,29 @@ $(function () {
         var valor5 = $("#answer5").val().trim();
         var valor6 = $("#answer6").val().trim();
         var valor7 = $("#answer7").val().trim();
+        var valor8 = $("#answer8").val().trim();
+        var valor9 = $("#answer9").val().trim();
+        var valor10 = $("#answer10").val().trim();
 
-        if (valor1 != "" && valor2 != "" && valor3 != "" && valor4 != "" && valor5 != "" && valor6 != "" && valor7 != "") {
+
+        if (valor1 != "" && valor2 != "" && valor3 != "" && valor4 != "" && valor5 != "" && valor6 != "" && valor7 != "" && valor8 != "" && valor9 != "" && valor10 != "") {
             $("#correcto").addClass("hide");
             $("#feedback").addClass("hide");
             var calificacion = 0;
             var feedback = "";
-            valor2 = parseFloat(valor2);
-            valor5 = parseFloat(valor5);
-            valor6 = parseFloat(valor6);
+            valor3 = parseFloat(valor3);
+            valor4 = parseFloat(valor4);
+            valor8 = parseFloat(valor8);
+            valor9 = parseFloat(valor9);
 
             if (valor1 == correctAnswer1 &&
                 valor2 == correctAnswer2 &&
-                valor3 == correctAnswer3 &&
-                valor4 == correctAnswer4 &&
-                decimalComparison(valor5/valor6,correctAnswer5/correctAnswer6,2) &&
-                valor7 == correctAnswer7) {
+                decimalComparison(valor3 / valor4, correctAnswer3 / correctAnswer4, 2) &&
+                valor5 == correctAnswer5 &&
+                valor6 == correctAnswer6 &&
+                valor7 == correctAnswer7 &&
+                decimalComparison(valor8 / valor9, correctAnswer8 / correctAnswer9, 2) &&
+                valor10 == correctAnswer10) {
                 calificacion = 1.0;
                 $("#correcto").html("Calificación: <b>" + calificacion + "</b>").removeClass("hide");
             } else {

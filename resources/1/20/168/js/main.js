@@ -13,7 +13,7 @@ $(function() {
     k = getRandom(1,9);
 
     if(r==1){
-        var correctAnswer1 = "[";
+        var correctAnswer1 = "(";
         var correctAnswer2 = k;
         var correctAnswer3 = "inf";
         var correctAnswer4 = ")";
@@ -21,7 +21,7 @@ $(function() {
         correctAnswer1 = "(";
         correctAnswer2 = "-inf";
         correctAnswer3 = k;
-        correctAnswer4 = "]";
+        correctAnswer4 = ")";
     }
     //var missConception1 = n;
     //console.log(correctAnswer1);
