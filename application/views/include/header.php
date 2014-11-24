@@ -60,7 +60,7 @@
                     <ul id="nav-menu" class="nav navbar-nav navbar-right">
                         <?php if (isset($_SESSION["nombre"])) { ?>
                             <?php if (isset($idCurso)) { ?>
-                                <li class="icono"><a id="asesorias" data-container="body" data-toggle="popover" data-placement="bottom" data-content="El módulo 5 estará disponible en el transcurso de este fin de semana." class=""><img src="<?= base_url() ?>assets/img/temas/default/asesoria.png" height="37"></a></li>
+                                <li class="icono"><a id="asesorias" data-container="body" data-toggle="popover" data-placement="bottom" data-content="El módulo 5 ya se encuentra disponible." class=""><img src="<?= base_url() ?>assets/img/temas/default/asesoria.png" height="37"></a></li>
                                 <?php if ($_SESSION["rol"] == 1) { ?>
                                     <li class="icono"><a id="arena" class="" data-container="body" data-toggle="popover" data-placement="bottom" data-content="Los duelos acaban de ser habilitados, estos te permitirán batirte en conocimiento con tus demás compañeros en tiempo real, y a la vez aumentar tu puntuación. "><img src="<?= base_url() ?>assets/img/temas/default/duelo.png" height="37"></a></li>
                                 <?php } else if ($_SESSION["rol"] == 2 || $_SESSION["rol"] == 3) { ?>

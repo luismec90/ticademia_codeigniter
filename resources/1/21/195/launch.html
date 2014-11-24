@@ -14,9 +14,13 @@
     </head>
     <body>
         <div id="contenedor" class="container-fluid">
-            <h1>Ingrese la clave secreta:</h1>
+            <h1>El piloto de un avión que vuela a una altura de <span class="mvar" value="h">?</span> metros, avista en un momento dado una ciudad con un ángulo de depresión <span class="mvar" value="a">?</span>° ¿Cuál es la distancia en metros entre la ciudad y el avión en ese momento? <br/>En caso de no ser un entero, exprese su respuesta con dos cifras decimales<br/>
+			</h1>
+          
             <div id="div-asnwer">
-                <h4> <input id="answer" class="form-control" type="text" autofocus> <a id="verificar" class="btn btn-primary" >Enviar</a></h4>
+                <h4>Respuesta:<br/><br/>
+                        <input id="answer1" class="form-control" type="number" autofocus><br/><br/>
+				<a id="verificar" class="btn btn-primary" >Enviar</a></h4>
             </div>
         </div>
         <div class="modal fade" id="modal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
@@ -38,7 +42,7 @@
                 </div>
             </div>
         </div>
-        <script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
+        <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
         <script>window.jQuery || document.write('<script src="js/vendor/jquery-1.11.0.min.js"><\/script>')</script>
         <script src="js/vendor/bootstrap.min.js"></script>
         <script src="js/api.js"></script>
