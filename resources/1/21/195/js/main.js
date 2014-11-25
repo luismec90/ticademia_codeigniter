@@ -11,9 +11,9 @@ $(function() {
     h = getRandom(10,40)*50;
     a = getRandom(2,9)*5;
 
-    var correctAnswer1 = h/Math.tan(a*Math.PI/180);
+    var correctAnswer1 = h/Math.sin(a*Math.PI/180);
     //var missConception1 = n;
-    console.log(correctAnswer1);
+   // console.log(correctAnswer1);
     draw();
 
     $("#verificar").click(function() {

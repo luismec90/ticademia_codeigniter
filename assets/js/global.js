@@ -82,7 +82,7 @@ $(function () {
        $("#asesorias").popover({
             html: true,
             trigger: "manual",
-            title: "Módulo 5" + botonCerrar
+            title: "Novedades" + botonCerrar
         });
         $("#asesorias").popover("show");
         $("#cerrarPopOverAsesoria").click(function () {

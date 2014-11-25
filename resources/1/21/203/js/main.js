@@ -10,7 +10,7 @@ $(function() {
 
     k = getRandom(25,35);
     m = getRandom(45,55);
-    p = getRandom(85,88);
+    p = getRandom(33,50);
 
     var correctAnswer1 = 180-Math.acos((k*k+m*m-p*p)/(2*k*m))*180/Math.PI;
     //var missConception1 = n;
