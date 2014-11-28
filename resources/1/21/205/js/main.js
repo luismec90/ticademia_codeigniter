@@ -14,12 +14,15 @@ $(function() {
 
     var senb = Math.sin(n*Math.PI/180);
 
-    var correctAnswer3 = Math.asin(k*senb/m)*180/Math.PI;
-    var correctAnswer1 = Math.abs(m*Math.sin(correctAnswer3)/senb);
-    var correctAnswer2 = correctAnswer3;
+    var correctAnswer2 = Math.asin(k*senb/m)*180/Math.PI;
+    var correctAnswer3 = 180-correctAnswer2-n;
+    var correctAnswer1 = Math.abs(m*Math.sin(correctAnswer3*Math.PI/180)/senb);
+
+
     
     //var missConception1 = n;
-    //console.log(correctAnswer1 + " " + correctAnswer2 + " " + correctAnswer3);
+
+  //  console.log(correctAnswer1 + " " + correctAnswer2 + " " + correctAnswer3);
     draw();
 
     $("#verificar").click(function() {

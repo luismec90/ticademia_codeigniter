@@ -38,7 +38,7 @@ class Reporte extends CI_Controller {
         $umbral = $curso[0]->umbral;
 
         $modulo = $this->modulo_model->obtenerModulo($idModulo);
-        $modulos = $this->modulo_model->reporte($modulo[0]->fecha_fin);
+        $modulos = $this->modulo_model->reporte($modulo[0]->fecha_inicio,$modulo[0]->fecha_fin);
         $in = "(";
         $cantidadEvaluaciones = 0;
         foreach ($modulos as $row) {
@@ -47,11 +47,11 @@ class Reporte extends CI_Controller {
         }
         $in = rtrim($in, ",");
         $in.=")";
-        $reporte = $this->modulo_model->reporteTotal($cantidadEvaluaciones, $in, $modulo[0]->fecha_fin, $umbral);
+        $reporte = $this->modulo_model->reporteTotal($modulo[0]->fecha_inicio,$cantidadEvaluaciones, $in, $modulo[0]->fecha_fin, $umbral);
        
         $this->load->library('export');
-        
-        $this->export->to_excel($reporte, 'reporte');
-    }
+
+        $this->export->to_excel($reporte, 'reporte_'.date("Y-m-d H:i:s"));
+}
 
 }

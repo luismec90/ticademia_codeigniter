@@ -60,7 +60,7 @@
                     <ul id="nav-menu" class="nav navbar-nav navbar-right">
                         <?php if (isset($_SESSION["nombre"])) { ?>
                             <?php if (isset($idCurso)) { ?>
-                                <li class="icono"><a id="asesorias" data-container="body" data-toggle="popover" data-placement="bottom"  data-content="<ul><li>La fecha de finalización del módulo 5 ha sido cambiada para el miércoles 3 de diciembre a las 12:00 m (del día).</li> <li>El día de hoy (martes 25 de noviembre) la monitora Daniela no prestará asesoría, en reposición este jueves su asesoria será desde las 3:00 pm</li><ul>" class=""><img src="<?= base_url() ?>assets/img/temas/default/asesoria.png" height="37"></a></li>
+                                <li class="icono"><a id="asesorias" data-container="body" data-toggle="popover" data-placement="bottom"  data-content="<ul><li>La fecha de finalización del módulo 5 ha sido cambiada para el miércoles 3 de diciembre a las 12:00 m (del día).</li><ul>" class=""><img src="<?= base_url() ?>assets/img/temas/default/asesoria.png" height="37"></a></li>
                                 <?php if ($_SESSION["rol"] == 1) { ?>
                                     <li class="icono"><a id="arena" class="" data-container="body" data-toggle="popover" data-placement="bottom" data-content="Los duelos acaban de ser habilitados, estos te permitirán batirte en conocimiento con tus demás compañeros en tiempo real, y a la vez aumentar tu puntuación. "><img src="<?= base_url() ?>assets/img/temas/default/duelo.png" height="37"></a></li>
                                 <?php } else if ($_SESSION["rol"] == 2 || $_SESSION["rol"] == 3) { ?>
