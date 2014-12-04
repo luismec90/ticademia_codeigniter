@@ -22,7 +22,7 @@ $(function() {
     
     //var missConception1 = n;
 
-  //  console.log(correctAnswer1 + " " + correctAnswer2 + " " + correctAnswer3);
+    console.log(correctAnswer1 + " " + correctAnswer2 + " " + correctAnswer3);
     draw();
 
     $("#verificar").click(function() {

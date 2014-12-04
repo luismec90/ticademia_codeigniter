@@ -5,7 +5,8 @@ if (!defined('BASEPATH'))
 
 class Reporte extends CI_Controller {
 
-    public function __construct() {
+    public function __construct()
+    {
         parent::__construct();
         session_start();
         $this->estoyLogueado();
@@ -13,8 +14,9 @@ class Reporte extends CI_Controller {
         $this->load->model('modulo_model');
     }
 
-    public function index($idCurso = -1) {
-        if ($idCurso == -1)
+    public function index($idCurso = - 1)
+    {
+        if ($idCurso == - 1)
             show_404();
         $this->soyElProfesorOMonitor($idCurso);
         $data["idCurso"] = $idCurso;
@@ -29,7 +31,8 @@ class Reporte extends CI_Controller {
         $this->load->view('include/footer');
     }
 
-    public function excel() {
+    public function excel()
+    {
         $idCurso = $_POST["idCurso"];
         $idModulo = $_POST["modulo"];
         $this->soyElProfesorOMonitor($idCurso);
@@ -38,20 +41,22 @@ class Reporte extends CI_Controller {
         $umbral = $curso[0]->umbral;
 
         $modulo = $this->modulo_model->obtenerModulo($idModulo);
-        $modulos = $this->modulo_model->reporte($modulo[0]->fecha_inicio,$modulo[0]->fecha_fin);
-        $in = "(";
-        $cantidadEvaluaciones = 0;
-        foreach ($modulos as $row) {
-            $in.=$row->id_modulo . ",";
-            $cantidadEvaluaciones+=$row->cantidad;
+        $cantidadEvaluaciones = $this->modulo_model->cantidadEvaluaciones($idModulo);
+        $cantidadEvaluaciones = $cantidadEvaluaciones[0]->cantidad;
+
+        if ($idModulo == 21)
+        {
+            $modulo[0]->fecha_fin = $modulo[0]->fecha_fin . " 12:02:00";
+        } else
+        {
+            $modulo[0]->fecha_fin = $modulo[0]->fecha_fin . " 23:59:59";
         }
-        $in = rtrim($in, ",");
-        $in.=")";
-        $reporte = $this->modulo_model->reporteTotal($modulo[0]->fecha_inicio,$cantidadEvaluaciones, $in, $modulo[0]->fecha_fin, $umbral);
-       
+
+        $reporte = $this->modulo_model->reporteTotal($idModulo, $modulo[0]->fecha_fin, $cantidadEvaluaciones, $umbral);
+
         $this->load->library('export');
 
-        $this->export->to_excel($reporte, 'reporte_'.date("Y-m-d H:i:s"));
-}
+        $this->export->to_excel($reporte, 'reporte_' . date("Y-m-d H:i:s"));
+    }
 
 }

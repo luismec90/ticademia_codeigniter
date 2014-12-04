@@ -74,27 +74,23 @@ class Modulo_model extends CI_Model {
         return $this->db->query($query)->result();
     }
 
-    function reporte($fechaInicio, $fechaFin)
+    function cantidadEvaluaciones($idModulo)
     {
-        $query = "SELECT m.id_modulo,count(e.id_evaluacion) cantidad FROM `modulo` m
-join evaluacion e on e.id_modulo=m.id_modulo
-WHERE  fecha_inicio>='$fechaInicio 00:00:00'
-AND fecha_fin<='$fechaFin 23:59:59'
-group by m.id_modulo";
+        $query = "SELECT count(id_evaluacion) cantidad FROM evaluacion WHERE id_modulo='$idModulo' AND id_evaluacion<>'205'";
 
         return $this->db->query($query)->result();
     }
 
-    function reporteTotal($fechaInicio,$cantidadEvaluaciones, $in, $fechaFin, $umbral)
+    function reporteTotal($idModulo,$fechaFin, $cantidadEvaluaciones, $umbral)
     {
         $query = "select uc.grupo,u.dni,u.correo,u.apellidos,u.nombres, round(count(distinct ue.id_evaluacion)/$cantidadEvaluaciones*100,2)  porcentaje from usuario_x_evaluacion ue
-join evaluacion e on e.id_modulo in $in AND ue.id_evaluacion=e.id_evaluacion
-join usuario u On u.id_usuario=ue.id_usuario
-join usuario_x_curso uc on uc.id_usuario=u.id_usuario
-where ue.fecha_inicial>='$fechaInicio 00:00:00'
-AND ue.fecha_final<='$fechaFin 23:59:59'
-and ue.calificacion>=$umbral
-group by u.id_usuario order by uc.grupo,u.apellidos,u.nombres";
+        join evaluacion e on e.id_modulo='$idModulo' AND ue.id_evaluacion=e.id_evaluacion
+        join usuario u On u.id_usuario=ue.id_usuario
+        join usuario_x_curso uc on uc.id_usuario=u.id_usuario
+        where ue.calificacion>=$umbral
+        AND e.id_evaluacion<>'205'
+        AND ue.fecha_final<='$fechaFin'
+        group by u.id_usuario order by uc.grupo,u.apellidos,u.nombres";
 
         return $this->db->query($query)->result();
     }
