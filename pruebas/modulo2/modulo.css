@@ -3,8 +3,11 @@ html, body {
 }
 
 html {
-    position: relative;
-    background: url(fondo.png) no-repeat top center fixed;
+
+    background: url(fondo.png) no-repeat;
+    background-position: top;
+    margin-top:-100px
+
     /*   background-size: cover;
        -moz-background-size: cover;
        -webkit-background-size: cover;
